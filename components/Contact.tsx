@@ -1,0 +1,73 @@
+"use client";
+
+import { FormEvent, useState } from "react";
+
+export default function Contact() {
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    message: "",
+  });
+
+  const handleSubmit = (e: FormEvent) => {
+    e.preventDefault();
+    console.log("Form submitted:", formData);
+    alert("Спасибо! Мы свяжемся с вами в ближайшее время.");
+    setFormData({ name: "", email: "", message: "" });
+  };
+
+  return (
+    <section id="contact" className="py-24 bg-[#0a0a0a]">
+      <div className="max-w-4xl mx-auto px-6 text-center">
+        <h2 className="text-4xl md:text-5xl font-bold mb-6 text-white">
+          Готовы начать проект?
+        </h2>
+        <p className="text-xl text-gray-300 mb-12">
+          Свяжитесь с нами, и мы обсудим ваши идеи
+        </p>
+        <div className="bg-[#141414] p-12 rounded-2xl border border-white/5">
+          <form onSubmit={handleSubmit} className="space-y-6">
+            <div className="grid md:grid-cols-2 gap-6">
+              <input
+                type="text"
+                placeholder="Ваше имя"
+                value={formData.name}
+                onChange={(e) =>
+                  setFormData({ ...formData, name: e.target.value })
+                }
+                required
+                className="w-full bg-[#1f1f1f] border border-white/10 rounded-lg px-6 py-4 text-white placeholder-gray-500 focus:outline-none focus:border-white/30 transition"
+              />
+              <input
+                type="email"
+                placeholder="Email"
+                value={formData.email}
+                onChange={(e) =>
+                  setFormData({ ...formData, email: e.target.value })
+                }
+                required
+                className="w-full bg-[#1f1f1f] border border-white/10 rounded-lg px-6 py-4 text-white placeholder-gray-500 focus:outline-none focus:border-white/30 transition"
+              />
+            </div>
+            <textarea
+              placeholder="Расскажите о вашем проекте"
+              rows={5}
+              value={formData.message}
+              onChange={(e) =>
+                setFormData({ ...formData, message: e.target.value })
+              }
+              required
+              className="w-full bg-[#1f1f1f] border border-white/10 rounded-lg px-6 py-4 text-white placeholder-gray-500 focus:outline-none focus:border-white/30 transition resize-none"
+            />
+            <button
+              type="submit"
+              className="w-full bg-white text-black px-8 py-4 rounded-lg text-lg font-semibold hover:bg-gray-200 transition"
+            >
+              Отправить заявку
+            </button>
+          </form>
+        </div>
+      </div>
+    </section>
+  );
+}
