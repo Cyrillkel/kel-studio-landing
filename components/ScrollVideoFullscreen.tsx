@@ -55,12 +55,18 @@ export default function ScrollVideoFullscreen() {
     >
       <video
         ref={videoRef}
-        className="w-full h-full object-cover md:object-contain lg:object-cover"
+        className="w-full h-full object-cover"
         muted
         playsInline
         preload="auto"
+        key={isMobile ? "mobile" : "desktop"}
       >
-        <source src="/video/scroll-bg.mp4" type="video/mp4" />
+        <source
+          src={
+            isMobile ? "/video/scroll-bg-mobile.mp4" : "/video/scroll-bg.mp4"
+          }
+          type="video/mp4"
+        />
       </video>
     </div>
   );
