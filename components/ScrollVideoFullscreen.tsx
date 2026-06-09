@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
@@ -9,6 +9,18 @@ gsap.registerPlugin(ScrollTrigger);
 export default function ScrollVideoFullscreen() {
   const videoRef = useRef<HTMLVideoElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
 
   useEffect(() => {
     const video = videoRef.current;
@@ -21,9 +33,9 @@ export default function ScrollVideoFullscreen() {
     const scrollTrigger = ScrollTrigger.create({
       trigger: container,
       start: "top top",
-      end: "+=200%",
+      end: isMobile ? "+=150%" : "+=200%",
       pin: true,
-      scrub: 1.5,
+      scrub: isMobile ? 1 : 1.5,
       onUpdate: (self) => {
         if (video.duration) {
           video.currentTime = video.duration * self.progress;
@@ -34,7 +46,7 @@ export default function ScrollVideoFullscreen() {
     return () => {
       scrollTrigger.kill();
     };
-  }, []);
+  }, [isMobile]);
 
   return (
     <div
@@ -43,7 +55,7 @@ export default function ScrollVideoFullscreen() {
     >
       <video
         ref={videoRef}
-        className="w-full h-full object-cover"
+        className="w-full h-full object-cover md:object-contain lg:object-cover"
         muted
         playsInline
         preload="auto"
