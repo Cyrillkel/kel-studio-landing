@@ -29,8 +29,7 @@ export default function Hero() {
           продукты будущего
         </h1>
         <p className="text-xl md:text-2xl text-gray-300 mb-12 max-w-3xl mx-auto">
-          Веб-студия полного цикла. Дизайн, разработка и продвижение сайтов
-          премиум-класса
+          Веб-студия полного цикла. Дизайн, разработка и продвижение
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <Link
@@ -41,7 +40,7 @@ export default function Hero() {
           </Link>
           <Link
             href="#portfolio"
-            className="border border-white/30 px-8 py-4 rounded-lg text-lg font-semibold hover:bg-white/10 transition"
+            className="text-gray-50 border border-white/30 px-8 py-4 rounded-lg text-lg font-semibold hover:bg-white/10 transition"
           >
             Смотреть работы
           </Link>
