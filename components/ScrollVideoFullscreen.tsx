@@ -11,6 +11,7 @@ export default function ScrollVideoFullscreen() {
   const containerRef = useRef<HTMLDivElement>(null);
   const [isMobile, setIsMobile] = useState(false);
 
+  // 1. Проверяем размер экрана при загрузке
   useEffect(() => {
     const checkMobile = () => {
       setIsMobile(window.innerWidth < 768);
@@ -22,7 +23,11 @@ export default function ScrollVideoFullscreen() {
     return () => window.removeEventListener("resize", checkMobile);
   }, []);
 
+  // 2. Включаем анимацию скролла ТОЛЬКО для десктопа
   useEffect(() => {
+    // Если это мобилка, сразу выходим и ничего не инициализируем
+    if (isMobile) return;
+
     const video = videoRef.current;
     const container = containerRef.current;
 
@@ -33,9 +38,9 @@ export default function ScrollVideoFullscreen() {
     const scrollTrigger = ScrollTrigger.create({
       trigger: container,
       start: "top top",
-      end: isMobile ? "+=150%" : "+=200%",
+      end: "+=200%",
       pin: true,
-      scrub: isMobile ? 1 : 1.5,
+      scrub: 1.5,
       onUpdate: (self) => {
         if (video.duration) {
           video.currentTime = video.duration * self.progress;
@@ -48,35 +53,25 @@ export default function ScrollVideoFullscreen() {
     };
   }, [isMobile]);
 
-  return isMobile ? null : (
+  return (
     <div
       ref={containerRef}
       className="w-full h-screen relative overflow-hidden bg-black"
     >
-      <video
-        ref={videoRef}
-        className="w-full h-full object-cover"
-        muted
-        playsInline
-        preload="auto"
-        key={isMobile ? "mobile" : "desktop"}
-      >
-        {/* Первым делом предлагаем браузеру супер-легкий WebM */}
-        <source
-          src={
-            isMobile ? "/video/scroll-bg-mobile.webm" : "/video/scroll-bg.webm"
-          }
-          type="video/webm"
-        />
-
-        {/* Если браузер совсем старый и не знает про WebM, сработает этот MP4 */}
-        <source
-          src={
-            isMobile ? "/video/scroll-bg-mobile.mp4" : "/video/scroll-bg.mp4"
-          }
-          type="video/mp4"
-        />
-      </video>
+      {isMobile ? (
+        <div className="absolute inset-0 bg-black" />
+      ) : (
+        <video
+          ref={videoRef}
+          className="w-full h-full object-cover"
+          muted
+          playsInline
+          preload="auto"
+        >
+          <source src="/video/scroll-bg.webm" type="video/webm" />
+          <source src="/video/scroll-bg.mp4" type="video/mp4" />
+        </video>
+      )}
     </div>
   );
 }
