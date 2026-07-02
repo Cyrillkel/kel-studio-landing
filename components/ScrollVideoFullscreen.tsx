@@ -61,6 +61,15 @@ export default function ScrollVideoFullscreen() {
         preload="auto"
         key={isMobile ? "mobile" : "desktop"}
       >
+        {/* Первым делом предлагаем браузеру супер-легкий WebM */}
+        <source
+          src={
+            isMobile ? "/video/scroll-bg-mobile.webm" : "/video/scroll-bg.webm"
+          }
+          type="video/webm"
+        />
+
+        {/* Если браузер совсем старый и не знает про WebM, сработает этот MP4 */}
         <source
           src={
             isMobile ? "/video/scroll-bg-mobile.mp4" : "/video/scroll-bg.mp4"
