@@ -48,7 +48,7 @@ export default function ScrollVideoFullscreen() {
     };
   }, [isMobile]);
 
-  return (
+  return isMobile ? null : (
     <div
       ref={containerRef}
       className="w-full h-screen relative overflow-hidden bg-black"
