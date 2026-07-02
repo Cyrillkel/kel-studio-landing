@@ -11,7 +11,6 @@ export default function ScrollVideoFullscreen() {
   const containerRef = useRef<HTMLDivElement>(null);
   const [isMobile, setIsMobile] = useState(false);
 
-  // 1. Проверяем размер экрана при загрузке
   useEffect(() => {
     const checkMobile = () => {
       setIsMobile(window.innerWidth < 768);
@@ -23,9 +22,7 @@ export default function ScrollVideoFullscreen() {
     return () => window.removeEventListener("resize", checkMobile);
   }, []);
 
-  // 2. Включаем анимацию скролла ТОЛЬКО для десктопа
   useEffect(() => {
-    // Если это мобилка, сразу выходим и ничего не инициализируем
     if (isMobile) return;
 
     const video = videoRef.current;
@@ -56,22 +53,18 @@ export default function ScrollVideoFullscreen() {
   return (
     <div
       ref={containerRef}
-      className="w-full h-screen relative overflow-hidden bg-black"
+      className="w-full h-screen relative overflow-hidden bg-black hidden md:block"
     >
-      {isMobile ? (
-        <div className="absolute inset-0 bg-black" />
-      ) : (
-        <video
-          ref={videoRef}
-          className="w-full h-full object-cover"
-          muted
-          playsInline
-          preload="auto"
-        >
-          <source src="/video/scroll-bg.webm" type="video/webm" />
-          <source src="/video/scroll-bg.mp4" type="video/mp4" />
-        </video>
-      )}
+      <video
+        ref={videoRef}
+        className="w-full h-full object-cover"
+        muted
+        playsInline
+        preload="auto"
+      >
+        <source src="/video/scroll-bg.webm" type="video/webm" />
+        <source src="/video/scroll-bg.mp4" type="video/mp4" />
+      </video>
     </div>
   );
 }
