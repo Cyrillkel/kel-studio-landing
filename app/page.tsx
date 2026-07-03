@@ -6,18 +6,21 @@ import AboutPremium from "@/components/AboutPremium";
 import Contact from "@/components/Contact";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
+import SmoothScroll from "@/components/SmoothScroll";
 
 export default function Home() {
   return (
-    <main className="bg-[#0a0a0a]">
-      <Navigation />
-      <Hero />
-      <Services />
-      <Portfolio />
-      <ScrollVideoFullscreen />
-      <AboutPremium />
-      <Contact />
-      <Footer />
-    </main>
+    <SmoothScroll>
+      <main className="bg-[#0a0a0a]">
+        <Navigation />
+        <Hero />
+        <Services />
+        <Portfolio />
+        <ScrollVideoFullscreen />
+        <AboutPremium />
+        <Contact />
+        <Footer />
+      </main>
+    </SmoothScroll>
   );
 }

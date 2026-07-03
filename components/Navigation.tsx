@@ -2,9 +2,22 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { ScrollSmoother } from "gsap/ScrollSmoother";
 
 export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
+
+  const handleNavClick = (
+    e: React.MouseEvent<HTMLAnchorElement>,
+    href: string
+  ) => {
+    const smoother = ScrollSmoother.get();
+    if (smoother) {
+      e.preventDefault();
+      smoother.scrollTo(href, true, "top top");
+    }
+    setIsOpen(false);
+  };
 
   return (
     <>
@@ -17,24 +30,28 @@ export default function Navigation() {
               <Link
                 href="#services"
                 className="text-gray-300 hover:text-white transition"
+                onClick={(e) => handleNavClick(e, "#services")}
               >
                 Услуги
               </Link>
               <Link
                 href="#portfolio"
                 className="text-gray-300 hover:text-white transition"
+                onClick={(e) => handleNavClick(e, "#portfolio")}
               >
                 Портфолио
               </Link>
               <Link
                 href="#about"
                 className="text-gray-300 hover:text-white transition"
+                onClick={(e) => handleNavClick(e, "#about")}
               >
                 О нас
               </Link>
               <Link
                 href="#contact"
                 className="bg-white text-black px-6 py-2 rounded-lg hover:bg-gray-200 transition"
+                onClick={(e) => handleNavClick(e, "#contact")}
               >
                 Связаться
               </Link>
@@ -84,28 +101,28 @@ export default function Navigation() {
             <Link
               href="#services"
               className="text-2xl text-gray-300 hover:text-white transition"
-              onClick={() => setIsOpen(false)}
+              onClick={(e) => handleNavClick(e, "#services")}
             >
               Услуги
             </Link>
             <Link
               href="#portfolio"
               className="text-2xl text-gray-300 hover:text-white transition"
-              onClick={() => setIsOpen(false)}
+              onClick={(e) => handleNavClick(e, "#portfolio")}
             >
               Портфолио
             </Link>
             <Link
               href="#about"
               className="text-2xl text-gray-300 hover:text-white transition"
-              onClick={() => setIsOpen(false)}
+              onClick={(e) => handleNavClick(e, "#about")}
             >
               О нас
             </Link>
             <Link
               href="#contact"
               className="bg-white text-black px-8 py-3 rounded-lg hover:bg-gray-200 transition text-xl"
-              onClick={() => setIsOpen(false)}
+              onClick={(e) => handleNavClick(e, "#contact")}
             >
               Связаться
             </Link>

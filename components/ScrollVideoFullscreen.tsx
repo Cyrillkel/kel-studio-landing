@@ -9,14 +9,15 @@ gsap.registerPlugin(ScrollTrigger);
 export default function ScrollVideoFullscreen() {
   const videoRef = useRef<HTMLVideoElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
-  const [isMobile, setIsMobile] = useState(false);
+  const [isMobile, setIsMobile] = useState(
+    () => typeof window !== "undefined" && window.innerWidth < 768
+  );
 
   useEffect(() => {
     const checkMobile = () => {
       setIsMobile(window.innerWidth < 768);
     };
 
-    checkMobile();
     window.addEventListener("resize", checkMobile);
 
     return () => window.removeEventListener("resize", checkMobile);
@@ -35,9 +36,10 @@ export default function ScrollVideoFullscreen() {
     const scrollTrigger = ScrollTrigger.create({
       trigger: container,
       start: "top top",
-      end: "+=200%",
+      end: "+=150%",
       pin: true,
-      scrub: 1.5,
+      scrub: 1.2,
+      anticipatePin: 1,
       onUpdate: (self) => {
         if (video.duration) {
           video.currentTime = video.duration * self.progress;
