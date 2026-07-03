@@ -1,8 +1,15 @@
 "use client";
 
 import Link from "next/link";
+import { smoothNavigate } from "./smoothNavigate";
 
 export default function Hero() {
+  const handleClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    if (smoothNavigate(href)) {
+      e.preventDefault();
+    }
+  };
+
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
       <div className="absolute inset-0">
@@ -34,12 +41,14 @@ export default function Hero() {
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <Link
             href="#contact"
+            onClick={(e) => handleClick(e, "#contact")}
             className="bg-white text-black px-8 py-4 rounded-lg text-lg font-semibold hover:bg-gray-200 transition"
           >
             Начать проект
           </Link>
           <Link
             href="#portfolio"
+            onClick={(e) => handleClick(e, "#portfolio")}
             className="text-gray-50 border border-white/30 px-8 py-4 rounded-lg text-lg font-semibold hover:bg-white/10 transition"
           >
             Смотреть работы

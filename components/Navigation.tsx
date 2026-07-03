@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { ScrollSmoother } from "gsap/ScrollSmoother";
+import { smoothNavigate } from "./smoothNavigate";
 
 export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
@@ -11,10 +11,8 @@ export default function Navigation() {
     e: React.MouseEvent<HTMLAnchorElement>,
     href: string
   ) => {
-    const smoother = ScrollSmoother.get();
-    if (smoother) {
+    if (smoothNavigate(href)) {
       e.preventDefault();
-      smoother.scrollTo(href, true, "top top");
     }
     setIsOpen(false);
   };
