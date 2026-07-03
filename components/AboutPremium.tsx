@@ -3,6 +3,7 @@
 import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import AmbientBlobs from "./AmbientBlobs";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -79,6 +80,7 @@ export default function AboutPremium() {
       ref={sectionRef}
       className="relative bg-black py-20 sm:py-32 md:py-48 overflow-hidden"
     >
+      <AmbientBlobs />
       <div className="max-w-7xl mx-auto px-5 sm:px-6 lg:px-12">
         <div className="grid lg:grid-cols-2 gap-10 sm:gap-16 lg:gap-24 items-start">
           {/* Левая колонка - Заголовок */}

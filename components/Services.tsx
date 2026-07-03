@@ -1,3 +1,5 @@
+import AmbientBlobs from "./AmbientBlobs";
+
 const services = [
   {
     icon: (
@@ -90,7 +92,11 @@ const services = [
 
 export default function Services() {
   return (
-    <section id="services" className="py-16 md:py-24 bg-[#141414]">
+    <section
+      id="services"
+      className="relative overflow-hidden py-16 md:py-24 bg-[#141414]"
+    >
+      <AmbientBlobs />
       <div className="max-w-7xl mx-auto px-5 sm:px-6">
         <h2 className="font-heading text-3xl sm:text-4xl md:text-5xl font-bold mb-10 md:mb-16 text-center text-white">
           Наши услуги

@@ -11,4 +11,36 @@
     -webkit-text-fill-color: transparent;
     background-clip: text;
   }
+
+  .ambient-blob {
+    animation: blob-drift 22s ease-in-out infinite;
+    will-change: transform, border-radius;
+    backface-visibility: hidden;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .ambient-blob {
+      animation: none;
+    }
+  }
+}
+
+@keyframes blob-drift {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+    border-radius: 42% 58% 65% 35% / 45% 45% 55% 55%;
+  }
+  25% {
+    transform: translate3d(4%, -6%, 0) scale(1.08);
+    border-radius: 58% 42% 35% 65% / 55% 65% 35% 45%;
+  }
+  50% {
+    transform: translate3d(-3%, 5%, 0) scale(0.94);
+    border-radius: 65% 35% 45% 55% / 40% 55% 45% 60%;
+  }
+  75% {
+    transform: translate3d(5%, 3%, 0) scale(1.05);
+    border-radius: 40% 60% 55% 45% / 60% 40% 60% 40%;
+  }
 }
