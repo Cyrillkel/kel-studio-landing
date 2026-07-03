@@ -19,7 +19,7 @@ export default function Contact() {
   return (
     <section id="contact" className="py-16 md:py-24 bg-[#0a0a0a]">
       <div className="max-w-4xl mx-auto px-5 sm:px-6 text-center">
-        <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 sm:mb-6 text-white">
+        <h2 className="font-heading text-3xl sm:text-4xl md:text-5xl font-bold mb-4 sm:mb-6 text-white">
           Готовы начать проект?
         </h2>
         <p className="text-lg sm:text-xl text-gray-300 mb-8 sm:mb-12">

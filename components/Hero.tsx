@@ -23,7 +23,7 @@ export default function Hero() {
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-6 py-32 text-center">
-        <h1 className="text-5xl md:text-7xl font-bold mb-6 gradient-text leading-tight">
+        <h1 className="font-heading text-5xl md:text-7xl font-bold mb-6 gradient-text leading-tight">
           Создаём цифровые
           <br />
           продукты будущего

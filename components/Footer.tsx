@@ -5,7 +5,9 @@ export default function Footer() {
     <footer className="py-12 bg-[#141414] border-t border-white/5">
       <div className="max-w-7xl mx-auto px-6">
         <div className="flex flex-col md:flex-row justify-between items-center gap-6">
-          <div className="text-2xl font-bold text-white">KEL Studio</div>
+          <div className="font-heading text-2xl font-bold text-white">
+            KEL Studio
+          </div>
           <div className="flex gap-6">
             <Link
               href="#"

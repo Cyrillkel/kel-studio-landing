@@ -1,5 +1,9 @@
 @import "tailwindcss";
 
+@theme inline {
+  --font-heading: var(--font-unbounded), sans-serif;
+}
+
 @layer utilities {
   .gradient-text {
     background: linear-gradient(135deg, #ffffff 0%, #a0a0a0 100%);

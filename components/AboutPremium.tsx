@@ -85,7 +85,7 @@ export default function AboutPremium() {
           <div>
             <h2
               ref={titleRef}
-              className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold leading-none bg-gradient-to-br from-white via-gray-200 to-gray-500 bg-clip-text text-transparent"
+              className="font-heading text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold leading-none bg-gradient-to-br from-white via-gray-200 to-gray-500 bg-clip-text text-transparent"
             >
               KEL
               <br />
@@ -118,7 +118,7 @@ export default function AboutPremium() {
               key={index}
               className="group relative p-6 sm:p-8 border border-white/10 rounded-2xl bg-white/[0.02] backdrop-blur-sm transition-all duration-500 hover:border-white/30 hover:bg-white/[0.05] hover:shadow-[0_0_30px_rgba(255,255,255,0.1)]"
             >
-              <h3 className="text-xl font-bold text-white mb-3 transition-colors duration-300 group-hover:text-gray-100">
+              <h3 className="font-heading text-xl font-bold text-white mb-3 transition-colors duration-300 group-hover:text-gray-100">
                 {focus.title}
               </h3>
               <p className="text-sm text-gray-400 leading-relaxed transition-colors duration-300 group-hover:text-gray-300">
