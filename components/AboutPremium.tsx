@@ -39,27 +39,37 @@ export default function AboutPremium() {
 
     if (!section || !title || !content || !grid) return;
 
-    gsap.set([title, content, grid], { opacity: 0, y: 60 });
+    const ctx = gsap.context(() => {
+      gsap.set([title, content, grid], { opacity: 0, y: 60 });
 
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: section,
-        start: "top 60%",
-        end: "top 20%",
-        toggleActions: "play none none reverse",
-      },
-    });
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: section,
+          start: "top 85%",
+          end: "top 40%",
+          toggleActions: "play none none reverse",
+        },
+      });
 
-    tl.to(title, { opacity: 1, y: 0, duration: 1, ease: "power3.out" })
-      .to(
-        content,
-        { opacity: 1, y: 0, duration: 1, ease: "power3.out" },
-        "-=0.6"
-      )
-      .to(grid, { opacity: 1, y: 0, duration: 1, ease: "power3.out" }, "-=0.6");
+      tl.to(title, { opacity: 1, y: 0, duration: 1, ease: "power3.out" })
+        .to(
+          content,
+          { opacity: 1, y: 0, duration: 1, ease: "power3.out" },
+          "-=0.6"
+        )
+        .to(
+          grid,
+          { opacity: 1, y: 0, duration: 1, ease: "power3.out" },
+          "-=0.6"
+        );
+    }, section);
+
+    const refresh = () => ScrollTrigger.refresh();
+    window.addEventListener("load", refresh);
 
     return () => {
-      tl.kill();
+      window.removeEventListener("load", refresh);
+      ctx.revert();
     };
   }, []);
 
