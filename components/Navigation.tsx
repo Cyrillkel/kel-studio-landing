@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
 import { smoothNavigate } from "./smoothNavigate";
 
 export default function Navigation() {
@@ -27,34 +26,34 @@ export default function Navigation() {
             </div>
 
             <div className="hidden md:flex items-center gap-8">
-              <Link
+              <a
                 href="#services"
                 className="text-gray-300 hover:text-white transition"
                 onClick={(e) => handleNavClick(e, "#services")}
               >
                 Услуги
-              </Link>
-              <Link
+              </a>
+              <a
                 href="#portfolio"
                 className="text-gray-300 hover:text-white transition"
                 onClick={(e) => handleNavClick(e, "#portfolio")}
               >
                 Портфолио
-              </Link>
-              <Link
+              </a>
+              <a
                 href="#about"
                 className="text-gray-300 hover:text-white transition"
                 onClick={(e) => handleNavClick(e, "#about")}
               >
                 О нас
-              </Link>
-              <Link
+              </a>
+              <a
                 href="#contact"
                 className="bg-white text-black px-6 py-2 rounded-lg hover:bg-gray-200 transition"
                 onClick={(e) => handleNavClick(e, "#contact")}
               >
                 Связаться
-              </Link>
+              </a>
             </div>
 
             <button
@@ -98,34 +97,34 @@ export default function Navigation() {
       {isOpen && (
         <div className="fixed inset-0 z-40 bg-[#0a0a0a]/95 backdrop-blur-md md:hidden">
           <div className="flex flex-col items-center justify-center h-full space-y-8 text-center">
-            <Link
+            <a
               href="#services"
               className="text-2xl text-gray-300 hover:text-white transition"
               onClick={(e) => handleNavClick(e, "#services")}
             >
               Услуги
-            </Link>
-            <Link
+            </a>
+            <a
               href="#portfolio"
               className="text-2xl text-gray-300 hover:text-white transition"
               onClick={(e) => handleNavClick(e, "#portfolio")}
             >
               Портфолио
-            </Link>
-            <Link
+            </a>
+            <a
               href="#about"
               className="text-2xl text-gray-300 hover:text-white transition"
               onClick={(e) => handleNavClick(e, "#about")}
             >
               О нас
-            </Link>
-            <Link
+            </a>
+            <a
               href="#contact"
               className="bg-white text-black px-8 py-3 rounded-lg hover:bg-gray-200 transition text-xl"
               onClick={(e) => handleNavClick(e, "#contact")}
             >
               Связаться
-            </Link>
+            </a>
           </div>
         </div>
       )}
