@@ -59,25 +59,52 @@ const services = [
     description:
       "SEO-оптимизация, Яндекс Директ и Google Ads. Привлекаем целевой трафик и увеличиваем продажи вашего бизнеса.",
   },
+  {
+    icon: (
+      <svg
+        className="w-6 h-6"
+        fill="none"
+        stroke="currentColor"
+        viewBox="0 0 24 24"
+      >
+        <ellipse cx="12" cy="6" rx="8" ry="3" strokeWidth={2} />
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth={2}
+          d="M4 6v6c0 1.657 3.582 3 8 3s8-1.343 8-3V6"
+        />
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth={2}
+          d="M4 12v6c0 1.657 3.582 3 8 3s8-1.343 8-3v-6"
+        />
+      </svg>
+    ),
+    title: "Парсинг данных",
+    description:
+      "Автоматический сбор и структурирование данных с сайтов, маркетплейсов и API. Мониторинг цен и выгрузки под ваши задачи.",
+  },
 ];
 
 export default function Services() {
   return (
-    <section id="services" className="py-24 bg-[#141414]">
-      <div className="max-w-7xl mx-auto px-6">
-        <h2 className="text-4xl md:text-5xl font-bold mb-16 text-center text-white">
+    <section id="services" className="py-16 md:py-24 bg-[#141414]">
+      <div className="max-w-7xl mx-auto px-5 sm:px-6">
+        <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-10 md:mb-16 text-center text-white">
           Наши услуги
         </h2>
-        <div className="grid md:grid-cols-3 gap-8">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6 lg:gap-8">
           {services.map((service, index) => (
             <div
               key={index}
-              className="bg-[#1f1f1f] p-8 rounded-2xl border border-white/5 hover:-translate-y-2 hover:shadow-2xl hover:shadow-black/40 transition-all duration-300"
+              className="bg-[#1f1f1f] p-6 sm:p-8 rounded-2xl border border-white/5 hover:-translate-y-2 hover:shadow-2xl hover:shadow-black/40 transition-all duration-300"
             >
               <div className="w-12 h-12 bg-white/10 rounded-lg flex items-center justify-center mb-6 text-white">
                 {service.icon}
               </div>
-              <h3 className="text-2xl font-bold mb-4 text-white">
+              <h3 className="text-xl sm:text-2xl font-bold mb-4 text-white">
                 {service.title}
               </h3>
               <p className="text-gray-400 leading-relaxed">

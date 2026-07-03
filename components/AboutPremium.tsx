@@ -67,15 +67,15 @@ export default function AboutPremium() {
     <section
       id="about"
       ref={sectionRef}
-      className="relative bg-black py-32 md:py-48 overflow-hidden"
+      className="relative bg-black py-20 sm:py-32 md:py-48 overflow-hidden"
     >
-      <div className="max-w-7xl mx-auto px-6 lg:px-12">
-        <div className="grid lg:grid-cols-2 gap-16 lg:gap-24 items-start">
+      <div className="max-w-7xl mx-auto px-5 sm:px-6 lg:px-12">
+        <div className="grid lg:grid-cols-2 gap-10 sm:gap-16 lg:gap-24 items-start">
           {/* Левая колонка - Заголовок */}
           <div>
             <h2
               ref={titleRef}
-              className="text-6xl md:text-7xl lg:text-8xl font-bold leading-none bg-gradient-to-br from-white via-gray-200 to-gray-500 bg-clip-text text-transparent"
+              className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold leading-none bg-gradient-to-br from-white via-gray-200 to-gray-500 bg-clip-text text-transparent"
             >
               KEL
               <br />
@@ -84,12 +84,12 @@ export default function AboutPremium() {
           </div>
 
           {/* Правая колонка - Контент */}
-          <div ref={contentRef} className="space-y-8">
-            <p className="text-2xl md:text-3xl text-gray-300 leading-relaxed font-light">
+          <div ref={contentRef} className="space-y-6 sm:space-y-8">
+            <p className="text-xl sm:text-2xl md:text-3xl text-gray-300 leading-relaxed font-light">
               Создаем цифровые продукты премиум-класса с фокусом на детали и
               результат.
             </p>
-            <p className="text-lg text-gray-400 leading-relaxed">
+            <p className="text-base sm:text-lg text-gray-400 leading-relaxed">
               Мы - команда профессионалов с опытом более 5 лет в разработке
               веб-сайтов и приложений. Наш подход основан на глубоком понимании
               бизнеса клиента и потребностей его аудитории. Каждый проект - это
@@ -101,12 +101,12 @@ export default function AboutPremium() {
         {/* Сетка фокусов */}
         <div
           ref={gridRef}
-          className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mt-24"
+          className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mt-12 sm:mt-16 md:mt-24"
         >
           {focuses.map((focus, index) => (
             <div
               key={index}
-              className="group relative p-8 border border-white/10 rounded-2xl bg-white/[0.02] backdrop-blur-sm transition-all duration-500 hover:border-white/30 hover:bg-white/[0.05] hover:shadow-[0_0_30px_rgba(255,255,255,0.1)]"
+              className="group relative p-6 sm:p-8 border border-white/10 rounded-2xl bg-white/[0.02] backdrop-blur-sm transition-all duration-500 hover:border-white/30 hover:bg-white/[0.05] hover:shadow-[0_0_30px_rgba(255,255,255,0.1)]"
             >
               <h3 className="text-xl font-bold text-white mb-3 transition-colors duration-300 group-hover:text-gray-100">
                 {focus.title}

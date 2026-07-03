@@ -17,17 +17,17 @@ export default function Contact() {
   };
 
   return (
-    <section id="contact" className="py-24 bg-[#0a0a0a]">
-      <div className="max-w-4xl mx-auto px-6 text-center">
-        <h2 className="text-4xl md:text-5xl font-bold mb-6 text-white">
+    <section id="contact" className="py-16 md:py-24 bg-[#0a0a0a]">
+      <div className="max-w-4xl mx-auto px-5 sm:px-6 text-center">
+        <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 sm:mb-6 text-white">
           Готовы начать проект?
         </h2>
-        <p className="text-xl text-gray-300 mb-12">
+        <p className="text-lg sm:text-xl text-gray-300 mb-8 sm:mb-12">
           Свяжитесь с нами, и мы обсудим ваши идеи
         </p>
-        <div className="bg-[#141414] p-12 rounded-2xl border border-white/5">
-          <form onSubmit={handleSubmit} className="space-y-6">
-            <div className="grid md:grid-cols-2 gap-6">
+        <div className="bg-[#141414] p-6 sm:p-8 md:p-12 rounded-2xl border border-white/5">
+          <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
+            <div className="grid md:grid-cols-2 gap-4 sm:gap-6">
               <input
                 type="text"
                 placeholder="Ваше имя"
@@ -36,7 +36,7 @@ export default function Contact() {
                   setFormData({ ...formData, name: e.target.value })
                 }
                 required
-                className="w-full bg-[#1f1f1f] border border-white/10 rounded-lg px-6 py-4 text-white placeholder-gray-500 focus:outline-none focus:border-white/30 transition"
+                className="w-full bg-[#1f1f1f] border border-white/10 rounded-lg px-5 sm:px-6 py-3 sm:py-4 text-white placeholder-gray-500 focus:outline-none focus:border-white/30 transition"
               />
               <input
                 type="email"
@@ -46,7 +46,7 @@ export default function Contact() {
                   setFormData({ ...formData, email: e.target.value })
                 }
                 required
-                className="w-full bg-[#1f1f1f] border border-white/10 rounded-lg px-6 py-4 text-white placeholder-gray-500 focus:outline-none focus:border-white/30 transition"
+                className="w-full bg-[#1f1f1f] border border-white/10 rounded-lg px-5 sm:px-6 py-3 sm:py-4 text-white placeholder-gray-500 focus:outline-none focus:border-white/30 transition"
               />
             </div>
             <textarea
@@ -57,7 +57,7 @@ export default function Contact() {
                 setFormData({ ...formData, message: e.target.value })
               }
               required
-              className="w-full bg-[#1f1f1f] border border-white/10 rounded-lg px-6 py-4 text-white placeholder-gray-500 focus:outline-none focus:border-white/30 transition resize-none"
+              className="w-full bg-[#1f1f1f] border border-white/10 rounded-lg px-5 sm:px-6 py-3 sm:py-4 text-white placeholder-gray-500 focus:outline-none focus:border-white/30 transition resize-none"
             />
             <button
               type="submit"
