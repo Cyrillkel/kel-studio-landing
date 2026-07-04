@@ -1,0 +1,93 @@
+{
+  "nav": {
+    "services": "Services",
+    "portfolio": "Portfolio",
+    "about": "About",
+    "contact": "Contact"
+  },
+  "hero": {
+    "titleLine1": "Building digital",
+    "titleLine2": "products of the future",
+    "subtitle": "A full-cycle web studio. Design, development, and promotion",
+    "ctaPrimary": "Start a project",
+    "ctaSecondary": "View our work"
+  },
+  "services": {
+    "heading": "Our Services",
+    "items": [
+      {
+        "title": "Web Design",
+        "description": "We create unique interfaces that convert visitors into customers. Modern design with a focus on UX/UI."
+      },
+      {
+        "title": "Development",
+        "description": "Fast, secure, and scalable web applications built on a modern tech stack. From landing pages to complex platforms."
+      },
+      {
+        "title": "Promotion",
+        "description": "SEO optimization, Yandex Direct, and Google Ads. We drive targeted traffic and grow your business's sales."
+      },
+      {
+        "title": "Data Parsing",
+        "description": "Automated collection and structuring of data from websites, marketplaces, and APIs. Price monitoring and exports tailored to your needs."
+      }
+    ]
+  },
+  "portfolio": {
+    "heading": "Featured Projects",
+    "items": [
+      {
+        "title": "E-commerce Platform",
+        "description": "An online store with payment system integration"
+      },
+      {
+        "title": "Corporate Website",
+        "description": "A multi-page website for a B2B company"
+      },
+      {
+        "title": "SaaS Application",
+        "description": "A web application for project management"
+      },
+      {
+        "title": "Startup Landing Page",
+        "description": "A high-converting landing page"
+      }
+    ]
+  },
+  "about": {
+    "titleLine1": "KEL",
+    "titleLine2": "Studio",
+    "lead": "We create premium digital products with a focus on detail and results.",
+    "body": "We are a team of professionals with over 5 years of experience building websites and applications. Our approach is grounded in a deep understanding of our clients' business and their audience's needs. Every project is a unique solution crafted with attention to detail.",
+    "focuses": [
+      {
+        "title": "Web Development",
+        "description": "Modern web applications built with React and Next.js"
+      },
+      {
+        "title": "High-End SEO",
+        "description": "Promotion with guaranteed results"
+      },
+      {
+        "title": "Creative Tech",
+        "description": "3D, animations, and interactive solutions"
+      },
+      {
+        "title": "Premium Design",
+        "description": "Premium-tier design for your brand"
+      }
+    ]
+  },
+  "contact": {
+    "heading": "Ready to start a project?",
+    "subheading": "Get in touch and let's discuss your ideas",
+    "namePlaceholder": "Your name",
+    "emailPlaceholder": "Email",
+    "messagePlaceholder": "Tell us about your project",
+    "submit": "Send request",
+    "successAlert": "Thank you! We'll get back to you shortly."
+  },
+  "footer": {
+    "copyright": "© 2026 KEL Studio. All rights reserved."
+  }
+}

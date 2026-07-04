@@ -1,6 +1,10 @@
+"use client";
+
 import Link from "next/link";
+import { useTranslation } from "react-i18next";
 
 export default function Footer() {
+  const { t } = useTranslation();
   return (
     <footer className="py-12 bg-[#141414] border-t border-white/5">
       <div className="max-w-7xl mx-auto px-6">
@@ -28,9 +32,7 @@ export default function Footer() {
               Behance
             </Link>
           </div>
-          <div className="text-gray-400">
-            © 2026 KEL Studio. Все права защищены.
-          </div>
+          <div className="text-gray-400">{t("footer.copyright")}</div>
         </div>
       </div>
     </footer>

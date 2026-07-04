@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { Inter, Unbounded } from 'next/font/google'
+import I18nProvider from '@/components/I18nProvider'
 import './globals.css'
 
 const inter = Inter({ subsets: ['latin', 'cyrillic'] })
@@ -21,7 +22,7 @@ export default function RootLayout({
   return (
     <html lang="ru" className="scroll-smooth">
       <body className={`${inter.className} ${unbounded.variable}`}>
-        {children}
+        <I18nProvider>{children}</I18nProvider>
       </body>
     </html>
   )

@@ -1,9 +1,12 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { smoothNavigate } from "./smoothNavigate";
+import LanguageSwitcher from "./LanguageSwitcher";
 
 export default function Navigation() {
+  const { t } = useTranslation();
   const [isOpen, setIsOpen] = useState(false);
 
   const handleNavClick = (
@@ -31,65 +34,69 @@ export default function Navigation() {
                 className="text-gray-300 hover:text-white transition"
                 onClick={(e) => handleNavClick(e, "#services")}
               >
-                Услуги
+                {t("nav.services")}
               </a>
               <a
                 href="#portfolio"
                 className="text-gray-300 hover:text-white transition"
                 onClick={(e) => handleNavClick(e, "#portfolio")}
               >
-                Портфолио
+                {t("nav.portfolio")}
               </a>
               <a
                 href="#about"
                 className="text-gray-300 hover:text-white transition"
                 onClick={(e) => handleNavClick(e, "#about")}
               >
-                О нас
+                {t("nav.about")}
               </a>
               <a
                 href="#contact"
                 className="bg-white text-black px-6 py-2 rounded-lg hover:bg-gray-200 transition"
                 onClick={(e) => handleNavClick(e, "#contact")}
               >
-                Связаться
+                {t("nav.contact")}
               </a>
+              <LanguageSwitcher />
             </div>
 
-            <button
-              className="md:hidden text-white z-50 relative"
-              onClick={() => setIsOpen(!isOpen)}
-            >
-              {isOpen ? (
-                <svg
-                  className="w-6 h-6"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M6 18L18 6M6 6l12 12"
-                  />
-                </svg>
-              ) : (
-                <svg
-                  className="w-6 h-6"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M4 6h16M4 12h16M4 18h16"
-                  />
-                </svg>
-              )}
-            </button>
+            <div className="flex items-center gap-3 md:hidden">
+              <LanguageSwitcher />
+              <button
+                className="text-white z-50 relative"
+                onClick={() => setIsOpen(!isOpen)}
+              >
+                {isOpen ? (
+                  <svg
+                    className="w-6 h-6"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M6 18L18 6M6 6l12 12"
+                    />
+                  </svg>
+                ) : (
+                  <svg
+                    className="w-6 h-6"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M4 6h16M4 12h16M4 18h16"
+                    />
+                  </svg>
+                )}
+              </button>
+            </div>
           </div>
         </div>
       </nav>
@@ -102,28 +109,28 @@ export default function Navigation() {
               className="text-2xl text-gray-300 hover:text-white transition"
               onClick={(e) => handleNavClick(e, "#services")}
             >
-              Услуги
+              {t("nav.services")}
             </a>
             <a
               href="#portfolio"
               className="text-2xl text-gray-300 hover:text-white transition"
               onClick={(e) => handleNavClick(e, "#portfolio")}
             >
-              Портфолио
+              {t("nav.portfolio")}
             </a>
             <a
               href="#about"
               className="text-2xl text-gray-300 hover:text-white transition"
               onClick={(e) => handleNavClick(e, "#about")}
             >
-              О нас
+              {t("nav.about")}
             </a>
             <a
               href="#contact"
               className="bg-white text-black px-8 py-3 rounded-lg hover:bg-gray-200 transition text-xl"
               onClick={(e) => handleNavClick(e, "#contact")}
             >
-              Связаться
+              {t("nav.contact")}
             </a>
           </div>
         </div>

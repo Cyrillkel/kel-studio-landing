@@ -1,9 +1,11 @@
 "use client";
 
 import { FormEvent, useState } from "react";
+import { useTranslation } from "react-i18next";
 import AmbientAtom from "./AmbientAtom";
 
 export default function Contact() {
+  const { t } = useTranslation();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -13,7 +15,7 @@ export default function Contact() {
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     console.log("Form submitted:", formData);
-    alert("Спасибо! Мы свяжемся с вами в ближайшее время.");
+    alert(t("contact.successAlert"));
     setFormData({ name: "", email: "", message: "" });
   };
 
@@ -25,17 +27,17 @@ export default function Contact() {
       <AmbientAtom className="-left-10 top-4 w-56 h-56 sm:w-72 sm:h-72 md:w-80 md:h-80 -z-10" />
       <div className="max-w-4xl mx-auto px-5 sm:px-6 text-center">
         <h2 className="font-heading text-3xl sm:text-4xl md:text-5xl font-bold mb-4 sm:mb-6 text-white">
-          Готовы начать проект?
+          {t("contact.heading")}
         </h2>
         <p className="text-lg sm:text-xl text-gray-300 mb-8 sm:mb-12">
-          Свяжитесь с нами, и мы обсудим ваши идеи
+          {t("contact.subheading")}
         </p>
         <div className="bg-[#141414] p-6 sm:p-8 md:p-12 rounded-2xl border border-white/5">
           <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
             <div className="grid md:grid-cols-2 gap-4 sm:gap-6">
               <input
                 type="text"
-                placeholder="Ваше имя"
+                placeholder={t("contact.namePlaceholder")}
                 value={formData.name}
                 onChange={(e) =>
                   setFormData({ ...formData, name: e.target.value })
@@ -45,7 +47,7 @@ export default function Contact() {
               />
               <input
                 type="email"
-                placeholder="Email"
+                placeholder={t("contact.emailPlaceholder")}
                 value={formData.email}
                 onChange={(e) =>
                   setFormData({ ...formData, email: e.target.value })
@@ -55,7 +57,7 @@ export default function Contact() {
               />
             </div>
             <textarea
-              placeholder="Расскажите о вашем проекте"
+              placeholder={t("contact.messagePlaceholder")}
               rows={5}
               value={formData.message}
               onChange={(e) =>
@@ -68,7 +70,7 @@ export default function Contact() {
               type="submit"
               className="w-full bg-white text-black px-8 py-4 rounded-lg text-lg font-semibold hover:bg-gray-200 transition"
             >
-              Отправить заявку
+              {t("contact.submit")}
             </button>
           </form>
         </div>

@@ -1,8 +1,10 @@
 "use client";
 
+import { useTranslation } from "react-i18next";
 import { smoothNavigate } from "./smoothNavigate";
 
 export default function Hero() {
+  const { t } = useTranslation();
   const handleClick = (
     e: React.MouseEvent<HTMLAnchorElement>,
     href: string
@@ -31,12 +33,12 @@ export default function Hero() {
 
       <div className="relative z-10 max-w-7xl mx-auto px-6 py-32 text-center">
         <h1 className="font-heading text-5xl md:text-7xl font-bold mb-6 gradient-text leading-tight">
-          Создаём цифровые
+          {t("hero.titleLine1")}
           <br />
-          продукты будущего
+          {t("hero.titleLine2")}
         </h1>
         <p className="text-xl md:text-2xl text-gray-300 mb-12 max-w-3xl mx-auto">
-          Веб-студия полного цикла. Дизайн, разработка и продвижение
+          {t("hero.subtitle")}
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <a
@@ -44,14 +46,14 @@ export default function Hero() {
             onClick={(e) => handleClick(e, "#contact")}
             className="bg-white text-black px-8 py-4 rounded-lg text-lg font-semibold hover:bg-gray-200 transition"
           >
-            Начать проект
+            {t("hero.ctaPrimary")}
           </a>
           <a
             href="#portfolio"
             onClick={(e) => handleClick(e, "#portfolio")}
             className="text-gray-50 border border-white/30 px-8 py-4 rounded-lg text-lg font-semibold hover:bg-white/10 transition"
           >
-            Смотреть работы
+            {t("hero.ctaSecondary")}
           </a>
         </div>
       </div>

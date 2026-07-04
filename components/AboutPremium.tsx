@@ -3,30 +3,17 @@
 import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useTranslation } from "react-i18next";
 import AmbientBlobs from "./AmbientBlobs";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const focuses = [
-  {
-    title: "Web Development",
-    description: "Современные веб-приложения на React, Next.js",
-  },
-  {
-    title: "High-End SEO",
-    description: "Продвижение с гарантией результата",
-  },
-  {
-    title: "Creative Tech",
-    description: "3D, анимации, интерактивные решения",
-  },
-  {
-    title: "Premium Design",
-    description: "Дизайн премиум-класса для вашего бренда",
-  },
-];
+type FocusItem = { title: string; description: string };
 
 export default function AboutPremium() {
+  const { t } = useTranslation();
+  const focuses = t("about.focuses", { returnObjects: true }) as FocusItem[];
+
   const sectionRef = useRef<HTMLDivElement>(null);
   const titleRef = useRef<HTMLHeadingElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
@@ -101,23 +88,19 @@ export default function AboutPremium() {
               ref={titleRef}
               className="font-heading text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold leading-none bg-gradient-to-br from-white via-gray-200 to-gray-500 bg-clip-text text-transparent"
             >
-              KEL
+              {t("about.titleLine1")}
               <br />
-              Studio
+              {t("about.titleLine2")}
             </h2>
           </div>
 
           {/* Правая колонка - Контент */}
           <div ref={contentRef} className="space-y-6 sm:space-y-8">
             <p className="text-xl sm:text-2xl md:text-3xl text-gray-300 leading-relaxed font-light">
-              Создаем цифровые продукты премиум-класса с фокусом на детали и
-              результат.
+              {t("about.lead")}
             </p>
             <p className="text-base sm:text-lg text-gray-400 leading-relaxed">
-              Мы - команда профессионалов с опытом более 5 лет в разработке
-              веб-сайтов и приложений. Наш подход основан на глубоком понимании
-              бизнеса клиента и потребностей его аудитории. Каждый проект - это
-              уникальное решение, созданное с вниманием к деталям.
+              {t("about.body")}
             </p>
           </div>
         </div>
