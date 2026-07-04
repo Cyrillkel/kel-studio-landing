@@ -94,9 +94,28 @@ export default function Services() {
   return (
     <section
       id="services"
-      className="relative overflow-hidden py-16 md:py-24 bg-[#141414]"
+      className="relative isolate overflow-hidden py-16 md:py-24 bg-[#141414]"
     >
-      <AmbientBlobs />
+      <AmbientBlobs
+        blobs={[
+          {
+            side: "left",
+            vertical: "top-1/4",
+            size: "w-40 h-40 sm:w-56 sm:h-56 md:w-72 md:h-72",
+            gradient:
+              "bg-[linear-gradient(135deg,rgba(59,130,246,0.55),rgba(168,85,247,0.4),rgba(217,70,239,0.3))]",
+            delay: "-4s",
+          },
+          {
+            side: "right",
+            vertical: "bottom-10",
+            size: "w-36 h-36 sm:w-48 sm:h-48 md:w-60 md:h-60",
+            gradient:
+              "bg-[linear-gradient(135deg,rgba(34,211,238,0.5),rgba(59,130,246,0.4),rgba(168,85,247,0.3))]",
+            delay: "-13s",
+          },
+        ]}
+      />
       <div className="max-w-7xl mx-auto px-5 sm:px-6">
         <h2 className="font-heading text-3xl sm:text-4xl md:text-5xl font-bold mb-10 md:mb-16 text-center text-white">
           Наши услуги

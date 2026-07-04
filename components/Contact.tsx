@@ -1,7 +1,7 @@
 "use client";
 
 import { FormEvent, useState } from "react";
-import AmbientBlobs from "./AmbientBlobs";
+import AmbientAtom from "./AmbientAtom";
 
 export default function Contact() {
   const [formData, setFormData] = useState({
@@ -20,9 +20,9 @@ export default function Contact() {
   return (
     <section
       id="contact"
-      className="relative overflow-hidden py-16 md:py-24 bg-[#0a0a0a]"
+      className="relative isolate overflow-hidden py-16 md:py-24 bg-[#0a0a0a]"
     >
-      <AmbientBlobs />
+      <AmbientAtom className="-left-10 top-4 w-56 h-56 sm:w-72 sm:h-72 md:w-80 md:h-80 -z-10" />
       <div className="max-w-4xl mx-auto px-5 sm:px-6 text-center">
         <h2 className="font-heading text-3xl sm:text-4xl md:text-5xl font-bold mb-4 sm:mb-6 text-white">
           Готовы начать проект?

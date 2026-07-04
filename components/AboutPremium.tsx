@@ -78,9 +78,21 @@ export default function AboutPremium() {
     <section
       id="about"
       ref={sectionRef}
-      className="relative bg-black py-20 sm:py-32 md:py-48 overflow-hidden"
+      className="relative isolate bg-black py-20 sm:py-32 md:py-48 overflow-hidden"
     >
-      <AmbientBlobs />
+      <AmbientBlobs
+        blobs={[
+          {
+            side: "right",
+            vertical: "top-1/4",
+            size: "w-52 h-52 sm:w-72 sm:h-72 md:w-96 md:h-96",
+            gradient:
+              "bg-[linear-gradient(135deg,rgba(217,70,239,0.55),rgba(168,85,247,0.45),rgba(99,102,241,0.4),rgba(34,211,238,0.35))]",
+            delay: "-9s",
+            morph: true,
+          },
+        ]}
+      />
       <div className="max-w-7xl mx-auto px-5 sm:px-6 lg:px-12">
         <div className="grid lg:grid-cols-2 gap-10 sm:gap-16 lg:gap-24 items-start">
           {/* Левая колонка - Заголовок */}
