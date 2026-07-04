@@ -7,21 +7,16 @@ export const STORAGE_KEY = "kel-studio-language";
 export const SUPPORTED_LANGUAGES = ["ru", "en"] as const;
 export type SupportedLanguage = (typeof SUPPORTED_LANGUAGES)[number];
 
-function getInitialLanguage(): SupportedLanguage {
-  if (typeof window === "undefined") return "ru";
-  const stored = localStorage.getItem(STORAGE_KEY);
-  return stored && (SUPPORTED_LANGUAGES as readonly string[]).includes(stored)
-    ? (stored as SupportedLanguage)
-    : "ru";
-}
-
 if (!i18n.isInitialized) {
   i18n.use(initReactI18next).init({
     resources: {
       ru: { translation: ru },
       en: { translation: en },
     },
-    lng: getInitialLanguage(),
+    // Always start with "ru" on both server and the client's first render so
+    // they match exactly. The actual stored preference (if any) is applied
+    // client-side after hydration — see I18nProvider.
+    lng: "ru",
     fallbackLng: "ru",
     interpolation: { escapeValue: false },
   });
