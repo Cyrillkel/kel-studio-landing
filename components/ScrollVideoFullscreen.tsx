@@ -31,6 +31,10 @@ export default function ScrollVideoFullscreen() {
 
     if (!video || !container) return;
 
+    // The <video> ships with preload="none" so hidden mobile layouts never
+    // download it; kick off the actual load only here, on desktop.
+    video.preload = "auto";
+    video.load();
     video.pause();
 
     const scrollTrigger = ScrollTrigger.create({
@@ -62,7 +66,7 @@ export default function ScrollVideoFullscreen() {
         className="w-full h-full object-cover"
         muted
         playsInline
-        preload="auto"
+        preload="none"
       >
         <source src="/video/scroll-bg.webm" type="video/webm" />
         <source src="/video/scroll-bg.mp4" type="video/mp4" />

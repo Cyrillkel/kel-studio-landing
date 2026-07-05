@@ -3,6 +3,8 @@
 import { useTranslation } from "react-i18next";
 import { smoothNavigate } from "./smoothNavigate";
 
+const HERO_POSTER = "/video/hero-poster.webp";
+
 export default function Hero() {
   const { t } = useTranslation();
   const handleClick = (
@@ -16,12 +18,15 @@ export default function Hero() {
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+      {/* Hoisted to <head> by React — the poster is the LCP candidate, fetch it before the video data. */}
+      <link rel="preload" as="image" href={HERO_POSTER} fetchPriority="high" />
       <div className="absolute inset-0">
         <video
           autoPlay
           muted
           loop
           playsInline
+          poster={HERO_POSTER}
           className="absolute top-1/2 left-1/2 min-w-full min-h-full w-auto h-auto -translate-x-1/2 -translate-y-1/2 object-cover"
         >
           <source
