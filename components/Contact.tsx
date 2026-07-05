@@ -22,7 +22,7 @@ export default function Contact() {
   return (
     <section
       id="contact"
-      className="relative isolate overflow-hidden py-16 md:py-24 bg-[#0a0a0a]"
+      className="relative isolate overflow-hidden py-16 md:py-24 bg-[linear-gradient(to_bottom,#000000_0px,#0a0a0a_180px,#0a0a0a_100%)]"
     >
       <AmbientAtom className="-left-10 top-4 w-56 h-56 sm:w-72 sm:h-72 md:w-80 md:h-80 -z-10" />
       <div className="max-w-4xl mx-auto px-5 sm:px-6 text-center">

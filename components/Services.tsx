@@ -78,7 +78,7 @@ export default function Services() {
   return (
     <section
       id="services"
-      className="relative isolate overflow-hidden py-16 md:py-24 bg-[#141414]"
+      className="relative isolate overflow-hidden py-16 md:py-24 bg-[linear-gradient(to_bottom,#0a0a0a_0px,#141414_180px,#141414_100%)]"
     >
       <AmbientBlobs
         blobs={[
@@ -92,7 +92,7 @@ export default function Services() {
           },
           {
             side: "right",
-            vertical: "bottom-10",
+            vertical: "bottom-24",
             size: "w-36 h-36 sm:w-48 sm:h-48 md:w-60 md:h-60",
             gradient:
               "bg-[linear-gradient(135deg,rgba(34,211,238,0.5),rgba(59,130,246,0.4),rgba(168,85,247,0.3))]",

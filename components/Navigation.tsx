@@ -37,6 +37,13 @@ export default function Navigation() {
                 {t("nav.services")}
               </a>
               <a
+                href="#pricing"
+                className="text-gray-300 hover:text-white transition"
+                onClick={(e) => handleNavClick(e, "#pricing")}
+              >
+                {t("nav.pricing")}
+              </a>
+              <a
                 href="#portfolio"
                 className="text-gray-300 hover:text-white transition"
                 onClick={(e) => handleNavClick(e, "#portfolio")}
@@ -110,6 +117,13 @@ export default function Navigation() {
               onClick={(e) => handleNavClick(e, "#services")}
             >
               {t("nav.services")}
+            </a>
+            <a
+              href="#pricing"
+              className="text-2xl text-gray-300 hover:text-white transition"
+              onClick={(e) => handleNavClick(e, "#pricing")}
+            >
+              {t("nav.pricing")}
             </a>
             <a
               href="#portfolio"

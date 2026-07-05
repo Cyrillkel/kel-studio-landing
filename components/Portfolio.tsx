@@ -9,7 +9,10 @@ export default function Portfolio() {
   const items = t("portfolio.items", { returnObjects: true }) as ProjectItem[];
 
   return (
-    <section id="portfolio" className="py-16 md:py-24 bg-[#0a0a0a]">
+    <section
+      id="portfolio"
+      className="py-16 md:py-24 bg-[linear-gradient(to_bottom,#0a0a0a_0px,#141414_180px,#141414_calc(100%-200px),#000000_100%)]"
+    >
       <div className="max-w-7xl mx-auto px-5 sm:px-6">
         <h2 className="font-heading text-3xl sm:text-4xl md:text-5xl font-bold mb-10 md:mb-16 text-center text-white">
           {t("portfolio.heading")}

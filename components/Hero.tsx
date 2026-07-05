@@ -37,7 +37,8 @@ export default function Hero() {
           <source src="/video/hero-video.webm" type="video/webm" />
           <source src="/video/hero-video.mp4" type="video/mp4" />
         </video>
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#0a0a0a]/20 to-[#0a0a0a]/60" />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#0a0a0a]/15 via-[#0a0a0a]/40 to-[#0a0a0a]/75" />
+        <div className="absolute inset-x-0 bottom-0 h-40 sm:h-56 bg-gradient-to-b from-transparent to-[#0a0a0a]" />
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-6 py-32 text-center">

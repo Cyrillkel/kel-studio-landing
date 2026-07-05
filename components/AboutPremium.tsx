@@ -55,8 +55,32 @@ export default function AboutPremium() {
     const refresh = () => ScrollTrigger.refresh();
     window.addEventListener("load", refresh);
 
+    // Safety net: ScrollTrigger's start/end percentages can miss on some
+    // viewport/layout combinations, leaving the content stuck at opacity 0.
+    // IntersectionObserver is a separate, more reliable visibility signal —
+    // if the section becomes visible and the GSAP reveal hasn't run yet,
+    // force it so content is never permanently invisible.
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (
+          entries[0].isIntersecting &&
+          gsap.getProperty(title, "opacity") === 0
+        ) {
+          gsap.to([title, content, grid], {
+            opacity: 1,
+            y: 0,
+            duration: 0.8,
+            ease: "power3.out",
+          });
+        }
+      },
+      { threshold: 0.15 }
+    );
+    observer.observe(section);
+
     return () => {
       window.removeEventListener("load", refresh);
+      observer.disconnect();
       ctx.revert();
     };
   }, []);
@@ -65,7 +89,7 @@ export default function AboutPremium() {
     <section
       id="about"
       ref={sectionRef}
-      className="relative isolate bg-black py-20 sm:py-32 md:py-48 overflow-hidden"
+      className="relative isolate py-20 sm:py-32 md:py-48 overflow-hidden bg-black"
     >
       <AmbientBlobs
         blobs={[

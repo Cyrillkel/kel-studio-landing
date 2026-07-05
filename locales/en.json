@@ -1,6 +1,7 @@
 {
   "nav": {
     "services": "Services",
+    "pricing": "Pricing",
     "portfolio": "Portfolio",
     "about": "About",
     "contact": "Contact"
@@ -31,6 +32,22 @@
         "title": "Data Parsing",
         "description": "Automated collection and structuring of data from websites, marketplaces, and APIs. Price monitoring and exports tailored to your needs."
       }
+    ]
+  },
+  "pricing": {
+    "heading": "Pricing",
+    "subheading": "Transparent pricing, no hidden fees",
+    "cta": "Discuss a project",
+    "items": [
+      { "title": "Business Card Site", "price": "from $211" },
+      { "title": "Landing Page", "price": "from $422" },
+      { "title": "Corporate Website", "price": "from $632" },
+      { "title": "Online Store", "price": "from $1,053" },
+      { "title": "Web Application", "price": "from $22/hour" },
+      { "title": "Design", "price": "from $158" },
+      { "title": "SEO Promotion", "price": "from $158" },
+      { "title": "Yandex Direct Management", "price": "from $158" },
+      { "title": "Data Parsing", "price": "from $316" }
     ]
   },
   "portfolio": {

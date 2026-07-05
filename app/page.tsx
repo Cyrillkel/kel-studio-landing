@@ -1,5 +1,6 @@
 import Hero from "@/components/Hero";
 import Services from "@/components/Services";
+import Pricing from "@/components/Pricing";
 import Portfolio from "@/components/Portfolio";
 import ScrollVideoFullscreen from "@/components/ScrollVideoFullscreen";
 import AboutPremium from "@/components/AboutPremium";
@@ -15,6 +16,7 @@ export default function Home() {
         <Navigation />
         <Hero />
         <Services />
+        <Pricing />
         <Portfolio />
         <ScrollVideoFullscreen />
         <AboutPremium />
