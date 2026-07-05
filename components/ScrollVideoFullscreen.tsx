@@ -32,8 +32,10 @@ export default function ScrollVideoFullscreen() {
     if (!video || !container) return;
 
     // The <video> ships with preload="none" so hidden mobile layouts never
-    // download it; kick off the actual load only here, on desktop.
-    video.preload = "auto";
+    // download it. Calling load() alone is enough to kick off the fetch on
+    // desktop — also touching the `preload` property first makes Chromium
+    // schedule its own fetch in addition to the one load() starts, doubling
+    // the download.
     video.load();
     video.pause();
 
