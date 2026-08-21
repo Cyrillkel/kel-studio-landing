@@ -29,7 +29,7 @@
         "description": "SEO optimization, Yandex Direct, and Google Ads. We drive targeted traffic and grow your business's sales."
       },
       {
-        "title": "Data Parsing",
+        "title": "Parsing",
         "description": "Automated collection and structuring of data from websites, marketplaces, and APIs. Price monitoring and exports tailored to your needs."
       }
     ]
@@ -47,7 +47,7 @@
       { "title": "Design", "price": "from $158" },
       { "title": "SEO Promotion", "price": "from $158" },
       { "title": "Google ads Management", "price": "from $250" },
-      { "title": "Data Parsing", "price": "from $316" }
+      { "title": "Parsing", "price": "from $316" }
     ]
   },
   "portfolio": {
@@ -55,19 +55,27 @@
     "items": [
       {
         "title": "E-commerce Platform",
-        "description": "An online store with payment system integration"
+        "description": "An online store with payment system integration",
+        "image": "/portfolio/millsey.jpg",
+        "url": "https://millsey.ru/"
       },
       {
         "title": "Corporate Website",
-        "description": "A multi-page website for a B2B company"
+        "description": "A multi-page website for a B2B company",
+        "image": "/portfolio/pokupayavto.jpg",
+        "url": "https://pokupayavto.ru/"
       },
       {
         "title": "SaaS Application",
-        "description": "A web application for project management"
+        "description": "A web application for project management",
+        "image": "/portfolio/saas-placeholder.jpg",
+        "url": "https://linear.app/"
       },
       {
         "title": "Startup Landing Page",
-        "description": "A high-converting landing page"
+        "description": "A high-converting landing page",
+        "image": "/portfolio/facetika-v2.jpg",
+        "url": "https://facetika.ru/"
       }
     ]
   },

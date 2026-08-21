@@ -1,8 +1,14 @@
 "use client";
 
+import Image from "next/image";
 import { useTranslation } from "react-i18next";
 
-type ProjectItem = { title: string; description: string };
+type ProjectItem = {
+  title: string;
+  description: string;
+  image?: string;
+  url?: string;
+};
 
 export default function Portfolio() {
   const { t } = useTranslation();
@@ -18,22 +24,48 @@ export default function Portfolio() {
           {t("portfolio.heading")}
         </h2>
         <div className="grid md:grid-cols-2 gap-5 sm:gap-8">
-          {items.map((item, index) => (
-            <div
-              key={index}
-              className="group relative overflow-hidden rounded-2xl aspect-video bg-[#1f1f1f] md:hover:-translate-y-2 md:hover:shadow-2xl md:hover:shadow-black/40 transition-all duration-300"
-            >
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-300" />
-              <div className="absolute bottom-0 left-0 right-0 p-5 sm:p-8 md:translate-y-full md:group-hover:translate-y-0 transition-transform duration-300">
-                <h3 className="font-heading text-xl sm:text-2xl font-bold mb-2 text-white">
-                  {item.title}
-                </h3>
-                <p className="text-sm sm:text-base text-gray-300">
-                  {item.description}
-                </p>
+          {items.map((item, index) => {
+            const card = (
+              <div
+                className={`group relative overflow-hidden rounded-2xl aspect-video bg-[#1f1f1f] md:hover:-translate-y-2 md:hover:shadow-2xl md:hover:shadow-black/40 transition-all duration-300 ${
+                  item.url ? "cursor-pointer" : ""
+                }`}
+              >
+                {item.image && (
+                  <Image
+                    src={item.image}
+                    alt={item.title}
+                    fill
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                    className="object-cover object-top"
+                  />
+                )}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-300" />
+                <div className="absolute bottom-0 left-0 right-0 p-5 sm:p-8 md:translate-y-full md:group-hover:translate-y-0 transition-transform duration-300">
+                  <h3 className="font-heading text-xl sm:text-2xl font-bold mb-2 text-white">
+                    {item.title}
+                  </h3>
+                  <p className="text-sm sm:text-base text-gray-300">
+                    {item.description}
+                  </p>
+                </div>
               </div>
-            </div>
-          ))}
+            );
+
+            return item.url ? (
+              <a
+                key={index}
+                href={item.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={item.title}
+              >
+                {card}
+              </a>
+            ) : (
+              <div key={index}>{card}</div>
+            );
+          })}
         </div>
       </div>
     </section>

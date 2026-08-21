@@ -29,7 +29,7 @@
         "description": "SEO-оптимизация, Яндекс Директ и Google Ads. Привлекаем целевой трафик и увеличиваем продажи вашего бизнеса."
       },
       {
-        "title": "Парсинг данных",
+        "title": "Парсинг",
         "description": "Автоматический сбор и структурирование данных с сайтов, маркетплейсов и API. Мониторинг цен и выгрузки под ваши задачи."
       }
     ]
@@ -47,7 +47,7 @@
       { "title": "Дизайн", "price": "от 20 000 ₽" },
       { "title": "SEO-продвижение", "price": "от 20 000 ₽" },
       { "title": "Ведение Яндекс Директ", "price": "от 20 000 ₽" },
-      { "title": "Парсинг данных", "price": "от 30 000 ₽" }
+      { "title": "Парсинг", "price": "от 30 000 ₽" }
     ]
   },
   "portfolio": {
@@ -55,19 +55,27 @@
     "items": [
       {
         "title": "E-commerce платформа",
-        "description": "Интернет-магазин с интеграцией платёжных систем"
+        "description": "Интернет-магазин с интеграцией платёжных систем",
+        "image": "/portfolio/millsey.jpg",
+        "url": "https://millsey.ru/"
       },
       {
         "title": "Корпоративный сайт",
-        "description": "Многостраничный сайт для B2B компании"
+        "description": "Многостраничный сайт для B2B компании",
+        "image": "/portfolio/pokupayavto.jpg",
+        "url": "https://pokupayavto.ru/"
       },
       {
         "title": "SaaS приложение",
-        "description": "Веб-приложение для управления проектами"
+        "description": "Веб-приложение для управления проектами",
+        "image": "/portfolio/saas-placeholder.jpg",
+        "url": "https://linear.app/"
       },
       {
         "title": "Лендинг для стартапа",
-        "description": "Конверсионная посадочная страница"
+        "description": "Конверсионная посадочная страница",
+        "image": "/portfolio/facetika-v2.jpg",
+        "url": "https://facetika.ru/"
       }
     ]
   },

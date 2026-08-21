@@ -70,7 +70,7 @@ export default function Navigation() {
             <div className="flex items-center gap-3 md:hidden">
               <LanguageSwitcher />
               <button
-                className="text-white z-50 relative"
+                className="text-white z-50 relative cursor-pointer"
                 onClick={() => setIsOpen(!isOpen)}
               >
                 {isOpen ? (
