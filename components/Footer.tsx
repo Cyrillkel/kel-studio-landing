@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import { useTranslation } from "react-i18next";
 
 export default function Footer() {
@@ -12,26 +11,14 @@ export default function Footer() {
           <div className="font-heading text-2xl font-bold text-white">
             KEL Studio
           </div>
-          <div className="flex gap-6">
-            <Link
-              href="#"
-              className="text-gray-400 hover:text-white transition"
-            >
-              Telegram
-            </Link>
-            <Link
-              href="#"
-              className="text-gray-400 hover:text-white transition"
-            >
-              Instagram
-            </Link>
-            <Link
-              href="#"
-              className="text-gray-400 hover:text-white transition"
-            >
-              Behance
-            </Link>
-          </div>
+          <a
+            href="https://t.me/io112"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-gray-400 hover:text-white transition"
+          >
+            Telegram
+          </a>
           <div className="text-gray-400">{t("footer.copyright")}</div>
         </div>
       </div>
