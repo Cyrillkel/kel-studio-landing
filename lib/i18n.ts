@@ -20,6 +20,12 @@ if (!i18n.isInitialized) {
     fallbackLng: "ru",
     interpolation: { escapeValue: false },
   });
+} else {
+  // Dev HMR re-runs this module after a locale edit, but the i18next
+  // singleton stays initialized with the old strings - refresh them, or the
+  // server renders stale text and hydration fails.
+  i18n.addResourceBundle("ru", "translation", ru, true, true);
+  i18n.addResourceBundle("en", "translation", en, true, true);
 }
 
 export function changeLanguage(lng: SupportedLanguage) {

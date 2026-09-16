@@ -2,6 +2,9 @@
 
 import { useTranslation } from "react-i18next";
 import { smoothNavigate } from "./smoothNavigate";
+import { useSnapSlider } from "./useSnapSlider";
+import SliderDots from "./SliderDots";
+import { ButtonLink } from "./Button";
 
 const icons = [
   <svg
@@ -144,6 +147,7 @@ type PriceItem = { title: string; price: string };
 export default function Pricing() {
   const { t } = useTranslation();
   const items = t("pricing.items", { returnObjects: true }) as PriceItem[];
+  const { sliderRef, activeSlide, scrollToSlide } = useSnapSlider(".pricing-card");
 
   const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     if (smoothNavigate("#contact")) {
@@ -163,32 +167,37 @@ export default function Pricing() {
         <p className="text-gray-400 text-center mb-10 md:mb-16">
           {t("pricing.subheading")}
         </p>
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
+        <div
+          ref={sliderRef}
+          className="relative -mx-5 flex snap-x snap-mandatory gap-3 overflow-x-auto px-[10vw] py-4 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden sm:-mx-6 md:mx-0 md:grid md:snap-none md:grid-cols-2 md:gap-6 md:overflow-visible md:p-0 lg:grid-cols-3"
+        >
           {items.map((item, index) => (
             <div
               key={index}
-              className="bg-[#1f1f1f] p-6 sm:p-7 rounded-2xl border border-white/5 hover:-translate-y-1 hover:border-white/20 hover:shadow-2xl hover:shadow-black/40 transition-all duration-300"
+              className="pricing-card flex min-h-56 w-[80vw] shrink-0 snap-center flex-col bg-[#1f1f1f] p-7 rounded-2xl border border-white/5 hover:-translate-y-1 hover:border-white/20 hover:shadow-2xl hover:shadow-black/40 transition-[translate,border-color,box-shadow] duration-300 md:min-h-0 md:w-auto"
             >
-              <div className="w-11 h-11 bg-white/10 rounded-lg flex items-center justify-center mb-5 text-white">
+              <div className="w-12 h-12 md:w-11 md:h-11 bg-white/10 rounded-lg flex items-center justify-center mb-6 md:mb-5 text-white">
                 {icons[index]}
               </div>
-              <h3 className="font-heading text-lg sm:text-xl font-bold text-white mb-2">
+              <h3 className="font-heading text-xl font-bold text-white mb-2">
                 {item.title}
               </h3>
-              <p className="font-heading text-2xl sm:text-3xl font-bold bg-gradient-to-br from-white to-gray-400 bg-clip-text text-transparent">
+              <p className="mt-auto font-heading text-3xl font-bold bg-linear-to-br from-white to-gray-400 bg-clip-text text-transparent md:mt-0">
                 {item.price}
               </p>
             </div>
           ))}
         </div>
+        <SliderDots
+          count={items.length}
+          active={activeSlide}
+          onSelect={scrollToSlide}
+          className="mt-4"
+        />
         <div className="mt-10 md:mt-14 text-center">
-          <a
-            href="#contact"
-            onClick={handleClick}
-            className="inline-block bg-white text-black px-8 py-4 rounded-lg text-lg font-semibold hover:bg-gray-200 transition"
-          >
+          <ButtonLink href="#contact" size="lg" onClick={handleClick}>
             {t("pricing.cta")}
-          </a>
+          </ButtonLink>
         </div>
       </div>
     </section>

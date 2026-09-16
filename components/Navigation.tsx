@@ -1,13 +1,80 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { gsap } from "gsap";
 import { useTranslation } from "react-i18next";
 import { smoothNavigate } from "./smoothNavigate";
 import LanguageSwitcher from "./LanguageSwitcher";
+import { ButtonLink } from "./Button";
 
 export default function Navigation() {
   const { t } = useTranslation();
   const [isOpen, setIsOpen] = useState(false);
+  const topBarRef = useRef<HTMLSpanElement>(null);
+  const midBarRef = useRef<HTMLSpanElement>(null);
+  const bottomBarRef = useRef<HTMLSpanElement>(null);
+  const burgerTl = useRef<gsap.core.Timeline | null>(null);
+
+  useEffect(() => {
+    const top = topBarRef.current!;
+    const mid = midBarRef.current!;
+    const bottom = bottomBarRef.current!;
+
+    const ctx = gsap.context(() => {
+      // Squeeze the bars to the center first, then twist them into an X.
+      burgerTl.current = gsap
+        .timeline({ paused: true })
+        .to(mid, { x: 8, opacity: 0, duration: 0.2, ease: "power2.in" }, 0)
+        .to(top, { y: 7, duration: 0.22, ease: "power2.in" }, 0)
+        .to(bottom, { y: -7, duration: 0.22, ease: "power2.in" }, 0)
+        .to(top, { rotate: 45, duration: 0.5, ease: "back.out(2.2)" }, 0.22)
+        .to(bottom, { rotate: -45, duration: 0.5, ease: "back.out(2.2)" }, 0.22)
+        .to(
+          [top.firstElementChild, bottom.firstElementChild],
+          { opacity: 1, duration: 0.35, ease: "power1.out" },
+          0.22
+        );
+    });
+
+    return () => ctx.revert();
+  }, []);
+
+  useEffect(() => {
+    const tl = burgerTl.current;
+    if (!tl) return;
+
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      tl.progress(isOpen ? 1 : 0).pause();
+    } else if (isOpen) {
+      tl.timeScale(1).play();
+    } else {
+      tl.timeScale(1.4).reverse();
+    }
+  }, [isOpen]);
+
+  useEffect(() => {
+    if (!isOpen) return;
+
+    // overflow: hidden (not position: fixed) keeps programmatic anchor jumps
+    // from the menu links working while user scrolling is blocked.
+    const root = document.documentElement;
+    root.style.overflow = "hidden";
+    document.body.style.overflow = "hidden";
+
+    // The overlay is hidden from md up; close it (and release the lock) if
+    // the viewport grows past that, e.g. rotating a phone to landscape.
+    const desktop = window.matchMedia("(min-width: 768px)");
+    const closeOnDesktop = () => {
+      if (desktop.matches) setIsOpen(false);
+    };
+    desktop.addEventListener("change", closeOnDesktop);
+
+    return () => {
+      root.style.overflow = "";
+      document.body.style.overflow = "";
+      desktop.removeEventListener("change", closeOnDesktop);
+    };
+  }, [isOpen]);
 
   const handleNavClick = (
     e: React.MouseEvent<HTMLAnchorElement>,
@@ -57,51 +124,44 @@ export default function Navigation() {
               >
                 {t("nav.about")}
               </a>
-              <a
+              <ButtonLink
                 href="#contact"
-                className="bg-white text-black px-6 py-2 rounded-lg hover:bg-gray-200 transition"
+                size="sm"
                 onClick={(e) => handleNavClick(e, "#contact")}
               >
                 {t("nav.contact")}
-              </a>
+              </ButtonLink>
               <LanguageSwitcher />
             </div>
 
             <div className="flex items-center gap-3 md:hidden">
               <LanguageSwitcher />
               <button
-                className="text-white z-50 relative cursor-pointer"
+                type="button"
+                aria-label={t("nav.menu")}
+                aria-expanded={isOpen}
+                aria-controls="mobile-menu"
+                className="relative z-50 -mr-2 flex h-10 w-10 cursor-pointer items-center justify-center"
                 onClick={() => setIsOpen(!isOpen)}
               >
-                {isOpen ? (
-                  <svg
-                    className="w-6 h-6"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
+                <span aria-hidden="true" className="relative block h-4 w-6">
+                  <span
+                    ref={topBarRef}
+                    className="absolute left-0 top-0 h-0.5 w-full rounded-full bg-white"
                   >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M6 18L18 6M6 6l12 12"
-                    />
-                  </svg>
-                ) : (
-                  <svg
-                    className="w-6 h-6"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
+                    <span className="absolute inset-0 rounded-full bg-linear-to-r from-cyan-400 to-fuchsia-500 opacity-0" />
+                  </span>
+                  <span
+                    ref={midBarRef}
+                    className="absolute right-0 top-1/2 h-0.5 w-4 -translate-y-1/2 rounded-full bg-white"
+                  />
+                  <span
+                    ref={bottomBarRef}
+                    className="absolute bottom-0 left-0 h-0.5 w-full rounded-full bg-white"
                   >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M4 6h16M4 12h16M4 18h16"
-                    />
-                  </svg>
-                )}
+                    <span className="absolute inset-0 rounded-full bg-linear-to-r from-cyan-400 to-fuchsia-500 opacity-0" />
+                  </span>
+                </span>
               </button>
             </div>
           </div>
@@ -109,7 +169,10 @@ export default function Navigation() {
       </nav>
 
       {isOpen && (
-        <div className="fixed inset-0 z-40 bg-[#0a0a0a]/95 backdrop-blur-md md:hidden">
+        <div
+          id="mobile-menu"
+          className="fixed inset-0 z-40 overscroll-contain bg-[#0a0a0a]/95 backdrop-blur-md md:hidden"
+        >
           <div className="flex flex-col items-center justify-center h-full space-y-8 text-center">
             <a
               href="#services"
@@ -139,13 +202,14 @@ export default function Navigation() {
             >
               {t("nav.about")}
             </a>
-            <a
+            <ButtonLink
               href="#contact"
-              className="bg-white text-black px-8 py-3 rounded-lg hover:bg-gray-200 transition text-xl"
+              variant="outline"
+              className="mt-2"
               onClick={(e) => handleNavClick(e, "#contact")}
             >
               {t("nav.contact")}
-            </a>
+            </ButtonLink>
           </div>
         </div>
       )}

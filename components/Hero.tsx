@@ -2,6 +2,7 @@
 
 import { useTranslation } from "react-i18next";
 import { smoothNavigate } from "./smoothNavigate";
+import { ButtonLink } from "./Button";
 
 const HERO_POSTER = "/video/hero-poster.webp";
 
@@ -56,20 +57,21 @@ export default function Hero() {
           {t("hero.subtitle")}
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <a
+          <ButtonLink
             href="#contact"
+            size="lg"
             onClick={(e) => handleClick(e, "#contact")}
-            className="bg-white text-black px-8 py-4 rounded-lg text-lg font-semibold hover:bg-gray-200 transition"
           >
             {t("hero.ctaPrimary")}
-          </a>
-          <a
+          </ButtonLink>
+          <ButtonLink
             href="#portfolio"
+            variant="outline"
+            size="lg"
             onClick={(e) => handleClick(e, "#portfolio")}
-            className="text-gray-50 border border-white/30 px-8 py-4 rounded-lg text-lg font-semibold hover:bg-white/10 transition"
           >
             {t("hero.ctaSecondary")}
-          </a>
+          </ButtonLink>
         </div>
       </div>
     </section>

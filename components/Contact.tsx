@@ -3,6 +3,7 @@
 import { FormEvent, useState } from "react";
 import { useTranslation } from "react-i18next";
 import AmbientAtom from "./AmbientAtom";
+import { Button } from "./Button";
 
 export default function Contact() {
   const { t } = useTranslation();
@@ -66,12 +67,9 @@ export default function Contact() {
               required
               className="w-full bg-[#1f1f1f] border border-white/10 rounded-lg px-5 sm:px-6 py-3 sm:py-4 text-white placeholder-gray-500 focus:outline-none focus:border-white/30 transition resize-none"
             />
-            <button
-              type="submit"
-              className="w-full bg-white text-black px-8 py-4 rounded-lg text-lg font-semibold hover:bg-gray-200 transition cursor-pointer"
-            >
+            <Button type="submit" size="lg" className="w-full">
               {t("contact.submit")}
-            </button>
+            </Button>
           </form>
         </div>
       </div>

@@ -13,76 +13,76 @@ type FocusItem = { title: string; description: string };
 export default function AboutPremium() {
   const { t } = useTranslation();
   const focuses = t("about.focuses", { returnObjects: true }) as FocusItem[];
-
-  const sectionRef = useRef<HTMLDivElement>(null);
-  const titleRef = useRef<HTMLHeadingElement>(null);
-  const contentRef = useRef<HTMLDivElement>(null);
-  const gridRef = useRef<HTMLDivElement>(null);
+  const sectionRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
     const section = sectionRef.current;
-    const title = titleRef.current;
-    const content = contentRef.current;
-    const grid = gridRef.current;
+    if (!section) return;
 
-    if (!section || !title || !content || !grid) return;
+    const mm = gsap.matchMedia(section);
 
-    const ctx = gsap.context(() => {
-      gsap.set([title, content, grid], { opacity: 0, y: 60 });
+    mm.add("(prefers-reduced-motion: no-preference)", () => {
+      const reveals = new Map<Element, gsap.core.Timeline>();
 
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: section,
+      const reveal = (trigger: Element, tl: gsap.core.Timeline) => {
+        reveals.set(trigger, tl);
+        ScrollTrigger.create({
+          trigger,
           start: "top 85%",
-          end: "top 40%",
-          toggleActions: "play none none reverse",
-        },
-      });
+          once: true,
+          onEnter: () => tl.play(),
+        });
+      };
 
-      tl.to(title, { opacity: 1, y: 0, duration: 1, ease: "power3.out" })
-        .to(
-          content,
-          { opacity: 1, y: 0, duration: 1, ease: "power3.out" },
-          "-=0.6"
-        )
-        .to(
-          grid,
-          { opacity: 1, y: 0, duration: 1, ease: "power3.out" },
-          "-=0.6"
-        );
-    }, section);
+      const intro = section.querySelector(".about-intro")!;
+      reveal(
+        intro,
+        gsap
+          .timeline({ paused: true, defaults: { ease: "power3.out" } })
+          .from(".about-line", {
+            yPercent: 110,
+            duration: 1.1,
+            ease: "expo.out",
+            stagger: 0.12,
+          })
+          .from(
+            ".about-copy > *",
+            { y: 30, opacity: 0, duration: 0.9, stagger: 0.12 },
+            0.25
+          )
+      );
 
-    const refresh = () => ScrollTrigger.refresh();
-    window.addEventListener("load", refresh);
+      const grid = section.querySelector(".about-grid")!;
+      reveal(
+        grid,
+        gsap.timeline({ paused: true }).from(".about-card", {
+          y: 40,
+          opacity: 0,
+          duration: 0.8,
+          ease: "power3.out",
+          stagger: 0.1,
+        })
+      );
 
-    // Safety net: ScrollTrigger's start/end percentages can miss on some
-    // viewport/layout combinations, leaving the content stuck at opacity 0.
-    // IntersectionObserver is a separate, more reliable visibility signal —
-    // if the section becomes visible and the GSAP reveal hasn't run yet,
-    // force it so content is never permanently invisible.
-    const observer = new IntersectionObserver(
-      (entries) => {
-        if (
-          entries[0].isIntersecting &&
-          gsap.getProperty(title, "opacity") === 0
-        ) {
-          gsap.to([title, content, grid], {
-            opacity: 1,
-            y: 0,
-            duration: 0.8,
-            ease: "power3.out",
+      // Safety net: if a ScrollTrigger start is skipped, play the same
+      // timeline (never a second, competing tween) once the block is in view.
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (!entry.isIntersecting) return;
+            const tl = reveals.get(entry.target);
+            if (tl && tl.progress() === 0 && !tl.isActive()) tl.play();
+            observer.unobserve(entry.target);
           });
-        }
-      },
-      { threshold: 0.15 }
-    );
-    observer.observe(section);
+        },
+        { rootMargin: "0px 0px -35% 0px" }
+      );
+      reveals.forEach((_, el) => observer.observe(el));
 
-    return () => {
-      window.removeEventListener("load", refresh);
-      observer.disconnect();
-      ctx.revert();
-    };
+      return () => observer.disconnect();
+    });
+
+    return () => mm.revert();
   }, []);
 
   return (
@@ -105,21 +105,18 @@ export default function AboutPremium() {
         ]}
       />
       <div className="max-w-7xl mx-auto px-5 sm:px-6 lg:px-12">
-        <div className="grid lg:grid-cols-2 gap-10 sm:gap-16 lg:gap-24 items-start">
-          {/* Левая колонка - Заголовок */}
-          <div>
-            <h2
-              ref={titleRef}
-              className="font-heading text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold leading-none bg-gradient-to-br from-white via-gray-200 to-gray-500 bg-clip-text text-transparent"
-            >
-              {t("about.titleLine1")}
-              <br />
-              {t("about.titleLine2")}
-            </h2>
-          </div>
+        <div className="about-intro grid lg:grid-cols-2 gap-10 sm:gap-16 lg:gap-24 items-start">
+          <h2 className="font-heading text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold leading-none">
+            {[t("about.titleLine1"), t("about.titleLine2")].map((line) => (
+              <span key={line} className="block overflow-hidden pb-2">
+                <span className="about-line block bg-linear-to-br from-white via-gray-200 to-gray-500 bg-clip-text text-transparent">
+                  {line}
+                </span>
+              </span>
+            ))}
+          </h2>
 
-          {/* Правая колонка - Контент */}
-          <div ref={contentRef} className="space-y-6 sm:space-y-8">
+          <div className="about-copy space-y-6 sm:space-y-8">
             <p className="text-xl sm:text-2xl md:text-3xl text-gray-300 leading-relaxed font-light">
               {t("about.lead")}
             </p>
@@ -129,15 +126,11 @@ export default function AboutPremium() {
           </div>
         </div>
 
-        {/* Сетка фокусов */}
-        <div
-          ref={gridRef}
-          className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mt-12 sm:mt-16 md:mt-24"
-        >
+        <div className="about-grid grid sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mt-12 sm:mt-16 md:mt-24">
           {focuses.map((focus, index) => (
             <div
               key={index}
-              className="group relative p-6 sm:p-8 border border-white/10 rounded-2xl bg-white/[0.02] backdrop-blur-sm transition-all duration-500 hover:border-white/30 hover:bg-white/[0.05] hover:shadow-[0_0_30px_rgba(255,255,255,0.1)]"
+              className="about-card group relative p-6 sm:p-8 border border-white/10 rounded-2xl bg-white/2 transition-[border-color,background-color,box-shadow] duration-500 hover:border-white/30 hover:bg-white/5 hover:shadow-[0_0_30px_rgba(255,255,255,0.1)]"
             >
               <h3 className="font-heading text-xl font-bold text-white mb-3 transition-colors duration-300 group-hover:text-gray-100">
                 {focus.title}

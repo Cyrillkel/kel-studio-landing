@@ -4,7 +4,11 @@
     "pricing": "Pricing",
     "portfolio": "Portfolio",
     "about": "About",
-    "contact": "Contact"
+    "contact": "Contact",
+    "menu": "Menu"
+  },
+  "slider": {
+    "slide": "Card {{current}} of {{total}}"
   },
   "hero": {
     "titleLine1": "Building digital",
@@ -52,6 +56,9 @@
   },
   "portfolio": {
     "heading": "Featured Projects",
+    "ctaTitle": "Your project could be here",
+    "ctaText": "Tell us about your goals and we'll suggest a solution, timeline, and budget.",
+    "ctaButton": "Discuss a project",
     "items": [
       {
         "title": "E-commerce Platform",
@@ -130,6 +137,41 @@
       {
         "title": "Premium Design",
         "description": "Premium-tier design for your brand"
+      }
+    ]
+  },
+  "faq": {
+    "heading": "FAQ",
+    "subheading": "Answers to the questions we hear most often before a project starts. Didn't find yours? Just ask us.",
+    "cta": "Ask a question",
+    "items": [
+      {
+        "question": "How much does a website cost?",
+        "answer": "The price depends on the type of site, its scope, and features. You can find guideline prices in the Pricing section: for example, a landing page from $422 and a corporate website from $632. We give an exact quote after the brief and fix it in the contract."
+      },
+      {
+        "question": "How long does development take?",
+        "answer": "On average, a landing page takes 1-2 weeks, a corporate website 3-5 weeks, and an online store from six weeks. Deadlines are set in the contract, and we share progress along the way."
+      },
+      {
+        "question": "Do you work with companies?",
+        "answer": "Yes, we work with both individuals and legal entities. In either case, we sign a development contract."
+      },
+      {
+        "question": "What do you need from me to get started?",
+        "answer": "Tell us about your business and the goals of the site, and show us a few examples you like. A logo, copy, and photos are helpful, but if you don't have them, we'll help prepare them."
+      },
+      {
+        "question": "Can I request changes?",
+        "answer": "Yes. We agree on every stage with you: structure, design, and the finished build. Revisions within the agreed scope are included in the price."
+      },
+      {
+        "question": "Who will own the website?",
+        "answer": "You will. After launch we hand over all access: domain, hosting, admin panel, and source code."
+      },
+      {
+        "question": "Do you help with promotion after launch?",
+        "answer": "Yes. We can provide ongoing support, handle SEO, and set up Yandex Direct campaigns so your site keeps bringing in leads."
       }
     ]
   },

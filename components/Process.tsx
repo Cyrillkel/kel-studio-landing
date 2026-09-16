@@ -26,6 +26,8 @@ export default function Process() {
     mm.add(
       {
         isDesktop: "(min-width: 768px)",
+        // matchMedia only runs the callback when some condition matches.
+        isMobile: "(max-width: 767px)",
         reduceMotion: "(prefers-reduced-motion: reduce)",
       },
       (context) => {
