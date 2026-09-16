@@ -79,6 +79,36 @@
       }
     ]
   },
+  "process": {
+    "heading": "How We Work",
+    "subheading": "A transparent process from the first call to launch and beyond",
+    "items": [
+      {
+        "title": "Brief & Research",
+        "description": "We discuss your business goals and study the niche, competitors, and audience. Requirements are captured in a technical specification."
+      },
+      {
+        "title": "Structure & Prototype",
+        "description": "We design the page structure and user flows so that every screen guides visitors toward the target action."
+      },
+      {
+        "title": "Design",
+        "description": "We create a unique visual style and layouts for every device, agreeing on each detail before development starts."
+      },
+      {
+        "title": "Development",
+        "description": "We build on a modern stack: fast loading, responsive layouts, and clean code that is easy to grow."
+      },
+      {
+        "title": "Testing & Launch",
+        "description": "We test the site across devices and browsers, connect analytics, and publish the project on your domain."
+      },
+      {
+        "title": "Support & Growth",
+        "description": "We stay with the project after launch: making updates, improving SEO, and helping you attract new clients."
+      }
+    ]
+  },
   "about": {
     "titleLine1": "KEL",
     "titleLine2": "Studio",

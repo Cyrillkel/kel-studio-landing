@@ -2,6 +2,7 @@ import Hero from "@/components/Hero";
 import Services from "@/components/Services";
 import Pricing from "@/components/Pricing";
 import Portfolio from "@/components/Portfolio";
+import Process from "@/components/Process";
 import ScrollVideoFullscreen from "@/components/ScrollVideoFullscreen";
 import AboutPremium from "@/components/AboutPremium";
 import Contact from "@/components/Contact";
@@ -18,6 +19,7 @@ export default function Home() {
         <Services />
         <Pricing />
         <Portfolio />
+        <Process />
         <ScrollVideoFullscreen />
         <AboutPremium />
         <Contact />
