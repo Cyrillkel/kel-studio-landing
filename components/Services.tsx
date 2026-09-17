@@ -108,7 +108,7 @@ export default function Services() {
           {items.map((item, index) => (
             <div
               key={index}
-              className="bg-[#1f1f1f] p-6 sm:p-8 rounded-2xl border border-white/5 hover:-translate-y-2 hover:shadow-2xl hover:shadow-black/40 transition-all duration-300"
+              className="bg-[#1f1f1f] p-6 sm:p-8 rounded-2xl border border-white/5 hover:-translate-y-2 hover:shadow-lg hover:shadow-black/25 transition-all duration-300"
             >
               <div className="w-12 h-12 bg-white/10 rounded-lg flex items-center justify-center mb-6 text-white">
                 {icons[index]}

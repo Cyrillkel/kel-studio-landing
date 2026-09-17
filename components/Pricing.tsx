@@ -192,7 +192,7 @@ export default function Pricing() {
           count={items.length}
           active={activeSlide}
           onSelect={scrollToSlide}
-          className="mt-4"
+          className="mt-4 md:hidden"
         />
         <div className="mt-10 md:mt-14 text-center">
           <ButtonLink href="#contact" size="lg" onClick={handleClick}>

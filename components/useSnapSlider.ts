@@ -3,9 +3,12 @@
 import { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 
-// Mobile-only horizontal slider on native scroll-snap: the centered slide is
+// Horizontal slider (mobile by default) on native scroll-snap: the centered slide is
 // full size and bright, neighbours shrink and dim as they move away.
-export function useSnapSlider(slideSelector: string) {
+export function useSnapSlider(
+  slideSelector: string,
+  query = "(max-width: 767px)"
+) {
   const sliderRef = useRef<HTMLDivElement>(null);
   const [activeSlide, setActiveSlide] = useState(0);
 
@@ -17,7 +20,7 @@ export function useSnapSlider(slideSelector: string) {
 
     mm.add(
       {
-        isMobile: "(max-width: 767px)",
+        isMobile: query,
         reduceMotion: "(prefers-reduced-motion: reduce)",
       },
       (context) => {
@@ -74,7 +77,7 @@ export function useSnapSlider(slideSelector: string) {
     );
 
     return () => mm.revert();
-  }, [slideSelector]);
+  }, [slideSelector, query]);
 
   const scrollToSlide = (index: number) => {
     const slider = sliderRef.current;

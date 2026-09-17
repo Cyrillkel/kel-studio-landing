@@ -61,9 +61,9 @@ export default function Navigation() {
     root.style.overflow = "hidden";
     document.body.style.overflow = "hidden";
 
-    // The overlay is hidden from md up; close it (and release the lock) if
+    // The overlay is hidden from lg up; close it (and release the lock) if
     // the viewport grows past that, e.g. rotating a phone to landscape.
-    const desktop = window.matchMedia("(min-width: 768px)");
+    const desktop = window.matchMedia("(min-width: 1024px)");
     const closeOnDesktop = () => {
       if (desktop.matches) setIsOpen(false);
     };
@@ -91,11 +91,11 @@ export default function Navigation() {
       <nav className="fixed top-0 left-0 right-0 z-50 backdrop-blur-sm">
         <div className="max-w-7xl mx-auto px-6 py-4">
           <div className="flex items-center justify-between">
-            <div className="font-heading text-2xl font-bold text-white">
+            <div className="font-heading text-2xl font-bold whitespace-nowrap text-white">
               KEL Studio
             </div>
 
-            <div className="hidden md:flex items-center gap-8">
+            <div className="hidden lg:flex items-center gap-8">
               <a
                 href="#services"
                 className="text-gray-300 hover:text-white transition"
@@ -134,7 +134,7 @@ export default function Navigation() {
               <LanguageSwitcher />
             </div>
 
-            <div className="flex items-center gap-3 md:hidden">
+            <div className="flex items-center gap-3 lg:hidden">
               <LanguageSwitcher />
               <button
                 type="button"
@@ -171,9 +171,9 @@ export default function Navigation() {
       {isOpen && (
         <div
           id="mobile-menu"
-          className="fixed inset-0 z-40 overscroll-contain bg-[#0a0a0a]/95 backdrop-blur-md md:hidden"
+          className="fixed inset-0 z-40 overflow-y-auto overscroll-contain bg-[#0a0a0a]/95 backdrop-blur-md lg:hidden"
         >
-          <div className="flex flex-col items-center justify-center h-full space-y-8 text-center">
+          <div className="flex min-h-full flex-col items-center justify-center space-y-8 py-24 text-center">
             <a
               href="#services"
               className="text-2xl text-gray-300 hover:text-white transition"

@@ -16,7 +16,7 @@ export default function SliderDots({
   const { t } = useTranslation();
 
   return (
-    <div className={`flex justify-center gap-2 md:hidden ${className}`}>
+    <div className={`flex justify-center gap-2 ${className}`}>
       {Array.from({ length: count }, (_, index) => (
         <button
           key={index}

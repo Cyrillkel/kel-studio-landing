@@ -21,8 +21,12 @@ type ProjectItem = {
 
 // Cards are capped by viewport height too, so the pinned row always fits
 // under the heading on short desktop screens. The CTA mirrors the image height.
-const CARD_WIDTH = "md:w-[min(50vw,760px,calc((100vh_-_300px)*16/9))]";
-const CARD_IMAGE_HEIGHT = "md:h-[min(28.125vw,427.5px,calc(100vh_-_300px))]";
+// Pinned sideways gallery needs room; landscape phones get the slider instead.
+// Keep in sync with the `gallery` variant in globals.css.
+const GALLERY_QUERY = "(min-width: 1024px) and (min-height: 600px)";
+
+const CARD_WIDTH = "gallery:w-[min(50vw,760px,calc((100vh_-_300px)*16/9))]";
+const CARD_IMAGE_HEIGHT = "gallery:h-[min(28.125vw,427.5px,calc(100vh_-_300px))]";
 
 export default function Portfolio() {
   const { t } = useTranslation();
@@ -36,7 +40,7 @@ export default function Portfolio() {
     sliderRef: trackRef,
     activeSlide,
     scrollToSlide,
-  } = useSnapSlider(".portfolio-card");
+  } = useSnapSlider(".portfolio-card", `not all and ${GALLERY_QUERY}`);
 
   useEffect(() => {
     const section = sectionRef.current;
@@ -49,9 +53,9 @@ export default function Portfolio() {
 
     mm.add(
       {
-        isDesktop: "(min-width: 768px)",
+        isDesktop: GALLERY_QUERY,
         // matchMedia only runs the callback when some condition matches.
-        isMobile: "(max-width: 767px)",
+        isMobile: `not all and ${GALLERY_QUERY}`,
         reduceMotion: "(prefers-reduced-motion: reduce)",
       },
       (context) => {
@@ -181,14 +185,14 @@ export default function Portfolio() {
     <section
       id="portfolio"
       ref={sectionRef}
-      className="relative overflow-hidden py-16 md:py-0 bg-[linear-gradient(to_bottom,#0a0a0a_0px,#141414_180px,#141414_calc(100%-200px),#000000_100%)]"
+      className="relative overflow-hidden py-16 gallery:py-0 bg-[linear-gradient(to_bottom,#0a0a0a_0px,#141414_180px,#141414_calc(100%-200px),#000000_100%)]"
     >
-      <div className="md:flex md:h-screen md:flex-col md:justify-center">
-        <div className="mx-auto mb-8 flex w-full max-w-7xl items-end justify-between gap-6 px-5 sm:px-6 md:mb-10">
+      <div className="gallery:flex gallery:h-screen gallery:flex-col gallery:justify-center">
+        <div className="mx-auto mb-8 flex w-full max-w-7xl items-end justify-between gap-6 px-5 sm:px-6 gallery:mb-10">
           <h2 className="font-heading text-3xl sm:text-4xl md:text-5xl font-bold text-white">
             {t("portfolio.heading")}
           </h2>
-          <div aria-hidden="true" className="hidden items-center gap-4 pb-2 md:flex">
+          <div aria-hidden="true" className="hidden items-center gap-4 pb-2 gallery:flex">
             <span className="font-heading text-sm tabular-nums text-white">
               <span ref={currentRef}>01</span>
               <span className="text-gray-500">
@@ -207,14 +211,14 @@ export default function Portfolio() {
 
         <div
           ref={trackRef}
-          className="relative flex snap-x snap-mandatory gap-3 overflow-x-auto px-[10vw] py-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:w-max md:snap-none md:gap-8 md:overflow-visible md:px-[max(1.5rem,calc((100%_-_80rem)/2_+_1.5rem))] md:py-0"
+          className="relative flex snap-x snap-mandatory gap-3 overflow-x-auto px-[10vw] py-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden gallery:w-max gallery:snap-none gallery:gap-8 gallery:overflow-visible gallery:px-[max(1.5rem,calc((100%_-_80rem)/2_+_1.5rem))] gallery:py-0"
         >
           {items.map((item, index) => {
             const content = (
               <div className="portfolio-reveal group">
                 <div className="portfolio-frame relative aspect-video overflow-hidden rounded-2xl border border-white/5 bg-[#1f1f1f]">
                   {item.image && (
-                    <div className="portfolio-media absolute inset-0 md:-inset-x-[8%]">
+                    <div className="portfolio-media absolute inset-0 gallery:-inset-x-[8%]">
                       <Image
                         src={item.image}
                         alt={item.title}
@@ -227,7 +231,7 @@ export default function Portfolio() {
                   {item.url && (
                     <span
                       aria-hidden="true"
-                      className="absolute right-4 top-4 flex h-11 w-11 items-center justify-center rounded-full bg-black/60 text-white backdrop-blur-sm transition duration-300 md:translate-y-2 md:opacity-0 md:group-hover:translate-y-0 md:group-hover:opacity-100"
+                      className="absolute right-4 top-4 flex h-11 w-11 items-center justify-center rounded-full bg-black/60 text-white backdrop-blur-sm transition duration-300 gallery:translate-y-2 gallery:opacity-0 gallery:group-hover:translate-y-0 gallery:group-hover:opacity-100"
                     >
                       <svg
                         className="h-4 w-4"
@@ -261,7 +265,7 @@ export default function Portfolio() {
               <article
                 key={index}
                 data-project="true"
-                className={`portfolio-card w-[80vw] shrink-0 snap-center ${CARD_WIDTH}`}
+                className={`portfolio-card w-[80vw] shrink-0 snap-center sm:w-[min(60vw,560px)] ${CARD_WIDTH}`}
               >
                 {item.url ? (
                   <a
@@ -280,7 +284,7 @@ export default function Portfolio() {
             );
           })}
 
-          <article className="portfolio-card w-[80vw] shrink-0 snap-center md:w-[min(30vw,440px)]">
+          <article className="portfolio-card w-[80vw] shrink-0 snap-center sm:w-[min(60vw,560px)] gallery:w-[min(30vw,440px)]">
             <div className="portfolio-reveal h-full">
               <div
                 className={`portfolio-frame relative flex h-full flex-col justify-between gap-8 overflow-hidden rounded-2xl border border-dashed border-white/15 bg-white/2 p-7 sm:p-8 ${CARD_IMAGE_HEIGHT}`}
@@ -312,7 +316,7 @@ export default function Portfolio() {
           count={total + 1}
           active={activeSlide}
           onSelect={scrollToSlide}
-          className="mt-6"
+          className="mt-6 gallery:hidden"
         />
       </div>
     </section>

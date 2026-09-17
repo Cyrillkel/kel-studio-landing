@@ -1,5 +1,8 @@
 @import "tailwindcss";
 
+/* Room for the pinned portfolio gallery; mirrors GALLERY_QUERY in Portfolio.tsx. */
+@custom-variant gallery (@media (min-width: 1024px) and (min-height: 600px));
+
 @theme inline {
   --font-heading: var(--font-unbounded), sans-serif;
   --animate-shimmer-slide: shimmer-slide var(--speed) ease-in-out infinite alternate;
