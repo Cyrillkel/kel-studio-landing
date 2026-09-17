@@ -33,8 +33,8 @@ const WIDE: SkyLayout = {
   edge: 40,
   spacing: 190,
   maxLit: 5,
-  interval: [1.4, 2.2],
-  hold: [3, 4.5],
+  interval: [0.9, 1.5],
+  hold: [2.4, 3.4],
 };
 
 // A band above the heading on smaller screens.
@@ -46,8 +46,8 @@ const COMPACT: SkyLayout = {
   edge: 6,
   spacing: 110,
   maxLit: 3,
-  interval: [2, 3],
-  hold: [2.8, 4],
+  interval: [1.3, 2],
+  hold: [2.2, 3.2],
 };
 
 // Memoized: the hook positions and re-orders these nodes directly,
@@ -200,7 +200,7 @@ export function useTechStars(scopeRef: RefObject<HTMLElement | null>) {
             if (overlapsText) continue;
             const crowded =
               lit.some((star) => Math.hypot(star.x - x, star.y - y) < spacing) ||
-              recent.some((spot) => Math.hypot(spot.x - x, spot.y - y) < spacing * 0.7);
+              recent.some((spot) => Math.hypot(spot.x - x, spot.y - y) < spacing * 0.5);
             if (!crowded) return { x, y };
           }
           return null;
@@ -234,16 +234,16 @@ export function useTechStars(scopeRef: RefObject<HTMLElement | null>) {
 
         const spawn = () => {
           const spot = findSpot();
-          if (!spot) return;
+          if (!spot) return false;
           const star: Star = { index: pickIcon(), ...spot, leaving: false, timeline: null };
           const node = nodes[star.index];
           const p = parts[star.index];
           place(star);
 
           const hold = gsap.utils.random(...layout.hold);
-          const out = 2.2 + hold;
+          const out = 1.4 + hold;
           lit.push(star);
-          // Everything eases in and out on long, overlapping fades: no bounce,
+          // Everything eases in and out on soft, overlapping fades: no bounce,
           // no flash, so the sky changes without drawing the eye from the text.
           star.timeline = gsap
             .timeline({
@@ -254,13 +254,13 @@ export function useTechStars(scopeRef: RefObject<HTMLElement | null>) {
               },
             })
             .set(node, { opacity: 1 }, 0)
-            .fromTo(p.inner, { scale: 0.8, opacity: 0 }, { scale: 1, opacity: 1, duration: 1.4, ease: "power2.out" }, 0)
-            .fromTo(p.ring, { opacity: 0 }, { opacity: 0.5, duration: 1.4, ease: "sine.inOut" }, 0.3)
-            .fromTo(p.draw, { drawSVG: "0%", opacity: 1 }, { drawSVG: "100%", duration: 1.8, ease: "power1.inOut" }, 0.3)
-            .fromTo(p.fill, { opacity: 0 }, { opacity: 0.9, duration: 1.4, ease: "sine.inOut" }, 1.2)
-            .to(p.draw, { opacity: 0, duration: 1, ease: "sine.inOut" }, 1.9)
-            .fromTo(p.label, { opacity: 0, y: 4 }, { opacity: 1, y: 0, duration: 1.2, ease: "power2.out" }, 1)
-            .fromTo(p.float, { y: 3 }, { y: -5, duration: out + 1.6, ease: "sine.inOut" }, 0)
+            .fromTo(p.inner, { scale: 0.8, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.9, ease: "power2.out" }, 0)
+            .fromTo(p.ring, { opacity: 0 }, { opacity: 0.5, duration: 0.9, ease: "sine.inOut" }, 0.2)
+            .fromTo(p.draw, { drawSVG: "0%", opacity: 1 }, { drawSVG: "100%", duration: 1.1, ease: "power1.inOut" }, 0.2)
+            .fromTo(p.fill, { opacity: 0 }, { opacity: 0.9, duration: 0.9, ease: "sine.inOut" }, 0.7)
+            .to(p.draw, { opacity: 0, duration: 0.7, ease: "sine.inOut" }, 1.2)
+            .fromTo(p.label, { opacity: 0, y: 4 }, { opacity: 1, y: 0, duration: 0.8, ease: "power2.out" }, 0.6)
+            .fromTo(p.float, { y: 3 }, { y: -5, duration: out + 1, ease: "sine.inOut" }, 0)
             .call(
               () => {
                 star.leaving = true;
@@ -268,10 +268,11 @@ export function useTechStars(scopeRef: RefObject<HTMLElement | null>) {
               undefined,
               out
             )
-            .to(p.label, { opacity: 0, y: -3, duration: 0.9, ease: "sine.inOut" }, out)
-            .to([p.fill, p.ring], { opacity: 0, duration: 1.2, ease: "sine.inOut" }, out)
-            .to(p.inner, { scale: 0.9, opacity: 0, duration: 1.4, ease: "power2.inOut" }, out + 0.2)
+            .to(p.label, { opacity: 0, y: -3, duration: 0.6, ease: "sine.inOut" }, out)
+            .to([p.fill, p.ring], { opacity: 0, duration: 0.8, ease: "sine.inOut" }, out)
+            .to(p.inner, { scale: 0.9, opacity: 0, duration: 0.9, ease: "power2.inOut" }, out + 0.1)
             .set(node, { opacity: 0 });
+          return true;
         };
 
         // Nothing new lights up while the hero is scrolled out of view; icons
@@ -282,9 +283,12 @@ export function useTechStars(scopeRef: RefObject<HTMLElement | null>) {
         const tick = () => {
           next = null;
           if (!visible) return;
-          if (lit.filter((star) => !star.leaving).length < layout.maxLit) spawn();
+          const wanted = lit.filter((star) => !star.leaving).length < layout.maxLit;
+          // No free spot yet (common in the narrow compact band): try again
+          // soon rather than leaving a gap for a whole interval.
+          const missed = wanted && !spawn();
           // The first few come sooner so the sky isn't empty on arrival.
-          const wait = seeded++ < 2 ? 0.7 : gsap.utils.random(...layout.interval);
+          const wait = missed ? 0.3 : seeded++ < 2 ? 0.4 : gsap.utils.random(...layout.interval);
           next = gsap.delayedCall(wait, tick);
         };
 
@@ -302,7 +306,7 @@ export function useTechStars(scopeRef: RefObject<HTMLElement | null>) {
             }
           },
         });
-        next ??= gsap.delayedCall(0.6, tick);
+        next ??= gsap.delayedCall(0.3, tick);
 
         let removePointer = () => {};
         if (roomy && window.matchMedia("(pointer: fine)").matches) {

@@ -36,15 +36,15 @@ export default function Hero() {
           .timeline({ defaults: { ease: "power3.out" } })
           .from(".hero-line", {
             yPercent: 110,
-            duration: 1.1,
+            duration: 0.9,
             ease: "expo.out",
-            stagger: 0.12,
+            stagger: 0.1,
           })
-          .from(".hero-subtitle", { y: 24, opacity: 0, duration: 0.9 }, 0.35)
+          .from(".hero-subtitle", { y: 24, opacity: 0, duration: 0.7 }, 0.25)
           .from(
             ".hero-action",
-            { y: 20, opacity: 0, duration: 0.8, stagger: 0.1 },
-            0.65
+            { y: 20, opacity: 0, duration: 0.6, stagger: 0.08 },
+            0.45
           );
       }
     );
