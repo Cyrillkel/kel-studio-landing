@@ -19,12 +19,12 @@ type ProjectItem = {
   url?: string;
 };
 
-// Cards are capped by viewport height too, so the pinned row always fits
-// under the heading on short desktop screens. The CTA mirrors the image height.
 // Pinned sideways gallery needs room; landscape phones get the slider instead.
 // Keep in sync with the `gallery` variant in globals.css.
 const GALLERY_QUERY = "(min-width: 1024px) and (min-height: 600px)";
 
+// Cards are capped by viewport height too, so the pinned row always fits
+// under the heading on short desktop screens. The CTA mirrors the image height.
 const CARD_WIDTH = "gallery:w-[min(50vw,760px,calc((100vh_-_300px)*16/9))]";
 const CARD_IMAGE_HEIGHT = "gallery:h-[min(28.125vw,427.5px,calc(100vh_-_300px))]";
 
@@ -73,7 +73,7 @@ export default function Portfolio() {
           let shown = 1;
 
           // Vertical scroll drives the row sideways while the section is pinned.
-          const scroll = gsap.to(track, {
+          gsap.to(track, {
             x: () => -distance(),
             ease: "none",
             scrollTrigger: {
@@ -109,31 +109,11 @@ export default function Portfolio() {
               },
             },
           });
-
-          if (!reduceMotion) {
-            projectCards.forEach((card) => {
-              gsap.fromTo(
-                card.querySelector(".portfolio-media"),
-                { xPercent: -6 },
-                {
-                  xPercent: 6,
-                  ease: "none",
-                  scrollTrigger: {
-                    trigger: card,
-                    containerAnimation: scroll,
-                    start: "left right",
-                    end: "right left",
-                    scrub: true,
-                  },
-                }
-              );
-            });
-          }
         }
 
         if (!reduceMotion) {
-          // Animates inner wrappers, not the cards: the desktop parallax
-          // triggers measure card positions and the mobile slider scales cards.
+          // Animates inner wrappers, not the cards: the gallery measures card
+          // positions for the counter and the mobile slider scales cards.
           const entrance = gsap.timeline({ paused: true }).from(
             section.querySelectorAll(".portfolio-reveal"),
             {
@@ -218,12 +198,12 @@ export default function Portfolio() {
               <div className="portfolio-reveal group">
                 <div className="portfolio-frame relative aspect-video overflow-hidden rounded-2xl border border-white/5 bg-[#1f1f1f]">
                   {item.image && (
-                    <div className="portfolio-media absolute inset-0 gallery:-inset-x-[8%]">
+                    <div className="portfolio-media absolute inset-0">
                       <Image
                         src={item.image}
                         alt={item.title}
                         fill
-                        sizes="(max-width: 767px) 100vw, 58vw"
+                        sizes="(max-width: 767px) 100vw, 50vw"
                         className="object-cover object-top transition-transform duration-700 ease-out group-hover:scale-[1.04]"
                       />
                     </div>

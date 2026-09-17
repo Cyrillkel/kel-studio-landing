@@ -3,6 +3,9 @@
 /* Room for the pinned portfolio gallery; mirrors GALLERY_QUERY in Portfolio.tsx. */
 @custom-variant gallery (@media (min-width: 1024px) and (min-height: 600px));
 
+/* Room for the full hero visual around the heading; mirrors ROOMY_QUERY in components/hero/breakpoints.ts. */
+@custom-variant roomy (@media (min-width: 1280px) and (min-height: 760px) and (min-aspect-ratio: 5/4));
+
 @theme inline {
   --font-heading: var(--font-unbounded), sans-serif;
   --animate-shimmer-slide: shimmer-slide var(--speed) ease-in-out infinite alternate;
