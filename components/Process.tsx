@@ -7,6 +7,7 @@ import { DrawSVGPlugin } from "gsap/DrawSVGPlugin";
 import { useTranslation } from "react-i18next";
 import AmbientBlobs from "./AmbientBlobs";
 import ProcessIllustration from "./ProcessIllustration";
+import SectionGlow from "./SectionGlow";
 
 gsap.registerPlugin(ScrollTrigger, DrawSVGPlugin);
 
@@ -226,6 +227,7 @@ export default function Process() {
       ref={sectionRef}
       className="relative isolate overflow-hidden py-16 md:py-28 bg-[linear-gradient(to_bottom,#000000_0px,#0a0a0a_180px,#0a0a0a_calc(100%-180px),#000000_100%)]"
     >
+      <SectionGlow />
       <AmbientBlobs
         blobs={[
           {
@@ -255,6 +257,7 @@ export default function Process() {
             <div className="process-progress absolute top-0 bottom-0 left-4 md:left-1/2 w-0.5 -translate-x-1/2 origin-top bg-linear-to-b from-cyan-400 via-violet-500 to-fuchsia-500 shadow-[0_0_14px_rgba(168,85,247,0.7)]" />
           </div>
 
+          {/* Cards are filled, not see-through: on narrow screens the ambient blob sits right behind them. */}
           <ol className="relative space-y-14 md:space-y-24">
             {steps.map((step, index) => {
               const isLeft = index % 2 === 0;
@@ -286,7 +289,7 @@ export default function Process() {
                     }`}
                   >
                     <div
-                      className={`process-card rounded-2xl border border-white/10 bg-white/2 p-6 sm:p-8 transition-colors duration-500 hover:border-white/25 hover:bg-white/4 ${
+                      className={`process-card rounded-2xl border border-white/10 bg-[#16121e] p-6 sm:p-8 transition-colors duration-500 hover:border-white/25 hover:bg-[#1b1624] ${
                         isLeft ? "md:text-right" : ""
                       }`}
                     >
@@ -315,7 +318,7 @@ export default function Process() {
                       isLeft ? "md:col-start-2" : "md:col-start-1"
                     }`}
                   >
-                    <div className="process-visual relative aspect-[16/10] overflow-hidden rounded-2xl border border-white/10 bg-white/2 bg-[linear-gradient(rgba(255,255,255,0.035)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.035)_1px,transparent_1px)] bg-size-[24px_24px]">
+                    <div className="process-visual relative aspect-[16/10] overflow-hidden rounded-2xl border border-white/10 bg-[#16121e] bg-[linear-gradient(rgba(255,255,255,0.035)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.035)_1px,transparent_1px)] bg-size-[24px_24px]">
                       <div
                         aria-hidden="true"
                         className="absolute inset-0 bg-[radial-gradient(circle_at_50%_45%,rgba(168,85,247,0.16),transparent_65%)]"

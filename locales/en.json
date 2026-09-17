@@ -12,7 +12,8 @@
   },
   "hero": {
     "titleLine1": "Building digital",
-    "titleLine2": "products of the future",
+    "titleWords": ["products", "services", "stores", "brands", "solutions"],
+    "titleTail": "of the future",
     "subtitle": "A full-cycle web studio. Design, development, and promotion",
     "ctaPrimary": "Start a project",
     "ctaSecondary": "View our work"

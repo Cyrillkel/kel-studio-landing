@@ -6,6 +6,7 @@ import { useTranslation } from "react-i18next";
 import { smoothNavigate } from "./smoothNavigate";
 import { ButtonLink } from "./Button";
 import { StarsCompact, StarsWide, useTechStars } from "./hero/TechStars";
+import HeroTitle from "./hero/HeroTitle";
 
 export default function Hero() {
   const { t } = useTranslation();
@@ -114,7 +115,7 @@ export default function Hero() {
 
       {/* Hidden until the intro timeline takes over, so SSR text doesn't flash before animating in. */}
       <div
-        className="hero-content relative z-10 max-w-7xl mx-auto px-6 py-24 md:py-32 text-center"
+        className="hero-content relative z-10 w-full max-w-7xl mx-auto px-6 py-24 md:py-32 text-center"
         style={{ visibility: "hidden" }}
       >
         <noscript
@@ -124,14 +125,7 @@ export default function Hero() {
         />
         <StarsCompact />
         {/* data-stars-avoid: the wide sky keeps icons clear of these boxes. */}
-        <h1 data-stars-avoid className="font-heading text-5xl md:text-7xl [@media(max-height:500px)]:text-4xl roomy:text-[clamp(3rem,min(4.6vw,8vh),4.5rem)] font-bold mb-6 leading-tight">
-          {[t("hero.titleLine1"), t("hero.titleLine2")].map((line, index) => (
-            // Extra bottom padding keeps descenders out of the mask's clip.
-            <span key={index} className="-mb-[0.15em] block overflow-hidden pb-[0.15em]">
-              <span className="hero-line block gradient-text">{line}</span>{" "}
-            </span>
-          ))}
-        </h1>
+        <HeroTitle />
         <p data-stars-avoid className="hero-subtitle text-xl md:text-2xl text-gray-300 mb-12 max-w-3xl mx-auto">
           {t("hero.subtitle")}
         </p>

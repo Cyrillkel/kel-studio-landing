@@ -179,7 +179,11 @@ export function useTechStars(scopeRef: RefObject<HTMLElement | null>) {
           const { radius: r, labelSize, top, edge, spacing } = layout;
           const box = root.getBoundingClientRect();
           const blocked = avoid.map((el) => {
-            const rect = el.getBoundingClientRect();
+            // Bounds of the content, not the element: the heading and button
+            // row are full-width blocks around much narrower centered text.
+            const range = document.createRange();
+            range.selectNodeContents(el);
+            const rect = range.getBoundingClientRect();
             return {
               left: rect.left - box.left - TEXT_PADDING,
               right: rect.right - box.left + TEXT_PADDING,

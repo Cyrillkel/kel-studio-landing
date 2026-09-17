@@ -5,6 +5,7 @@ import { smoothNavigate } from "./smoothNavigate";
 import { useSnapSlider } from "./useSnapSlider";
 import SliderDots from "./SliderDots";
 import { ButtonLink } from "./Button";
+import SectionGlow from "./SectionGlow";
 
 const icons = [
   <svg
@@ -160,6 +161,7 @@ export default function Pricing() {
       id="pricing"
       className="relative isolate overflow-hidden py-16 md:py-24 bg-[linear-gradient(to_bottom,#141414_0px,#0a0a0a_180px,#0a0a0a_100%)]"
     >
+      <SectionGlow />
       <div className="max-w-7xl mx-auto px-5 sm:px-6">
         <h2 className="font-heading text-3xl sm:text-4xl md:text-5xl font-bold mb-3 text-center text-white">
           {t("pricing.heading")}
@@ -174,7 +176,7 @@ export default function Pricing() {
           {items.map((item, index) => (
             <div
               key={index}
-              className="pricing-card flex min-h-56 w-[80vw] shrink-0 snap-center flex-col bg-[#1f1f1f] p-7 rounded-2xl border border-white/5 hover:-translate-y-1 hover:border-white/20 hover:shadow-2xl hover:shadow-black/40 transition-[translate,border-color,box-shadow] duration-300 md:min-h-0 md:w-auto"
+              className="pricing-card flex min-h-56 w-[80vw] shrink-0 snap-center flex-col bg-white/3 p-7 rounded-2xl border border-white/10 hover:-translate-y-1 hover:border-white/25 hover:bg-white/5 hover:shadow-2xl hover:shadow-black/40 transition-[translate,border-color,background-color,box-shadow] duration-300 md:min-h-0 md:w-auto"
             >
               <div className="w-12 h-12 md:w-11 md:h-11 bg-white/10 rounded-lg flex items-center justify-center mb-6 md:mb-5 text-white">
                 {icons[index]}
