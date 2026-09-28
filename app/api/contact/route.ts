@@ -8,6 +8,7 @@ type Lead = {
   name: string;
   email: string;
   message: string;
+  page?: string;
 };
 
 // Nobody writes a real request in under three seconds; bots submit instantly.
@@ -45,9 +46,12 @@ async function sendTelegram(lead: Lead) {
     "<b>Новая заявка с сайта</b>",
     `<b>Имя:</b> ${escapeHtml(lead.name)}`,
     `<b>Email:</b> ${escapeHtml(lead.email)}`,
+    lead.page ? `<b>Откуда:</b> ${escapeHtml(lead.page)}` : "",
     "",
     escapeHtml(lead.message),
-  ].join("\n");
+  ]
+    .filter(Boolean)
+    .join("\n");
 
   const response = await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
     method: "POST",
@@ -81,7 +85,7 @@ async function sendEmail(lead: Lead) {
       // Reply goes straight to the person who wrote.
       reply_to: lead.email,
       subject: `Заявка с сайта: ${lead.name}`,
-      text: `Имя: ${lead.name}\nEmail: ${lead.email}\n\n${lead.message}`,
+      text: `Имя: ${lead.name}\nEmail: ${lead.email}\nОткуда: ${lead.page ?? "-"}\n\n${lead.message}`,
     }),
   });
   if (!response.ok) console.error("resend:", response.status, await response.text());
@@ -114,7 +118,9 @@ export async function POST(request: NextRequest) {
   const ip = request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ?? "unknown";
   if (rateLimited(ip)) return Response.json({ ok: false }, { status: 429 });
 
-  const lead: Lead = parsed.data;
+  // Trusted from the form, but it still ends up in a message: keep it short.
+  const page = String(body.page ?? "").trim().slice(0, 200);
+  const lead: Lead = { ...parsed.data, page };
   const [telegram, mail] = await Promise.all([sendTelegram(lead), sendEmail(lead)]);
 
   // One channel through is enough for the visitor; the other is logged above.

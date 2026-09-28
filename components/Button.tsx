@@ -6,9 +6,9 @@ import { InteractiveHoverLink } from "./ui/interactive-hover-button";
 type Size = "sm" | "md" | "lg";
 
 const SIZES: Record<Size, string> = {
-  sm: "px-5 py-2 text-[15px]",
-  md: "px-6 py-3 text-base",
-  lg: "px-8 py-4 text-lg",
+  sm: "px-4 py-1.5 text-[15px]",
+  md: "px-5 py-2.5 text-base",
+  lg: "px-7 py-3 text-lg",
 };
 
 type LinkProps = {

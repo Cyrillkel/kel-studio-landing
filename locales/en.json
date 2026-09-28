@@ -5,7 +5,9 @@
     "portfolio": "Portfolio",
     "about": "About",
     "contact": "Contact",
-    "menu": "Menu"
+    "menu": "Menu",
+    "allServices": "All services",
+    "openServices": "Open services list"
   },
   "slider": {
     "slide": "Card {{current}} of {{total}}"
@@ -107,12 +109,6 @@
         "url": "https://pokupayavto.ru/"
       },
       {
-        "title": "SaaS Application",
-        "description": "A web application for project management",
-        "image": "/portfolio/saas-placeholder.jpg",
-        "url": "https://linear.app/"
-      },
-      {
         "title": "Startup Landing Page",
         "description": "A high-converting landing page",
         "image": "/portfolio/facetika-v2.jpg",
@@ -205,7 +201,7 @@
       },
       {
         "question": "Do you help with promotion after launch?",
-        "answer": "Yes. We can provide ongoing support, handle SEO, and set up Yandex Direct campaigns so your site keeps bringing in leads."
+        "answer": "Yes. We can provide ongoing support, handle SEO, and set up Yandex Direct campaigns so your site brings in leads."
       }
     ]
   },
@@ -228,9 +224,157 @@
       "messageShort": "Tell us about the project in a sentence or two",
       "messageLong": "This message is too long, please shorten it"
     },
-    "tooMany": "Too many requests from your address. Try later or write to us on Telegram: @io112"
+    "tooMany": "Too many requests from your address. Try later or write to us on Telegram: @io112",
+    "close": "Close"
   },
   "footer": {
     "copyright": "© 2026 KEL Studio. All rights reserved."
+  },
+  "servicePages": {
+    "common": {
+      "eyebrow": "Service",
+      "includesTitle": "What is included",
+      "priceLabel": "Price",
+      "termLabel": "Timeline",
+      "ctaTitle": "Shall we talk about your project?",
+      "ctaText": "Tell us what needs to be done. We will reply with a solution, a timeline and a price.",
+      "ctaButton": "Send a request",
+      "otherTitle": "Other services",
+      "backHome": "Home"
+    },
+    "items": {
+      "landing": {
+        "title": "Landing pages",
+        "metaTitle": "Landing page development - KEL Studio",
+        "metaDescription": "Landing pages that bring leads: prototype, design, build, integrations and analytics. From 40,000 ₽, 1-2 weeks.",
+        "lead": "A single page built for one job: a product launch, an ad campaign, collecting leads. Every screen moves the visitor towards one action.",
+        "price": "from 40,000 ₽",
+        "term": "1-2 weeks",
+        "includes": [
+          "Prototype: screen structure and the story it tells",
+          "Original design in your brand's style, no templates",
+          "Adapts to phones, tablets and large screens",
+          "Lead form delivering to Telegram, email or your CRM",
+          "Analytics: goals, events and click maps",
+          "Loading speed and basic SEO groundwork"
+        ],
+        "fitTitle": "A good fit when",
+        "fit": [
+          "You are launching a product and need to test demand fast",
+          "You run paid traffic and want a better conversion rate",
+          "One service needs its own page apart from the main site"
+        ]
+      },
+      "corporate": {
+        "title": "Corporate websites",
+        "metaTitle": "Corporate website development - KEL Studio",
+        "metaDescription": "Multi-page company websites: structure, service pages, integrations and easy content management. From 60,000 ₽.",
+        "lead": "A company website that works like a sales department: explains the services, answers objections and collects requests.",
+        "price": "from 60,000 ₽",
+        "term": "3-5 weeks",
+        "includes": [
+          "Structure: sections, services, landing pages",
+          "Design for every template, not just the home page",
+          "Admin panel: you edit texts, news and prices yourself",
+          "Forms, requests, email and CRM integrations",
+          "Multiple languages if you work across markets",
+          "Indexing setup, sitemap, organization markup"
+        ],
+        "fitTitle": "A good fit when",
+        "fit": [
+          "The company has several directions and one page is not enough",
+          "You need to look solid in tenders and negotiations",
+          "You plan to invest in search: a page per service"
+        ]
+      },
+      "ecommerce": {
+        "title": "Online stores",
+        "metaTitle": "E-commerce development - KEL Studio",
+        "metaDescription": "Online stores with catalog, cart, payments and delivery. Integration with 1C and marketplaces. From 100,000 ₽.",
+        "lead": "A store that is comfortable to buy from on a phone: a fast catalog, a clear cart, two-step checkout and honest delivery statuses.",
+        "price": "from 100,000 ₽",
+        "term": "from 1.5 months",
+        "includes": [
+          "Catalog with filters, search and product pages",
+          "Cart and checkout without extra steps",
+          "Payments: cards, instant transfers, installments",
+          "Delivery: cost calculation and status tracking",
+          "Sync with 1C, your warehouse or marketplaces",
+          "Sales analytics and e-commerce tracking"
+        ],
+        "fitTitle": "A good fit when",
+        "fit": [
+          "You sell goods and outgrew selling through messengers",
+          "You need a sales channel of your own besides marketplaces",
+          "The current store is slow and awkward on a phone"
+        ]
+      },
+      "web-apps": {
+        "title": "Web applications",
+        "metaTitle": "Web application and SaaS development - KEL Studio",
+        "metaDescription": "Client portals, dashboards, SaaS products and API integrations. Built with React, Next.js and Node.js. From 2,000 ₽/hour.",
+        "lead": "Services people work in every day: client portals, dashboards, internal tools and SaaS products.",
+        "price": "from 2,000 ₽/hour",
+        "term": "depends on the scope",
+        "includes": [
+          "Working through the task and the user scenarios",
+          "An interface where frequent actions take one or two clicks",
+          "Authentication, roles and access control",
+          "API integrations with your systems and third parties",
+          "Testing and launch with error monitoring",
+          "Support and further development after release"
+        ],
+        "fitTitle": "A good fit when",
+        "fit": [
+          "Routine lives in spreadsheets and chats and needs a system",
+          "You need a portal for clients or partners",
+          "You are starting a subscription service and need a working prototype"
+        ]
+      },
+      "seo": {
+        "title": "SEO and ads",
+        "metaTitle": "SEO and paid search - KEL Studio",
+        "metaDescription": "Search promotion for Yandex and Google, paid campaign management. Technical audit, keywords, content, reporting. From 20,000 ₽.",
+        "lead": "We make the site findable and turn visits into requests. No promises of \"top spot in a week\": an audit first, then a plan.",
+        "price": "from 20,000 ₽",
+        "term": "first results in 2-3 months",
+        "includes": [
+          "Technical audit: speed, indexing, markup errors",
+          "Keyword research and landing page structure",
+          "Optimising texts, headings and internal links",
+          "Setting up and running Yandex Direct and Google Ads",
+          "Analytics and goals, so you see where leads come from",
+          "A monthly report: what was done, what changed, what is next"
+        ],
+        "fitTitle": "A good fit when",
+        "fit": [
+          "The site exists but search brings almost no requests",
+          "Ads burn the budget and leads are expensive",
+          "You want to know where clients come from, not guess"
+        ]
+      },
+      "parsing": {
+        "title": "Data parsing",
+        "metaTitle": "Web scraping and data collection - KEL Studio",
+        "metaDescription": "Automated collection and structuring of data from websites and marketplaces: competitor prices, catalogs, monitoring. From 30,000 ₽.",
+        "lead": "We collect data that sits on websites in an awkward form and hand it over as a table, a database or an API: competitor prices, catalogs, listings.",
+        "price": "from 30,000 ₽",
+        "term": "from a few days",
+        "includes": [
+          "Collecting data from websites, marketplaces and aggregators",
+          "Cleaning and bringing it to one format",
+          "Export to Excel, Google Sheets, a database or an API",
+          "Scheduled runs and change monitoring",
+          "Telegram alerts when the data changes",
+          "Handling blocks within the rules of the source sites"
+        ],
+        "fitTitle": "A good fit when",
+        "fit": [
+          "You need to watch competitor prices and react in time",
+          "A supplier catalog arrives in an unusable format",
+          "You collect by hand what could be collected automatically"
+        ]
+      }
+    }
   }
 }

@@ -1,15 +1,21 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { gsap } from "gsap";
 import { useTranslation } from "react-i18next";
 import { smoothNavigate } from "./smoothNavigate";
 import LanguageSwitcher from "./LanguageSwitcher";
 import { ButtonLink } from "./Button";
+import { SERVICE_SLUGS, servicePath } from "@/lib/services";
 
 export default function Navigation() {
   const { t } = useTranslation();
+  const pathname = usePathname();
+  const onHome = pathname === "/";
   const [isOpen, setIsOpen] = useState(false);
+  const [servicesOpen, setServicesOpen] = useState(false);
   const topBarRef = useRef<HTMLSpanElement>(null);
   const midBarRef = useRef<HTMLSpanElement>(null);
   const bottomBarRef = useRef<HTMLSpanElement>(null);
@@ -76,15 +82,20 @@ export default function Navigation() {
     };
   }, [isOpen]);
 
+  // Anchors only scroll when the section is on this page; from a service page
+  // they are ordinary links back to the home page.
   const handleNavClick = (
     e: React.MouseEvent<HTMLAnchorElement>,
-    href: string
+    hash: string
   ) => {
-    if (smoothNavigate(href)) {
+    if (onHome && smoothNavigate(hash)) {
       e.preventDefault();
     }
     setIsOpen(false);
+    setServicesOpen(false);
   };
+
+  const anchor = (hash: string) => (onHome ? hash : `/${hash}`);
 
   return (
     <>
@@ -96,36 +107,87 @@ export default function Navigation() {
             </div>
 
             <div className="hidden lg:flex items-center gap-8">
-              <a
-                href="#services"
-                className="text-gray-300 hover:text-white transition"
-                onClick={(e) => handleNavClick(e, "#services")}
+              {/* Opens on hover and on focus, so mouse and keyboard both work. */}
+              <div
+                className="relative"
+                onMouseEnter={() => setServicesOpen(true)}
+                onMouseLeave={() => setServicesOpen(false)}
+                onFocus={() => setServicesOpen(true)}
+                onBlur={(e) => {
+                  if (!e.currentTarget.contains(e.relatedTarget as Node)) setServicesOpen(false);
+                }}
               >
-                {t("nav.services")}
-              </a>
+                <a
+                  href={anchor("#services")}
+                  className="flex items-center gap-1.5 py-2 text-gray-300 transition hover:text-white"
+                  aria-expanded={servicesOpen}
+                  onClick={(e) => handleNavClick(e, "#services")}
+                >
+                  {t("nav.services")}
+                  <svg
+                    aria-hidden="true"
+                    viewBox="0 0 24 24"
+                    className={`h-3.5 w-3.5 transition-transform duration-300 ${servicesOpen ? "rotate-180" : ""}`}
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth={2.5}
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
+                    <path d="m6 9 6 6 6-6" />
+                  </svg>
+                </a>
+                <div
+                  className={`absolute left-1/2 top-full w-64 -translate-x-1/2 pt-3 transition duration-200 ${
+                    servicesOpen
+                      ? "visible translate-y-0 opacity-100"
+                      : "invisible -translate-y-1 opacity-0"
+                  }`}
+                >
+                  <div className="overflow-hidden rounded-2xl border border-white/10 bg-[#120f18] p-2 shadow-2xl shadow-black/60">
+                    {SERVICE_SLUGS.map((slug) => (
+                      <Link
+                        key={slug}
+                        href={servicePath(slug)}
+                        className="block rounded-xl px-4 py-2.5 text-gray-300 transition-colors hover:bg-white/5 hover:text-white"
+                        onClick={() => setServicesOpen(false)}
+                      >
+                        {t(`servicePages.items.${slug}.title`)}
+                      </Link>
+                    ))}
+                    <a
+                      href={anchor("#services")}
+                      className="mt-1 block rounded-xl border-t border-white/10 px-4 py-2.5 text-sm text-gray-500 transition-colors hover:text-white"
+                      onClick={(e) => handleNavClick(e, "#services")}
+                    >
+                      {t("nav.allServices")}
+                    </a>
+                  </div>
+                </div>
+              </div>
               <a
-                href="#pricing"
+                href={anchor("#pricing")}
                 className="text-gray-300 hover:text-white transition"
                 onClick={(e) => handleNavClick(e, "#pricing")}
               >
                 {t("nav.pricing")}
               </a>
               <a
-                href="#portfolio"
+                href={anchor("#portfolio")}
                 className="text-gray-300 hover:text-white transition"
                 onClick={(e) => handleNavClick(e, "#portfolio")}
               >
                 {t("nav.portfolio")}
               </a>
               <a
-                href="#about"
+                href={anchor("#about")}
                 className="text-gray-300 hover:text-white transition"
                 onClick={(e) => handleNavClick(e, "#about")}
               >
                 {t("nav.about")}
               </a>
               <ButtonLink
-                href="#contact"
+                href={anchor("#contact")}
                 size="sm"
                 onClick={(e) => handleNavClick(e, "#contact")}
               >
@@ -174,36 +236,77 @@ export default function Navigation() {
           className="fixed inset-0 z-40 overflow-y-auto overscroll-contain bg-[#0a0a0a]/95 backdrop-blur-md lg:hidden"
         >
           <div className="flex min-h-full flex-col items-center justify-center space-y-8 py-24 text-center">
+            <div className="flex w-full flex-col items-center">
+              <div className="flex items-center gap-2">
+                <a
+                  href={anchor("#services")}
+                  className="text-2xl text-gray-300 transition hover:text-white"
+                  onClick={(e) => handleNavClick(e, "#services")}
+                >
+                  {t("nav.services")}
+                </a>
+                <button
+                  type="button"
+                  aria-label={t("nav.openServices")}
+                  aria-expanded={servicesOpen}
+                  className="flex h-9 w-9 cursor-pointer items-center justify-center text-gray-400"
+                  onClick={() => setServicesOpen((open) => !open)}
+                >
+                  <svg
+                    aria-hidden="true"
+                    viewBox="0 0 24 24"
+                    className={`h-4 w-4 transition-transform duration-300 ${servicesOpen ? "rotate-180" : ""}`}
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth={2.5}
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
+                    <path d="m6 9 6 6 6-6" />
+                  </svg>
+                </button>
+              </div>
+              {servicesOpen && (
+                <div className="mt-4 flex w-full flex-col items-center gap-3 border-y border-white/10 py-4">
+                  {SERVICE_SLUGS.map((slug) => (
+                    <Link
+                      key={slug}
+                      href={servicePath(slug)}
+                      className="text-lg text-gray-400 transition-colors hover:text-white"
+                      onClick={() => {
+                        setIsOpen(false);
+                        setServicesOpen(false);
+                      }}
+                    >
+                      {t(`servicePages.items.${slug}.title`)}
+                    </Link>
+                  ))}
+                </div>
+              )}
+            </div>
             <a
-              href="#services"
-              className="text-2xl text-gray-300 hover:text-white transition"
-              onClick={(e) => handleNavClick(e, "#services")}
-            >
-              {t("nav.services")}
-            </a>
-            <a
-              href="#pricing"
+              href={anchor("#pricing")}
               className="text-2xl text-gray-300 hover:text-white transition"
               onClick={(e) => handleNavClick(e, "#pricing")}
             >
               {t("nav.pricing")}
             </a>
             <a
-              href="#portfolio"
+              href={anchor("#portfolio")}
               className="text-2xl text-gray-300 hover:text-white transition"
               onClick={(e) => handleNavClick(e, "#portfolio")}
             >
               {t("nav.portfolio")}
             </a>
             <a
-              href="#about"
+              href={anchor("#about")}
               className="text-2xl text-gray-300 hover:text-white transition"
               onClick={(e) => handleNavClick(e, "#about")}
             >
               {t("nav.about")}
             </a>
             <ButtonLink
-              href="#contact"
+              href={anchor("#contact")}
               variant="outline"
               className="mt-2"
               onClick={(e) => handleNavClick(e, "#contact")}
