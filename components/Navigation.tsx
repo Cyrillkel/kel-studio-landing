@@ -16,6 +16,7 @@ export default function Navigation() {
   const onHome = pathname === "/";
   const [isOpen, setIsOpen] = useState(false);
   const [servicesOpen, setServicesOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const topBarRef = useRef<HTMLSpanElement>(null);
   const midBarRef = useRef<HTMLSpanElement>(null);
   const bottomBarRef = useRef<HTMLSpanElement>(null);
@@ -43,6 +44,15 @@ export default function Navigation() {
     });
 
     return () => ctx.revert();
+  }, []);
+
+  useEffect(() => {
+    // Without a background the page content slides right under the logo and
+    // the burger; the bar gets one as soon as anything scrolls past it.
+    const onScroll = () => setScrolled(window.scrollY > 12);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
   useEffect(() => {
@@ -99,7 +109,13 @@ export default function Navigation() {
 
   return (
     <>
-      <nav className="fixed top-0 left-0 right-0 z-50 backdrop-blur-sm">
+      <nav
+        className={`fixed top-0 right-0 left-0 z-50 transition-colors duration-300 ${
+          scrolled && !isOpen
+            ? "border-b border-white/5 bg-[#0a0a0a]/85 backdrop-blur-md"
+            : "backdrop-blur-sm"
+        }`}
+      >
         <div className="max-w-7xl mx-auto px-6 py-4">
           <div className="flex items-center justify-between">
             <div className="font-heading text-2xl font-bold whitespace-nowrap text-white">
@@ -203,7 +219,7 @@ export default function Navigation() {
                 aria-label={t("nav.menu")}
                 aria-expanded={isOpen}
                 aria-controls="mobile-menu"
-                className="relative z-50 -mr-2 flex h-10 w-10 cursor-pointer items-center justify-center"
+                className="relative z-50 flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border border-white/10 bg-white/5 transition-colors hover:bg-white/10"
                 onClick={() => setIsOpen(!isOpen)}
               >
                 <span aria-hidden="true" className="relative block h-4 w-6">

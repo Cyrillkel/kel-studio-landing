@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
+import { ScrollSmoother } from "gsap/ScrollSmoother";
 import { useTranslation } from "react-i18next";
 import ContactForm from "./ContactForm";
 import { ButtonLink } from "./Button";
@@ -30,8 +31,14 @@ export default function ContactModal({
     if (!dialog || !panel || !open) return;
 
     dialog.showModal();
-    // The page behind must not scroll while the dialog is up.
-    document.documentElement.style.overflow = "hidden";
+    // The page behind must not scroll while the dialog is up. On desktop the
+    // page is scrolled by ScrollSmoother, which listens to wheel and touch
+    // events itself, so overflow alone would not stop it.
+    const root = document.documentElement;
+    root.style.overflow = "hidden";
+    document.body.style.overflow = "hidden";
+    const smoother = ScrollSmoother.get();
+    smoother?.paused(true);
 
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const tween = reduced
@@ -45,7 +52,9 @@ export default function ContactModal({
     return () => {
       tween?.kill();
       dialog.removeEventListener("close", onClose);
-      document.documentElement.style.overflow = "";
+      root.style.overflow = "";
+      document.body.style.overflow = "";
+      smoother?.paused(false);
       if (dialog.open) dialog.close();
     };
   }, [open]);
