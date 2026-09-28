@@ -12,7 +12,13 @@
   },
   "hero": {
     "titleLine1": "Building digital",
-    "titleWords": ["products", "services", "stores", "brands", "solutions"],
+    "titleWords": [
+      "products",
+      "services",
+      "stores",
+      "brands",
+      "solutions"
+    ],
     "titleTail": "of the future",
     "subtitle": "A full-cycle web studio. Design, development, and promotion",
     "ctaPrimary": "Start a project",
@@ -44,15 +50,42 @@
     "subheading": "Transparent pricing, no hidden fees",
     "cta": "Discuss a project",
     "items": [
-      { "title": "Business Card Site", "price": "from $211" },
-      { "title": "Landing Page", "price": "from $422" },
-      { "title": "Corporate Website", "price": "from $632" },
-      { "title": "Online Store", "price": "from $1,053" },
-      { "title": "Web Application", "price": "from $22/hour" },
-      { "title": "Design", "price": "from $158" },
-      { "title": "SEO Promotion", "price": "from $158" },
-      { "title": "Google ads Management", "price": "from $250" },
-      { "title": "Parsing", "price": "from $316" }
+      {
+        "title": "Business Card Site",
+        "price": "from $211"
+      },
+      {
+        "title": "Landing Page",
+        "price": "from $422"
+      },
+      {
+        "title": "Corporate Website",
+        "price": "from $632"
+      },
+      {
+        "title": "Online Store",
+        "price": "from $1,053"
+      },
+      {
+        "title": "Web Application",
+        "price": "from $22/hour"
+      },
+      {
+        "title": "Design",
+        "price": "from $158"
+      },
+      {
+        "title": "SEO Promotion",
+        "price": "from $158"
+      },
+      {
+        "title": "Google ads Management",
+        "price": "from $250"
+      },
+      {
+        "title": "Parsing",
+        "price": "from $316"
+      }
     ]
   },
   "portfolio": {
@@ -183,7 +216,19 @@
     "emailPlaceholder": "Email",
     "messagePlaceholder": "Tell us about your project",
     "submit": "Send request",
-    "successAlert": "Thank you! We'll get back to you shortly."
+    "sending": "Sending…",
+    "success": "Thank you! We got your request and will be in touch shortly.",
+    "error": "Could not send the form. Write to us on Telegram: @io112",
+    "errors": {
+      "nameShort": "Please enter your name, at least two characters",
+      "nameLong": "This name is too long",
+      "emailRequired": "Add an email so we can reply",
+      "emailInvalid": "Check the email, looks like a typo",
+      "emailLong": "This email is too long",
+      "messageShort": "Tell us about the project in a sentence or two",
+      "messageLong": "This message is too long, please shorten it"
+    },
+    "tooMany": "Too many requests from your address. Try later or write to us on Telegram: @io112"
   },
   "footer": {
     "copyright": "© 2026 KEL Studio. All rights reserved."
