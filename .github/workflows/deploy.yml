@@ -57,10 +57,17 @@ jobs:
             sudo systemctl restart kel-studio &&
             ls -1dt /var/www/kel-studio/releases/* | tail -n +4 | xargs -r rm -rf"
 
+      # Ask the Node service itself over SSH. Curling http://$DEPLOY_HOST/
+      # hits nginx by address, not by the kel.agency server_name, and lands
+      # on the default vhost, which answers 404 whatever was deployed.
       - name: Проверить, что сайт отвечает
+        env:
+          DEPLOY_HOST: ${{ secrets.DEPLOY_HOST }}
+          DEPLOY_USER: ${{ secrets.DEPLOY_USER }}
         run: |
+          SSH="ssh -i ~/.ssh/deploy_key -o IdentitiesOnly=yes -o BatchMode=yes"
           for i in $(seq 1 15); do
-            code=$(curl -s -o /dev/null -w '%{http_code}' "http://${{ secrets.DEPLOY_HOST }}/" || true)
+            code=$($SSH "$DEPLOY_USER@$DEPLOY_HOST" "curl -s -o /dev/null -w '%{http_code}' http://127.0.0.1:3000/" || true)
             [ "$code" = "200" ] && echo "сайт отвечает 200" && exit 0
             sleep 2
           done
