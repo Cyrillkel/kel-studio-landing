@@ -1,0 +1,68 @@
+name: Deploy
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+# One deploy at a time, and never cancel one halfway.
+concurrency:
+  group: deploy
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - run: pnpm install --frozen-lockfile
+
+      - run: pnpm build
+
+      # The standalone build has server.js and its own node_modules; static
+      # assets and public/ are not copied into it by Next.
+      - name: Собрать пакет для сервера
+        run: |
+          mkdir -p bundle/.next
+          cp -r .next/standalone/. bundle/
+          cp -r .next/static bundle/.next/static
+          cp -r public bundle/public
+
+      - name: Подготовить SSH
+        run: |
+          install -d -m 700 ~/.ssh
+          printf '%s\n' "${{ secrets.DEPLOY_SSH_KEY }}" > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+          ssh-keyscan -H "${{ secrets.DEPLOY_HOST }}" >> ~/.ssh/known_hosts 2>/dev/null
+
+      - name: Выложить релиз и перезапустить
+        env:
+          DEPLOY_HOST: ${{ secrets.DEPLOY_HOST }}
+          DEPLOY_USER: ${{ secrets.DEPLOY_USER }}
+          RELEASE: /var/www/kel-studio/releases/${{ github.sha }}
+        run: |
+          SSH="ssh -i ~/.ssh/deploy_key -o IdentitiesOnly=yes -o BatchMode=yes"
+          rsync -az --delete -e "$SSH" bundle/ "$DEPLOY_USER@$DEPLOY_HOST:$RELEASE/"
+          # Symlink swap keeps the previous release in place for a rollback.
+          $SSH "$DEPLOY_USER@$DEPLOY_HOST" "
+            ln -sfn $RELEASE /var/www/kel-studio/current &&
+            sudo systemctl restart kel-studio &&
+            ls -1dt /var/www/kel-studio/releases/* | tail -n +4 | xargs -r rm -rf"
+
+      - name: Проверить, что сайт отвечает
+        run: |
+          for i in $(seq 1 15); do
+            code=$(curl -s -o /dev/null -w '%{http_code}' "http://${{ secrets.DEPLOY_HOST }}/" || true)
+            [ "$code" = "200" ] && echo "сайт отвечает 200" && exit 0
+            sleep 2
+          done
+          echo "сайт не ответил 200, последний код: $code"
+          exit 1
