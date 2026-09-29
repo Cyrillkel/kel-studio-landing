@@ -17,9 +17,9 @@ const unbounded = Unbounded({
   variable: '--font-unbounded',
 })
 
-const TITLE = 'KEL Studio - веб-студия полного цикла'
+const TITLE = 'Разработка сайтов под ключ и digital-продуктов | KEL Studio'
 const DESCRIPTION =
-  'Создаём цифровые продукты будущего: сайты, интернет-магазины и веб-приложения. Дизайн, разработка, продвижение.'
+  'Веб-студия полного цикла KEL Studio: разработка сайтов, дизайн, продвижение и создание digital-продуктов для бизнеса. Создаём решения под задачи вашего проекта'
 
 export const metadata: Metadata = {
   // Lets Next resolve the social image and canonical links to absolute URLs.
