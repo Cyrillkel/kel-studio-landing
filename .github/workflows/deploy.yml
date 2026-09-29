@@ -57,10 +57,12 @@ jobs:
             sudo systemctl restart kel-studio &&
             ls -1dt /var/www/kel-studio/releases/* | tail -n +4 | xargs -r rm -rf"
 
+      # By domain and over https: nginx redirects http and serves the site by
+      # server_name, so a request to the bare IP answers 301, not 200.
       - name: Проверить, что сайт отвечает
         run: |
           for i in $(seq 1 15); do
-            code=$(curl -s -o /dev/null -w '%{http_code}' "http://${{ secrets.DEPLOY_HOST }}/" || true)
+            code=$(curl -sL -o /dev/null -w '%{http_code}' https://kel.agency/ || true)
             [ "$code" = "200" ] && echo "сайт отвечает 200" && exit 0
             sleep 2
           done

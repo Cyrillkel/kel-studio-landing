@@ -8,6 +8,7 @@ import {
   SITE_NAME,
   SITE_URL,
   TELEGRAM_URL,
+  VERIFICATION,
 } from '@/lib/site'
 
 const inter = Inter({ subsets: ['latin', 'cyrillic'] })
@@ -28,6 +29,7 @@ export const metadata: Metadata = {
   alternates: { canonical: '/' },
   // Hidden from search until the content is final: see lib/site.ts.
   robots: { index: INDEXABLE, follow: INDEXABLE },
+  verification: VERIFICATION,
   openGraph: {
     type: 'website',
     siteName: SITE_NAME,
