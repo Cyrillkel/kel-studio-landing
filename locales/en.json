@@ -495,7 +495,7 @@
         "name": "Online stores",
         "title": "Turnkey online store development",
         "metaTitle": "Create an online store turnkey from 100,000 ₽ - KEL Studio",
-        "metaDescription": "Turnkey online stores: catalog, cart, payment, delivery, MoySklad, CRM and marketplace integration. From 1.5 months, from 100,000 ₽.",
+        "metaDescription": "Turnkey online stores: catalog, cart, payment, delivery, MoySklad and CRM integration. From 1.5 months, from 100,000 ₽.",
         "short": "A store with catalog, cart, payment and delivery, convenient on a phone: from 1.5 months.",
         "lead": "A store that is easy to buy from on a phone: a fast catalog, a clear cart, payment in two steps and honest delivery statuses. We create online stores turnkey.",
         "price": "from 100,000 ₽",
@@ -503,14 +503,14 @@
         "bodyTitle": "A turnkey online store: what it consists of",
         "body": [
           "An online store is more than a showcase of products. Customers need quick search and filters, a clear product card, a cart without extra steps and convenient payment; you need order handling, stock and sales analytics. All of this has to be thought through and connected.",
-          "We create online stores turnkey: we design the catalog and the buyer's path, draw the design, develop the store, connect payment and delivery, and set up exchange with MoySklad, amoCRM, Bitrix24, Google Sheets or marketplaces. After launch we teach you to work with the admin panel and can take the store on support."
+          "We create online stores turnkey: we design the catalog and the buyer's path, draw the design, develop the store, connect payment and delivery, and set up exchange with MoySklad, amoCRM or Google Sheets. After launch we teach you to work with the admin panel and can take the store on support."
         ],
         "includes": [
           "Catalog with filters, search and product cards",
           "Cart and checkout without extra steps",
           "Payments: cards, SBP, installments",
           "Delivery: cost calculation and status tracking",
-          "Exchange with MoySklad, amoCRM, Bitrix24, Google Sheets or marketplaces",
+          "Exchange with MoySklad, amoCRM and Google Sheets",
           "Sales analytics and e-commerce in Metrika"
         ],
         "fitTitle": "When it fits",
@@ -534,7 +534,7 @@
           },
           {
             "title": "Development and integrations",
-            "text": "We build the store, connect payment, delivery, integrations with MoySklad, amoCRM or Bitrix24, and upload products."
+            "text": "We build the store, connect payment, delivery, integrations with MoySklad and amoCRM, and upload products."
           },
           {
             "title": "Testing and launch",
@@ -544,7 +544,7 @@
         "faq": [
           {
             "q": "How much does it cost to create an online store?",
-            "a": "Online stores start from 100,000 ₽. The cost depends on the number of products and categories, features and integrations with MoySklad, CRM and marketplaces. We name the exact price after the brief."
+            "a": "Online stores start from 100,000 ₽. The cost depends on the number of products and categories, features and integrations with MoySklad and CRM. We name the exact price after the brief."
           },
           {
             "q": "How long does it take to create a store?",
@@ -555,8 +555,8 @@
             "a": "Bank cards, SBP and installments through payment services you already use or that we choose together. It depends on the service and your contract terms."
           },
           {
-            "q": "Can MoySklad, CRM and marketplaces be connected?",
-            "a": "Yes. We connect the store to MoySklad (products, stock, orders), pass orders and requests to amoCRM or Bitrix24 and export data to Google Sheets. We discuss marketplace connections separately. We define the set of integrations at the brief."
+            "q": "Can MoySklad and a CRM be connected?",
+            "a": "Yes. We connect the store to MoySklad (products, stock, orders), pass orders and requests to amoCRM and export data to Google Sheets. We define the set of integrations at the brief."
           },
           {
             "q": "What if the store already exists but is slow?",
@@ -1059,7 +1059,7 @@
           },
           {
             "q": "Can the application be integrated with a CRM, MoySklad or a payment system?",
-            "a": "Yes. We connect amoCRM, Bitrix24, MoySklad, Google Sheets, payment services and other systems with an open API. What exactly to connect we define while analyzing the task."
+            "a": "Yes. We connect amoCRM, MoySklad, Google Sheets, payment services and other systems with an open API. What exactly to connect we define while analyzing the task."
           },
           {
             "q": "Who owns the source code?",
@@ -1505,7 +1505,7 @@
     "hub": {
       "metaTitle": "Web studio services: websites, SEO, ads, bots - KEL Studio",
       "metaDescription": "Landing pages and turnkey websites, web design, SEO and Yandex Direct, Telegram bots, web applications, data parsing and website support. Prices and timelines on each page.",
-      "title": "KEL Studio web studio services",
+      "title": "KEL Studio services",
       "lead": "We build websites and digital products end to end: from design and development to promotion and support. Pick a direction or describe your task and we will suggest where to start.",
       "pricesLink": "See prices",
       "groups": {
