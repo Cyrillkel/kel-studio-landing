@@ -132,7 +132,7 @@ export default function ServicePage({ slug }: { slug: ServiceSlug }) {
                 </div>
               </dl>
               <div className="service-action mt-8 flex flex-col sm:flex-row">
-                <ContactModal place={place} size="lg">
+                <ContactModal place={place} service={slug} size="lg">
                   {t("servicePages.common.ctaButton")}
                 </ContactModal>
               </div>
@@ -299,7 +299,7 @@ export default function ServicePage({ slug }: { slug: ServiceSlug }) {
             </h2>
             <p className="mt-4 text-lg text-gray-300">{t("servicePages.common.ctaText")}</p>
             <div className="mt-8 flex justify-center">
-              <ContactModal place={place} size="lg">
+              <ContactModal place={place} service={slug} size="lg">
                 {t("servicePages.common.ctaButton")}
               </ContactModal>
             </div>

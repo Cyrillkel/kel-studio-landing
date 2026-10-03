@@ -3,7 +3,9 @@
 import { FormEvent, useEffect, useRef, useState, type ReactNode } from "react";
 import { Trans, useTranslation } from "react-i18next";
 import { Button } from "./Button";
-import { validateContact, type ContactErrors } from "@/lib/contactSchema";
+import Select from "./Select";
+import { OTHER_SERVICE, validateContact, type ContactErrors } from "@/lib/contactSchema";
+import { SERVICE_SLUGS, type ServiceSlug } from "@/lib/services";
 import { GOALS, reachGoal } from "@/lib/metrika";
 
 // ym-disable-keys: Metrika's session replay doesn't record what is typed here.
@@ -26,13 +28,17 @@ function Field({ error, children }: { error?: string; children: ReactNode }) {
 export default function ContactForm({
   // Shown in the Telegram message, so it is clear where the lead came from.
   place,
+  service,
   onSent,
 }: {
   place: string;
+  // The service page the form sits on: preselected as the topic.
+  service?: ServiceSlug;
   onSent?: () => void;
 }) {
   const { t } = useTranslation();
-  const [formData, setFormData] = useState({ name: "", email: "", phone: "", message: "" });
+  const emptyForm = { name: "", email: "", phone: "", message: "", service: service ?? "" };
+  const [formData, setFormData] = useState(emptyForm);
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error" | "tooMany">("idle");
   const [consent, setConsent] = useState(false);
   const [errors, setErrors] = useState<ContactErrors>({});
@@ -45,13 +51,24 @@ export default function ContactForm({
     openedAt.current = Date.now();
   }, []);
 
+  // The topic: "not chosen", every service page, "other".
+  const topics = [
+    { value: "", label: t("contact.topicNone") },
+    ...SERVICE_SLUGS.map((slug) => ({ value: slug, label: t(`servicePages.items.${slug}.name`) })),
+    { value: OTHER_SERVICE, label: t("contact.topicOther") },
+  ];
+
   const update = (field: keyof typeof formData, value: string) => {
     setFormData((prev) => ({ ...prev, [field]: value }));
     // Clear the complaint as soon as the visitor starts fixing it.
-    if (errors[field]) setErrors((prev) => ({ ...prev, [field]: undefined }));
+    if (field !== "service" && errors[field]) setErrors((prev) => ({ ...prev, [field]: undefined }));
+    // "Give an email or a phone" is settled by either of the two.
+    if ((field === "email" || field === "phone") && errors.contact) {
+      setErrors((prev) => ({ ...prev, contact: undefined }));
+    }
   };
 
-  const checkField = (field: keyof typeof formData) => {
+  const checkField = (field: "name" | "email" | "phone" | "message") => {
     const found = validateContact({ ...formData, consent })[field];
     setErrors((prev) => ({ ...prev, [field]: found }));
   };
@@ -81,9 +98,9 @@ export default function ContactForm({
       }
       if (!response.ok) throw new Error(String(response.status));
       setStatus("sent");
-      setFormData({ name: "", email: "", phone: "", message: "" });
+      setFormData(emptyForm);
       setConsent(false);
-      reachGoal(GOALS.formSent, { place });
+      reachGoal(GOALS.formSent, { place, service: formData.service || "none" });
       onSent?.();
     } catch {
       setStatus("error");
@@ -124,12 +141,19 @@ export default function ContactForm({
             value={formData.email}
             onChange={(e) => update("email", e.target.value)}
             onBlur={() => checkField("email")}
-            aria-invalid={Boolean(errors.email)}
-            className={fieldClass(Boolean(errors.email))}
+            aria-invalid={Boolean(errors.email || errors.contact)}
+            className={fieldClass(Boolean(errors.email || errors.contact))}
           />
         </Field>
       </div>
-      <Field error={errors.phone && t(`contact.errors.${errors.phone}`)}>
+      {/* The "email or phone" message sits here, under the second of the two. */}
+      <Field
+        error={
+          errors.phone
+            ? t(`contact.errors.${errors.phone}`)
+            : errors.contact && t(`contact.errors.${errors.contact}`)
+        }
+      >
         <input
           type="tel"
           inputMode="tel"
@@ -139,10 +163,18 @@ export default function ContactForm({
           value={formData.phone}
           onChange={(e) => update("phone", e.target.value)}
           onBlur={() => checkField("phone")}
-          aria-invalid={Boolean(errors.phone)}
-          className={fieldClass(Boolean(errors.phone))}
+          aria-invalid={Boolean(errors.phone || errors.contact)}
+          className={fieldClass(Boolean(errors.phone || errors.contact))}
         />
       </Field>
+      <Select
+        value={formData.service}
+        onChange={(value) => update("service", value)}
+        options={topics}
+        placeholder={t("contact.topicPlaceholder")}
+        label={t("contact.topicLabel")}
+        className={fieldClass(false)}
+      />
       <Field error={errors.message && t(`contact.errors.${errors.message}`)}>
         <textarea
           placeholder={t("contact.messagePlaceholder")}

@@ -4,9 +4,16 @@
 // are i18n keys under `contact.errors`, so the browser shows them in the
 // visitor's language while the server validates the same rules.
 
-export type ContactFields = { name: string; email: string; phone: string; message: string };
-// `consent` is only checked, not stored: the form cannot be sent without it.
-export type ContactErrors = Partial<Record<keyof ContactFields | "consent", string>>;
+import { SERVICE_SLUGS } from "./services";
+
+// What the visitor is interested in: a service page slug, "other", or empty.
+export const OTHER_SERVICE = "other";
+const SERVICE_VALUES: readonly string[] = [...SERVICE_SLUGS, OTHER_SERVICE];
+
+export type ContactFields = { name: string; email: string; phone: string; message: string; service: string };
+// `contact` is "neither an email nor a phone was given"; `consent` is only
+// checked, not stored: the form cannot be sent without it.
+export type ContactErrors = Partial<Record<keyof ContactFields | "contact" | "consent", string>>;
 
 // The pattern zod's z.email() used here before.
 const EMAIL =
@@ -30,13 +37,15 @@ export function validateContact(values: Record<string, unknown>): ContactErrors 
   if (name.length < 2) errors.name = "nameShort";
   else if (name.length > 100) errors.name = "nameLong";
 
-  if (email.length < 1) errors.email = "emailRequired";
-  else if (email.length > 150) errors.email = "emailLong";
-  else if (!EMAIL.test(email)) errors.email = "emailInvalid";
-
-  // Optional: empty is fine, but a number that is given has to look like one.
+  // One way to reply is enough: an email or a phone. Each one that is given
+  // still has to look right.
+  if (email) {
+    if (email.length > 150) errors.email = "emailLong";
+    else if (!EMAIL.test(email)) errors.email = "emailInvalid";
+  }
   const digits = phone.replace(/\D/g, "").length;
   if (phone && (!PHONE.test(phone) || digits < 10 || digits > 15)) errors.phone = "phoneInvalid";
+  if (!email && !phone) errors.contact = "contactRequired";
 
   // Optional too: only the upper limit is left.
   if (message.length > 3000) errors.message = "messageLong";
@@ -55,5 +64,7 @@ export function parseContact(values: Record<string, unknown>): ContactFields | n
     email: text(values.email),
     phone: text(values.phone),
     message: text(values.message),
+    // An unknown value is dropped rather than rejected: the topic is optional.
+    service: SERVICE_VALUES.includes(text(values.service)) ? text(values.service) : "",
   };
 }

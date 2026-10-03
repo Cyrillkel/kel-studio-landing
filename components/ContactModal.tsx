@@ -6,16 +6,20 @@ import { ScrollSmoother } from "gsap/ScrollSmoother";
 import { useTranslation } from "react-i18next";
 import ContactForm from "./ContactForm";
 import { ButtonLink } from "./Button";
+import type { ServiceSlug } from "@/lib/services";
 
 // Opens the same form in a dialog, so a visitor on a service page never has to
 // leave it. Native <dialog> gives Esc, the top layer and focus handling for free.
 export default function ContactModal({
   place,
+  service,
   size = "lg",
   className,
   children,
 }: {
   place: string;
+  // The service page the button sits on: preselected as the topic in the form.
+  service?: ServiceSlug;
   size?: "sm" | "md" | "lg";
   className?: string;
   children: React.ReactNode;
@@ -106,7 +110,7 @@ export default function ContactModal({
           </button>
           <h2 className="px-8 font-heading text-2xl font-bold sm:px-0 sm:text-3xl">{t("contact.heading")}</h2>
           <p className="mt-3 mb-6 text-gray-300">{t("contact.subheading")}</p>
-          <ContactForm place={place} />
+          <ContactForm place={place} service={service} />
         </div>
       </dialog>
     </>

@@ -317,6 +317,20 @@
   }
 }
 
+/* The topic list of the contact form opens with a short fade. */
+@keyframes select-pop {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .select-pop {
+    animation: select-pop 0.15s ease-out;
+  }
+}
+
 /* The contact block in the mobile menu settles in just after the menu opens. */
 @keyframes menu-rise {
   from {
