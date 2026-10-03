@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useTranslation } from "react-i18next";
 import { TelegramIcon, WhatsAppIcon } from "./ContactIcons";
 import { TELEGRAM_URL, WHATSAPP_URL } from "@/lib/site";
@@ -47,7 +48,15 @@ export default function Footer() {
               <WhatsAppIcon className="h-5 w-5" />
             </a>
           </div>
-          <div className="text-gray-400">{t("footer.copyright")}</div>
+          <div className="flex flex-col items-center gap-2 md:items-end">
+            <Link
+              href="/privacy"
+              className="text-sm text-gray-500 transition-colors hover:text-gray-300"
+            >
+              {t("footer.privacy")}
+            </Link>
+            <div className="text-gray-400">{t("footer.copyright")}</div>
+          </div>
         </div>
       </div>
     </footer>

@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { Inter, Unbounded } from 'next/font/google'
+import CookieNotice from '@/components/CookieNotice'
 import I18nProvider from '@/components/I18nProvider'
 import YandexMetrika from '@/components/YandexMetrika'
 import './globals.css'
@@ -79,7 +80,10 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organization) }}
         />
-        <I18nProvider>{children}</I18nProvider>
+        <I18nProvider>
+          {children}
+          <CookieNotice />
+        </I18nProvider>
         <YandexMetrika />
         {/* Counts visitors who have JavaScript turned off. */}
         <noscript>

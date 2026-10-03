@@ -218,7 +218,9 @@
     "subheading": "Get in touch and let's discuss your ideas",
     "namePlaceholder": "Your name",
     "emailPlaceholder": "Email",
-    "messagePlaceholder": "Tell us about your project",
+    "phonePlaceholder": "Phone (optional)",
+    "messagePlaceholder": "Tell us about your project (optional)",
+    "consent": "I agree to the processing of my personal data and accept the <policy>Privacy Policy</policy>",
     "submit": "Send request",
     "sending": "Sending…",
     "success": "Thank you! We got your request and will be in touch shortly.",
@@ -229,14 +231,27 @@
       "emailRequired": "Add an email so we can reply",
       "emailInvalid": "Check the email, looks like a typo",
       "emailLong": "This email is too long",
-      "messageShort": "Tell us about the project in a sentence or two",
+      "phoneInvalid": "Check the phone number",
+    "consentRequired": "To send the request, please tick the consent box",
       "messageLong": "This message is too long, please shorten it"
     },
     "tooMany": "Too many requests from your address. Try later or write to us on Telegram: @io112",
     "close": "Close"
   },
   "footer": {
-    "copyright": "© 2026 KEL Studio. All rights reserved."
+    "copyright": "© 2026 KEL Studio. All rights reserved.",
+    "privacy": "Privacy Policy"
+  },
+  "cookies": {
+    "label": "Cookie notice",
+    "text": "We use cookies and Yandex Metrica to make the site work better. Details in the <policy>Privacy Policy</policy>.",
+    "accept": "Got it"
+  },
+  "notFound": {
+    "title": "Page not found",
+    "text": "The address may have changed or contains a typo. Go back to the home page or pick a service.",
+    "home": "Back to home",
+    "services": "Services"
   },
   "servicePages": {
     "common": {

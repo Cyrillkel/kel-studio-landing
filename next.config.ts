@@ -12,13 +12,23 @@ const nextConfig: NextConfig = {
   // Nobody needs to know which framework is behind the site.
   poweredByHeader: false,
   async headers() {
-    if (INDEXABLE) return [];
-    // Belt and braces next to the robots meta tag: the header also covers
-    // files with no HTML of their own, like images and the video.
     return [
       {
         source: "/:path*",
-        headers: [{ key: "X-Robots-Tag", value: "noindex, nofollow" }],
+        headers: [
+          // Browsers must not guess a file's type, and the site needs no
+          // camera, microphone, location or payment APIs.
+          { key: "X-Content-Type-Options", value: "nosniff" },
+          { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
+          {
+            key: "Permissions-Policy",
+            value: "camera=(), microphone=(), geolocation=(), payment=()",
+          },
+          // Belt and braces next to the robots meta tag while the site is
+          // closed: the header also covers files with no HTML of their own,
+          // like images and the video.
+          ...(INDEXABLE ? [] : [{ key: "X-Robots-Tag", value: "noindex, nofollow" }]),
+        ],
       },
     ];
   },

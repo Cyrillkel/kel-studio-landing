@@ -7,6 +7,7 @@ import { parseContact } from "@/lib/contactSchema";
 type Lead = {
   name: string;
   email: string;
+  phone: string;
   message: string;
   page?: string;
 };
@@ -46,6 +47,8 @@ async function sendTelegram(lead: Lead) {
     "<b>Новая заявка с сайта</b>",
     `<b>Имя:</b> ${escapeHtml(lead.name)}`,
     `<b>Email:</b> ${escapeHtml(lead.email)}`,
+    lead.phone ? `<b>Телефон:</b> ${escapeHtml(lead.phone)}` : "",
+    "Согласие на обработку персональных данных: да",
     lead.page ? `<b>Откуда:</b> ${escapeHtml(lead.page)}` : "",
     "",
     escapeHtml(lead.message),
@@ -85,7 +88,7 @@ async function sendEmail(lead: Lead) {
       // Reply goes straight to the person who wrote.
       reply_to: lead.email,
       subject: `Заявка с сайта: ${lead.name}`,
-      text: `Имя: ${lead.name}\nEmail: ${lead.email}\nОткуда: ${lead.page ?? "-"}\n\n${lead.message}`,
+      text: `Имя: ${lead.name}\nEmail: ${lead.email}\n${lead.phone ? `Телефон: ${lead.phone}\n` : ""}Согласие на обработку персональных данных: да\nОткуда: ${lead.page ?? "-"}\n\n${lead.message}`,
     }),
   });
   if (!response.ok) console.error("resend:", response.status, await response.text());

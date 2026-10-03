@@ -1,7 +1,7 @@
 "use client";
 
 import { FormEvent, useEffect, useRef, useState, type ReactNode } from "react";
-import { useTranslation } from "react-i18next";
+import { Trans, useTranslation } from "react-i18next";
 import { Button } from "./Button";
 import { validateContact, type ContactErrors } from "@/lib/contactSchema";
 import { GOALS, reachGoal } from "@/lib/metrika";
@@ -32,8 +32,9 @@ export default function ContactForm({
   onSent?: () => void;
 }) {
   const { t } = useTranslation();
-  const [formData, setFormData] = useState({ name: "", email: "", message: "" });
+  const [formData, setFormData] = useState({ name: "", email: "", phone: "", message: "" });
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error" | "tooMany">("idle");
+  const [consent, setConsent] = useState(false);
   const [errors, setErrors] = useState<ContactErrors>({});
   // Anti-spam, both invisible to a real visitor: a field only bots fill in and
   // the time it took to write the message.
@@ -51,14 +52,14 @@ export default function ContactForm({
   };
 
   const checkField = (field: keyof typeof formData) => {
-    const found = validateContact(formData)[field];
+    const found = validateContact({ ...formData, consent })[field];
     setErrors((prev) => ({ ...prev, [field]: found }));
   };
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     if (status === "sending") return;
-    const found = validateContact(formData);
+    const found = validateContact({ ...formData, consent });
     setErrors(found);
     if (Object.keys(found).length > 0) return;
     setStatus("sending");
@@ -68,6 +69,7 @@ export default function ContactForm({
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           ...formData,
+          consent,
           company,
           startedAt: openedAt.current,
           page: `${place} - ${window.location.pathname}`,
@@ -79,7 +81,8 @@ export default function ContactForm({
       }
       if (!response.ok) throw new Error(String(response.status));
       setStatus("sent");
-      setFormData({ name: "", email: "", message: "" });
+      setFormData({ name: "", email: "", phone: "", message: "" });
+      setConsent(false);
       reachGoal(GOALS.formSent, { place });
       onSent?.();
     } catch {
@@ -126,6 +129,20 @@ export default function ContactForm({
           />
         </Field>
       </div>
+      <Field error={errors.phone && t(`contact.errors.${errors.phone}`)}>
+        <input
+          type="tel"
+          inputMode="tel"
+          autoComplete="tel"
+          placeholder={t("contact.phonePlaceholder")}
+          aria-label={t("contact.phonePlaceholder")}
+          value={formData.phone}
+          onChange={(e) => update("phone", e.target.value)}
+          onBlur={() => checkField("phone")}
+          aria-invalid={Boolean(errors.phone)}
+          className={fieldClass(Boolean(errors.phone))}
+        />
+      </Field>
       <Field error={errors.message && t(`contact.errors.${errors.message}`)}>
         <textarea
           placeholder={t("contact.messagePlaceholder")}
@@ -138,6 +155,58 @@ export default function ContactForm({
           className={`${fieldClass(Boolean(errors.message))} resize-none`}
         />
       </Field>
+      {/* Required consent. The real checkbox is hidden but stays the control
+          (keyboard, screen readers); the box next to it is drawn in the site's style. */}
+      <div className="text-left">
+        <label className="flex cursor-pointer items-start gap-3 text-sm leading-relaxed text-gray-400">
+          <input
+            type="checkbox"
+            checked={consent}
+            onChange={(e) => {
+              setConsent(e.target.checked);
+              if (errors.consent) setErrors((prev) => ({ ...prev, consent: undefined }));
+            }}
+            aria-invalid={Boolean(errors.consent)}
+            className="peer sr-only"
+          />
+          <span
+            aria-hidden="true"
+            className={`mt-0.5 grid h-5 w-5 shrink-0 place-items-center rounded-md border transition-colors duration-200 peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-white/60 peer-checked:border-transparent peer-checked:bg-linear-to-br peer-checked:from-cyan-400 peer-checked:via-violet-500 peer-checked:to-fuchsia-500 peer-checked:[&>svg]:opacity-100 ${
+              errors.consent ? "border-rose-500/70 bg-rose-500/10" : "border-white/25 bg-black/30"
+            }`}
+          >
+            <svg
+              viewBox="0 0 24 24"
+              className="h-3.5 w-3.5 text-white opacity-0 transition-opacity duration-200"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth={3}
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <path d="m5 12 5 5 9-10" />
+            </svg>
+          </span>
+          <span>
+            <Trans
+              i18nKey="contact.consent"
+              components={{
+                policy: (
+                  <a
+                    href="/privacy"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-violet-300 underline underline-offset-2 transition-colors hover:text-white"
+                  />
+                ),
+              }}
+            />
+          </span>
+        </label>
+        {errors.consent && (
+          <p className="mt-1.5 pl-1 text-sm text-rose-400">{t(`contact.errors.${errors.consent}`)}</p>
+        )}
+      </div>
       {/* Honeypot: hidden from people, filled in by bots. */}
       <input
         type="text"

@@ -5,6 +5,13 @@ export const INDEXABLE = true;
 
 export const SITE_URL = "https://kel.agency";
 export const SITE_NAME = "KEL Studio";
+
+// When the text or structure of the pages last changed, for <lastmod> in the
+// sitemap. Set by hand: bump it when a page's content changes. A build-time
+// date would claim every page changed on every deploy, and search engines then
+// stop trusting the field.
+export const CONTENT_UPDATED = "2026-10-03";
+
 export const CONTACT_EMAIL = "info@kel.agency";
 export const TELEGRAM_URL = "https://t.me/io112";
 // Shown in the footer and the mobile menu (tap to call, WhatsApp chat).
