@@ -1,6 +1,8 @@
 "use client";
 
+import Link from "next/link";
 import { useTranslation } from "react-i18next";
+import { SERVICES_PATH, servicePath } from "@/lib/services";
 import AmbientBlobs from "./AmbientBlobs";
 
 const icons = [
@@ -71,6 +73,9 @@ const icons = [
 
 type ServiceItem = { title: string; description: string };
 
+// Where each card on the home page leads, in the order of services.items.
+const CARD_LINKS = [servicePath("design"), SERVICES_PATH, servicePath("seo"), servicePath("parsing")];
+
 export default function Services() {
   const { t } = useTranslation();
   const items = t("services.items", { returnObjects: true }) as ServiceItem[];
@@ -106,9 +111,10 @@ export default function Services() {
         </h2>
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6 lg:gap-8">
           {items.map((item, index) => (
-            <div
+            <Link
               key={index}
-              className="bg-[#1f1f1f] p-6 sm:p-8 rounded-2xl border border-white/5 hover:-translate-y-2 hover:shadow-lg hover:shadow-black/25 transition-all duration-300"
+              href={CARD_LINKS[index] ?? SERVICES_PATH}
+              className="block bg-[#1f1f1f] p-6 sm:p-8 rounded-2xl border border-white/5 hover:-translate-y-2 hover:shadow-lg hover:shadow-black/25 transition-all duration-300"
             >
               <div className="w-12 h-12 bg-white/10 rounded-lg flex items-center justify-center mb-6 text-white">
                 {icons[index]}
@@ -119,8 +125,16 @@ export default function Services() {
               <p className="text-gray-400 leading-relaxed">
                 {item.description}
               </p>
-            </div>
+            </Link>
           ))}
+        </div>
+        <div className="mt-10 text-center md:mt-14">
+          <Link
+            href={SERVICES_PATH}
+            className="text-gray-300 underline underline-offset-4 transition-colors hover:text-white"
+          >
+            {t("services.all")}
+          </Link>
         </div>
       </div>
     </section>

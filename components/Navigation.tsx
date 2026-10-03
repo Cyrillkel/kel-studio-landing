@@ -10,7 +10,7 @@ import LanguageSwitcher from "./LanguageSwitcher";
 import { ButtonLink } from "./Button";
 import { PhoneIcon } from "./ContactIcons";
 import ContactLinks from "./ContactLinks";
-import { SERVICE_SLUGS, servicePath } from "@/lib/services";
+import { MENU_SLUGS, SERVICES_PATH, servicePath } from "@/lib/services";
 import { PHONE, PHONE_URL } from "@/lib/site";
 
 export default function Navigation() {
@@ -176,23 +176,23 @@ export default function Navigation() {
                   }`}
                 >
                   <div className="overflow-hidden rounded-2xl border border-white/10 bg-[#120f18] p-2 shadow-2xl shadow-black/60">
-                    {SERVICE_SLUGS.map((slug) => (
+                    {MENU_SLUGS.map((slug) => (
                       <Link
                         key={slug}
                         href={servicePath(slug)}
                         className="block rounded-xl px-4 py-2.5 text-gray-300 transition-colors hover:bg-white/5 hover:text-white"
                         onClick={() => setServicesOpen(false)}
                       >
-                        {t(`servicePages.items.${slug}.title`)}
+                        {t(`servicePages.items.${slug}.name`)}
                       </Link>
                     ))}
-                    <a
-                      href={anchor("#services")}
+                    <Link
+                      href={SERVICES_PATH}
                       className="mt-1 block rounded-xl border-t border-white/10 px-4 py-2.5 text-sm text-gray-500 transition-colors hover:text-white"
-                      onClick={(e) => handleNavClick(e, "#services")}
+                      onClick={() => setServicesOpen(false)}
                     >
                       {t("nav.allServices")}
-                    </a>
+                    </Link>
                   </div>
                 </div>
               </div>
@@ -308,7 +308,7 @@ export default function Navigation() {
               >
                 <div className="overflow-hidden">
                   <div className="mt-4 flex w-full flex-col items-center gap-3 border-y border-white/10 py-4">
-                    {SERVICE_SLUGS.map((slug) => (
+                    {MENU_SLUGS.map((slug) => (
                       <Link
                         key={slug}
                         href={servicePath(slug)}
@@ -318,16 +318,19 @@ export default function Navigation() {
                           setServicesOpen(false);
                         }}
                       >
-                        {t(`servicePages.items.${slug}.title`)}
+                        {t(`servicePages.items.${slug}.name`)}
                       </Link>
                     ))}
-                    <a
-                      href={anchor("#services")}
+                    <Link
+                      href={SERVICES_PATH}
                       className="text-base text-gray-500 transition-colors hover:text-white"
-                      onClick={(e) => handleNavClick(e, "#services")}
+                      onClick={() => {
+                        setIsOpen(false);
+                        setServicesOpen(false);
+                      }}
                     >
                       {t("nav.allServices")}
-                    </a>
+                    </Link>
                   </div>
                 </div>
               </div>

@@ -41,7 +41,7 @@ export default function NotFoundContent() {
             href={servicePath(slug)}
             className="transition-colors hover:text-white"
           >
-            {t(`servicePages.items.${slug}.title`)}
+            {t(`servicePages.items.${slug}.name`)}
           </Link>
         ))}
       </nav>

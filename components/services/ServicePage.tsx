@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { DrawSVGPlugin } from "gsap/DrawSVGPlugin";
@@ -11,22 +12,18 @@ import Footer from "@/components/Footer";
 import SmoothScroll from "@/components/SmoothScroll";
 import SectionGlow from "@/components/SectionGlow";
 import ContactModal from "@/components/ContactModal";
+import Breadcrumbs from "@/components/Breadcrumbs";
 import ServiceIllustration from "@/components/services/ServiceIllustration";
-import { SERVICE_SLUGS, servicePath, type ServiceSlug } from "@/lib/services";
+import { SERVICE_CONFIG, SERVICES_PATH, servicePath, type ServiceCopy, type ServiceSlug } from "@/lib/services";
 
 gsap.registerPlugin(ScrollTrigger, DrawSVGPlugin);
 
-type ServiceCopy = {
-  title: string;
-  lead: string;
-  includes: string[];
-  fitTitle: string;
-  fit: string[];
-};
+type PortfolioItem = { title: string; description: string; image: string; url: string };
 
 export default function ServicePage({ slug }: { slug: ServiceSlug }) {
   const { t } = useTranslation();
   const page = t(`servicePages.items.${slug}`, { returnObjects: true }) as ServiceCopy;
+  const portfolio = t("portfolio.items", { returnObjects: true }) as PortfolioItem[];
   const rootRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
@@ -91,7 +88,14 @@ export default function ServicePage({ slug }: { slug: ServiceSlug }) {
     return () => mm.revert();
   }, [slug]);
 
-  const others = SERVICE_SLUGS.filter((other) => other !== slug);
+  const { cases: caseIndexes, related } = SERVICE_CONFIG[slug];
+  const cases = caseIndexes.map((index) => portfolio[index]).filter(Boolean);
+  const place = `Страница услуги: ${page.name}`;
+  const crumbs = [
+    { name: t("servicePages.common.breadcrumbHome"), href: "/" },
+    { name: t("servicePages.common.breadcrumbServices"), href: SERVICES_PATH },
+    { name: page.name },
+  ];
 
   return (
     <SmoothScroll>
@@ -106,14 +110,29 @@ export default function ServicePage({ slug }: { slug: ServiceSlug }) {
             style={{ visibility: "hidden" }}
           >
             <div>
-              <h1 className="service-title font-heading text-4xl leading-tight font-bold text-white sm:text-5xl md:text-6xl">
+              <Breadcrumbs items={crumbs} label={t("servicePages.common.breadcrumbLabel")} />
+              <h1 className="service-title font-heading text-3xl leading-tight font-bold text-white sm:text-4xl lg:text-[2.75rem]">
                 {page.title}
               </h1>
               <p className="service-lead mt-6 text-lg leading-relaxed text-gray-300 sm:text-xl">
                 {page.lead}
               </p>
+              <dl className="service-action mt-6 flex flex-wrap gap-3">
+                <div className="rounded-xl border border-white/10 bg-white/3 px-4 py-3">
+                  <dt className="text-xs tracking-wider text-gray-500 uppercase">
+                    {t("servicePages.common.priceLabel")}
+                  </dt>
+                  <dd className="mt-1 font-semibold text-white">{page.price}</dd>
+                </div>
+                <div className="rounded-xl border border-white/10 bg-white/3 px-4 py-3">
+                  <dt className="text-xs tracking-wider text-gray-500 uppercase">
+                    {t("servicePages.common.termLabel")}
+                  </dt>
+                  <dd className="mt-1 font-semibold text-white">{page.term}</dd>
+                </div>
+              </dl>
               <div className="service-action mt-8 flex flex-col sm:flex-row">
-                <ContactModal place={`Страница услуги: ${page.title}`} size="lg">
+                <ContactModal place={place} size="lg">
                   {t("servicePages.common.ctaButton")}
                 </ContactModal>
               </div>
@@ -126,7 +145,18 @@ export default function ServicePage({ slug }: { slug: ServiceSlug }) {
         </section>
 
         <section className="relative isolate overflow-hidden px-5 py-16 sm:px-6 md:py-24 bg-[linear-gradient(to_bottom,#0a0a0a_0px,#111111_180px,#111111_100%)]">
-          <div className="mx-auto grid max-w-7xl gap-12 md:grid-cols-2 md:gap-16">
+          <div className="mx-auto max-w-7xl">
+            <h2 className="font-heading text-2xl font-bold text-white sm:text-3xl">
+              {page.bodyTitle}
+            </h2>
+            <div className="mt-6 max-w-4xl space-y-4 text-lg leading-relaxed text-gray-300">
+              {page.body.map((paragraph) => (
+                <p key={paragraph}>{paragraph}</p>
+              ))}
+            </div>
+          </div>
+
+          <div className="mx-auto mt-16 grid max-w-7xl gap-12 md:grid-cols-2 md:gap-16">
             <div>
               <h2 className="font-heading text-2xl font-bold text-white sm:text-3xl">
                 {t("servicePages.common.includesTitle")}
@@ -171,6 +201,97 @@ export default function ServicePage({ slug }: { slug: ServiceSlug }) {
         </section>
 
         <section className="relative isolate overflow-hidden px-5 py-16 sm:px-6 md:py-24 bg-[linear-gradient(to_bottom,#111111_0px,#0a0a0a_180px,#0a0a0a_100%)]">
+          <div className="mx-auto max-w-7xl">
+            <h2 className="font-heading text-2xl font-bold text-white sm:text-3xl">
+              {t("servicePages.common.stepsTitle")}
+            </h2>
+            <ol className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              {page.steps.map((step, index) => (
+                <li
+                  key={step.title}
+                  className="service-card rounded-2xl border border-white/10 bg-white/3 p-6"
+                >
+                  <span className="font-heading text-sm font-bold text-violet-400">
+                    {String(index + 1).padStart(2, "0")}
+                  </span>
+                  <h3 className="mt-3 font-heading text-lg font-bold text-white">{step.title}</h3>
+                  <p className="mt-2 leading-relaxed text-gray-300">{step.text}</p>
+                </li>
+              ))}
+            </ol>
+          </div>
+        </section>
+
+        {cases.length > 0 && (
+          <section className="relative isolate overflow-hidden bg-[#0a0a0a] px-5 py-16 sm:px-6 md:py-24">
+            <div className="mx-auto max-w-7xl">
+              <h2 className="font-heading text-2xl font-bold text-white sm:text-3xl">
+                {t("servicePages.common.casesTitle")}
+              </h2>
+              <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                {cases.map((item) => {
+                  const host = item.url ? new URL(item.url).hostname : "";
+                  return (
+                    <a
+                      key={item.url}
+                      href={item.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="service-card group block"
+                    >
+                      <div className="relative aspect-video overflow-hidden rounded-2xl border border-white/5 bg-[#1f1f1f]">
+                        <Image
+                          src={item.image}
+                          alt={`${item.title} - ${host}`}
+                          fill
+                          sizes="(max-width: 639px) 100vw, (max-width: 1023px) 50vw, 33vw"
+                          className="object-cover object-top transition-transform duration-700 ease-out group-hover:scale-[1.04]"
+                        />
+                      </div>
+                      <h3 className="mt-4 font-heading text-lg font-bold text-white">{item.title}</h3>
+                      <p className="mt-1 text-gray-400">
+                        {item.description}
+                        <span className="text-gray-500"> - {host}</span>
+                      </p>
+                    </a>
+                  );
+                })}
+              </div>
+            </div>
+          </section>
+        )}
+
+        <section className="relative isolate overflow-hidden px-5 py-16 sm:px-6 md:py-24 bg-[linear-gradient(to_bottom,#0a0a0a_0px,#111111_180px,#111111_100%)]">
+          <div className="mx-auto max-w-3xl">
+            <h2 className="font-heading text-2xl font-bold text-white sm:text-3xl">
+              {t("servicePages.common.faqTitle")}
+            </h2>
+            <div className="mt-8 divide-y divide-white/10 rounded-2xl border border-white/10 bg-white/3">
+              {page.faq.map((item) => (
+                <details key={item.q} className="group px-5 py-5 sm:px-6">
+                  <summary className="flex cursor-pointer list-none items-center justify-between gap-4 font-heading text-base font-bold text-white sm:text-lg [&::-webkit-details-marker]:hidden">
+                    {item.q}
+                    <svg
+                      aria-hidden="true"
+                      viewBox="0 0 24 24"
+                      className="h-5 w-5 shrink-0 text-gray-500 transition-transform duration-300 group-open:rotate-180"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth={2.5}
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    >
+                      <path d="m6 9 6 6 6-6" />
+                    </svg>
+                  </summary>
+                  <p className="mt-3 leading-relaxed text-gray-300">{item.a}</p>
+                </details>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="relative isolate overflow-hidden px-5 py-16 sm:px-6 md:py-24 bg-[linear-gradient(to_bottom,#111111_0px,#0a0a0a_180px,#0a0a0a_100%)]">
           <SectionGlow />
           <div className="mx-auto max-w-3xl text-center">
             <h2 className="font-heading text-3xl font-bold text-white sm:text-4xl">
@@ -178,7 +299,7 @@ export default function ServicePage({ slug }: { slug: ServiceSlug }) {
             </h2>
             <p className="mt-4 text-lg text-gray-300">{t("servicePages.common.ctaText")}</p>
             <div className="mt-8 flex justify-center">
-              <ContactModal place={`Страница услуги: ${page.title}`} size="lg">
+              <ContactModal place={place} size="lg">
                 {t("servicePages.common.ctaButton")}
               </ContactModal>
             </div>
@@ -188,15 +309,15 @@ export default function ServicePage({ slug }: { slug: ServiceSlug }) {
             <h2 className="font-heading text-xl font-bold text-white sm:text-2xl">
               {t("servicePages.common.otherTitle")}
             </h2>
-            <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-              {others.map((other) => (
+            <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+              {related.map((other) => (
                 <Link
                   key={other}
                   href={servicePath(other)}
                   className="service-card group flex items-center justify-between gap-4 rounded-2xl border border-white/10 bg-white/3 px-6 py-5 transition-colors hover:border-white/25 hover:bg-white/5"
                 >
                   <span className="font-heading font-bold text-white">
-                    {t(`servicePages.items.${other}.title`)}
+                    {t(`servicePages.items.${other}.name`)}
                   </span>
                   <svg
                     aria-hidden="true"
@@ -213,6 +334,12 @@ export default function ServicePage({ slug }: { slug: ServiceSlug }) {
                 </Link>
               ))}
             </div>
+            <Link
+              href={SERVICES_PATH}
+              className="mt-6 inline-block text-gray-400 underline underline-offset-4 transition-colors hover:text-white"
+            >
+              {t("servicePages.common.allServices")}
+            </Link>
           </div>
         </section>
 

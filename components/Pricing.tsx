@@ -1,10 +1,12 @@
 "use client";
 
+import Link from "next/link";
 import { useTranslation } from "react-i18next";
 import { smoothNavigate } from "./smoothNavigate";
 import { useSnapSlider } from "./useSnapSlider";
 import SliderDots from "./SliderDots";
 import { ButtonLink } from "./Button";
+import { PRICES_PATH } from "@/lib/services";
 import SectionGlow from "./SectionGlow";
 
 const icons = [
@@ -200,6 +202,14 @@ export default function Pricing() {
           <ButtonLink href="#contact" size="lg" onClick={handleClick}>
             {t("pricing.cta")}
           </ButtonLink>
+          <div className="mt-6">
+            <Link
+              href={PRICES_PATH}
+              className="text-gray-400 underline underline-offset-4 transition-colors hover:text-white"
+            >
+              {t("pricing.details")}
+            </Link>
+          </div>
         </div>
       </div>
     </section>

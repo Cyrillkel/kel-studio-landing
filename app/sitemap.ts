@@ -1,5 +1,5 @@
 import type { MetadataRoute } from "next";
-import { SERVICE_SLUGS, servicePath } from "@/lib/services";
+import { PRICES_PATH, SERVICE_SLUGS, SERVICES_PATH, servicePath } from "@/lib/services";
 import { POLICY_UPDATED, hasPolicyText, readPrivacyHtml } from "@/lib/privacy";
 import { CONTENT_UPDATED, SITE_URL } from "@/lib/site";
 
@@ -11,6 +11,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified,
       changeFrequency: "monthly",
       priority: 1,
+    },
+    {
+      url: `${SITE_URL}${SERVICES_PATH}`,
+      lastModified,
+      changeFrequency: "monthly",
+      priority: 0.9,
+    },
+    {
+      url: `${SITE_URL}${PRICES_PATH}`,
+      lastModified,
+      changeFrequency: "monthly",
+      priority: 0.8,
     },
     ...SERVICE_SLUGS.map((slug) => ({
       url: `${SITE_URL}${servicePath(slug)}`,
