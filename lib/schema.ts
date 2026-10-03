@@ -6,6 +6,7 @@ import {
   SITE_DESCRIPTION,
   SITE_NAME,
   SITE_URL,
+  TELEGRAM_CHANNEL_URL,
   TELEGRAM_URL,
 } from "./site";
 import { SERVICE_CONFIG, SERVICE_SLUGS, plainText, servicePath, type ServiceSlug } from "./services";
@@ -48,7 +49,7 @@ export function organizationNode({ catalog = false } = {}): Node {
         areaServed: "RU",
       },
     ],
-    sameAs: [TELEGRAM_URL],
+    sameAs: [TELEGRAM_CHANNEL_URL, TELEGRAM_URL],
     areaServed: russia,
     knowsLanguage: "ru",
     ...(catalog

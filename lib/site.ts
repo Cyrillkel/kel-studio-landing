@@ -20,6 +20,8 @@ export const SITE_DESCRIPTION =
 
 export const CONTACT_EMAIL = "info@kel.agency";
 export const TELEGRAM_URL = "https://t.me/io112";
+// The studio's Telegram channel (blog author block, blog footer, structured data).
+export const TELEGRAM_CHANNEL_URL = "https://t.me/kel_studio";
 // Shown in the footer and the mobile menu (tap to call, WhatsApp chat).
 export const PHONE = "+7 999 219-35-01";
 export const PHONE_URL = "tel:+79992193501";
