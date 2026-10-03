@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import SmoothScroll from "@/components/SmoothScroll";
+import JsonLd from "@/components/JsonLd";
+import { graph, webPageNode } from "@/lib/schema";
 import {
   POLICY_UPDATED,
   cleanPolicyHtml,
@@ -23,9 +25,19 @@ export const metadata: Metadata = {
   ...(ready ? {} : { robots: { index: false, follow: true } }),
 };
 
+const structuredData = graph([
+  webPageNode({
+    path: "/privacy",
+    name: "Политика конфиденциальности - KEL Studio",
+    description: "Политика в отношении обработки персональных данных",
+    modified: POLICY_UPDATED,
+  }),
+]);
+
 export default function PrivacyPage() {
   return (
     <SmoothScroll>
+      <JsonLd data={structuredData} />
       <div className="flex min-h-screen flex-col bg-[#0a0a0a]">
         <Navigation />
         <main className="flex-1">

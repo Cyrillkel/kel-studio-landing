@@ -10,7 +10,7 @@ import LanguageSwitcher from "./LanguageSwitcher";
 import { ButtonLink } from "./Button";
 import { PhoneIcon } from "./ContactIcons";
 import ContactLinks from "./ContactLinks";
-import { MENU_SLUGS, SERVICES_PATH, servicePath } from "@/lib/services";
+import { MENU_SLUGS, PRICES_PATH, SERVICES_PATH, servicePath } from "@/lib/services";
 import { PHONE, PHONE_URL } from "@/lib/site";
 
 export default function Navigation() {
@@ -148,11 +148,11 @@ export default function Navigation() {
                   if (!e.currentTarget.contains(e.relatedTarget as Node)) setServicesOpen(false);
                 }}
               >
-                <a
-                  href={anchor("#services")}
+                <Link
+                  href={SERVICES_PATH}
                   className="flex items-center gap-1.5 py-2 text-gray-300 transition hover:text-white"
                   aria-expanded={servicesOpen}
-                  onClick={(e) => handleNavClick(e, "#services")}
+                  onClick={() => setServicesOpen(false)}
                 >
                   {t("nav.services")}
                   <svg
@@ -167,7 +167,7 @@ export default function Navigation() {
                   >
                     <path d="m6 9 6 6 6-6" />
                   </svg>
-                </a>
+                </Link>
                 <div
                   className={`absolute left-1/2 top-full w-64 -translate-x-1/2 pt-3 transition duration-200 ${
                     servicesOpen
@@ -196,13 +196,13 @@ export default function Navigation() {
                   </div>
                 </div>
               </div>
-              <a
-                href={anchor("#pricing")}
+              <Link
+                href={PRICES_PATH}
                 className="text-gray-300 hover:text-white transition"
-                onClick={(e) => handleNavClick(e, "#pricing")}
+                onClick={() => setServicesOpen(false)}
               >
                 {t("nav.pricing")}
-              </a>
+              </Link>
               <a
                 href={anchor("#portfolio")}
                 className="text-gray-300 hover:text-white transition"
@@ -335,13 +335,16 @@ export default function Navigation() {
                 </div>
               </div>
             </div>
-            <a
-              href={anchor("#pricing")}
+            <Link
+              href={PRICES_PATH}
               className="text-2xl text-gray-300 hover:text-white transition"
-              onClick={(e) => handleNavClick(e, "#pricing")}
+              onClick={() => {
+                setIsOpen(false);
+                setServicesOpen(false);
+              }}
             >
               {t("nav.pricing")}
-            </a>
+            </Link>
             <a
               href={anchor("#portfolio")}
               className="text-2xl text-gray-300 hover:text-white transition"

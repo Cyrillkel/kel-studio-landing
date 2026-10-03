@@ -3,7 +3,8 @@ import ru from "@/locales/ru.json";
 import JsonLd from "@/components/JsonLd";
 import ServicesHub from "@/components/services/ServicesHub";
 import { pageMetadata } from "@/lib/pageMetadata";
-import { SERVICE_SLUGS, SERVICES_PATH, servicePath, type ServiceCopy } from "@/lib/services";
+import { breadcrumbNode, graph, serviceListNode, webPageNode } from "@/lib/schema";
+import { SERVICES_PATH } from "@/lib/services";
 import { SITE_URL } from "@/lib/site";
 
 const hub = ru.servicePages.hub;
@@ -16,35 +17,24 @@ export const metadata: Metadata = pageMetadata({
 
 export default function Page() {
   const common = ru.servicePages.common;
-  const structuredData = {
-    "@context": "https://schema.org",
-    "@graph": [
-      {
-        "@type": "BreadcrumbList",
-        itemListElement: [
-          { "@type": "ListItem", position: 1, name: common.breadcrumbHome, item: `${SITE_URL}/` },
-          { "@type": "ListItem", position: 2, name: common.breadcrumbServices, item: `${SITE_URL}${SERVICES_PATH}` },
-        ],
-      },
-      {
-        "@type": "CollectionPage",
-        name: hub.title,
-        url: `${SITE_URL}${SERVICES_PATH}`,
-        mainEntity: {
-          "@type": "ItemList",
-          itemListElement: SERVICE_SLUGS.map((slug, index) => {
-            const copy: ServiceCopy = ru.servicePages.items[slug];
-            return {
-              "@type": "ListItem",
-              position: index + 1,
-              name: copy.name,
-              url: `${SITE_URL}${servicePath(slug)}`,
-            };
-          }),
-        },
-      },
+  const structuredData = graph(
+    [
+      webPageNode({
+        path: SERVICES_PATH,
+        name: hub.metaTitle,
+        description: hub.metaDescription,
+        type: "CollectionPage",
+        breadcrumb: true,
+        mainEntityId: `${SITE_URL}${SERVICES_PATH}#list`,
+      }),
+      breadcrumbNode(SERVICES_PATH, [
+        { name: common.breadcrumbHome, path: "/" },
+        { name: common.breadcrumbServices, path: SERVICES_PATH },
+      ]),
+      serviceListNode(SERVICES_PATH),
     ],
-  };
+    { catalog: true }
+  );
 
   return (
     <>

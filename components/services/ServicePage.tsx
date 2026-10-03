@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { gsap } from "gsap";
@@ -13,6 +13,8 @@ import SmoothScroll from "@/components/SmoothScroll";
 import SectionGlow from "@/components/SectionGlow";
 import ContactModal from "@/components/ContactModal";
 import Breadcrumbs from "@/components/Breadcrumbs";
+import RichText from "@/components/RichText";
+import Assurances from "@/components/services/Assurances";
 import ServiceIllustration from "@/components/services/ServiceIllustration";
 import { SERVICE_CONFIG, SERVICES_PATH, servicePath, type ServiceCopy, type ServiceSlug } from "@/lib/services";
 
@@ -25,6 +27,29 @@ export default function ServicePage({ slug }: { slug: ServiceSlug }) {
   const page = t(`servicePages.items.${slug}`, { returnObjects: true }) as ServiceCopy;
   const portfolio = t("portfolio.items", { returnObjects: true }) as PortfolioItem[];
   const rootRef = useRef<HTMLElement>(null);
+  const heroActionRef = useRef<HTMLDivElement>(null);
+  const finalRef = useRef<HTMLElement>(null);
+  const [showStickyCta, setShowStickyCta] = useState(false);
+
+  // On phones the page is long. Once the hero button has scrolled away, a
+  // button stays at the bottom of the screen; it hides again at the closing block.
+  useEffect(() => {
+    const hero = heroActionRef.current;
+    const closing = finalRef.current;
+    if (!hero || !closing) return;
+    let heroVisible = true;
+    let closingVisible = false;
+    const observer = new IntersectionObserver((entries) => {
+      for (const entry of entries) {
+        if (entry.target === hero) heroVisible = entry.isIntersecting;
+        else closingVisible = entry.isIntersecting;
+      }
+      setShowStickyCta(!heroVisible && !closingVisible);
+    });
+    observer.observe(hero);
+    observer.observe(closing);
+    return () => observer.disconnect();
+  }, [slug]);
 
   useEffect(() => {
     const root = rootRef.current;
@@ -131,11 +156,12 @@ export default function ServicePage({ slug }: { slug: ServiceSlug }) {
                   <dd className="mt-1 font-semibold text-white">{page.term}</dd>
                 </div>
               </dl>
-              <div className="service-action mt-8 flex flex-col sm:flex-row">
+              <div ref={heroActionRef} className="service-action mt-8 flex flex-col sm:flex-row">
                 <ContactModal place={place} service={slug} size="lg">
-                  {t("servicePages.common.ctaButton")}
+                  {page.cta}
                 </ContactModal>
               </div>
+              <Assurances className="service-action mt-5" />
             </div>
 
             <div className="relative aspect-[16/11] overflow-hidden rounded-2xl border border-white/10 bg-[#16121e] bg-[linear-gradient(rgba(255,255,255,0.035)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.035)_1px,transparent_1px)] bg-size-[24px_24px] p-6 sm:p-10">
@@ -151,7 +177,9 @@ export default function ServicePage({ slug }: { slug: ServiceSlug }) {
             </h2>
             <div className="mt-6 max-w-4xl space-y-4 text-lg leading-relaxed text-gray-300">
               {page.body.map((paragraph) => (
-                <p key={paragraph}>{paragraph}</p>
+                <p key={paragraph}>
+                  <RichText text={paragraph} />
+                </p>
               ))}
             </div>
           </div>
@@ -284,14 +312,19 @@ export default function ServicePage({ slug }: { slug: ServiceSlug }) {
                       <path d="m6 9 6 6 6-6" />
                     </svg>
                   </summary>
-                  <p className="mt-3 leading-relaxed text-gray-300">{item.a}</p>
+                  <p className="mt-3 leading-relaxed text-gray-300">
+                    <RichText text={item.a} />
+                  </p>
                 </details>
               ))}
             </div>
           </div>
         </section>
 
-        <section className="relative isolate overflow-hidden px-5 py-16 sm:px-6 md:py-24 bg-[linear-gradient(to_bottom,#111111_0px,#0a0a0a_180px,#0a0a0a_100%)]">
+        <section
+          ref={finalRef}
+          className="relative isolate overflow-hidden px-5 py-16 sm:px-6 md:py-24 bg-[linear-gradient(to_bottom,#111111_0px,#0a0a0a_180px,#0a0a0a_100%)]"
+        >
           <SectionGlow />
           <div className="mx-auto max-w-3xl text-center">
             <h2 className="font-heading text-3xl font-bold text-white sm:text-4xl">
@@ -300,9 +333,10 @@ export default function ServicePage({ slug }: { slug: ServiceSlug }) {
             <p className="mt-4 text-lg text-gray-300">{t("servicePages.common.ctaText")}</p>
             <div className="mt-8 flex justify-center">
               <ContactModal place={place} service={slug} size="lg">
-                {t("servicePages.common.ctaButton")}
+                {page.cta}
               </ContactModal>
             </div>
+            <Assurances className="mt-5 justify-center" />
           </div>
 
           <div className="mx-auto mt-16 max-w-7xl">
@@ -342,6 +376,18 @@ export default function ServicePage({ slug }: { slug: ServiceSlug }) {
             </Link>
           </div>
         </section>
+
+        {/* Phones only (no smooth scroller there, so fixed positioning is plain). */}
+        <div
+          inert={!showStickyCta}
+          className={`fixed inset-x-0 bottom-0 z-20 border-t border-white/10 bg-[#0a0a0a]/90 px-4 pt-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] backdrop-blur-md transition-transform duration-300 md:hidden ${
+            showStickyCta ? "translate-y-0" : "translate-y-full"
+          }`}
+        >
+          <ContactModal place={place} service={slug} size="lg" className="w-full">
+            {page.cta}
+          </ContactModal>
+        </div>
 
         <Footer />
       </main>

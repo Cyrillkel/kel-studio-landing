@@ -4,15 +4,14 @@ import ru from "@/locales/ru.json";
 import JsonLd from "@/components/JsonLd";
 import ServicePage from "@/components/services/ServicePage";
 import { pageMetadata } from "@/lib/pageMetadata";
+import { breadcrumbNode, faqNode, graph, serviceNode, webPageNode } from "@/lib/schema";
 import {
-  SERVICE_CONFIG,
   SERVICE_SLUGS,
   SERVICES_PATH,
   isServiceSlug,
   servicePath,
   type ServiceCopy,
 } from "@/lib/services";
-import { SITE_NAME, SITE_URL } from "@/lib/site";
 
 // Only the known services exist; anything else is a 404.
 export const dynamicParams = false;
@@ -43,52 +42,27 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
   if (!isServiceSlug(slug)) notFound();
 
   const page: ServiceCopy = ru.servicePages.items[slug];
-  const url = `${SITE_URL}${servicePath(slug)}`;
-  const { priceFrom } = SERVICE_CONFIG[slug];
+  const path = servicePath(slug);
   const common = ru.servicePages.common;
 
   // What search engines read besides the text: where the page sits, what the
   // service is (with a starting price where one is published), the questions.
-  const structuredData = {
-    "@context": "https://schema.org",
-    "@graph": [
-      {
-        "@type": "BreadcrumbList",
-        itemListElement: [
-          { "@type": "ListItem", position: 1, name: common.breadcrumbHome, item: `${SITE_URL}/` },
-          { "@type": "ListItem", position: 2, name: common.breadcrumbServices, item: `${SITE_URL}${SERVICES_PATH}` },
-          { "@type": "ListItem", position: 3, name: page.name, item: url },
-        ],
-      },
-      {
-        "@type": "Service",
-        "@id": `${url}#service`,
-        name: page.title,
-        serviceType: page.name,
-        description: page.metaDescription,
-        url,
-        provider: { "@type": "ProfessionalService", name: SITE_NAME, url: SITE_URL },
-        ...(priceFrom
-          ? {
-              offers: {
-                "@type": "Offer",
-                url,
-                priceCurrency: "RUB",
-                priceSpecification: { "@type": "PriceSpecification", priceCurrency: "RUB", minPrice: priceFrom },
-              },
-            }
-          : {}),
-      },
-      {
-        "@type": "FAQPage",
-        mainEntity: page.faq.map((item) => ({
-          "@type": "Question",
-          name: item.q,
-          acceptedAnswer: { "@type": "Answer", text: item.a },
-        })),
-      },
-    ],
-  };
+  const structuredData = graph([
+    webPageNode({
+      path,
+      name: page.metaTitle,
+      description: page.metaDescription,
+      breadcrumb: true,
+      aboutId: serviceNode(slug)["@id"] as string,
+    }),
+    breadcrumbNode(path, [
+      { name: common.breadcrumbHome, path: "/" },
+      { name: common.breadcrumbServices, path: SERVICES_PATH },
+      { name: page.name, path },
+    ]),
+    serviceNode(slug),
+    faqNode(path, page.faq),
+  ]);
 
   return (
     <>

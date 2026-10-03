@@ -108,7 +108,7 @@ export default function ContactModal({
               <path d="M6 6l12 12M18 6L6 18" />
             </svg>
           </button>
-          <h2 className="px-8 font-heading text-2xl font-bold sm:px-0 sm:text-3xl">{t("contact.heading")}</h2>
+          <h2 className="px-8 font-heading text-xl font-bold sm:px-0 sm:text-3xl">{t("contact.heading")}</h2>
           <p className="mt-3 mb-6 text-gray-300">{t("contact.subheading")}</p>
           <ContactForm place={place} service={service} />
         </div>

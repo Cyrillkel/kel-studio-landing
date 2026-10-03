@@ -9,10 +9,27 @@ import Contact from "@/components/Contact";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import SmoothScroll from "@/components/SmoothScroll";
+import JsonLd from "@/components/JsonLd";
+import ru from "@/locales/ru.json";
+import { faqNode, graph, webPageNode } from "@/lib/schema";
+import { SITE_DESCRIPTION, SITE_TITLE } from "@/lib/site";
+
+// The questions in the FAQ section of the home page, as the page shows them.
+const structuredData = graph(
+  [
+    webPageNode({ path: "/", name: SITE_TITLE, description: SITE_DESCRIPTION }),
+    faqNode(
+      "/",
+      ru.faq.items.map((item) => ({ q: item.question, a: item.answer }))
+    ),
+  ],
+  { catalog: true }
+);
 
 export default function Home() {
   return (
     <SmoothScroll>
+      <JsonLd data={structuredData} />
       <main className="bg-[#0a0a0a]">
         <Navigation />
         <Hero />

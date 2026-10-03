@@ -37,6 +37,8 @@ type ServiceConfig = {
   // A starting price in rubles for the Service markup (the same figure the
   // price list on the home page shows). Null when the price depends on the task.
   priceFrom: number | null;
+  // "HUR" when the price is per hour (web applications).
+  priceUnit?: "HUR";
   // Indexes into portfolio.items: our own projects shown as examples.
   cases: readonly number[];
   // Services that go together with this one, shown at the bottom of the page.
@@ -44,23 +46,23 @@ type ServiceConfig = {
 };
 
 export const SERVICE_CONFIG: Record<ServiceSlug, ServiceConfig> = {
-  landing: { group: "sites", menu: true, priceFrom: 40000, cases: [2, 3], related: ["vizitka", "design", "seo", "yandex-direct"] },
-  vizitka: { group: "sites", menu: false, priceFrom: 20000, cases: [3, 2], related: ["landing", "wordpress", "design", "yandex-maps"] },
-  corporate: { group: "sites", menu: true, priceFrom: 60000, cases: [1], related: ["design", "seo", "support", "wordpress"] },
-  ecommerce: { group: "sites", menu: true, priceFrom: 100000, cases: [0], related: ["design", "parsing", "seo", "support"] },
-  wordpress: { group: "sites", menu: false, priceFrom: null, cases: [], related: ["corporate", "vizitka", "support", "seo"] },
-  design: { group: "sites", menu: true, priceFrom: 20000, cases: [0, 1, 2], related: ["landing", "corporate", "ecommerce", "web-apps"] },
+  landing: { group: "sites", menu: true, priceFrom: 40000, cases: [2, 3], related: ["vizitka", "corporate", "yandex-direct", "yandex-maps"] },
+  vizitka: { group: "sites", menu: false, priceFrom: 20000, cases: [3, 2], related: ["landing", "wordpress", "yandex-maps", "seo"] },
+  corporate: { group: "sites", menu: true, priceFrom: 60000, cases: [1], related: ["wordpress", "seo-audit", "support", "design"] },
+  ecommerce: { group: "sites", menu: true, priceFrom: 100000, cases: [0], related: ["wordpress", "react-nextjs", "parsing", "support"] },
+  wordpress: { group: "sites", menu: false, priceFrom: null, cases: [], related: ["corporate", "vizitka", "support", "seo-audit"] },
+  design: { group: "sites", menu: true, priceFrom: 20000, cases: [0, 1, 2], related: ["landing", "vizitka", "corporate", "web-apps"] },
   seo: { group: "promotion", menu: true, priceFrom: 20000, cases: [], related: ["seo-audit", "yandex-direct", "yandex-maps", "support"] },
   "seo-audit": { group: "promotion", menu: false, priceFrom: null, cases: [], related: ["seo", "support", "yandex-direct", "corporate"] },
   "yandex-direct": { group: "promotion", menu: true, priceFrom: 20000, cases: [], related: ["seo", "landing", "yandex-maps", "seo-audit"] },
-  "yandex-maps": { group: "promotion", menu: false, priceFrom: null, cases: [], related: ["seo", "yandex-direct", "vizitka", "landing"] },
-  "web-apps": { group: "apps", menu: true, priceFrom: null, cases: [], related: ["react-nextjs", "design", "telegram-mini-apps", "support"] },
-  "react-nextjs": { group: "apps", menu: false, priceFrom: null, cases: [], related: ["web-apps", "corporate", "design", "seo"] },
-  "telegram-bots": { group: "apps", menu: true, priceFrom: null, cases: [], related: ["telegram-mini-apps", "web-apps", "parsing", "support"] },
-  "telegram-mini-apps": { group: "apps", menu: false, priceFrom: null, cases: [], related: ["telegram-bots", "web-apps", "design", "web3"] },
-  web3: { group: "apps", menu: false, priceFrom: null, cases: [], related: ["web-apps", "telegram-mini-apps", "react-nextjs", "design"] },
+  "yandex-maps": { group: "promotion", menu: false, priceFrom: null, cases: [], related: ["seo", "yandex-direct", "vizitka", "seo-audit"] },
+  "web-apps": { group: "apps", menu: true, priceFrom: 2000, priceUnit: "HUR", cases: [], related: ["react-nextjs", "telegram-mini-apps", "web3", "support"] },
+  "react-nextjs": { group: "apps", menu: false, priceFrom: null, cases: [], related: ["web-apps", "web3", "telegram-mini-apps", "corporate"] },
+  "telegram-bots": { group: "apps", menu: true, priceFrom: null, cases: [], related: ["telegram-mini-apps", "web-apps", "parsing", "ecommerce"] },
+  "telegram-mini-apps": { group: "apps", menu: false, priceFrom: null, cases: [], related: ["telegram-bots", "react-nextjs", "web3", "web-apps"] },
+  web3: { group: "apps", menu: false, priceFrom: null, cases: [], related: ["web-apps", "telegram-mini-apps", "react-nextjs", "telegram-bots"] },
   parsing: { group: "data", menu: true, priceFrom: 30000, cases: [], related: ["ecommerce", "telegram-bots", "web-apps", "seo"] },
-  support: { group: "data", menu: false, priceFrom: null, cases: [], related: ["seo", "wordpress", "corporate", "design"] },
+  support: { group: "data", menu: false, priceFrom: null, cases: [], related: ["wordpress", "corporate", "seo-audit", "design"] },
 };
 
 export const isServiceSlug = (value: string): value is ServiceSlug =>
@@ -85,6 +87,8 @@ export type ServiceCopy = {
   // One sentence for the cards on the services hub.
   short: string;
   lead: string;
+  // The button text: names what the visitor gets, e.g. "Рассчитать лендинг".
+  cta: string;
   price: string;
   term: string;
   bodyTitle: string;
@@ -111,3 +115,7 @@ export const PRICE_TABLE_SLUGS: readonly ServiceSlug[] = [
   "parsing",
 ];
 export const PER_TASK_SLUGS = SERVICE_SLUGS.filter((slug) => !PRICE_TABLE_SLUGS.includes(slug));
+
+// Page text may carry internal links as [label](/path); the structured data
+// for search engines gets the label only.
+export const plainText = (text: string) => text.replace(/\[([^\]]+)\]\(\/[^)\s]*\)/g, "$1");

@@ -7,7 +7,7 @@ import Select from "./Select";
 import { OTHER_SERVICE, validateContact, type ContactErrors } from "@/lib/contactSchema";
 import { SERVICE_SLUGS, type ServiceSlug } from "@/lib/services";
 import { GOALS, reachGoal } from "@/lib/metrika";
-import { PHONE } from "@/lib/site";
+import { PHONE, PHONE_URL, TELEGRAM_URL, WHATSAPP_URL } from "@/lib/site";
 
 // ym-disable-keys: Metrika's session replay doesn't record what is typed here.
 const fieldClass = (invalid: boolean) =>
@@ -46,6 +46,7 @@ export default function ContactForm({
   // Anti-spam, both invisible to a real visitor: a field only bots fill in and
   // the time it took to write the message.
   const [company, setCompany] = useState("");
+  const formRef = useRef<HTMLFormElement>(null);
   const openedAt = useRef(0);
   const started = useRef(false);
   useEffect(() => {
@@ -79,7 +80,11 @@ export default function ContactForm({
     if (status === "sending") return;
     const found = validateContact({ ...formData, consent });
     setErrors(found);
-    if (Object.keys(found).length > 0) return;
+    if (Object.keys(found).length > 0) {
+      // Take the visitor to the first field that needs a fix, once the errors are drawn.
+      setTimeout(() => formRef.current?.querySelector<HTMLElement>("[aria-invalid=true]")?.focus(), 0);
+      return;
+    }
     setStatus("sending");
     try {
       const response = await fetch("/api/contact", {
@@ -110,6 +115,7 @@ export default function ContactForm({
 
   return (
     <form
+      ref={formRef}
       onSubmit={handleSubmit}
       noValidate
       className="space-y-4 sm:space-y-6"
@@ -125,6 +131,7 @@ export default function ContactForm({
         <Field error={errors.name && t(`contact.errors.${errors.name}`)}>
           <input
             type="text"
+            autoComplete="name"
             placeholder={t("contact.namePlaceholder")}
             aria-label={t("contact.namePlaceholder")}
             value={formData.name}
@@ -137,6 +144,7 @@ export default function ContactForm({
         <Field error={errors.email && t(`contact.errors.${errors.email}`)}>
           <input
             type="email"
+            autoComplete="email"
             placeholder={t("contact.emailPlaceholder")}
             aria-label={t("contact.emailPlaceholder")}
             value={formData.email}
@@ -256,6 +264,19 @@ export default function ContactForm({
       <Button type="submit" size="lg" className="w-full" disabled={status === "sending"}>
         {status === "sending" ? t("contact.sending") : t("contact.submit")}
       </Button>
+      {/* Not everyone likes forms: the same people can be reached directly. */}
+      <p className="flex flex-wrap items-center justify-center gap-x-3 gap-y-1 text-sm text-gray-400">
+        <span>{t("contact.orWrite")}</span>
+        <a href={TELEGRAM_URL} target="_blank" rel="noopener noreferrer" className="underline underline-offset-4 transition-colors hover:text-white">
+          Telegram
+        </a>
+        <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer" className="underline underline-offset-4 transition-colors hover:text-white">
+          WhatsApp
+        </a>
+        <a href={PHONE_URL} className="underline underline-offset-4 transition-colors hover:text-white">
+          {PHONE}
+        </a>
+      </p>
       {status === "sent" && (
         <p role="status" className="text-center text-emerald-400">
           {t("contact.success")}

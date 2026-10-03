@@ -8,6 +8,7 @@ import SmoothScroll from "@/components/SmoothScroll";
 import SectionGlow from "@/components/SectionGlow";
 import ContactModal from "@/components/ContactModal";
 import Breadcrumbs from "@/components/Breadcrumbs";
+import RichText from "@/components/RichText";
 import { PER_TASK_SLUGS, PRICE_TABLE_SLUGS, SERVICES_PATH, servicePath, type ServiceCopy } from "@/lib/services";
 
 type Pair = { title: string; text: string };
@@ -175,7 +176,9 @@ export default function PricesPage() {
                       <path d="m6 9 6 6 6-6" />
                     </svg>
                   </summary>
-                  <p className="mt-3 leading-relaxed text-gray-300">{item.a}</p>
+                  <p className="mt-3 leading-relaxed text-gray-300">
+                    <RichText text={item.a} />
+                  </p>
                 </details>
               ))}
             </div>

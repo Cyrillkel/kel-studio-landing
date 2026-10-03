@@ -3,7 +3,8 @@ import ru from "@/locales/ru.json";
 import JsonLd from "@/components/JsonLd";
 import PricesPage from "@/components/services/PricesPage";
 import { pageMetadata } from "@/lib/pageMetadata";
-import { PRICES_PATH } from "@/lib/services";
+import { breadcrumbNode, faqNode, graph, priceListNode, webPageNode } from "@/lib/schema";
+import { PRICES_PATH, PRICE_TABLE_SLUGS } from "@/lib/services";
 import { SITE_URL } from "@/lib/site";
 
 const prices = ru.servicePages.pricesPage;
@@ -15,26 +16,21 @@ export const metadata: Metadata = pageMetadata({
 });
 
 export default function Page() {
-  const structuredData = {
-    "@context": "https://schema.org",
-    "@graph": [
-      {
-        "@type": "BreadcrumbList",
-        itemListElement: [
-          { "@type": "ListItem", position: 1, name: ru.servicePages.common.breadcrumbHome, item: `${SITE_URL}/` },
-          { "@type": "ListItem", position: 2, name: prices.crumb, item: `${SITE_URL}${PRICES_PATH}` },
-        ],
-      },
-      {
-        "@type": "FAQPage",
-        mainEntity: prices.faq.map((item) => ({
-          "@type": "Question",
-          name: item.q,
-          acceptedAnswer: { "@type": "Answer", text: item.a },
-        })),
-      },
-    ],
-  };
+  const structuredData = graph([
+    webPageNode({
+      path: PRICES_PATH,
+      name: prices.metaTitle,
+      description: prices.metaDescription,
+      breadcrumb: true,
+      mainEntityId: `${SITE_URL}${PRICES_PATH}#prices`,
+    }),
+    breadcrumbNode(PRICES_PATH, [
+      { name: ru.servicePages.common.breadcrumbHome, path: "/" },
+      { name: prices.crumb, path: PRICES_PATH },
+    ]),
+    priceListNode(PRICES_PATH, PRICE_TABLE_SLUGS),
+    faqNode(PRICES_PATH, prices.faq),
+  ]);
 
   return (
     <>

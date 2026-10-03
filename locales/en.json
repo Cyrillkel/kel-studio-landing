@@ -217,8 +217,8 @@
     ]
   },
   "contact": {
-    "heading": "Ready to start a project?",
-    "subheading": "Get in touch and let's discuss your ideas",
+    "heading": "Get a price and timeline quote",
+    "subheading": "All we need is a name and an email or phone. We will come back with a solution, a price and a timeline.",
     "namePlaceholder": "Your name",
     "emailPlaceholder": "Email",
     "phonePlaceholder": "Or phone",
@@ -228,7 +228,8 @@
     "topicOther": "Other",
     "messagePlaceholder": "Tell us about your project (optional)",
     "consent": "I agree to the processing of my personal data and accept the <policy>Privacy Policy</policy>",
-    "submit": "Send request",
+    "submit": "Get my quote",
+    "orWrite": "Or write to us directly:",
     "sending": "Sending…",
     "success": "Thank you! We got your request and will be in touch shortly.",
     "error": "Could not send the form. Write to us on Telegram: @io112",
@@ -247,7 +248,8 @@
   },
   "footer": {
     "copyright": "© 2026 KEL Studio. All rights reserved.",
-    "privacy": "Privacy Policy"
+    "privacy": "Privacy Policy",
+    "navLabel": "Site sections"
   },
   "cookies": {
     "label": "Cookie notice",
@@ -266,9 +268,9 @@
       "includesTitle": "What is included",
       "priceLabel": "Price",
       "termLabel": "Timeline",
-      "ctaTitle": "Shall we talk about your project?",
-      "ctaText": "Tell us what needs to be done. We will reply with a solution, a timeline and a price.",
-      "ctaButton": "Send a request",
+      "ctaTitle": "We name the price and timeline after a short brief",
+      "ctaText": "Describe the task in a request. We will come back with a solution, a timeline and a price that we fix in the contract.",
+      "ctaButton": "Calculate the cost",
       "otherTitle": "Related services",
       "backHome": "Home",
       "allServices": "All services",
@@ -277,7 +279,12 @@
       "faqTitle": "Frequently asked questions",
       "breadcrumbLabel": "Breadcrumbs",
       "breadcrumbHome": "Home",
-      "breadcrumbServices": "Services"
+      "breadcrumbServices": "Services",
+      "assurances": [
+        "Price and timeline are fixed in the contract",
+        "We work with individuals and companies",
+        "A request does not oblige you to anything"
+      ]
     },
     "items": {
       "landing": {
@@ -286,13 +293,14 @@
         "metaTitle": "Order a turnkey landing page from 40,000 ₽ - KEL Studio",
         "metaDescription": "Turnkey landing pages and one-page sites: design, layout, request form and analytics. 1-2 weeks, from 40,000 ₽.",
         "short": "A one-page site for one service or offer: from prototype to launch in 1-2 weeks.",
-        "lead": "We make landing pages and one-page sites that lead the visitor to one action: a request, a call or a purchase. From structure and design to launch and connected analytics.",
+        "lead": "A landing page in 1-2 weeks, from 40,000 ₽. We plan the structure, draw the design, build it and connect the request form and Metrika. Price and timeline are fixed in the contract.",
+        "cta": "Calculate my landing page",
         "price": "from 40,000 ₽",
         "term": "1-2 weeks",
-        "bodyTitle": "A turnkey landing page: what it is and when you need it",
+        "bodyTitle": "A turnkey landing page you can send ad traffic to right away",
         "body": [
-          "A landing page is a one-page site that tells about one product or service and leads to one action. You need it when you run ads, promote one service or test demand for a new offer: the visitor does not have to search a menu, everything important is on one page.",
-          "We build landing pages turnkey: we plan the structure and order of blocks, draw a design in your brand style, build versions for phones and computers, and connect the request form and analytics. The result is a fast one-page site ready to receive traffic from ads or search."
+          "A landing page shows one service or one product and leads the visitor to one action: leave a request, call, buy. That is why it works well for ads and for testing a new offer: the visitor does not hunt through a menu, everything is on one page. If you have several directions, a [corporate website](/services/corporate) fits better, and a specialist or a small company can do with a [business card site](/services/vizitka).",
+          "We start with the structure: which blocks, in what order and what they say. Once it is agreed, we draw the design for computer and phone, then build it. At the end we connect the request form (to Telegram, email or CRM) and Yandex Metrika with goals, so you can see where requests come from."
         ],
         "includes": [
           "Prototype: the structure of screens and the storyline",
@@ -359,13 +367,14 @@
         "metaTitle": "Order a business card website turnkey from 20,000 ₽ - KEL Studio",
         "metaDescription": "Business card websites for companies, specialists and craftsmen: design, responsive layout, contacts, request form. 1-2 weeks, from 20,000 ₽.",
         "short": "A small site about a company or a specialist: contacts, services and a request form in 1-2 weeks.",
-        "lead": "A business card site tells who you are and what you do, and shows how to reach you. It suits companies, specialists and craftsmen who need a neat site without extra sections.",
+        "lead": "A neat site about you or your company: services, examples of work, contacts and a request form. Ready in 1-2 weeks, from 20,000 ₽.",
+        "cta": "Get the price of a business card site",
         "price": "from 20,000 ₽",
         "term": "1-2 weeks",
-        "bodyTitle": "A business card site: what it is and who it is for",
+        "bodyTitle": "A business card site you can send a client to",
         "body": [
-          "A business card site is a small site of a few blocks or pages: who you are, what you do, services and prices, examples of work, contacts. It lets a client find you in search, make sure you are real and get in touch right away: call, write in a messenger or leave a request.",
-          "We make business card sites turnkey: we choose a structure for your line of work, draw a neat design, build the phone version, and connect the request form, map and contact buttons. The site is ready for indexing in Yandex and Google at once, and as your business grows it can be extended to a landing page or a corporate website."
+          "On a business card site the client finds the essentials: what you do, how much it costs, how to reach you. It suits specialists, craftsmen and small companies that have no site yet or only a social network page. The address can go into ads, onto business cards and into profiles.",
+          "We choose the structure for your line of work, draw the design, build the phone version, and add the request form, Telegram, WhatsApp and call buttons and a location map. The site is ready for indexing in Yandex and Google at once. If the business grows, the site can be extended to a [landing page](/services/landing) or a [corporate website](/services/corporate)."
         ],
         "includes": [
           "Structure: about you, services, examples of work, contacts",
@@ -428,17 +437,18 @@
         "metaTitle": "Corporate website development from 60,000 ₽ - KEL Studio",
         "metaDescription": "Turnkey corporate websites: structure, design, service catalog, admin panel and integrations. 3-5 weeks, from 60,000 ₽.",
         "short": "A multi-page company site with services and an admin panel: 3-5 weeks.",
-        "lead": "A company site that works like a full sales department: it tells about services, answers objections and collects requests. We develop corporate websites turnkey, from structure to launch.",
+        "lead": "A company site where clients find services, prices and contacts without calling you. Developed in 3-5 weeks, from 60,000 ₽, with an admin panel so you change texts and news yourself.",
+        "cta": "Calculate a company site",
         "price": "from 60,000 ₽",
         "term": "3-5 weeks",
-        "bodyTitle": "A corporate website: what a company needs it for",
+        "bodyTitle": "A corporate website that answers the client's questions before a call",
         "body": [
-          "A corporate website is a multi-page company site: about the company, services or catalog, cases, news, contacts. It answers the client's questions before a call, helps you look solid in negotiations and tenders, and is the basis for search promotion: each service can have its own page.",
-          "We develop company sites turnkey. First we plan the structure for your services and audience, then draw the design of all typical pages, not only the home page, build it and connect an admin panel so you can change texts, prices and news yourself. In the end we set up indexing, the sitemap and analytics."
+          "When a company has several services, one page is not enough: you need sections, a page for each service, cases, news and contacts. Such a site helps you look solid in negotiations and tenders, and in search every service gets its own page. For one service or an ad campaign a [landing page](/services/landing) is simpler, and to be found in search you need [SEO promotion](/services/seo).",
+          "First we study your services and audience and build the structure. Then we draw the home page and all typical page templates, build the site and connect the admin panel. Before launch we set up indexing, the sitemap and analytics; after launch we hand over all access."
         ],
         "includes": [
           "Structure planning: sections, services, landing pages",
-          "Design of all typical templates, not only the home page",
+          "Design of the home page and all typical pages",
           "Admin panel: you change texts, news and prices yourself",
           "Forms, requests, email and CRM integrations",
           "Multilingual support if you work beyond Russia",
@@ -501,13 +511,14 @@
         "metaTitle": "Create an online store turnkey from 100,000 ₽ - KEL Studio",
         "metaDescription": "Turnkey online stores: catalog, cart, payment, delivery, MoySklad and CRM integration. From 1.5 months, from 100,000 ₽.",
         "short": "A store with catalog, cart, payment and delivery, convenient on a phone: from 1.5 months.",
-        "lead": "A store that is easy to buy from on a phone: a fast catalog, a clear cart, payment in two steps and honest delivery statuses. We create online stores turnkey.",
+        "lead": "An online store with a catalog, cart, payment and delivery that is convenient to use on a phone. From 100,000 ₽, from 1.5 months; the price and stages are fixed in the contract.",
+        "cta": "Calculate a store",
         "price": "from 100,000 ₽",
         "term": "from 1.5 months",
-        "bodyTitle": "A turnkey online store: what it consists of",
+        "bodyTitle": "A turnkey online store: from the catalog to the first order",
         "body": [
-          "An online store is more than a showcase of products. Customers need quick search and filters, a clear product card, a cart without extra steps and convenient payment; you need order handling, stock and sales analytics. All of this has to be thought through and connected.",
-          "We create online stores turnkey: we design the catalog and the buyer's path, draw the design, develop the store, connect payment and delivery, and set up exchange with MoySklad, amoCRM or Google Sheets. After launch we teach you to work with the admin panel and can take the store on support."
+          "Customers need quick search and filters, a clear product card, a cart without extra steps and convenient payment. You need order handling, stock and sales analytics. We design all this as one system, so an order goes from click to shipment without extra steps.",
+          "We design the catalog and the buyer's path, draw the design, develop the store and connect payment and delivery. On request we link it to MoySklad and amoCRM. Before launch we run an order from start to finish; after launch we teach you to work with the admin panel and can take the store on [support](/services/support) and handle its [promotion](/services/seo)."
         ],
         "includes": [
           "Catalog with filters, search and product cards",
@@ -574,13 +585,14 @@
         "metaTitle": "Turnkey WordPress website creation - KEL Studio",
         "metaDescription": "WordPress website development: design, theme layout, plugins and a convenient admin where you change texts and pages yourself. Price depends on the type of site.",
         "short": "A WordPress site with a convenient admin where you change texts and pages yourself.",
-        "lead": "We build WordPress sites that are easy to manage without a programmer: you change texts and add pages and products yourself. From design to setup and launch.",
+        "lead": "A WordPress site with a convenient admin: you change texts, pages and products yourself, without a programmer. The price depends on the type of site; guideline prices are on the prices page.",
+        "cta": "Get the price of a site",
         "price": "priced by site type",
         "term": "named after the brief",
-        "bodyTitle": "A WordPress site: when it is a good choice",
+        "bodyTitle": "WordPress: when you want a site you manage yourself",
         "body": [
-          "WordPress is the most widespread website management system. It is chosen for its convenient admin, a large set of ready-made extensions, and because any specialist can maintain such a site, not only its author. It suits business card sites, corporate websites, blogs, catalogs and small WooCommerce stores.",
-          "We develop WordPress sites turnkey: we draw the design for your brand, build the theme for this design, and set up the plugins and admin so you can edit content without code. We try not to overload the site with plugins, watch the speed and advise how to update the system and keep backups. The cost depends on the type of site; guideline prices are on the prices page."
+          "WordPress is chosen for its convenient admin and a large set of ready-made extensions. Any specialist can maintain such a site, so you do not depend on one developer. It suits business card sites, corporate websites, blogs, catalogs and small WooCommerce stores.",
+          "We draw the design for your brand, build the theme for this design, and set up plugins and the admin so you edit content without code. We do not overload the site with plugins, we check its speed, and we advise how to update the system and keep backups. The cost depends on the type of site, guideline prices are on the [prices page](/prices); after launch the site can go on [support](/services/support)."
         ],
         "includes": [
           "Design and theme layout for your brand",
@@ -594,7 +606,7 @@
         "fit": [
           "You want to change texts, pages and products yourself without a programmer",
           "You need a blog, a catalog or a small WooCommerce store",
-          "It matters that any specialist can maintain the site, not only its author"
+          "You do not want to depend on one developer: any specialist can maintain the site"
         ],
         "steps": [
           {
@@ -621,7 +633,7 @@
         "faq": [
           {
             "q": "How much does a WordPress site cost?",
-            "a": "The price depends on the type of site, not the platform: a business card site from 20,000 ₽, a landing page from 40,000 ₽, a corporate website from 60,000 ₽, an online store from 100,000 ₽. We name the exact price after the brief."
+            "a": "The price depends on the type of site: a [business card site](/services/vizitka) from 20,000 ₽, a [landing page](/services/landing) from 40,000 ₽, a [corporate website](/services/corporate) from 60,000 ₽, an [online store](/services/ecommerce) from 100,000 ₽. We name the exact price after the brief."
           },
           {
             "q": "Is WordPress better or worse than a custom-built site?",
@@ -647,13 +659,14 @@
         "metaTitle": "Order website design: web design and UI/UX from 20,000 ₽ - KEL Studio",
         "metaDescription": "Website and interface design to order: prototype, layout, UI/UX design for landing pages, corporate websites and applications. From 20,000 ₽.",
         "short": "Prototypes and layouts of sites and applications: clear structure and design in your brand style.",
-        "lead": "We design websites and interfaces: from prototype and structure to a finished layout. Design where it is clear what to click, and that helps the business rather than just looking nice.",
+        "lead": "Prototypes and layouts for sites, stores and applications: from page structure to finished screens for computer and phone. From 20,000 ₽. Can be ordered separately from development.",
+        "cta": "Calculate design",
         "price": "from 20,000 ₽",
         "term": "named after the brief",
-        "bodyTitle": "Web design and UI/UX: what we do",
+        "bodyTitle": "Web design where it is clear what to click",
         "body": [
-          "Web design is more than the look of a site. UX (user experience) is how a person finds what they need and takes the target action; UI (interface) is how everything looks: colors, fonts, buttons, animations. Good design helps a visitor quickly understand the offer and decide what to do next.",
-          "We design websites, online stores and web applications. First we plan the structure and build a prototype, then create layouts for computer and phone in your brand style and prepare files for development. Design can be ordered separately, for example if you have your own developer, or together with site development."
+          "Design solves two tasks. The first: within seconds a visitor understands what you offer and what to click. The second: the site looks like your brand and stands out from template sites. The first is called UX, the second UI, and we do both.",
+          "We start with a prototype: which blocks and in what order. Once the structure is agreed, we propose a visual concept (colors, fonts, the key screen), then draw all pages and prepare files for the developer. If you have your own developer, we help during the build. Design can continue into development: a [landing page](/services/landing), a [corporate website](/services/corporate) or an [online store](/services/ecommerce)."
         ],
         "includes": [
           "Analysis of the task, audience and competitor sites",
@@ -720,13 +733,14 @@
         "metaTitle": "SEO promotion in Yandex and Google from 20,000 ₽ - KEL Studio",
         "metaDescription": "Website promotion in Yandex and Google: technical audit, semantics, page optimization and reporting. No promises of \"top 1 in a week\". From 20,000 ₽.",
         "short": "Audit, semantics, optimization and monthly reports. First results in 2-3 months.",
-        "lead": "We make sure your site is found in search and that visits turn into requests. No promises of \"top 1 in a week\": first an audit, then a work plan and a report on results.",
+        "lead": "We promote sites in Yandex and Google. We start with an audit and semantics, then fix the site and texts, and send a report with numbers once a month. From 20,000 ₽; first changes usually appear in 2-3 months.",
+        "cta": "Calculate promotion",
         "price": "from 20,000 ₽",
         "term": "first results in 2-3 months",
-        "bodyTitle": "SEO promotion: how we work",
+        "bodyTitle": "SEO promotion with a monthly report",
         "body": [
-          "SEO (search engine optimization) helps a site appear in Yandex and Google for your customers' queries: \"order\", \"price\", \"turnkey\". It is not a one-time setup but consistent work: prepare the site technically, collect queries, improve pages and texts, then watch results and adjust the plan.",
-          "We start with a site audit and an analysis of demand and competitors, then build the semantic core and page structure, optimize titles, texts and internal links, and connect Yandex Metrika and goals. Once a month we send a report: what was done, how positions and traffic changed, what comes next. The result depends on competition in your niche and the state of the site, so we do not promise positions; we promise transparent work and reporting."
+          "Search optimization brings to your site people who are already searching for your service: \"order\", \"price\", \"turnkey\". The work goes step by step: prepare the site technically (we start with an [SEO audit](/services/seo-audit)), collect queries, improve pages and texts, then watch the results and adjust the plan.",
+          "Once a month we send a report: what was done, how positions and traffic changed, what comes next. The result depends on competition in your niche and the state of the site, so we do not promise positions. We promise regular work and numbers that show what is happening. If you need requests right now, we add [Yandex Direct](/services/yandex-direct), and for a local business [Yandex Maps](/services/yandex-maps)."
         ],
         "includes": [
           "Technical audit: speed, indexing, markup errors, duplicate pages",
@@ -740,7 +754,7 @@
         "fit": [
           "You have a site but almost no requests from search",
           "You launch a new site and want to build the structure around search queries from the start",
-          "You want to understand where clients come from instead of guessing"
+          "You want to see where clients come from and calculate the cost of a request"
         ],
         "steps": [
           {
@@ -775,11 +789,11 @@
           },
           {
             "q": "Do you guarantee getting to the top?",
-            "a": "No, and you should not trust those who do. Search engines do not reveal their algorithms and positions depend on competitors. We guarantee something else: a clear plan, work done and transparent reporting."
+            "a": "No. Search engines do not reveal their algorithms and positions also depend on competitors, so an honest guaranteed top does not exist. We answer for what is in our hands: the work plan, the work itself and a monthly report."
           },
           {
             "q": "How is SEO different from contextual advertising?",
-            "a": "Yandex Direct ads bring visitors while you pay for clicks. SEO brings traffic from regular search results: it grows more slowly but does not require paying for each visit. They are often used together."
+            "a": "[Yandex Direct](/services/yandex-direct) ads bring visitors while you pay for clicks. SEO brings traffic from regular search results: it grows more slowly but does not require paying for each visit. They are often used together."
           },
           {
             "q": "Does the site have to be remade for promotion?",
@@ -793,13 +807,14 @@
         "metaTitle": "SEO audit of a website: technical and content - KEL Studio",
         "metaDescription": "Order an SEO audit: checking indexing, speed, structure, texts and errors. Get a clear report and a prioritized fix plan.",
         "short": "We check the site for errors and growth points and give a clear fix plan.",
-        "lead": "We check your site through the eyes of search engines: indexing, speed, structure, texts and technical errors. You get a clear report and a prioritized list of fixes.",
+        "lead": "We check your site: indexing, speed, structure, texts and technical errors. You get a report in plain language and a list of fixes ordered by importance.",
+        "cta": "Order an audit",
         "price": "priced by site size",
         "term": "named after we see the site",
-        "bodyTitle": "SEO audit: what we check and what you get",
+        "bodyTitle": "SEO audit of a website: a report with priorities of fixes",
         "body": [
-          "An SEO audit is a check of everything that affects a site's visibility in search. It shows why pages are not indexed or do not grow in results, which errors get in the way of robots and people and what to improve first. An audit is useful before promotion starts, after a redesign or a move, and when traffic suddenly drops.",
-          "We check technical parameters (indexing, speed, mobile adaptation, duplicates, redirects, markup), structure and internal links, titles and texts, and compare the site with competitors. The result is a report without complicated terms: what was found, how important it is and how to fix it. We can take over the fixes."
+          "An audit shows why pages are not indexed or do not grow in results, which errors get in the way of search robots and visitors and what to fix first. It is done before promotion, after a redesign or a move, and when traffic suddenly drops.",
+          "We check technical parameters (indexing, speed, mobile adaptation, duplicate pages, redirects, markup), structure and internal links, titles and texts, and compare the site with competitors. The report is written without complicated terms: what was found, how important it is, how to fix it. We can take over the fixes and move on to [SEO promotion](/services/seo) or [website support](/services/support)."
         ],
         "includes": [
           "Checking indexing, robots.txt and the sitemap",
@@ -862,13 +877,14 @@
         "metaTitle": "Yandex Direct setup and management from 20,000 ₽ - KEL Studio",
         "metaDescription": "Turnkey contextual advertising in Yandex Direct: queries, ads, bids, analytics and reports. Ad management from 20,000 ₽.",
         "short": "Setup and management of contextual ads: queries, ads, bids and reports.",
-        "lead": "We set up and run ads in Yandex Direct so the budget brings requests, not just clicks. We pick queries, write ads, watch bids and show the result in numbers.",
+        "lead": "We set up and run Yandex Direct: we pick queries, write ads, watch bids and show the result in numbers. Management from 20,000 ₽; the advertising budget is paid separately.",
+        "cta": "Calculate the budget",
         "price": "from 20,000 ₽",
         "term": "named after the brief",
-        "bodyTitle": "Yandex Direct: turnkey contextual advertising",
+        "bodyTitle": "Yandex Direct where you can see what a request costs",
         "body": [
-          "Yandex Direct shows your ads to people who are already searching for a service in Yandex or visiting sites of the advertising network. Unlike SEO, the result comes fast: as soon as the ads run, visitors come to the site. But without a proper setup the budget easily goes to irrelevant clicks.",
-          "We set up Direct turnkey: we collect queries and negative keywords, split ads into groups, write ads, set up bids and goals in Metrika so you can see which ads bring requests. After launch we manage the campaigns: switch off what does not work, test texts and send reports. The advertising budget that Yandex charges for clicks is paid separately from our work."
+          "Direct shows ads to people who are searching for your service right now, and the first visitors arrive on the day of launch. Without a proper setup the budget goes to irrelevant clicks, so most of the work is queries, negative keywords and goals in Metrika.",
+          "First we calculate a budget forecast and the cost of a request. Then we collect queries, split ads into groups, write ads and set up goals so you can see which ads bring requests. After launch we switch off what does not work, test texts and send reports with spend and cost per request. It is best to send visitors to a page made for the query, for example a [landing page](/services/landing), while a long-term flow comes from [SEO promotion](/services/seo)."
         ],
         "includes": [
           "Analysis of the niche, demand and competitors, budget forecast",
@@ -921,7 +937,7 @@
           },
           {
             "q": "How is Direct different from SEO?",
-            "a": "Direct is paid ads: you pay for clicks, the result is fast. SEO is work on positions in regular results: the result comes more slowly but does not require paying for each visit. They are often combined."
+            "a": "Direct is paid ads: you pay for clicks, the result is fast. [SEO](/services/seo) is work on positions in regular results: the result comes more slowly but does not require paying for each visit. They are often combined."
           },
           {
             "q": "Whose name is the ad account registered in?",
@@ -935,13 +951,14 @@
         "metaTitle": "Promotion in Yandex Maps and Yandex Business - KEL Studio",
         "metaDescription": "We set up your organization card in Yandex Business, help improve visibility in Yandex Maps and set up ads: contacts, reviews, photos, call report.",
         "short": "An organization card in Yandex Business, work with reviews and ads on maps.",
-        "lead": "We help companies with offline locations and local clients look better in Yandex Maps: we set up the organization card, build work with reviews and set up ads in Yandex Business.",
+        "lead": "We set up your organization's card in Yandex Business, build work with reviews and run ads on Yandex Maps. For companies with an office, store or clinic where clients come.",
+        "cta": "Find out the cost",
         "price": "priced per task",
         "term": "named after the brief",
-        "bodyTitle": "Promotion in Yandex Maps: why and how",
+        "bodyTitle": "A Yandex Maps card people call and route to",
         "body": [
-          "When a person searches for \"cafe nearby\", \"tire service\" or \"dentist\", Yandex shows a map with organizations. If your card is filled in, with photos, opening hours, current contacts and fresh reviews, it attracts more calls and routes. For a local business this is often more important than the site's positions in regular search.",
-          "We set up the card in Yandex Business, check the company data, add photos, services and products, help build work with reviews and set up ads in Yandex Maps and Business. We can also link the card to the site and analytics so you see calls and visits. The result depends on competition in your area and the quality of your services."
+          "A person searches for \"cafe nearby\" or \"tire service\" and Yandex shows a map of organizations. A card with photos, opening hours, current contacts and fresh reviews gets more calls and routes. For a local business this often matters more than the site's positions in regular search.",
+          "We create or update the card in Yandex Business, check the company data, add photos, services and products and help build work with reviews. Then we set up ads on the maps and link the card to the site and analytics so you can see calls and visits. The result depends on competition in your area and the quality of your services. To be found in regular search too, we add [SEO promotion](/services/seo)."
         ],
         "includes": [
           "Creating or checking the organization card in Yandex Business",
@@ -1004,13 +1021,14 @@
         "metaTitle": "Custom web application development from 2,000 ₽/hour - KEL Studio",
         "metaDescription": "Custom web applications, personal accounts, CRM, SaaS and API integrations. React, Next.js, Node.js. From 2,000 ₽/hour.",
         "short": "Personal accounts, dashboards, CRM, SaaS services and API integrations.",
-        "lead": "Services people work in every day: personal accounts, dashboards, internal systems and SaaS products. We develop custom web applications, from prototype to launch and growth.",
+        "lead": "We develop personal accounts, dashboards, CRM and SaaS services to order. We work by the hour, from 2,000 ₽ per hour, and after analyzing the task we give an estimate by stages.",
+        "cta": "Discuss the task",
         "price": "from 2,000 ₽/hour",
         "term": "depends on the scope",
-        "bodyTitle": "A custom web application: when a site is not enough",
+        "bodyTitle": "A web application for your processes",
         "body": [
-          "A web application is a service that runs in the browser and solves a working task: takes orders, calculates, shows data, connects people and systems. A client's personal account, a CRM for your processes, a dashboard, a partner portal, a SaaS product are all web applications.",
-          "We develop custom web applications: we study user scenarios, design the interface, write the client and server parts, connect API integrations and test before launch. We work with React, Next.js and Node.js; we choose the stack for the task, not the other way round."
+          "When routine lives in spreadsheets and messengers, it is time to put it into a service. A web application runs in the browser and solves a working task: takes orders, calculates, shows data, connects people and systems. A client's personal account, a CRM for your processes, a partner portal, a subscription service are all web applications.",
+          "First we find out who uses the service and how. Then we design the interface and agree on a clickable prototype with you, write the server and client parts, connect API integrations and test. We work with React, Next.js and Node.js and choose the stack for the task. The interface is built on [React and Next.js](/services/react-nextjs) where it fits, and a service for clients inside a messenger as a [Telegram Mini App](/services/telegram-mini-apps)."
         ],
         "includes": [
           "Task analysis and user scenarios",
@@ -1077,13 +1095,14 @@
         "metaTitle": "Frontend development on React and Next.js to order - KEL Studio",
         "metaDescription": "Sites and interfaces on React and Next.js: fast server-rendered sites, search-friendly frontend, API and headless CMS integration.",
         "short": "Fast sites and interfaces on React and Next.js integrated with your API.",
-        "lead": "We build frontends on React and Next.js: fast sites and interfaces that search engines index well, that are easy to grow and that connect to your API or headless CMS.",
+        "lead": "We build frontends on React and Next.js: fast sites and interfaces that search engines index with the ready text. We connect your API or headless CMS.",
+        "cta": "Discuss the project",
         "price": "priced per task",
         "term": "named after the task analysis",
-        "bodyTitle": "React and Next.js: when it is a good choice",
+        "bodyTitle": "React and Next.js: fast sites that search can see",
         "body": [
-          "React is a library for building interfaces; Next.js is a framework on top of it that can build pages on the server. Thanks to this the site opens fast and search engines see the ready text of the page. This pair is chosen for marketing sites, online stores, personal accounts and complex interfaces.",
-          "We build frontends on React and Next.js: we design components, connect data from your API or headless CMS, optimize speed and set up markup and metadata for search. This site is built with the same technology. We can take a project from scratch, improve an existing one or join your team."
+          "Next.js builds pages on the server, so the browser gets the ready page text at once. The site opens fast and Yandex and Google read it like an ordinary one. This pair is chosen for marketing sites, online stores, personal accounts and complex interfaces.",
+          "We design components, connect data from your API or headless CMS, optimize speed and set up metadata and markup for search. The kel.agency site is built with the same technology. We take a project from scratch, improve an existing one or join your team. For complex server logic and accounts see [web applications](/services/web-apps)."
         ],
         "includes": [
           "Designing components and the application structure",
@@ -1150,13 +1169,14 @@
         "metaTitle": "Telegram bots for business to order - KEL Studio",
         "metaDescription": "Turnkey Telegram bots: taking requests, catalog, payment, mailings, customer support, CRM and website integrations. Estimate after the brief.",
         "short": "Bots for requests, sales and customer support integrated with CRM and your site.",
-        "lead": "We create Telegram bots that take requests, answer clients, sell and remind about appointments. The bot works around the clock and passes the data to you in a convenient form.",
+        "lead": "We create Telegram bots that take requests and bookings, answer frequent questions, show a catalog and accept payment. Requests reach you in Telegram, by email or in your CRM.",
+        "cta": "Discuss a bot",
         "price": "priced after the brief",
         "term": "named after the brief",
-        "bodyTitle": "A Telegram bot for business: what it can do",
+        "bodyTitle": "A Telegram bot that takes requests around the clock",
         "body": [
-          "A Telegram bot is a program inside the messenger that people talk to like a person. It takes requests and bookings, answers frequent questions, shows a catalog, accepts payment and sends notifications and mailings. It is convenient for clients: nothing to install, just open the chat.",
-          "We develop chat bots for your task: we plan dialogue scenarios, make menus and buttons, connect payment and integrations with CRM, spreadsheets and the site, and set up an admin panel so you manage content without a programmer. Requests from our own site also reach us through our own Telegram bot."
+          "Clients are used to writing in messengers, and requests in chats get lost. A bot replies at once at any time: it collects contacts, books a service, shows prices and a catalog, sends reminders. The client installs nothing, just opens the chat.",
+          "We plan the dialogue scenario, draw the menu and buttons, connect payment, CRM and spreadsheets, and build the admin panel so you change texts and prices yourself. Requests from our own site also reach us through our own Telegram bot. If you need an interface more capable than buttons, we build a [Telegram Mini App](/services/telegram-mini-apps)."
         ],
         "includes": [
           "Dialogue scenarios: menu, buttons, answers to frequent questions",
@@ -1223,13 +1243,14 @@
         "metaTitle": "Telegram Mini Apps development to order - KEL Studio",
         "metaDescription": "Telegram mini apps: stores, accounts, bookings and services inside the messenger. Integration with a bot, payment and your system.",
         "short": "Apps inside Telegram: catalog, booking, client account, payment and integrations.",
-        "lead": "We create Telegram Mini Apps - applications that open right in the messenger and look like a full service: a catalog with a cart, booking, a personal account.",
+        "lead": "We build Telegram Mini Apps: applications that open right in the messenger and look like a full service. A catalog with a cart, booking, a personal account, payment.",
+        "cta": "Discuss a Mini App",
         "price": "priced after the brief",
         "term": "named after the brief",
-        "bodyTitle": "A Telegram Mini App: an app without installation",
+        "bodyTitle": "A Telegram Mini App: a service inside the messenger",
         "body": [
-          "A Telegram Mini App is a web application that opens inside Telegram from a bot button or a link. The user does not need to download an app from a store or register: Telegram passes the profile data, and payment and notifications work through the messenger. It is a convenient way to give a client an interface more capable than chat buttons.",
-          "We develop mini apps with web technologies: we design an interface in the style of Telegram and your brand, write the client and server parts, and connect the bot, payment and your accounting system. If you already have a site or service, we can make its version inside Telegram."
+          "A Mini App opens inside Telegram from a bot button or a link. Nothing to download and no registration: Telegram passes the profile data, and payment and notifications go through the messenger. So the client gets a catalog, a form or an account that will not fit into chat buttons.",
+          "We design the interface in the style of Telegram and your brand, write the client and server parts, and connect the bot, payment and your accounting system. If you already have a site or service, we can make its version inside Telegram. For simple scenarios a [Telegram bot](/services/telegram-bots) is enough."
         ],
         "includes": [
           "An interface in the style of Telegram and your brand",
@@ -1296,13 +1317,14 @@
         "metaTitle": "Web3 development: smart contracts and dApps to order - KEL Studio",
         "metaDescription": "Web3 projects: Solidity smart contracts, decentralized applications (dApps), wallet connection, interfaces. Estimate after the brief.",
         "short": "Smart contracts, dApps and interfaces for blockchain projects.",
-        "lead": "We develop Web3 projects: smart contracts, decentralized applications and interfaces for connecting wallets. From the idea and architecture to launch on the network.",
+        "lead": "We develop smart contracts in Solidity, decentralized applications (dApps) and interfaces that connect wallets. First a prototype on a test network, then a full launch.",
+        "cta": "Discuss the project",
         "price": "priced after the brief",
         "term": "named after the brief",
-        "bodyTitle": "Web3 development: what we do",
+        "bodyTitle": "Web3 development: smart contracts and interfaces for them",
         "body": [
-          "Web3 means applications that run on a blockchain: data and rules are stored on the network, not on one server. The basis is smart contracts, programs that run automatically and need no intermediary. Tokens, exchanges, marketplaces, loyalty programs and other services are built on them.",
-          "We develop smart contracts in Solidity, decentralized applications (dApps) and web interfaces to them: we connect wallets, show data from the network and build transactions. Before launch we test contracts and logic, because a mistake in a published contract is costly. It suits projects from prototype to product."
+          "In Web3 applications data and rules are stored on a blockchain, so there is no single server that can be switched off. The basis is smart contracts: programs that run automatically and need no intermediary. Tokens, exchanges, marketplaces and loyalty programs are built on them.",
+          "We write contracts in Solidity and build the dApp and web interface: we connect wallets, show data from the network and build transactions. Before publication we test the logic and scenarios, because a published contract is hard and costly to fix. For the other parts of the product, such as an account or an admin panel, we add a [web application](/services/web-apps)."
         ],
         "includes": [
           "Architecture design: what to keep on the network and what off it",
@@ -1369,13 +1391,14 @@
         "metaTitle": "Website and data parsing to order from 30,000 ₽ - KEL Studio",
         "metaDescription": "Order parsing: automatic data collection from websites and marketplaces, competitor price monitoring. Export to Excel, a database or an API. From 30,000 ₽.",
         "short": "Automatic collection of prices, catalogs and listings exported to a table, database or API.",
-        "lead": "We collect data that sits on websites in an inconvenient form and deliver it as a table, a database or through an API: competitor prices, catalogs, listings. Website parsing to order, for your task and in the format you need.",
+        "lead": "We collect data from websites and deliver it to Excel, Google Sheets, a database or through an API: competitor prices, supplier catalogs, listings. From 30,000 ₽; first result from a few days.",
+        "cta": "Calculate parsing",
         "price": "from 30,000 ₽",
         "term": "from a few days",
-        "bodyTitle": "Data parsing: what it is and why a business needs it",
+        "bodyTitle": "Data parsing to order: prices, catalogs, listings",
         "body": [
-          "Parsing is the automatic collection of information from websites. A parser visits pages, takes the data you need (price, name, availability, contacts, reviews) and puts it into a table or a database. This way you can track competitor prices, collect supplier catalogs, fill your own site or find new listings without manual work.",
-          "We write parsers for a specific task: we define sources and the fields you need, collect and clean the data, bring it to a single format and set up scheduled runs. You can get the result in Excel or Google Sheets, in a database or through an API, with a Telegram message when something changes. We collect only publicly available data and respect the rules of the source sites."
+          "A parser visits pages, takes the fields you need (price, name, availability, contacts, reviews) and puts them into a table or a database. This lets you track competitor prices, collect supplier catalogs, fill your own [online store](/services/ecommerce) and find new listings without manual work.",
+          "We write a parser for your task: we define sources and fields, clean the data, bring it to a single format and set up scheduled runs. We can report changes in Telegram through a [bot](/services/telegram-bots). We collect only publicly available data and respect the rules of the source sites."
         ],
         "includes": [
           "Data collection from websites, marketplaces and aggregators",
@@ -1442,13 +1465,14 @@
         "metaTitle": "Website support, improvements and redesign - KEL Studio",
         "metaDescription": "Website technical support: updates, backups, monitoring, improvements, redesign and moving to another hosting or domain.",
         "short": "Support, improvements, redesign and moving of sites: so the site works and develops.",
-        "lead": "We take your site on support: we watch that it works and is protected, make edits, improve features and refresh the design. So you do not have to look for a developer every time.",
+        "lead": "We take your site on support: we watch that it works and is protected, make edits and improve features. It also suits sites that were not made by us.",
+        "cta": "Discuss support",
         "price": "priced by scope of work",
         "term": "named after we see the site",
-        "bodyTitle": "Website support: what it includes and why it is needed",
+        "bodyTitle": "Website support: who looks after the site after launch",
         "body": [
-          "A site does not end with the launch. The system and plugins must be updated, availability watched, backups made, errors fixed, texts and prices updated, features improved. If nobody does this, the site gradually becomes outdated, opens more slowly and becomes vulnerable.",
-          "We support and develop sites: ours and those made by others. We take on technical maintenance and small edits, make improvements by task, do a redesign when the site is outdated, and move a site to another hosting, domain or platform, for example to WordPress. First we look at your site and propose a format: monthly support or separate tasks."
+          "After launch a site needs system and plugin updates, backups, availability monitoring, edits of texts and prices and new features. If nobody does this, the site becomes outdated, opens more slowly and becomes vulnerable.",
+          "We support sites made by us and by other studios: technical maintenance, small edits, improvements, [redesign](/services/design), moving to another hosting, domain or platform, for example to [WordPress](/services/wordpress). First we look at your site and propose a format: monthly support or separate tasks."
         ],
         "includes": [
           "Site availability monitoring and error control",
@@ -1510,7 +1534,7 @@
       "metaTitle": "Web studio services: websites, SEO, ads, bots - KEL Studio",
       "metaDescription": "Landing pages and turnkey websites, web design, SEO and Yandex Direct, Telegram bots, web applications, data parsing and website support. Prices and timelines on each page.",
       "title": "KEL Studio services",
-      "lead": "We build websites and digital products end to end: from design and development to promotion and support. Pick a direction or describe your task and we will suggest where to start.",
+      "lead": "Websites, design, promotion, bots, applications and support. Every service has its stages, timeline and a price or a way to calculate it. Pick a suitable one or describe the task and we will suggest where to start.",
       "pricesLink": "See prices",
       "groups": {
         "sites": {
@@ -1523,7 +1547,7 @@
         },
         "apps": {
           "title": "Applications and bots",
-          "text": "Web applications, frontend, Telegram bots and mini apps, Web3: when you need a product, not just a site."
+          "text": "Web applications, frontend, Telegram bots and mini apps, Web3: for tasks where a site alone is not enough."
         },
         "data": {
           "title": "Data and support",
@@ -1592,7 +1616,7 @@
       "faq": [
         {
           "q": "How much does it cost to make a website?",
-          "a": "Guidelines: a business card site from 20,000 ₽, a landing page from 40,000 ₽, a corporate website from 60,000 ₽, an online store from 100,000 ₽. The exact price depends on scope and features; we name it after the brief."
+          "a": "Guidelines: a [business card site](/services/vizitka) from 20,000 ₽, a [landing page](/services/landing) from 40,000 ₽, a [corporate website](/services/corporate) from 60,000 ₽, an [online store](/services/ecommerce) from 100,000 ₽. The exact price depends on scope and features; we name it after the brief."
         },
         {
           "q": "Why are the prices \"from\"?",
@@ -1608,7 +1632,7 @@
         },
         {
           "q": "Can I order only part of the work, for example design?",
-          "a": "Yes. You can order only design, only development from a ready layout, or promotion of an existing site."
+          "a": "Yes. You can order only [design](/services/design), only development from a ready layout, or promotion of an existing site."
         }
       ],
       "ctaTitle": "Want to know the price for your project?",

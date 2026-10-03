@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { useTranslation } from "react-i18next";
 import ContactLinks from "./ContactLinks";
 import { smoothTop } from "./smoothNavigate";
+import { MENU_SLUGS, PRICES_PATH, SERVICES_PATH, servicePath } from "@/lib/services";
 
 export default function Footer() {
   const { t } = useTranslation();
@@ -46,6 +47,28 @@ export default function Footer() {
             <div className="text-gray-400">{t("footer.copyright")}</div>
           </div>
         </div>
+        {/* Every page links to the main sections: a second way in for visitors and crawlers. */}
+        <nav aria-label={t("footer.navLabel")} className="mt-10 border-t border-white/5 pt-8">
+          <ul className="flex flex-wrap justify-center gap-x-6 gap-y-3 text-sm text-gray-500">
+            <li>
+              <Link href={SERVICES_PATH} className="transition-colors hover:text-gray-300">
+                {t("nav.allServices")}
+              </Link>
+            </li>
+            <li>
+              <Link href={PRICES_PATH} className="transition-colors hover:text-gray-300">
+                {t("nav.pricing")}
+              </Link>
+            </li>
+            {MENU_SLUGS.map((slug) => (
+              <li key={slug}>
+                <Link href={servicePath(slug)} className="transition-colors hover:text-gray-300">
+                  {t(`servicePages.items.${slug}.name`)}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </nav>
       </div>
     </footer>
   );

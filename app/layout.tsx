@@ -5,11 +5,11 @@ import I18nProvider from '@/components/I18nProvider'
 import YandexMetrika from '@/components/YandexMetrika'
 import './globals.css'
 import {
-  CONTACT_EMAIL,
   INDEXABLE,
+  SITE_DESCRIPTION,
   SITE_NAME,
+  SITE_TITLE,
   SITE_URL,
-  TELEGRAM_URL,
   VERIFICATION,
   YANDEX_METRIKA_ID,
 } from '@/lib/site'
@@ -23,9 +23,8 @@ const unbounded = Unbounded({
   variable: '--font-unbounded',
 })
 
-const TITLE = 'Разработка сайтов под ключ и digital-продуктов | KEL Studio'
-const DESCRIPTION =
-  'Веб-студия полного цикла KEL Studio: разработка сайтов, дизайн, продвижение и создание digital-продуктов для бизнеса. Создаём решения под задачи вашего проекта'
+const TITLE = SITE_TITLE
+const DESCRIPTION = SITE_DESCRIPTION
 
 export const metadata: Metadata = {
   // Lets Next resolve the social image and canonical links to absolute URLs.
@@ -47,27 +46,6 @@ export const metadata: Metadata = {
   twitter: { card: 'summary_large_image', title: TITLE, description: DESCRIPTION },
 }
 
-// Tells search engines who is behind the site; shown in rich results.
-const organization = {
-  '@context': 'https://schema.org',
-  '@type': 'ProfessionalService',
-  name: SITE_NAME,
-  url: SITE_URL,
-  image: `${SITE_URL}/opengraph-image`,
-  description: DESCRIPTION,
-  email: CONTACT_EMAIL,
-  sameAs: [TELEGRAM_URL],
-  areaServed: 'Worldwide',
-  knowsLanguage: ['ru', 'en'],
-  serviceType: [
-    'Разработка сайтов',
-    'Веб-дизайн',
-    'Интернет-магазины',
-    'SEO-продвижение',
-    'Парсинг данных',
-  ],
-}
-
 export default function RootLayout({
   children,
 }: {
@@ -76,10 +54,6 @@ export default function RootLayout({
   return (
     <html lang="ru" className="scroll-smooth">
       <body className={`${inter.className} ${unbounded.variable}`}>
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(organization) }}
-        />
         <I18nProvider>
           {children}
           <CookieNotice />

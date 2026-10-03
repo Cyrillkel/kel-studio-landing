@@ -12,6 +12,12 @@ export const SITE_NAME = "KEL Studio";
 // stop trusting the field.
 export const CONTENT_UPDATED = "2026-10-03";
 
+// The home page's title and description: the <title> and meta tags in
+// app/layout.tsx and the description of the company in the structured data.
+export const SITE_TITLE = "Разработка сайтов под ключ и digital-продуктов | KEL Studio";
+export const SITE_DESCRIPTION =
+  "Веб-студия полного цикла KEL Studio: разработка сайтов, дизайн, продвижение и создание digital-продуктов для бизнеса. Создаём решения под задачи вашего проекта";
+
 export const CONTACT_EMAIL = "info@kel.agency";
 export const TELEGRAM_URL = "https://t.me/io112";
 // Shown in the footer and the mobile menu (tap to call, WhatsApp chat).
