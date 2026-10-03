@@ -26,6 +26,20 @@ const AUTOPLAY_MS = 5000;
 // Where the project lives, for alt text and labels: "mentoralex.ru".
 const hostOf = (url: string) => new URL(url).hostname.replace(/^www\./, "");
 
+// Desktop: the row starts at the left edge of the page container (where the
+// heading starts) and runs to the right edge of the screen, so the first card
+// lines up with the heading, the next slide always comes to the same place,
+// and slides that have gone by are cut off at the container edge instead of
+// showing on the left. Two cards fill the container, the third peeks out on the
+// right. The right padding lets even the last slide reach the left edge.
+// --x0: the container's left edge; --card: half the container, minus the gap.
+const DESKTOP_TRACK = [
+  "lg:ml-[var(--x0)] lg:gap-8 lg:px-0",
+  "lg:pr-[calc(100%_-_var(--x0)_-_var(--card))]",
+  "lg:[--x0:max(1.5rem,calc((100%_-_80rem)/2_+_1.5rem))]",
+  "lg:[--card:calc((min(100vw,80rem)_-_5rem)/2)]",
+].join(" ");
+
 const arrowButton =
   "flex h-11 w-11 cursor-pointer items-center justify-center rounded-full border border-white/10 bg-white/5 text-white transition-colors duration-200 hover:border-white/30 hover:bg-white/10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white/60 disabled:cursor-default disabled:opacity-30 disabled:hover:border-white/10 disabled:hover:bg-white/5";
 
@@ -172,7 +186,7 @@ export default function Portfolio() {
 
       <div
         ref={trackRef}
-        className="relative flex snap-x snap-mandatory gap-3 overflow-x-auto px-[10vw] py-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden lg:gap-6 lg:px-[calc((100%_-_var(--card))/2)] lg:[--card:min(46vw,640px)]"
+        className={`relative flex snap-x snap-mandatory gap-3 overflow-x-auto px-[10vw] py-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden ${DESKTOP_TRACK}`}
       >
         {items.map((item, index) => {
           const host = item.url ? hostOf(item.url) : "";
@@ -227,7 +241,7 @@ export default function Portfolio() {
             <article
               key={index}
               data-project="true"
-              className="portfolio-card w-[80vw] shrink-0 snap-center sm:w-[min(60vw,560px)] lg:w-[var(--card)]"
+              className="portfolio-card w-[80vw] shrink-0 snap-center sm:w-[min(60vw,560px)] lg:w-[var(--card)] lg:snap-start"
             >
               {item.url ? (
                 <a
@@ -246,7 +260,7 @@ export default function Portfolio() {
           );
         })}
 
-        <article className="portfolio-card w-[80vw] shrink-0 snap-center sm:w-[min(60vw,560px)] lg:w-[var(--card)]">
+        <article className="portfolio-card w-[80vw] shrink-0 snap-center sm:w-[min(60vw,560px)] lg:w-[var(--card)] lg:snap-start">
           <div className="portfolio-reveal h-full">
             <div className="portfolio-frame relative flex h-full flex-col justify-between gap-8 overflow-hidden rounded-2xl border border-dashed border-white/15 bg-white/2 p-7 sm:p-8">
               <div

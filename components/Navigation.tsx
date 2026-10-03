@@ -251,29 +251,31 @@ export default function Navigation() {
       {isOpen && (
         <div
           id="mobile-menu"
-          className="fixed inset-0 z-40 overflow-y-auto overscroll-contain bg-[#0a0a0a]/95 backdrop-blur-md lg:hidden"
+          className="fixed inset-0 z-40 flex flex-col overflow-y-auto overscroll-contain bg-[#0a0a0a]/95 backdrop-blur-md lg:hidden"
         >
-          <div className="flex min-h-full flex-col items-center justify-center space-y-8 py-24 text-center">
+          <div className="flex flex-1 flex-col items-center justify-center space-y-8 pb-8 pt-24 text-center">
             <div className="flex w-full flex-col items-center">
-              <div className="flex items-center gap-2">
-                <a
-                  href={anchor("#services")}
-                  className="text-2xl text-gray-300 transition hover:text-white"
-                  onClick={(e) => handleNavClick(e, "#services")}
-                >
-                  {t("nav.services")}
-                </a>
-                <button
-                  type="button"
-                  aria-label={t("nav.openServices")}
-                  aria-expanded={servicesOpen}
-                  className="flex h-9 w-9 cursor-pointer items-center justify-center text-gray-400"
-                  onClick={() => setServicesOpen((open) => !open)}
+              {/* Only opens the list below; the section itself is the last item in it. */}
+              <button
+                type="button"
+                aria-expanded={servicesOpen}
+                aria-controls="mobile-services"
+                className="relative cursor-pointer text-2xl text-gray-300 transition hover:text-white"
+                onClick={() => setServicesOpen((open) => !open)}
+              >
+                {t("nav.services")}
+                {/* Hangs off the text's right side, so the word itself stays exactly centered. */}
+                <span
+                  aria-hidden="true"
+                  className={`absolute left-full top-1/2 ml-3 grid h-7 w-7 -translate-y-1/2 place-items-center rounded-full border transition-all duration-300 ${
+                    servicesOpen
+                      ? "rotate-180 border-transparent bg-linear-to-br from-cyan-400 via-violet-500 to-fuchsia-500 text-white shadow-lg shadow-violet-500/30"
+                      : "border-white/15 bg-white/5 text-gray-300"
+                  }`}
                 >
                   <svg
-                    aria-hidden="true"
                     viewBox="0 0 24 24"
-                    className={`h-4 w-4 transition-transform duration-300 ${servicesOpen ? "rotate-180" : ""}`}
+                    className="h-3.5 w-3.5"
                     fill="none"
                     stroke="currentColor"
                     strokeWidth={2.5}
@@ -282,25 +284,40 @@ export default function Navigation() {
                   >
                     <path d="m6 9 6 6 6-6" />
                   </svg>
-                </button>
-              </div>
-              {servicesOpen && (
-                <div className="mt-4 flex w-full flex-col items-center gap-3 border-y border-white/10 py-4">
-                  {SERVICE_SLUGS.map((slug) => (
-                    <Link
-                      key={slug}
-                      href={servicePath(slug)}
-                      className="text-lg text-gray-400 transition-colors hover:text-white"
-                      onClick={() => {
-                        setIsOpen(false);
-                        setServicesOpen(false);
-                      }}
+                </span>
+              </button>
+              <div
+                id="mobile-services"
+                inert={!servicesOpen}
+                className={`grid w-full transition-[grid-template-rows,opacity] duration-300 ease-out ${
+                  servicesOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
+                }`}
+              >
+                <div className="overflow-hidden">
+                  <div className="mt-4 flex w-full flex-col items-center gap-3 border-y border-white/10 py-4">
+                    {SERVICE_SLUGS.map((slug) => (
+                      <Link
+                        key={slug}
+                        href={servicePath(slug)}
+                        className="text-lg text-gray-400 transition-colors hover:text-white"
+                        onClick={() => {
+                          setIsOpen(false);
+                          setServicesOpen(false);
+                        }}
+                      >
+                        {t(`servicePages.items.${slug}.title`)}
+                      </Link>
+                    ))}
+                    <a
+                      href={anchor("#services")}
+                      className="text-base text-gray-500 transition-colors hover:text-white"
+                      onClick={(e) => handleNavClick(e, "#services")}
                     >
-                      {t(`servicePages.items.${slug}.title`)}
-                    </Link>
-                  ))}
+                      {t("nav.allServices")}
+                    </a>
+                  </div>
                 </div>
-              )}
+              </div>
             </div>
             <a
               href={anchor("#pricing")}
@@ -331,44 +348,42 @@ export default function Navigation() {
             >
               {t("nav.contact")}
             </ButtonLink>
+          </div>
 
-            {/* Direct contacts: the number dials on tap, the messengers open their apps. */}
-            <div className="menu-rise w-full max-w-sm px-6">
-              <p className="mb-3 text-xs uppercase tracking-[0.2em] text-gray-500">
-                {t("nav.reachDirect")}
-              </p>
+          {/* Direct contacts, pinned to the bottom of the screen: the number dials on
+              tap, the messengers open their apps. Links scroll under it (it fades in
+              from the menu background). No boxes on purpose: outlined plates looked
+              like the "Связаться" button. */}
+          <div className="sticky bottom-0 shrink-0 bg-linear-to-t from-[#0a0a0a] from-65% to-transparent px-6 pb-[max(1.5rem,env(safe-area-inset-bottom))] pt-8">
+            <div className="menu-rise flex flex-col items-center gap-5">
               <a
                 href={PHONE_URL}
-                className="flex items-center gap-4 rounded-2xl border border-white/10 bg-white/5 p-3 pr-5 text-left transition-colors hover:border-white/25 hover:bg-white/10"
+                aria-label={`${t("nav.call")} ${PHONE}`}
+                className="inline-flex items-center gap-3 text-2xl font-semibold text-white"
               >
-                <span className="grid h-12 w-12 shrink-0 place-items-center rounded-xl bg-linear-to-br from-cyan-400 via-violet-500 to-fuchsia-500 text-white shadow-lg shadow-violet-500/25">
-                  <PhoneIcon className="h-5 w-5" />
-                </span>
-                <span className="flex flex-col">
-                  <span className="text-xs text-gray-400">{t("nav.call")}</span>
-                  <span className="whitespace-nowrap text-xl font-semibold tabular-nums text-white">
-                    {PHONE}
-                  </span>
-                </span>
+                <PhoneIcon className="h-6 w-6" />
+                <span className="whitespace-nowrap tabular-nums">{PHONE}</span>
               </a>
-              <div className="mt-3 grid grid-cols-2 gap-3">
+              <div className="flex items-center gap-5">
                 <a
                   href={TELEGRAM_URL}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center justify-center gap-2.5 rounded-2xl border border-white/10 bg-white/5 py-3.5 text-gray-200 transition-colors hover:border-[#2AABEE]/50 hover:bg-[#2AABEE]/10 hover:text-white"
+                  aria-label="Telegram"
+                  className="relative block h-14 w-14 rounded-full text-[#2AABEE] shadow-[0_10px_28px_-8px_rgba(42,171,238,0.8)] transition-transform duration-200 active:scale-95"
                 >
-                  <TelegramIcon className="h-5 w-5 text-[#2AABEE]" />
-                  Telegram
+                  {/* The plane is a hole in the blue disc: white behind it, like the logo. */}
+                  <span aria-hidden="true" className="absolute inset-[3px] rounded-full bg-white" />
+                  <TelegramIcon className="relative h-14 w-14" />
                 </a>
                 <a
                   href={WHATSAPP_URL}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center justify-center gap-2.5 rounded-2xl border border-white/10 bg-white/5 py-3.5 text-gray-200 transition-colors hover:border-[#25D366]/50 hover:bg-[#25D366]/10 hover:text-white"
+                  aria-label="WhatsApp"
+                  className="grid h-14 w-14 place-items-center rounded-full bg-[#25D366] text-white shadow-[0_10px_28px_-8px_rgba(37,211,102,0.8)] transition-transform duration-200 active:scale-95"
                 >
-                  <WhatsAppIcon className="h-5 w-5 text-[#25D366]" />
-                  WhatsApp
+                  <WhatsAppIcon className="h-8 w-8" />
                 </a>
               </div>
             </div>

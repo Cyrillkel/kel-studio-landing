@@ -8,8 +8,27 @@ import { gsap } from "gsap";
 const AFTER_MANUAL_MS = 8000;
 const AFTER_LEAVE_MS = 2000;
 
-// Horizontal slider (mobile by default) on native scroll-snap: the centered slide is
-// full size and bright, neighbours shrink and dim as they move away.
+// Slides snap either to the center of the slider (phones, tablets) or to its
+// left edge (the portfolio on desktop). Read from the CSS (`snap-center` or
+// `snap-start` on the slide), so the layout alone decides, at every width.
+const alignsToStart = (slide: HTMLElement) =>
+  getComputedStyle(slide).scrollSnapAlign.includes("start");
+
+// Where the slider has to scroll to so that `slide` sits in its snap position.
+const positionOf = (slider: HTMLElement, slide: HTMLElement) => {
+  const left = alignsToStart(slide)
+    ? slide.offsetLeft
+    : slide.offsetLeft - (slider.clientWidth - slide.offsetWidth) / 2;
+  return Math.max(0, Math.min(left, slider.scrollWidth - slider.clientWidth));
+};
+
+// Horizontal slider (mobile by default) on native scroll-snap. Centered slides:
+// the middle one is full size and bright, neighbours shrink and dim as they move
+// away. Start-aligned slides: all the same, the first one sits at the left edge.
+//
+// Buttons, dots and autoplay move it with a slow eased animation (the browser's
+// own smooth scroll is short and fights the snapping); swipes and trackpad
+// gestures stay native.
 //
 // With `autoplayMs` the slides also advance by themselves, looping back to the
 // first. It holds still while the pointer is over the slider or focus is inside
@@ -25,6 +44,7 @@ export function useSnapSlider(
   // The same value for code that must not re-run on every change (autoplay).
   const activeRef = useRef(0);
   const pausedUntil = useRef(0);
+  const tween = useRef<gsap.core.Tween | null>(null);
 
   useEffect(() => {
     const slider = sliderRef.current;
@@ -51,15 +71,25 @@ export function useSnapSlider(
         // scroll frame.
         const update = () => {
           frame = 0;
-          const center = slider.scrollLeft + slider.clientWidth / 2;
+          const atStart = alignsToStart(slides[0]);
+          const reference = atStart
+            ? slider.scrollLeft
+            : slider.scrollLeft + slider.clientWidth / 2;
           let closest = 0;
           let closestDistance = Infinity;
 
           slides.forEach((slide, index) => {
-            const offset = slide.offsetLeft + slide.offsetWidth / 2 - center;
+            const offset = atStart
+              ? slide.offsetLeft - reference
+              : slide.offsetLeft + slide.offsetWidth / 2 - reference;
             const a = Math.min(1, Math.abs(offset) / slide.offsetWidth);
 
-            if (!reduceMotion) {
+            if (atStart) {
+              // Equal slides; clears what the centered layout left behind
+              // after a resize.
+              slide.style.transform = "";
+              slide.style.opacity = "";
+            } else if (!reduceMotion) {
               slide.style.transform = `scale(${1 - a * 0.08})`;
               slide.style.opacity = String(1 - a * 0.35);
             }
@@ -94,18 +124,49 @@ export function useSnapSlider(
     return () => mm.revert();
   }, [slideSelector, query]);
 
+  // Ends a running move and gives the snapping back to the browser.
+  const stopMove = useCallback(() => {
+    if (!tween.current) return;
+    tween.current.kill();
+    tween.current = null;
+    sliderRef.current?.style.removeProperty("scroll-snap-type");
+  }, []);
+
   const scrollTo = useCallback(
     (index: number) => {
       const slider = sliderRef.current;
       const slide = slider?.querySelectorAll<HTMLElement>(slideSelector)[index];
       if (!slider || !slide) return;
 
-      slider.scrollTo({
-        left: slide.offsetLeft - (slider.clientWidth - slide.offsetWidth) / 2,
-        behavior: "smooth",
+      stopMove();
+      const target = positionOf(slider, slide);
+      const distance = Math.abs(target - slider.scrollLeft);
+      if (distance < 1) return;
+
+      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        slider.scrollTo({ left: target, behavior: "auto" });
+        return;
+      }
+
+      // Snapping is off while the move runs (it would pull the slider back to
+      // the nearest slide on every frame) and on again when it ends. Longer
+      // trips, like looping back to the first slide, take a little longer.
+      slider.style.setProperty("scroll-snap-type", "none");
+      const position = { x: slider.scrollLeft };
+      tween.current = gsap.to(position, {
+        x: target,
+        duration: Math.min(1.5, 0.9 + (distance / slider.clientWidth) * 0.25),
+        ease: "power2.inOut",
+        onUpdate: () => {
+          slider.scrollLeft = position.x;
+        },
+        onComplete: () => {
+          tween.current = null;
+          slider.style.removeProperty("scroll-snap-type");
+        },
       });
     },
-    [slideSelector]
+    [slideSelector, stopMove]
   );
 
   // For the controls (dots, arrows): the visitor is in charge, so autoplay waits.
@@ -116,6 +177,24 @@ export function useSnapSlider(
     },
     [scrollTo]
   );
+
+  // A swipe, a wheel turn, a press or a key during a move hands control back.
+  useEffect(() => {
+    const slider = sliderRef.current;
+    if (!slider) return;
+
+    slider.addEventListener("pointerdown", stopMove);
+    slider.addEventListener("touchstart", stopMove, { passive: true });
+    slider.addEventListener("wheel", stopMove, { passive: true });
+    slider.addEventListener("keydown", stopMove);
+    return () => {
+      slider.removeEventListener("pointerdown", stopMove);
+      slider.removeEventListener("touchstart", stopMove);
+      slider.removeEventListener("wheel", stopMove);
+      slider.removeEventListener("keydown", stopMove);
+      stopMove();
+    };
+  }, [stopMove]);
 
   useEffect(() => {
     const slider = sliderRef.current;

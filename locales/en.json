@@ -7,8 +7,6 @@
     "contact": "Contact",
     "menu": "Menu",
     "allServices": "All services",
-    "openServices": "Open services list",
-    "reachDirect": "Reach us directly",
     "call": "Call"
   },
   "slider": {
@@ -108,7 +106,7 @@
       },
       {
         "title": "Corporate Website",
-        "description": "A multi-page website for a B2B company",
+        "description": "A multi-page website for a B2C company",
         "image": "/portfolio/pokupayavto.jpg",
         "url": "https://pokupayavto.ru/"
       },
