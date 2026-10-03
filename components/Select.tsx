@@ -186,7 +186,7 @@ export default function Select({
           id={listId}
           role="listbox"
           aria-labelledby={labelId}
-          className={`select-pop absolute right-0 left-0 z-50 max-h-64 overflow-y-auto overscroll-contain rounded-2xl border border-white/10 bg-[#120f18] p-2 text-left shadow-2xl shadow-black/60 ${
+          className={`select-pop select-scroll absolute right-0 left-0 z-50 max-h-64 overflow-y-auto overscroll-contain rounded-2xl border border-white/10 bg-[#120f18] p-2 text-left shadow-2xl shadow-black/60 ${
             upward ? "bottom-full mb-2" : "top-full mt-2"
           }`}
         >

@@ -331,6 +331,38 @@
   }
 }
 
+/* A slim scrollbar for that list: no arrow buttons, no bright track, only a
+   rounded thumb. Chromium and Safari take the first block; Firefox ignores it
+   and takes the second (Chromium would drop the first if it saw the second). */
+.select-scroll::-webkit-scrollbar {
+  width: 6px;
+}
+
+.select-scroll::-webkit-scrollbar-track {
+  margin: 8px 0;
+  background: transparent;
+}
+
+.select-scroll::-webkit-scrollbar-thumb {
+  border-radius: 999px;
+  background: rgb(255 255 255 / 0.18);
+}
+
+.select-scroll::-webkit-scrollbar-thumb:hover {
+  background: rgb(255 255 255 / 0.32);
+}
+
+.select-scroll::-webkit-scrollbar-button {
+  display: none;
+}
+
+@supports (-moz-appearance: none) {
+  .select-scroll {
+    scrollbar-width: thin;
+    scrollbar-color: rgb(255 255 255 / 0.2) transparent;
+  }
+}
+
 /* The contact block in the mobile menu settles in just after the menu opens. */
 @keyframes menu-rise {
   from {

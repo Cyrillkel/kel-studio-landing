@@ -7,6 +7,7 @@ import Select from "./Select";
 import { OTHER_SERVICE, validateContact, type ContactErrors } from "@/lib/contactSchema";
 import { SERVICE_SLUGS, type ServiceSlug } from "@/lib/services";
 import { GOALS, reachGoal } from "@/lib/metrika";
+import { PHONE } from "@/lib/site";
 
 // ym-disable-keys: Metrika's session replay doesn't record what is typed here.
 const fieldClass = (invalid: boolean) =>
@@ -158,7 +159,9 @@ export default function ContactForm({
           type="tel"
           inputMode="tel"
           autoComplete="tel"
-          placeholder={t("contact.phonePlaceholder")}
+          // A sample in the shape people write a number, with the studio's own: it
+          // shows the format and the number sticks. The name read out stays "or phone".
+          placeholder={PHONE}
           aria-label={t("contact.phonePlaceholder")}
           value={formData.phone}
           onChange={(e) => update("phone", e.target.value)}
