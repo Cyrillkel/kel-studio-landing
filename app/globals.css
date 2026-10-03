@@ -12,6 +12,29 @@
   --animate-spin-around: spin-around calc(var(--speed) * 2) infinite linear;
 }
 
+/* The ruble sign is the only character on the page outside Latin and Cyrillic,
+   and neither of those font subsets has it: to draw one "₽" the browser pulled
+   the whole latin-ext files of Inter and Unbounded (about 200 kB). These faces
+   come after the font files in the built CSS, so for this one code point they
+   win and the sign is drawn by a system font instead. */
+@font-face {
+  font-family: Inter;
+  font-weight: 100 900;
+  src: local("Arial"), local("Roboto"), local("Helvetica Neue"), local("Segoe UI"),
+    local("Noto Sans"), local("DejaVu Sans"), local("Liberation Sans");
+  unicode-range: U+20BD;
+}
+
+/* Same weight descriptor as the font file in layout.tsx (700), or the browser
+   treats the two as separate faces and may still pick the file. */
+@font-face {
+  font-family: Unbounded;
+  font-weight: 700;
+  src: local("Arial"), local("Roboto"), local("Helvetica Neue"), local("Segoe UI"),
+    local("Noto Sans"), local("DejaVu Sans"), local("Liberation Sans");
+  unicode-range: U+20BD;
+}
+
 /* Magic UI Shimmer Button */
 @keyframes shimmer-slide {
   to {
@@ -33,6 +56,56 @@
   }
   100% {
     transform: translateZ(0) rotate(360deg);
+  }
+}
+
+/* Hero intro: masked line roll-up, then fade-up copy and buttons. Plain CSS on
+   purpose: it runs with the first paint, so the heading doesn't wait for the
+   JS bundle to hydrate (that wait was the page's largest-paint delay). Easings
+   match GSAP's expo.out and power3.out. */
+@keyframes hero-roll {
+  from {
+    transform: translateY(110%);
+  }
+}
+
+@keyframes hero-rise {
+  from {
+    opacity: 0;
+    transform: translateY(var(--rise, 24px));
+  }
+}
+
+/* The subtitle is the largest text on the first screen, so it must be painted
+   at full opacity from the first frame: a fade-in moves the page's
+   largest-paint time to the end of the fade (about a second later). It only
+   slides. */
+@keyframes hero-slide {
+  from {
+    transform: translateY(24px);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .hero-line {
+    animation: hero-roll 0.9s cubic-bezier(0.16, 1, 0.3, 1) backwards;
+  }
+
+  h1 > :nth-child(2) .hero-line {
+    animation-delay: 0.1s;
+  }
+
+  .hero-subtitle {
+    animation: hero-slide 0.8s cubic-bezier(0.165, 0.84, 0.44, 1) 0.15s backwards;
+  }
+
+  .hero-action {
+    --rise: 20px;
+    animation: hero-rise 0.6s cubic-bezier(0.165, 0.84, 0.44, 1) 0.45s backwards;
+  }
+
+  .hero-action + .hero-action {
+    animation-delay: 0.53s;
   }
 }
 

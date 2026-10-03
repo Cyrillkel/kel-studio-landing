@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { DrawSVGPlugin } from "gsap/DrawSVGPlugin";
@@ -8,6 +8,7 @@ import { useTranslation } from "react-i18next";
 import AmbientBlobs from "./AmbientBlobs";
 import ProcessIllustration from "./ProcessIllustration";
 import SectionGlow from "./SectionGlow";
+import { useWhenNear } from "./useWhenNear";
 
 gsap.registerPlugin(ScrollTrigger, DrawSVGPlugin);
 
@@ -18,10 +19,8 @@ export default function Process() {
   const steps = t("process.items", { returnObjects: true }) as StepItem[];
   const sectionRef = useRef<HTMLElement>(null);
 
-  useEffect(() => {
-    const section = sectionRef.current;
-    if (!section) return;
-
+  // The setup below is the heaviest on the page: wait until the section is near.
+  useWhenNear(sectionRef, (section) => {
     const mm = gsap.matchMedia(section);
 
     mm.add(
@@ -219,7 +218,7 @@ export default function Process() {
     );
 
     return () => mm.revert();
-  }, []);
+  });
 
   return (
     <section

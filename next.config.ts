@@ -9,6 +9,8 @@ const nextConfig: NextConfig = {
   // Without this Next walks up to ~/web and nests the standalone output in
   // web/kel-studio/kel-studio-landing/.
   outputFileTracingRoot: path.resolve(__dirname),
+  // Nobody needs to know which framework is behind the site.
+  poweredByHeader: false,
   async headers() {
     if (INDEXABLE) return [];
     // Belt and braces next to the robots meta tag: the header also covers

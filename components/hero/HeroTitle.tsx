@@ -163,7 +163,7 @@ export default function HeroTitle() {
           }
         };
 
-        // Right after the intro lines land (see Hero.tsx).
+        // Right after the intro lines land (the CSS intro in globals.css).
         glareCall = gsap.delayedCall(1, glare);
         next = gsap.delayedCall(3, cycle);
 

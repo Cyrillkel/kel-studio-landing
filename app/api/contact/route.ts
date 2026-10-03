@@ -1,5 +1,5 @@
 import type { NextRequest } from "next/server";
-import { contactSchema } from "@/lib/contactSchema";
+import { parseContact } from "@/lib/contactSchema";
 
 // Leads go to Telegram (instant) and by email as a copy. The hosting blocks
 // outbound SMTP ports, so mail goes out through Resend's HTTPS API.
@@ -112,15 +112,15 @@ export async function POST(request: NextRequest) {
   }
 
   // Same rules as the form, so a crafted request cannot skip them.
-  const parsed = contactSchema.safeParse(body);
-  if (!parsed.success) return Response.json({ ok: false }, { status: 400 });
+  const fields = parseContact(body);
+  if (!fields) return Response.json({ ok: false }, { status: 400 });
 
   const ip = request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ?? "unknown";
   if (rateLimited(ip)) return Response.json({ ok: false }, { status: 429 });
 
   // Trusted from the form, but it still ends up in a message: keep it short.
   const page = String(body.page ?? "").trim().slice(0, 200);
-  const lead: Lead = { ...parsed.data, page };
+  const lead: Lead = { ...fields, page };
   const [telegram, mail] = await Promise.all([sendTelegram(lead), sendEmail(lead)]);
 
   // One channel through is enough for the visitor; the other is logged above.

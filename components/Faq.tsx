@@ -6,6 +6,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useTranslation } from "react-i18next";
 import { smoothNavigate } from "./smoothNavigate";
 import { ButtonLink } from "./Button";
+import { useWhenNear } from "./useWhenNear";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -126,10 +127,8 @@ export default function Faq() {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
   const sectionRef = useRef<HTMLElement>(null);
 
-  useEffect(() => {
-    const section = sectionRef.current;
-    if (!section) return;
-
+  // Far below the fold: set the reveal up only once the section is near.
+  useWhenNear(sectionRef, (section) => {
     const mm = gsap.matchMedia(section);
 
     mm.add("(prefers-reduced-motion: no-preference)", () => {
@@ -168,7 +167,7 @@ export default function Faq() {
     });
 
     return () => mm.revert();
-  }, []);
+  });
 
   const handleContactClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     if (smoothNavigate("#contact")) {

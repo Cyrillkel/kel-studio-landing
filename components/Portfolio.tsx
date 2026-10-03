@@ -26,7 +26,8 @@ const GALLERY_QUERY = "(min-width: 1024px) and (min-height: 600px)";
 // Cards are capped by viewport height too, so the pinned row always fits
 // under the heading on short desktop screens. The CTA mirrors the image height.
 const CARD_WIDTH = "gallery:w-[min(50vw,760px,calc((100vh_-_300px)*16/9))]";
-const CARD_IMAGE_HEIGHT = "gallery:h-[min(28.125vw,427.5px,calc(100vh_-_300px))]";
+const CARD_IMAGE_HEIGHT =
+  "gallery:h-[min(28.125vw,427.5px,calc(100vh_-_300px))]";
 
 export default function Portfolio() {
   const { t } = useTranslation();
@@ -36,11 +37,10 @@ export default function Portfolio() {
   const sectionRef = useRef<HTMLElement>(null);
   const currentRef = useRef<HTMLSpanElement>(null);
   const progressRef = useRef<HTMLSpanElement>(null);
-  const {
-    sliderRef: trackRef,
-    activeSlide,
-    scrollToSlide,
-  } = useSnapSlider(".portfolio-card", `not all and ${GALLERY_QUERY}`);
+  const { sliderRef: trackRef, activeSlide, scrollToSlide } = useSnapSlider(
+    ".portfolio-card",
+    `not all and ${GALLERY_QUERY}`
+  );
 
   useEffect(() => {
     const section = sectionRef.current;
@@ -114,16 +114,15 @@ export default function Portfolio() {
         if (!reduceMotion) {
           // Animates inner wrappers, not the cards: the gallery measures card
           // positions for the counter and the mobile slider scales cards.
-          const entrance = gsap.timeline({ paused: true }).from(
-            section.querySelectorAll(".portfolio-reveal"),
-            {
+          const entrance = gsap
+            .timeline({ paused: true })
+            .from(section.querySelectorAll(".portfolio-reveal"), {
               x: isDesktop ? 160 : 60,
               opacity: 0,
               duration: 1.1,
               ease: "power3.out",
               stagger: 0.1,
-            }
-          );
+            });
           reveals.set(section, entrance);
           ScrollTrigger.create({
             trigger: section,
@@ -172,7 +171,10 @@ export default function Portfolio() {
           <h2 className="font-heading text-3xl sm:text-4xl md:text-5xl font-bold text-white">
             {t("portfolio.heading")}
           </h2>
-          <div aria-hidden="true" className="hidden items-center gap-4 pb-2 gallery:flex">
+          <div
+            aria-hidden="true"
+            className="hidden items-center gap-4 pb-2 gallery:flex"
+          >
             <span className="font-heading text-sm tabular-nums text-white">
               <span ref={currentRef}>01</span>
               <span className="text-gray-500">

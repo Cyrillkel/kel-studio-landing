@@ -19,37 +19,6 @@ export default function Hero() {
 
     const mm = gsap.matchMedia(section);
 
-    // Both queries listed so the callback always runs (matchMedia skips it
-    // when no condition matches).
-    mm.add(
-      {
-        reduceMotion: "(prefers-reduced-motion: reduce)",
-        motionOk: "(prefers-reduced-motion: no-preference)",
-      },
-      (context) => {
-        const { reduceMotion } = context.conditions as { reduceMotion: boolean };
-        gsap.set(".hero-content", { visibility: "visible" });
-        if (reduceMotion) return;
-
-        // Same vocabulary as the Process and About sections: masked line
-        // roll-up, then fade-up copy.
-        gsap
-          .timeline({ defaults: { ease: "power3.out" } })
-          .from(".hero-line", {
-            yPercent: 110,
-            duration: 0.9,
-            ease: "expo.out",
-            stagger: 0.1,
-          })
-          .from(".hero-subtitle", { y: 24, opacity: 0, duration: 0.7 }, 0.25)
-          .from(
-            ".hero-action",
-            { y: 20, opacity: 0, duration: 0.6, stagger: 0.08 },
-            0.45
-          );
-      }
-    );
-
     mm.add("(hover: hover) and (pointer: fine)", () => {
       const glow = section.querySelector<HTMLElement>(".hero-grid-glow")!;
       const spot = { x: 0, y: 0 };
@@ -113,16 +82,8 @@ export default function Hero() {
       </div>
       <StarsWide />
 
-      {/* Hidden until the intro timeline takes over, so SSR text doesn't flash before animating in. */}
-      <div
-        className="hero-content relative z-10 w-full max-w-7xl mx-auto px-6 py-24 md:py-32 text-center"
-        style={{ visibility: "hidden" }}
-      >
-        <noscript
-          dangerouslySetInnerHTML={{
-            __html: "<style>.hero-content{visibility:visible!important}</style>",
-          }}
-        />
+      {/* The intro (.hero-line, .hero-subtitle, .hero-action) is plain CSS in globals.css, so the text is painted with the HTML instead of waiting for the JS bundle. */}
+      <div className="hero-content relative z-10 w-full max-w-7xl mx-auto px-6 py-24 md:py-32 text-center">
         <StarsCompact />
         {/* data-stars-avoid: the wide sky keeps icons clear of these boxes. */}
         <HeroTitle />
