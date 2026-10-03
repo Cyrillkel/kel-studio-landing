@@ -31,8 +31,8 @@ export default function PrivacyPage() {
         <main className="flex-1">
           {/* The look of headings, paragraphs, lists and links comes from the
               `legal` class (globals.css). The text itself is content/privacy.html:
-              each h2 becomes a section with an id, and the contents link to them. */}
-          <article className="legal mx-auto w-full max-w-3xl px-5 pb-24 pt-32 sm:px-6 md:pt-40">
+              each h2 becomes a section with an id. The width is the site's container. */}
+          <article className="legal mx-auto w-full max-w-7xl px-6 pb-24 pt-32 md:pt-40">
             <header>
               <h1>Политика конфиденциальности</h1>
               <p className="legal-meta">
@@ -45,21 +45,6 @@ export default function PrivacyPage() {
                 )}
               </p>
             </header>
-
-            {sections.length >= 3 && (
-              <nav aria-labelledby="legal-toc-title" className="legal-toc">
-                <p id="legal-toc-title" className="legal-toc-title">
-                  Содержание
-                </p>
-                <ol>
-                  {sections.map((section) => (
-                    <li key={section.id}>
-                      <a href={`#${section.id}`}>{section.title}</a>
-                    </li>
-                  ))}
-                </ol>
-              </nav>
-            )}
 
             {intro && <div dangerouslySetInnerHTML={{ __html: intro }} />}
 

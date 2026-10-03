@@ -186,50 +186,8 @@
     color: #6b7280;
   }
 
-  /* The contents block: a quiet card with the sections as links. */
-  .legal-toc {
-    margin-bottom: 2.5rem;
-    padding: 1.25rem 1.5rem;
-    border: 1px solid rgb(255 255 255 / 0.08);
-    border-radius: 1rem;
-    background: rgb(255 255 255 / 0.03);
-  }
-
-  .legal-toc-title {
-    margin-bottom: 0.75rem;
-    font-family: var(--font-unbounded), sans-serif;
-    font-size: 0.75rem;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: #9ca3af;
-  }
-
-  .legal-toc ol {
-    display: grid;
-    gap: 0.5rem 2rem;
-    padding: 0;
-    margin: 0;
-    list-style: none;
-  }
-
-  @media (min-width: 640px) {
-    .legal-toc ol {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
-  }
-
-  .legal-toc a {
-    color: #d1d5db;
-    text-decoration: none;
-  }
-
-  .legal-toc a:hover {
-    color: #fff;
-    text-decoration: underline;
-  }
-
   /* A section per heading, set off by a thin line; clear of the fixed bar when
-     reached through the contents. */
+     reached through a link. */
   .legal section {
     margin-top: 2.5rem;
     padding-top: 2rem;
