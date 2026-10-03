@@ -31,7 +31,11 @@ export default function SmoothScroll({
       content: "#smooth-content",
       smooth: 1.4,
       effects: false,
-      normalizeScroll: true,
+      // The same settings `true` gives, plus: scrollable blocks inside the page
+      // (the portfolio slider, a textarea) keep their own wheel and touch
+      // scrolling. Without it a trackpad swipe or a finger on a tablet can't
+      // move the slider.
+      normalizeScroll: { debounce: true, allowNestedScroll: true },
     });
 
     return () => {

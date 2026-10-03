@@ -8,7 +8,9 @@ import { useTranslation } from "react-i18next";
 import { smoothNavigate } from "./smoothNavigate";
 import LanguageSwitcher from "./LanguageSwitcher";
 import { ButtonLink } from "./Button";
+import { PhoneIcon, TelegramIcon, WhatsAppIcon } from "./ContactIcons";
 import { SERVICE_SLUGS, servicePath } from "@/lib/services";
+import { PHONE, PHONE_URL, TELEGRAM_URL, WHATSAPP_URL } from "@/lib/site";
 
 export default function Navigation() {
   const { t } = useTranslation();
@@ -329,6 +331,47 @@ export default function Navigation() {
             >
               {t("nav.contact")}
             </ButtonLink>
+
+            {/* Direct contacts: the number dials on tap, the messengers open their apps. */}
+            <div className="menu-rise w-full max-w-sm px-6">
+              <p className="mb-3 text-xs uppercase tracking-[0.2em] text-gray-500">
+                {t("nav.reachDirect")}
+              </p>
+              <a
+                href={PHONE_URL}
+                className="flex items-center gap-4 rounded-2xl border border-white/10 bg-white/5 p-3 pr-5 text-left transition-colors hover:border-white/25 hover:bg-white/10"
+              >
+                <span className="grid h-12 w-12 shrink-0 place-items-center rounded-xl bg-linear-to-br from-cyan-400 via-violet-500 to-fuchsia-500 text-white shadow-lg shadow-violet-500/25">
+                  <PhoneIcon className="h-5 w-5" />
+                </span>
+                <span className="flex flex-col">
+                  <span className="text-xs text-gray-400">{t("nav.call")}</span>
+                  <span className="whitespace-nowrap text-xl font-semibold tabular-nums text-white">
+                    {PHONE}
+                  </span>
+                </span>
+              </a>
+              <div className="mt-3 grid grid-cols-2 gap-3">
+                <a
+                  href={TELEGRAM_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center justify-center gap-2.5 rounded-2xl border border-white/10 bg-white/5 py-3.5 text-gray-200 transition-colors hover:border-[#2AABEE]/50 hover:bg-[#2AABEE]/10 hover:text-white"
+                >
+                  <TelegramIcon className="h-5 w-5 text-[#2AABEE]" />
+                  Telegram
+                </a>
+                <a
+                  href={WHATSAPP_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center justify-center gap-2.5 rounded-2xl border border-white/10 bg-white/5 py-3.5 text-gray-200 transition-colors hover:border-[#25D366]/50 hover:bg-[#25D366]/10 hover:text-white"
+                >
+                  <WhatsAppIcon className="h-5 w-5 text-[#25D366]" />
+                  WhatsApp
+                </a>
+              </div>
+            </div>
           </div>
         </div>
       )}

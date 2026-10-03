@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { Inter, Unbounded } from 'next/font/google'
 import I18nProvider from '@/components/I18nProvider'
+import YandexMetrika from '@/components/YandexMetrika'
 import './globals.css'
 import {
   CONTACT_EMAIL,
@@ -9,6 +10,7 @@ import {
   SITE_URL,
   TELEGRAM_URL,
   VERIFICATION,
+  YANDEX_METRIKA_ID,
 } from '@/lib/site'
 
 const inter = Inter({ subsets: ['latin', 'cyrillic'] })
@@ -78,6 +80,18 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organization) }}
         />
         <I18nProvider>{children}</I18nProvider>
+        <YandexMetrika />
+        {/* Counts visitors who have JavaScript turned off. */}
+        <noscript>
+          <div>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={`https://mc.yandex.ru/watch/${YANDEX_METRIKA_ID}`}
+              style={{ position: 'absolute', left: '-9999px' }}
+              alt=""
+            />
+          </div>
+        </noscript>
       </body>
     </html>
   )

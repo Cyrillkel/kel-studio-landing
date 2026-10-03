@@ -1,8 +1,5 @@
 @import "tailwindcss";
 
-/* Room for the pinned portfolio gallery; mirrors GALLERY_QUERY in Portfolio.tsx. */
-@custom-variant gallery (@media (min-width: 1024px) and (min-height: 600px));
-
 /* Room for the full hero visual around the heading; mirrors ROOMY_QUERY in components/hero/breakpoints.ts. */
 @custom-variant roomy (@media (min-width: 1280px) and (min-height: 760px) and (min-aspect-ratio: 5/4));
 
@@ -106,6 +103,20 @@
 
   .hero-action + .hero-action {
     animation-delay: 0.53s;
+  }
+}
+
+/* The contact block in the mobile menu settles in just after the menu opens. */
+@keyframes menu-rise {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .menu-rise {
+    animation: menu-rise 0.5s cubic-bezier(0.165, 0.84, 0.44, 1) 0.12s backwards;
   }
 }
 

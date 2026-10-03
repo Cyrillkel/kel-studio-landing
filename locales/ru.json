@@ -7,10 +7,14 @@
     "contact": "Связаться",
     "menu": "Меню",
     "allServices": "Все услуги",
-    "openServices": "Открыть список услуг"
+    "openServices": "Открыть список услуг",
+    "reachDirect": "Связаться напрямую",
+    "call": "Позвонить"
   },
   "slider": {
-    "slide": "Карточка {{current}} из {{total}}"
+    "slide": "Карточка {{current}} из {{total}}",
+    "prev": "Предыдущий проект",
+    "next": "Следующий проект"
   },
   "hero": {
     "titleLine1": "Создаём цифровые",
@@ -113,6 +117,12 @@
         "description": "Конверсионная посадочная страница",
         "image": "/portfolio/facetika-v2.jpg",
         "url": "https://facetika.ru/"
+      },
+      {
+        "title": "Сайт ментора и преподавателя",
+        "description": "Личный сайт с услугами, отзывами и записью на пробный урок",
+        "image": "/portfolio/mentoralex.jpg",
+        "url": "https://mentoralex.ru/"
       }
     ]
   },

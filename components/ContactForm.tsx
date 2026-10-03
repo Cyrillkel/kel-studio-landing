@@ -4,9 +4,11 @@ import { FormEvent, useEffect, useRef, useState, type ReactNode } from "react";
 import { useTranslation } from "react-i18next";
 import { Button } from "./Button";
 import { validateContact, type ContactErrors } from "@/lib/contactSchema";
+import { GOALS, reachGoal } from "@/lib/metrika";
 
+// ym-disable-keys: Metrika's session replay doesn't record what is typed here.
 const fieldClass = (invalid: boolean) =>
-  `w-full rounded-lg border bg-black/30 px-5 py-3 text-white transition placeholder-gray-500 focus:outline-none sm:px-6 sm:py-4 ${
+  `ym-disable-keys w-full rounded-lg border bg-black/30 px-5 py-3 text-white transition placeholder-gray-500 focus:outline-none sm:px-6 sm:py-4 ${
     invalid ? "border-rose-500/60 focus:border-rose-400" : "border-white/10 focus:border-white/30"
   }`;
 
@@ -37,6 +39,7 @@ export default function ContactForm({
   // the time it took to write the message.
   const [company, setCompany] = useState("");
   const openedAt = useRef(0);
+  const started = useRef(false);
   useEffect(() => {
     openedAt.current = Date.now();
   }, []);
@@ -77,6 +80,7 @@ export default function ContactForm({
       if (!response.ok) throw new Error(String(response.status));
       setStatus("sent");
       setFormData({ name: "", email: "", message: "" });
+      reachGoal(GOALS.formSent, { place });
       onSent?.();
     } catch {
       setStatus("error");
@@ -84,7 +88,18 @@ export default function ContactForm({
   };
 
   return (
-    <form onSubmit={handleSubmit} noValidate className="space-y-4 sm:space-y-6">
+    <form
+      onSubmit={handleSubmit}
+      noValidate
+      className="space-y-4 sm:space-y-6"
+      // Focus bubbles up to the form: the first field the visitor enters counts
+      // as starting the form (once per open form).
+      onFocus={() => {
+        if (started.current) return;
+        started.current = true;
+        reachGoal(GOALS.formStart, { place });
+      }}
+    >
       <div className="grid gap-4 sm:gap-6 md:grid-cols-2">
         <Field error={errors.name && t(`contact.errors.${errors.name}`)}>
           <input

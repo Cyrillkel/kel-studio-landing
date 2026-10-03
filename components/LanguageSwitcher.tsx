@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { changeLanguage, type SupportedLanguage } from "@/lib/i18n";
+import { GOALS, reachGoal } from "@/lib/metrika";
 
 const LANGUAGES: { code: SupportedLanguage; label: string; flag: string }[] = [
   { code: "ru", label: "Русский", flag: "🇷🇺" },
@@ -32,6 +33,7 @@ export default function LanguageSwitcher({
     LANGUAGES.find((lang) => lang.code === i18n.language) ?? LANGUAGES[0];
 
   const select = (code: SupportedLanguage) => {
+    if (code !== current.code) reachGoal(GOALS.langSwitch, { lang: code });
     changeLanguage(code);
     setOpen(false);
   };

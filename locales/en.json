@@ -7,10 +7,14 @@
     "contact": "Contact",
     "menu": "Menu",
     "allServices": "All services",
-    "openServices": "Open services list"
+    "openServices": "Open services list",
+    "reachDirect": "Reach us directly",
+    "call": "Call"
   },
   "slider": {
-    "slide": "Card {{current}} of {{total}}"
+    "slide": "Card {{current}} of {{total}}",
+    "prev": "Previous project",
+    "next": "Next project"
   },
   "hero": {
     "titleLine1": "Building digital",
@@ -113,6 +117,12 @@
         "description": "A high-converting landing page",
         "image": "/portfolio/facetika-v2.jpg",
         "url": "https://facetika.ru/"
+      },
+      {
+        "title": "Mentor & Tutor Website",
+        "description": "A personal site with services, reviews and trial lesson booking",
+        "image": "/portfolio/mentoralex.jpg",
+        "url": "https://mentoralex.ru/"
       }
     ]
   },
