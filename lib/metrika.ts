@@ -29,6 +29,8 @@ export const GOALS = {
   whatsappClick: "whatsapp_click",
   // A tap on the phone number (starts a call on a phone).
   phoneClick: "phone_click",
+  // A click on the email link (opens the visitor's mail app).
+  emailClick: "email_click",
   // The language was switched (parameter `lang`).
   langSwitch: "lang_switch",
 } as const;

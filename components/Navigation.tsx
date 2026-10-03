@@ -5,12 +5,13 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { gsap } from "gsap";
 import { useTranslation } from "react-i18next";
-import { smoothNavigate } from "./smoothNavigate";
+import { smoothNavigate, smoothTop } from "./smoothNavigate";
 import LanguageSwitcher from "./LanguageSwitcher";
 import { ButtonLink } from "./Button";
-import { PhoneIcon, TelegramIcon, WhatsAppIcon } from "./ContactIcons";
+import { PhoneIcon } from "./ContactIcons";
+import ContactLinks from "./ContactLinks";
 import { SERVICE_SLUGS, servicePath } from "@/lib/services";
-import { PHONE, PHONE_URL, TELEGRAM_URL, WHATSAPP_URL } from "@/lib/site";
+import { PHONE, PHONE_URL } from "@/lib/site";
 
 export default function Navigation() {
   const { t } = useTranslation();
@@ -120,9 +121,21 @@ export default function Navigation() {
       >
         <div className="max-w-7xl mx-auto px-6 py-4">
           <div className="flex items-center justify-between">
-            <div className="font-heading text-2xl font-bold whitespace-nowrap text-white">
+            {/* On the home page it scrolls to the top; from any other page it goes home. */}
+            <Link
+              href="/"
+              aria-label={t("nav.home")}
+              className="font-heading text-2xl font-bold whitespace-nowrap text-white"
+              onClick={(e) => {
+                setIsOpen(false);
+                setServicesOpen(false);
+                if (!onHome) return;
+                e.preventDefault();
+                if (!smoothTop()) window.scrollTo({ top: 0, behavior: "smooth" });
+              }}
+            >
               KEL Studio
-            </div>
+            </Link>
 
             <div className="hidden lg:flex items-center gap-8">
               {/* Opens on hover and on focus, so mouse and keyboard both work. */}
@@ -269,7 +282,7 @@ export default function Navigation() {
                   aria-hidden="true"
                   className={`absolute left-full top-1/2 ml-3 grid h-7 w-7 -translate-y-1/2 place-items-center rounded-full border transition-all duration-300 ${
                     servicesOpen
-                      ? "rotate-180 border-transparent bg-linear-to-br from-cyan-400 via-violet-500 to-fuchsia-500 text-white shadow-lg shadow-violet-500/30"
+                      ? "rotate-180 border-transparent bg-origin-border bg-linear-to-br from-cyan-400 via-violet-500 to-fuchsia-500 text-white shadow-lg shadow-violet-500/30"
                       : "border-white/15 bg-white/5 text-gray-300"
                   }`}
                 >
@@ -351,9 +364,8 @@ export default function Navigation() {
           </div>
 
           {/* Direct contacts, pinned to the bottom of the screen: the number dials on
-              tap, the messengers open their apps. Links scroll under it (it fades in
-              from the menu background). No boxes on purpose: outlined plates looked
-              like the "Связаться" button. */}
+              tap, the messengers and email (the same round buttons as in the footer)
+              open their apps. Links scroll under it (it fades in from the menu background). */}
           <div className="sticky bottom-0 shrink-0 bg-linear-to-t from-[#0a0a0a] from-65% to-transparent px-6 pb-[max(1.5rem,env(safe-area-inset-bottom))] pt-8">
             <div className="menu-rise flex flex-col items-center gap-5">
               <a
@@ -364,28 +376,7 @@ export default function Navigation() {
                 <PhoneIcon className="h-6 w-6" />
                 <span className="whitespace-nowrap tabular-nums">{PHONE}</span>
               </a>
-              <div className="flex items-center gap-5">
-                <a
-                  href={TELEGRAM_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="Telegram"
-                  className="relative block h-14 w-14 rounded-full text-[#2AABEE] shadow-[0_10px_28px_-8px_rgba(42,171,238,0.8)] transition-transform duration-200 active:scale-95"
-                >
-                  {/* The plane is a hole in the blue disc: white behind it, like the logo. */}
-                  <span aria-hidden="true" className="absolute inset-[3px] rounded-full bg-white" />
-                  <TelegramIcon className="relative h-14 w-14" />
-                </a>
-                <a
-                  href={WHATSAPP_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="WhatsApp"
-                  className="grid h-14 w-14 place-items-center rounded-full bg-[#25D366] text-white shadow-[0_10px_28px_-8px_rgba(37,211,102,0.8)] transition-transform duration-200 active:scale-95"
-                >
-                  <WhatsAppIcon className="h-8 w-8" />
-                </a>
-              </div>
+              <ContactLinks />
             </div>
           </div>
         </div>

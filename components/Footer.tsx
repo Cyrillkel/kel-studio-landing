@@ -2,13 +2,7 @@
 
 import Link from "next/link";
 import { useTranslation } from "react-i18next";
-import { TelegramIcon, WhatsAppIcon } from "./ContactIcons";
-import { TELEGRAM_URL, WHATSAPP_URL } from "@/lib/site";
-
-// Round glass buttons, 44px so they are comfortable to tap. Gray until hovered,
-// then the brand color of the messenger.
-const iconLink =
-  "flex h-11 w-11 items-center justify-center rounded-full border border-white/10 bg-white/5 text-gray-400 transition-colors duration-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white/60";
+import ContactLinks from "./ContactLinks";
 
 export default function Footer() {
   const { t } = useTranslation();
@@ -28,26 +22,7 @@ export default function Footer() {
               kel.agency
             </a>
           </div>
-          <div className="flex items-center gap-3">
-            <a
-              href={TELEGRAM_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Telegram"
-              className={`${iconLink} hover:border-[#2AABEE]/50 hover:bg-[#2AABEE]/10 hover:text-[#2AABEE]`}
-            >
-              <TelegramIcon className="h-5 w-5" />
-            </a>
-            <a
-              href={WHATSAPP_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="WhatsApp"
-              className={`${iconLink} hover:border-[#25D366]/50 hover:bg-[#25D366]/10 hover:text-[#25D366]`}
-            >
-              <WhatsAppIcon className="h-5 w-5" />
-            </a>
-          </div>
+          <ContactLinks />
           <div className="flex flex-col items-center gap-2 md:items-end">
             <Link
               href="/privacy"

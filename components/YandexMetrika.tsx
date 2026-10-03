@@ -77,7 +77,7 @@ export default function YandexMetrika() {
 
     // One listener for every button, so the components stay untouched: links
     // to #contact are "contact us" buttons, t.me is Telegram, wa.me is
-    // WhatsApp, tel: is the phone number.
+    // WhatsApp, tel: is the phone number, mailto: is the email.
     const onClick = (event: MouseEvent) => {
       const link = event.target instanceof Element ? event.target.closest("a") : null;
       if (!link) return;
@@ -91,6 +91,8 @@ export default function YandexMetrika() {
         reachGoal(GOALS.whatsappClick, { place: place() });
       } else if (href.startsWith("tel:")) {
         reachGoal(GOALS.phoneClick, { place: place() });
+      } else if (href.startsWith("mailto:")) {
+        reachGoal(GOALS.emailClick, { place: place() });
       }
     };
     document.addEventListener("click", onClick);

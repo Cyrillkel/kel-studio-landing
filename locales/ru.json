@@ -7,7 +7,8 @@
     "contact": "Связаться",
     "menu": "Меню",
     "allServices": "Все услуги",
-    "call": "Позвонить"
+    "call": "Позвонить",
+    "home": "KEL Studio, на главную"
   },
   "slider": {
     "slide": "Карточка {{current}} из {{total}}",

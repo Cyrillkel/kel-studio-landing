@@ -1,6 +1,6 @@
 import type { MetadataRoute } from "next";
 import { SERVICE_SLUGS, servicePath } from "@/lib/services";
-import { hasPolicyText, readPrivacyHtml } from "@/lib/privacy";
+import { POLICY_UPDATED, hasPolicyText, readPrivacyHtml } from "@/lib/privacy";
 import { CONTENT_UPDATED, SITE_URL } from "@/lib/site";
 
 export default function sitemap(): MetadataRoute.Sitemap {
@@ -23,7 +23,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       ? [
           {
             url: `${SITE_URL}/privacy`,
-            lastModified,
+            lastModified: new Date(POLICY_UPDATED),
             changeFrequency: "yearly" as const,
             priority: 0.3,
           },
