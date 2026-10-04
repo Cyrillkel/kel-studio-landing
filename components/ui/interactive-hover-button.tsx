@@ -45,7 +45,7 @@ export function InteractiveHoverLink({
       </span>
       <span
         aria-hidden="true"
-        className="absolute top-0 left-0 z-10 flex h-full w-full translate-x-12 items-center justify-center gap-2 whitespace-nowrap text-white opacity-0 transition-all duration-300 group-hover:-translate-x-1 group-hover:opacity-100"
+        className="absolute top-0 left-0 z-10 flex h-full w-full translate-x-12 items-center justify-center gap-2 whitespace-nowrap text-snow opacity-0 transition-all duration-300 group-hover:-translate-x-1 group-hover:opacity-100"
       >
         <span>{children}</span>
         <ArrowRight />

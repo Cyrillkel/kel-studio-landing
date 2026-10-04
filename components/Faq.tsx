@@ -179,7 +179,7 @@ export default function Faq() {
     <section
       id="faq"
       ref={sectionRef}
-      className="relative py-16 md:py-28 bg-[linear-gradient(to_bottom,#000000_0px,#0a0a0a_180px,#0a0a0a_calc(100%-180px),#000000_100%)]"
+      className="relative py-16 md:py-28 bg-[linear-gradient(to_bottom,var(--deep)_0px,var(--page)_180px,var(--page)_calc(100%-180px),var(--deep)_100%)]"
     >
       <div className="max-w-6xl mx-auto px-5 sm:px-6 grid gap-10 lg:grid-cols-[1fr_1.7fr] lg:gap-20">
         <div className="faq-intro">

@@ -18,7 +18,9 @@ const shimmerStyle = ({
   shimmerSize = "0.1em",
   shimmerDuration = "3s",
   borderRadius = "0.75rem",
-  background = "#ffffff",
+  // The page's primary text colour: white pill in the dark theme, near-black in the light one
+  // (the label is text-black, which flips the opposite way).
+  background = "var(--color-white)",
 }: ShimmerOptions) =>
   ({
     "--spread": "90deg",

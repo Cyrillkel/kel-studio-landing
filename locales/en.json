@@ -11,6 +11,10 @@
     "call": "Call",
     "home": "KEL Studio, home"
   },
+  "theme": {
+    "toLight": "Switch to light theme",
+    "toDark": "Switch to dark theme"
+  },
   "slider": {
     "slide": "Card {{current}} of {{total}}",
     "prev": "Previous project",

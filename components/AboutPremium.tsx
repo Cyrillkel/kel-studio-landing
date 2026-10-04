@@ -130,7 +130,7 @@ export default function AboutPremium() {
           {focuses.map((focus, index) => (
             <div
               key={index}
-              className="about-card group relative p-6 sm:p-8 border border-white/10 rounded-2xl bg-white/2 transition-[border-color,background-color,box-shadow] duration-500 hover:border-white/30 hover:bg-white/5 hover:shadow-[0_0_30px_rgba(255,255,255,0.1)]"
+              className="about-card group relative p-6 sm:p-8 border border-white/10 rounded-2xl bg-white/2 transition-[border-color,background-color,box-shadow] duration-500 hover:border-white/30 hover:bg-white/5 hover:shadow-[0_0_30px_var(--glow-hover)]"
             >
               <h3 className="font-heading text-xl font-bold text-white mb-3 transition-colors duration-300 group-hover:text-gray-100">
                 {focus.title}

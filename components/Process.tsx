@@ -151,12 +151,9 @@ export default function Process() {
               { scale: 0 },
               { scale: 1, duration: 0.5, ease: "back.out(3)" }
             )
-            .fromTo(
-              dot,
-              { borderColor: "rgba(255,255,255,0.15)" },
-              { borderColor: "rgba(232,121,249,0.9)", duration: 0.4 },
-              0
-            );
+            // The fuchsia edge fades in over a themed idle border: tweening
+            // borderColor from a literal would freeze the old theme's colour.
+            .fromTo(q(".process-dot-edge"), { opacity: 0 }, { opacity: 1, duration: 0.4 }, 0);
           const pulse = gsap.fromTo(
             q(".process-dot-ring"),
             { scale: 1, opacity: 0.9 },
@@ -224,7 +221,7 @@ export default function Process() {
     <section
       id="process"
       ref={sectionRef}
-      className="relative isolate overflow-hidden py-16 md:py-28 bg-[linear-gradient(to_bottom,#000000_0px,#0a0a0a_180px,#0a0a0a_calc(100%-180px),#000000_100%)]"
+      className="relative isolate overflow-hidden py-16 md:py-28 bg-[linear-gradient(to_bottom,var(--deep)_0px,var(--page)_180px,var(--page)_calc(100%-180px),var(--deep)_100%)]"
     >
       <SectionGlow />
       <AmbientBlobs
@@ -270,9 +267,10 @@ export default function Process() {
                 >
                   <span
                     aria-hidden="true"
-                    className="process-dot absolute left-4 md:left-1/2 top-7 md:top-1/2 z-10 h-4 w-4 -translate-x-1/2 md:-translate-y-1/2 rounded-full border border-fuchsia-400/90 bg-[#0a0a0a]"
+                    className="process-dot absolute left-4 md:left-1/2 top-7 md:top-1/2 z-10 h-4 w-4 -translate-x-1/2 md:-translate-y-1/2 rounded-full border border-white/15 bg-page"
                   >
                     <span className="process-dot-fill absolute inset-[3px] rounded-full bg-linear-to-br from-cyan-300 to-fuchsia-500" />
+                    <span className="process-dot-edge absolute -inset-px rounded-full border border-fuchsia-400/90 opacity-0" />
                     <span className="process-dot-ring absolute inset-0 rounded-full border border-fuchsia-400 opacity-0" />
                   </span>
                   <span
@@ -288,7 +286,7 @@ export default function Process() {
                     }`}
                   >
                     <div
-                      className={`process-card rounded-2xl border border-white/10 bg-[#16121e] p-6 sm:p-8 transition-colors duration-500 hover:border-white/25 hover:bg-[#1b1624] ${
+                      className={`process-card rounded-2xl border border-white/10 bg-card-violet p-6 sm:p-8 transition-colors duration-500 hover:border-white/25 hover:bg-card-violet-hover ${
                         isLeft ? "md:text-right" : ""
                       }`}
                     >
@@ -317,10 +315,10 @@ export default function Process() {
                       isLeft ? "md:col-start-2" : "md:col-start-1"
                     }`}
                   >
-                    <div className="process-visual relative aspect-[16/10] overflow-hidden rounded-2xl border border-white/10 bg-[#16121e] bg-[linear-gradient(rgba(255,255,255,0.035)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.035)_1px,transparent_1px)] bg-size-[24px_24px]">
+                    <div className="process-visual relative aspect-[16/10] overflow-hidden rounded-2xl border border-white/10 bg-card-violet bg-[linear-gradient(var(--grid-line-soft)_1px,transparent_1px),linear-gradient(90deg,var(--grid-line-soft)_1px,transparent_1px)] bg-size-[24px_24px]">
                       <div
                         aria-hidden="true"
-                        className="absolute inset-0 bg-[radial-gradient(circle_at_50%_45%,rgba(168,85,247,0.16),transparent_65%)]"
+                        className="absolute inset-0 bg-[radial-gradient(circle_at_50%_45%,var(--glow-visual),transparent_65%)]"
                       />
                       <div className="absolute inset-0 p-5 sm:p-8">
                         <ProcessIllustration index={index} />

@@ -10,10 +10,10 @@ export default function NotFoundContent() {
   const { t } = useTranslation();
 
   return (
-    <main className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden bg-[#0a0a0a] px-6 py-24 text-center">
+    <main className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden bg-page px-6 py-24 text-center">
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(139,92,246,0.18),transparent_60%)]"
+        className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,var(--glow),transparent_60%)]"
       />
       <Link href="/" className="relative font-heading text-xl font-bold text-white">
         KEL Studio

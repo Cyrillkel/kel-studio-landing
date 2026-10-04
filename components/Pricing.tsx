@@ -180,7 +180,7 @@ export default function Pricing() {
   return (
     <section
       id="pricing"
-      className="relative isolate overflow-hidden py-16 md:py-24 bg-[linear-gradient(to_bottom,#141414_0px,#0a0a0a_180px,#0a0a0a_100%)]"
+      className="relative isolate overflow-hidden py-16 md:py-24 bg-[linear-gradient(to_bottom,var(--band-home)_0px,var(--page)_180px,var(--page)_100%)]"
     >
       <SectionGlow />
       <div className="max-w-7xl mx-auto px-5 sm:px-6">
@@ -198,7 +198,7 @@ export default function Pricing() {
             <Link
               key={index}
               href={PRICE_LINKS[index] ?? PRICES_PATH}
-              className="pricing-card group relative flex min-h-64 w-full shrink-0 snap-start flex-col bg-white/3 p-6 sm:w-[22rem] sm:p-7 rounded-2xl border border-white/10 hover:-translate-y-1 hover:border-white/25 hover:bg-white/5 hover:shadow-2xl hover:shadow-black/40 transition-[translate,border-color,background-color,box-shadow] duration-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white/60 md:min-h-0 md:w-auto"
+              className="pricing-card group relative flex min-h-64 w-full shrink-0 snap-start flex-col bg-white/3 p-6 sm:w-[22rem] sm:p-7 rounded-2xl border border-white/10 hover:-translate-y-1 hover:border-white/25 hover:bg-white/5 hover:shadow-2xl hover:shadow-shade/40 transition-[translate,border-color,background-color,box-shadow] duration-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white/60 md:min-h-0 md:w-auto"
             >
               <svg
                 aria-hidden="true"

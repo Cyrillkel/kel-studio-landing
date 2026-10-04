@@ -50,7 +50,7 @@ export default function LanguageSwitcher({
         <span className="text-base leading-none">{current.flag}</span>
         <span className="font-medium uppercase">{current.code}</span>
         <svg
-          className={`h-3.5 w-3.5 transition-transform duration-200 ${
+          className={`h-3.5 w-3.5 transition-transform duration-200 max-[379px]:hidden ${
             open ? "rotate-180" : ""
           }`}
           fill="none"
@@ -69,7 +69,7 @@ export default function LanguageSwitcher({
       {open && (
         <div
           role="listbox"
-          className="absolute right-0 z-50 mt-2 w-40 overflow-hidden rounded-lg border border-white/10 bg-[#141414] shadow-2xl shadow-black/50"
+          className="absolute right-0 z-50 mt-2 w-40 overflow-hidden rounded-lg border border-white/10 bg-popover shadow-2xl shadow-shade/50"
         >
           {LANGUAGES.map((lang) => (
             <button

@@ -4,6 +4,7 @@ import CookieNotice from '@/components/CookieNotice'
 import I18nProvider from '@/components/I18nProvider'
 import YandexMetrika from '@/components/YandexMetrika'
 import './globals.css'
+import { THEME_SCRIPT } from '@/lib/theme'
 import {
   INDEXABLE,
   SITE_DESCRIPTION,
@@ -46,13 +47,21 @@ export const metadata: Metadata = {
   twitter: { card: 'summary_large_image', title: TITLE, description: DESCRIPTION },
 }
 
+// <html data-theme> is rendered as "dark" and corrected by the script in <head>
+// before the first paint when the visitor has chosen the light theme (lib/theme.ts).
+// React would see that as a mismatch, hence suppressHydrationWarning on this one
+// element (it covers only the element's own attributes, not its children). This
+// is the pattern from the Next.js guide "Preventing flash before hydration".
 export default function RootLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
   return (
-    <html lang="ru" className="scroll-smooth">
+    <html lang="ru" data-theme="dark" className="scroll-smooth" suppressHydrationWarning>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: THEME_SCRIPT }} />
+      </head>
       <body className={`${inter.className} ${unbounded.variable}`}>
         <I18nProvider>
           {children}

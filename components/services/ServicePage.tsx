@@ -126,7 +126,7 @@ export default function ServicePage({ slug }: { slug: ServiceSlug }) {
     <>
       <Navigation />
       <SmoothScroll>
-        <main ref={rootRef} className="bg-[#0a0a0a]">
+        <main ref={rootRef} className="bg-page">
           <section className="relative isolate overflow-hidden px-5 pt-32 pb-16 sm:px-6 md:pt-40 md:pb-24">
             <SectionGlow />
             {/* Hidden until the intro runs, so nothing flashes before animating in. */}
@@ -164,13 +164,13 @@ export default function ServicePage({ slug }: { slug: ServiceSlug }) {
                 <Assurances className="service-action mt-5" />
               </div>
 
-              <div className="relative aspect-[16/11] overflow-hidden rounded-2xl border border-white/10 bg-[#16121e] bg-[linear-gradient(rgba(255,255,255,0.035)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.035)_1px,transparent_1px)] bg-size-[24px_24px] p-6 sm:p-10">
+              <div className="relative aspect-[16/11] overflow-hidden rounded-2xl border border-white/10 bg-card-violet bg-[linear-gradient(var(--grid-line-soft)_1px,transparent_1px),linear-gradient(90deg,var(--grid-line-soft)_1px,transparent_1px)] bg-size-[24px_24px] p-6 sm:p-10">
                 <ServiceIllustration slug={slug} />
               </div>
             </div>
           </section>
 
-          <section className="relative isolate overflow-hidden px-5 py-16 sm:px-6 md:py-24 bg-[linear-gradient(to_bottom,#0a0a0a_0px,#111111_180px,#111111_100%)]">
+          <section className="relative isolate overflow-hidden px-5 py-16 sm:px-6 md:py-24 bg-[linear-gradient(to_bottom,var(--page)_0px,var(--band)_180px,var(--band)_100%)]">
             <div className="mx-auto max-w-7xl">
               <h2 className="font-heading text-2xl font-bold text-white sm:text-3xl">
                 {page.bodyTitle}
@@ -228,7 +228,7 @@ export default function ServicePage({ slug }: { slug: ServiceSlug }) {
             </div>
           </section>
 
-          <section className="relative isolate overflow-hidden px-5 py-16 sm:px-6 md:py-24 bg-[linear-gradient(to_bottom,#111111_0px,#0a0a0a_180px,#0a0a0a_100%)]">
+          <section className="relative isolate overflow-hidden px-5 py-16 sm:px-6 md:py-24 bg-[linear-gradient(to_bottom,var(--band)_0px,var(--page)_180px,var(--page)_100%)]">
             <div className="mx-auto max-w-7xl">
               <h2 className="font-heading text-2xl font-bold text-white sm:text-3xl">
                 {t("servicePages.common.stepsTitle")}
@@ -251,7 +251,7 @@ export default function ServicePage({ slug }: { slug: ServiceSlug }) {
           </section>
 
           {cases.length > 0 && (
-            <section className="relative isolate overflow-hidden bg-[#0a0a0a] px-5 py-16 sm:px-6 md:py-24">
+            <section className="relative isolate overflow-hidden bg-page px-5 py-16 sm:px-6 md:py-24">
               <div className="mx-auto max-w-7xl">
                 <h2 className="font-heading text-2xl font-bold text-white sm:text-3xl">
                   {t("servicePages.common.casesTitle")}
@@ -267,7 +267,7 @@ export default function ServicePage({ slug }: { slug: ServiceSlug }) {
                         rel="noopener noreferrer"
                         className="service-card group block"
                       >
-                        <div className="relative aspect-video overflow-hidden rounded-2xl border border-white/5 bg-[#1f1f1f]">
+                        <div className="relative aspect-video overflow-hidden rounded-2xl border border-white/5 bg-card">
                           <Image
                             src={item.image}
                             alt={`${item.title} - ${host}`}
@@ -289,7 +289,7 @@ export default function ServicePage({ slug }: { slug: ServiceSlug }) {
             </section>
           )}
 
-          <section className="relative isolate overflow-hidden px-5 py-16 sm:px-6 md:py-24 bg-[linear-gradient(to_bottom,#0a0a0a_0px,#111111_180px,#111111_100%)]">
+          <section className="relative isolate overflow-hidden px-5 py-16 sm:px-6 md:py-24 bg-[linear-gradient(to_bottom,var(--page)_0px,var(--band)_180px,var(--band)_100%)]">
             <div className="mx-auto max-w-3xl">
               <h2 className="font-heading text-2xl font-bold text-white sm:text-3xl">
                 {t("servicePages.common.faqTitle")}
@@ -323,7 +323,7 @@ export default function ServicePage({ slug }: { slug: ServiceSlug }) {
 
           <section
             ref={finalRef}
-            className="relative isolate overflow-hidden px-5 py-16 sm:px-6 md:py-24 bg-[linear-gradient(to_bottom,#111111_0px,#0a0a0a_180px,#0a0a0a_100%)]"
+            className="relative isolate overflow-hidden px-5 py-16 sm:px-6 md:py-24 bg-[linear-gradient(to_bottom,var(--band)_0px,var(--page)_180px,var(--page)_100%)]"
           >
             <SectionGlow />
             <div className="mx-auto max-w-3xl text-center">
@@ -380,7 +380,7 @@ export default function ServicePage({ slug }: { slug: ServiceSlug }) {
           {/* Phones only (no smooth scroller there, so fixed positioning is plain). */}
           <div
             inert={!showStickyCta}
-            className={`fixed inset-x-0 bottom-0 z-20 border-t border-white/10 bg-[#0a0a0a]/90 px-4 pt-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] backdrop-blur-md transition-transform duration-300 md:hidden ${
+            className={`fixed inset-x-0 bottom-0 z-20 border-t border-white/10 bg-page/90 px-4 pt-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] backdrop-blur-md transition-transform duration-300 md:hidden ${
               showStickyCta ? "translate-y-0" : "translate-y-full"
             }`}
           >

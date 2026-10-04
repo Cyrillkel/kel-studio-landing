@@ -11,7 +11,7 @@ import { PHONE, PHONE_URL, TELEGRAM_URL, WHATSAPP_URL } from "@/lib/site";
 
 // ym-disable-keys: Metrika's session replay doesn't record what is typed here.
 const fieldClass = (invalid: boolean) =>
-  `ym-disable-keys w-full rounded-lg border bg-black/30 px-5 py-3 text-white transition placeholder-gray-500 focus:outline-none sm:px-6 sm:py-4 ${
+  `ym-disable-keys w-full rounded-lg border bg-field px-5 py-3 text-white transition placeholder-gray-500 focus:outline-none sm:px-6 sm:py-4 ${
     invalid ? "border-rose-500/60 focus:border-rose-400" : "border-white/10 focus:border-white/30"
   }`;
 
@@ -216,12 +216,12 @@ export default function ContactForm({
           <span
             aria-hidden="true"
             className={`mt-0.5 grid h-5 w-5 shrink-0 place-items-center rounded-md border transition-colors duration-200 peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-white/60 peer-checked:border-transparent peer-checked:bg-origin-border peer-checked:bg-linear-to-br peer-checked:from-cyan-400 peer-checked:via-violet-500 peer-checked:to-fuchsia-500 peer-checked:[&>svg]:opacity-100 ${
-              errors.consent ? "border-rose-500/70 bg-rose-500/10" : "border-white/25 bg-black/30"
+              errors.consent ? "border-rose-500/70 bg-rose-500/10" : "border-white/25 bg-field"
             }`}
           >
             <svg
               viewBox="0 0 24 24"
-              className="h-3.5 w-3.5 text-white opacity-0 transition-opacity duration-200"
+              className="h-3.5 w-3.5 text-snow opacity-0 transition-opacity duration-200"
               fill="none"
               stroke="currentColor"
               strokeWidth={3}

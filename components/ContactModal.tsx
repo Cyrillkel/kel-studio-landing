@@ -80,7 +80,7 @@ export default function ContactModal({
       <dialog
         ref={dialogRef}
         aria-label={t("contact.heading")}
-        className="m-auto w-full max-w-2xl bg-transparent p-4 text-white backdrop:bg-black/70 backdrop:backdrop-blur-sm"
+        className="m-auto w-full max-w-2xl bg-transparent p-4 text-white backdrop:bg-scrim backdrop:backdrop-blur-sm"
         // A click on the backdrop lands on the dialog itself, not the panel.
         onClick={(e) => {
           if (e.target === dialogRef.current) setOpen(false);
@@ -88,7 +88,7 @@ export default function ContactModal({
       >
         <div
           ref={panelRef}
-          className="relative rounded-2xl border border-white/10 bg-[#141018] p-6 text-center shadow-2xl shadow-black/60 sm:p-8"
+          className="relative rounded-2xl border border-white/10 bg-dialog p-6 text-center shadow-2xl shadow-shade/60 sm:p-8"
         >
           <button
             type="button"

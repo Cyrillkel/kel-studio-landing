@@ -62,9 +62,9 @@ const SkySvg = memo(function SkySvg({ layout, id }: { layout: SkyLayout; id: str
     <svg className="absolute inset-0 h-full w-full overflow-visible" aria-hidden="true">
       <defs>
         <linearGradient id={iconGradient} x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0" stopColor="#22d3ee" />
-          <stop offset="0.5" stopColor="#a78bfa" />
-          <stop offset="1" stopColor="#e879f9" />
+          <stop offset="0" style={{ stopColor: "var(--brand-1)" }} />
+          <stop offset="0.5" style={{ stopColor: "var(--brand-2)" }} />
+          <stop offset="1" style={{ stopColor: "var(--brand-3)" }} />
         </linearGradient>
       </defs>
 
@@ -73,15 +73,15 @@ const SkySvg = memo(function SkySvg({ layout, id }: { layout: SkyLayout; id: str
           <g key={icon.id} data-star={index} opacity={0}>
             <g className="star-float">
               <g className="star-inner">
-                <circle r={r} fill="#0a0a0a" fillOpacity={0.92} stroke="rgba(255,255,255,0.14)" />
+                <circle r={r} className="fill-page stroke-white/14" fillOpacity={0.92} />
                 <circle className="star-ring" r={r} fill="none" stroke={`url(#${iconGradient})`} strokeWidth={1.2} opacity={0} />
                 <g transform={`translate(${-iconSize / 2} ${-iconSize / 2}) scale(${iconSize / 24})`}>
-                  <path d={icon.path} fill="rgba(255,255,255,0.12)" />
+                  <path d={icon.path} className="fill-white/12" />
                   <path className="star-fill" d={icon.path} fill={`url(#${iconGradient})`} opacity={0} />
                   <path className="star-draw" d={icon.path} fill="none" stroke={`url(#${iconGradient})`} strokeWidth={0.5} opacity={0} />
                 </g>
               </g>
-              <text className="star-label" y={r + labelSize + 8} textAnchor="middle" fontSize={labelSize} fill="#e5e7eb" opacity={0}>
+              <text className="star-label fill-gray-200" y={r + labelSize + 8} textAnchor="middle" fontSize={labelSize} opacity={0}>
                 {icon.label}
               </text>
             </g>

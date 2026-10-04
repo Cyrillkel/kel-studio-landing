@@ -5,8 +5,197 @@
 
 @theme inline {
   --font-heading: var(--font-unbounded), sans-serif;
+  /* Surfaces and effects that change with the theme (values are in the theme block below). */
+  --color-page: var(--page);
+  --color-band: var(--band);
+  --color-band-home: var(--band-home);
+  --color-card: var(--card);
+  --color-card-violet: var(--card-violet);
+  --color-card-violet-hover: var(--card-violet-hover);
+  --color-popover: var(--popover);
+  --color-dialog: var(--dialog);
+  --color-field: var(--field);
+  --color-shade: var(--shade);
+  --color-scrim: var(--scrim);
+  /* The same in both themes: white on a coloured fill (gradient buttons, ticks). */
+  --color-snow: #ffffff;
   --animate-shimmer-slide: shimmer-slide var(--speed) ease-in-out infinite alternate;
   --animate-spin-around: spin-around calc(var(--speed) * 2) infinite linear;
+}
+
+/* ---------------------------------------------------------------------------
+   Theme. Dark is the site's own look and the default; light is switched on by
+   data-theme="light" on <html> (set before the first paint by the script in
+   app/layout.tsx, changed by components/ThemeToggle.tsx; see lib/theme.ts).
+
+   The components are written in the dark palette. In the light theme the
+   neutral colours are mirrored instead of the classes being rewritten:
+   `text-white` is the primary text colour (near-black in the light theme),
+   `bg-white/5` and `border-white/10` are tints of that same ink, `text-gray-*`
+   steps are inverted, and the accent colours (cyan, violet, fuchsia, rose ...)
+   come one or two steps darker so they read on white. For a colour that must
+   stay white or black in both themes use `text-snow` or the `shade` colour.
+   Backgrounds, glows and shadows have their own variables below.
+   --------------------------------------------------------------------------- */
+:root {
+  color-scheme: dark;
+
+  /* Page surfaces: the page, the alternating bands, cards, floating panels. */
+  --page: #0a0a0a;
+  --band: #111111; /* alternating sections on the inner pages */
+  --band-home: #141414; /* alternating sections on the home page */
+  --deep: #000000; /* the darkest edge of a section */
+  --footer: #1a1a1a;
+  --card: #1f1f1f;
+  --card-violet: #16121e;
+  --card-violet-hover: #1b1624;
+  --popover: #120f18; /* menus and lists */
+  --dialog: #141018; /* the contact window and the cookie notice */
+  --field: rgb(0 0 0 / 0.3); /* inputs */
+  --shade: #000000; /* shadow colour: `shadow-shade/60` */
+  --scrim: rgb(0 0 0 / 0.7); /* behind the contact window */
+
+  /* Glows, grids and the like. */
+  --glow: rgb(139 92 246 / 0.18);
+  --glow-card: rgb(168 85 247 / 0.2);
+  --glow-visual: rgb(168 85 247 / 0.16);
+  --glow-hover: rgb(255 255 255 / 0.1);
+  --grid-line: rgb(255 255 255 / 0.04);
+  --grid-line-soft: rgb(255 255 255 / 0.035);
+  --grid-glow: rgb(167 139 250 / 0.5);
+  --blob-opacity: 1;
+  --scroll-thumb: rgb(255 255 255 / 0.18);
+  --scroll-thumb-hover: rgb(255 255 255 / 0.32);
+  --scroll-thumb-thin: rgb(255 255 255 / 0.2);
+
+  /* The brand gradient in the drawn illustrations and the atom. */
+  --brand-1: #22d3ee;
+  --brand-2: #a78bfa;
+  --brand-3: #e879f9;
+  --atom-1: #818cf8;
+  --atom-2: #e879f9;
+  --atom-3: #22d3ee;
+  --atom-core: #67e8f9;
+  --atom-core-soft: #a5f3fc;
+
+  /* Long texts: the blog and the privacy policy. */
+  --doc-heading: #ffffff;
+  --doc-strong: #e5e7eb;
+  --doc-text: #b4bac4;
+  --doc-legal: #9ca3af;
+  --doc-muted: #6b7280;
+  --doc-link: #a78bfa;
+  --doc-link-hover: #ffffff;
+  --doc-line: rgb(255 255 255 / 0.08);
+  --doc-card: rgb(255 255 255 / 0.03);
+  --doc-card-hover: rgb(255 255 255 / 0.06);
+  --doc-code: rgb(255 255 255 / 0.06);
+}
+
+:root[data-theme="light"] {
+  color-scheme: light;
+
+  /* Mirrored neutrals (see the comment above). */
+  --color-white: #0e0e14;
+  --color-black: #ffffff;
+  --color-gray-100: #1c2029;
+  --color-gray-200: #2a303c;
+  --color-gray-300: #3a414f;
+  --color-gray-400: #566070;
+  --color-gray-500: #636b78;
+  /* Accents, darker for a white page. */
+  --color-cyan-300: #0891b2;
+  --color-cyan-400: #0891b2;
+  --color-violet-200: #8b5cf6;
+  --color-violet-300: #6d28d9;
+  --color-violet-400: #7c3aed;
+  --color-fuchsia-400: #c026d3;
+  --color-rose-400: #e11d48;
+  --color-emerald-400: #047857;
+  --color-amber-400: #b45309;
+
+  --page: #ffffff;
+  --band: #f6f6f9;
+  --band-home: #f6f6f9;
+  --deep: #ffffff;
+  --footer: #f0f0f4;
+  --card: #ffffff;
+  --card-violet: #ffffff;
+  --card-violet-hover: #faf8ff;
+  --popover: #ffffff;
+  --dialog: #ffffff;
+  --field: #ffffff;
+  --shade: rgb(30 27 75 / 0.35);
+  --scrim: rgb(20 18 50 / 0.5);
+
+  --glow: rgb(139 92 246 / 0.12);
+  --glow-card: rgb(139 92 246 / 0.12);
+  --glow-visual: rgb(139 92 246 / 0.1);
+  --glow-hover: rgb(91 33 182 / 0.12);
+  --grid-line: rgb(15 15 30 / 0.05);
+  --grid-line-soft: rgb(15 15 30 / 0.05);
+  --grid-glow: rgb(124 58 237 / 0.35);
+  --blob-opacity: 0.4;
+  --scroll-thumb: rgb(15 15 30 / 0.2);
+  --scroll-thumb-hover: rgb(15 15 30 / 0.35);
+  --scroll-thumb-thin: rgb(15 15 30 / 0.25);
+
+  --brand-1: #0891b2;
+  --brand-2: #7c3aed;
+  --brand-3: #c026d3;
+  --atom-1: #6366f1;
+  --atom-2: #c026d3;
+  --atom-3: #0891b2;
+  --atom-core: #0891b2;
+  --atom-core-soft: #06b6d4;
+
+  --doc-heading: #0e0e14;
+  --doc-strong: #1f2430;
+  --doc-text: #3a414f;
+  --doc-legal: #4b5563;
+  --doc-muted: #636b78;
+  --doc-link: #6d28d9;
+  --doc-link-hover: #0e0e14;
+  --doc-line: rgb(15 15 30 / 0.1);
+  --doc-card: rgb(15 15 30 / 0.03);
+  --doc-card-hover: rgb(15 15 30 / 0.05);
+  --doc-code: rgb(15 15 30 / 0.06);
+}
+
+@layer base {
+  /* The page colour also fills what the sections do not cover: the pull past the
+     end of the page on a phone, the moment before the first paint. */
+  html {
+    background: var(--page);
+  }
+
+  body {
+    background: var(--page);
+    color: var(--color-white);
+  }
+}
+
+/* While the theme is being switched nothing may fade: backgrounds jump (gradients
+   cannot be animated) and text colours would lag behind them. The button's own icon is exempt. */
+.theme-switching *:not(.theme-toggle *),
+.theme-switching *:not(.theme-toggle *)::before,
+.theme-switching *:not(.theme-toggle *)::after {
+  transition: none !important;
+}
+
+/* The theme button shows the theme it switches to: a sun in the dark theme, a
+   moon in the light one. Both icons are always in the markup and CSS picks
+   the visible one, so the right icon is there from the first paint. */
+.theme-toggle .theme-sun,
+.theme-toggle .theme-moon {
+  position: absolute;
+  transition: opacity 0.3s, transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+:root[data-theme="light"] .theme-toggle .theme-sun,
+:root:not([data-theme="light"]) .theme-toggle .theme-moon {
+  opacity: 0;
+  transform: rotate(-80deg) scale(0.4);
 }
 
 /* The ruble sign is the only character on the page outside Latin and Cyrillic,
@@ -115,7 +304,7 @@
     font-size: clamp(1.25rem, 6vw, 3rem);
     font-weight: 700;
     line-height: 1.15;
-    color: #fff;
+    color: var(--doc-heading);
     margin-bottom: 2rem;
     overflow-wrap: break-word;
   }
@@ -125,7 +314,7 @@
     font-size: 1.5rem;
     font-weight: 700;
     line-height: 1.3;
-    color: #fff;
+    color: var(--doc-heading);
     margin: 2.5rem 0 1rem;
     overflow-wrap: break-word;
   }
@@ -133,13 +322,13 @@
   .legal h3 {
     font-size: 1.125rem;
     font-weight: 600;
-    color: #e5e7eb;
+    color: var(--doc-strong);
     margin: 1.5rem 0 0.75rem;
   }
 
   .legal p,
   .legal li {
-    color: #9ca3af;
+    color: var(--doc-legal);
     line-height: 1.75;
   }
 
@@ -166,24 +355,24 @@
   }
 
   .legal a {
-    color: #a78bfa;
+    color: var(--doc-link);
     text-decoration: underline;
     text-underline-offset: 3px;
   }
 
   .legal a:hover {
-    color: #fff;
+    color: var(--doc-link-hover);
   }
 
   .legal strong {
-    color: #e5e7eb;
+    color: var(--doc-strong);
     font-weight: 600;
   }
 
   .legal-meta {
     margin: -1rem 0 2rem;
     font-size: 0.875rem;
-    color: #6b7280;
+    color: var(--doc-muted);
   }
 
   /* A section per heading, set off by a thin line; clear of the fixed bar when
@@ -191,7 +380,7 @@
   .legal section {
     margin-top: 2.5rem;
     padding-top: 2rem;
-    border-top: 1px solid rgb(255 255 255 / 0.08);
+    border-top: 1px solid var(--doc-line);
     scroll-margin-top: 6rem;
   }
 
@@ -218,7 +407,7 @@
     top: 0;
     font-weight: 600;
     font-variant-numeric: tabular-nums;
-    color: #a78bfa;
+    color: var(--doc-link);
   }
 
   .legal .clauses ul {
@@ -235,22 +424,22 @@
   .legal .terms dt {
     font-weight: 600;
     line-height: 1.5;
-    color: #e5e7eb;
+    color: var(--doc-strong);
   }
 
   .legal .terms dd {
     margin: 0.25rem 0 0;
     line-height: 1.75;
-    color: #9ca3af;
+    color: var(--doc-legal);
   }
 
   /* The purposes block: one quiet card per row. */
   .legal .policy-purpose > div {
     padding: 1rem 1.25rem;
     margin-bottom: 0.75rem;
-    border: 1px solid rgb(255 255 255 / 0.08);
+    border: 1px solid var(--doc-line);
     border-radius: 0.75rem;
-    background: rgb(255 255 255 / 0.03);
+    background: var(--doc-card);
   }
 
   .legal .policy-purpose dt {
@@ -258,12 +447,12 @@
     font-size: 0.75rem;
     letter-spacing: 0.08em;
     text-transform: uppercase;
-    color: #9ca3af;
+    color: var(--doc-legal);
   }
 
   .legal .policy-purpose dd {
     line-height: 1.7;
-    color: #d1d5db;
+    color: var(--doc-strong);
   }
 
   .legal .policy-purpose ul {
@@ -293,13 +482,13 @@
   .legal th,
   .legal td {
     padding: 0.625rem 0.75rem;
-    border: 1px solid rgb(255 255 255 / 0.1);
-    color: #9ca3af;
+    border: 1px solid var(--doc-line);
+    color: var(--doc-legal);
     text-align: left;
   }
 
   .legal th {
-    color: #e5e7eb;
+    color: var(--doc-strong);
   }
 }
 
@@ -345,11 +534,11 @@
 
 .select-scroll::-webkit-scrollbar-thumb {
   border-radius: 999px;
-  background: rgb(255 255 255 / 0.18);
+  background: var(--scroll-thumb);
 }
 
 .select-scroll::-webkit-scrollbar-thumb:hover {
-  background: rgb(255 255 255 / 0.32);
+  background: var(--scroll-thumb-hover);
 }
 
 .select-scroll::-webkit-scrollbar-button {
@@ -359,7 +548,7 @@
 @supports (-moz-appearance: none) {
   .select-scroll {
     scrollbar-width: thin;
-    scrollbar-color: rgb(255 255 255 / 0.2) transparent;
+    scrollbar-color: var(--scroll-thumb-thin) transparent;
   }
 }
 
@@ -580,75 +769,64 @@
 
 
 
-/* Blog. Every colour comes from these variables, so a light theme is a matter
-   of redefining them (for example under :root[data-theme="light"]). */
-:root {
-  --blog-bg: #0a0a0a;
-  --blog-heading: #ffffff;
-  --blog-strong: #e5e7eb;
-  --blog-text: #b4bac4;
-  --blog-muted: #6b7280;
-  --blog-link: #a78bfa;
-  --blog-link-hover: #ffffff;
-  --blog-line: rgb(255 255 255 / 0.08);
-  --blog-card: rgb(255 255 255 / 0.03);
-  --blog-card-hover: rgb(255 255 255 / 0.06);
-  --blog-code-bg: rgb(255 255 255 / 0.06);
-}
-
+/* Blog. Every colour comes from the --doc-* variables in the theme block above. */
 @layer components {
   .blog-page {
-    background: var(--blog-bg);
+    background: var(--doc-bg);
   }
   .blog-heading {
     font-family: var(--font-unbounded), sans-serif;
-    color: var(--blog-heading);
+    color: var(--doc-heading);
     overflow-wrap: break-word;
   }
   .blog-text {
-    color: var(--blog-text);
+    color: var(--doc-text);
   }
   .blog-muted {
-    color: var(--blog-muted);
+    color: var(--doc-muted);
   }
   .blog-link {
-    color: var(--blog-link);
+    color: var(--doc-link);
     transition: color 0.2s;
   }
   .blog-link:hover {
-    color: var(--blog-link-hover);
+    color: var(--doc-link-hover);
   }
   .blog-card {
-    border: 1px solid var(--blog-line);
-    background: var(--blog-card);
+    border: 1px solid var(--doc-line);
+    background: var(--doc-card);
     border-radius: 1rem;
     transition: background-color 0.2s, border-color 0.2s;
   }
   a.blog-card:hover {
-    background: var(--blog-card-hover);
+    background: var(--doc-card-hover);
   }
   .blog-chip {
     display: inline-block;
     padding: 0.125rem 0.75rem;
     font-size: 0.8125rem;
-    color: var(--blog-link);
-    border: 1px solid var(--blog-line);
+    color: var(--doc-link);
+    border: 1px solid var(--doc-line);
     border-radius: 999px;
   }
 
-  /* The article text: 720px column, large type, headings with anchors. */
+  /* The article text: fills its column (about 850px in the full container), large type, headings with anchors. */
   .prose-blog {
-    max-width: 45rem;
     font-size: 1.0625rem;
     line-height: 1.8;
-    color: var(--blog-text);
+    color: var(--doc-text);
+  }
+  @media (min-width: 768px) {
+    .prose-blog {
+      font-size: 1.125rem;
+    }
   }
   .prose-blog h2 {
     font-family: var(--font-unbounded), sans-serif;
     font-size: clamp(1.25rem, 4.5vw, 1.625rem);
     font-weight: 700;
     line-height: 1.3;
-    color: var(--blog-heading);
+    color: var(--doc-heading);
     margin: 3rem 0 1rem;
     scroll-margin-top: 6rem;
     overflow-wrap: break-word;
@@ -657,7 +835,7 @@
     font-size: 1.1875rem;
     font-weight: 600;
     line-height: 1.4;
-    color: var(--blog-strong);
+    color: var(--doc-strong);
     margin: 2rem 0 0.75rem;
     scroll-margin-top: 6rem;
   }
@@ -680,25 +858,25 @@
     padding-left: 0.25rem;
   }
   .prose-blog li::marker {
-    color: var(--blog-muted);
+    color: var(--doc-muted);
   }
   .prose-blog a {
-    color: var(--blog-link);
+    color: var(--doc-link);
     text-decoration: underline;
     text-underline-offset: 3px;
   }
   .prose-blog a:hover {
-    color: var(--blog-link-hover);
+    color: var(--doc-link-hover);
   }
   .prose-blog strong {
-    color: var(--blog-strong);
+    color: var(--doc-strong);
     font-weight: 600;
   }
   .prose-blog blockquote {
     margin: 1.75rem 0;
     padding: 0.25rem 0 0.25rem 1.25rem;
-    border-left: 3px solid var(--blog-link);
-    color: var(--blog-strong);
+    border-left: 3px solid var(--doc-link);
+    color: var(--doc-strong);
   }
   .prose-blog blockquote p:last-child {
     margin-bottom: 0;
@@ -707,8 +885,8 @@
     padding: 0.125rem 0.375rem;
     font-size: 0.9em;
     border-radius: 0.375rem;
-    background: var(--blog-code-bg);
-    color: var(--blog-strong);
+    background: var(--doc-code-bg);
+    color: var(--doc-strong);
   }
   .prose-blog pre {
     margin: 0 0 1.5rem;
@@ -716,9 +894,9 @@
     overflow-x: auto;
     font-size: 0.9rem;
     line-height: 1.6;
-    border: 1px solid var(--blog-line);
+    border: 1px solid var(--doc-line);
     border-radius: 0.75rem;
-    background: var(--blog-code-bg);
+    background: var(--doc-code-bg);
   }
   .prose-blog pre code {
     padding: 0;
@@ -727,7 +905,7 @@
   .prose-blog hr {
     margin: 2.5rem 0;
     border: 0;
-    border-top: 1px solid var(--blog-line);
+    border-top: 1px solid var(--doc-line);
   }
   .prose-blog .table-wrap {
     margin: 0 0 1.5rem;
@@ -745,11 +923,11 @@
     padding: 0.625rem 0.75rem;
     text-align: left;
     vertical-align: top;
-    border: 1px solid var(--blog-line);
+    border: 1px solid var(--doc-line);
   }
   .prose-blog th {
-    color: var(--blog-strong);
-    background: var(--blog-card);
+    color: var(--doc-strong);
+    background: var(--doc-card);
   }
   @media (max-width: 640px) {
     .prose-blog table {

@@ -11,6 +11,7 @@ export default function AmbientBlobs({ blobs }: { blobs: Blob[] }) {
   return (
     <div
       className="absolute inset-0 -z-10 overflow-hidden pointer-events-none"
+      style={{ opacity: "var(--blob-opacity)" }}
       aria-hidden="true"
     >
       {blobs.map((blob, i) => (

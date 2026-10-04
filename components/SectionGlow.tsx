@@ -5,7 +5,7 @@
 export default function SectionGlow() {
   return (
     <div
-      className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_center,rgba(139,92,246,0.18),transparent_70%)]"
+      className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_center,var(--glow),transparent_70%)]"
       aria-hidden="true"
     />
   );

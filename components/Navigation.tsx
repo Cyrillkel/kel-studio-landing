@@ -7,6 +7,7 @@ import { gsap } from "gsap";
 import { useTranslation } from "react-i18next";
 import { smoothNavigate, smoothTop } from "./smoothNavigate";
 import LanguageSwitcher from "./LanguageSwitcher";
+import ThemeToggle from "./ThemeToggle";
 import { ButtonLink } from "./Button";
 import { PhoneIcon, TelegramIcon } from "./ContactIcons";
 import ContactLinks from "./ContactLinks";
@@ -116,7 +117,7 @@ export default function Navigation() {
       <nav
         className={`fixed top-0 right-0 left-0 z-50 transition-colors duration-300 ${
           scrolled && !isOpen
-            ? "border-b border-white/5 bg-[#0a0a0a]/85 backdrop-blur-md"
+            ? "border-b border-white/5 bg-page/85 backdrop-blur-md"
             : "backdrop-blur-sm"
         }`}
       >
@@ -126,7 +127,7 @@ export default function Navigation() {
             <Link
               href="/"
               aria-label={t("nav.home")}
-              className="font-heading text-2xl font-bold whitespace-nowrap text-white"
+              className="font-heading text-xl font-bold whitespace-nowrap text-white sm:text-2xl"
               onClick={(e) => {
                 setIsOpen(false);
                 setServicesOpen(false);
@@ -176,7 +177,7 @@ export default function Navigation() {
                       : "invisible -translate-y-1 opacity-0"
                   }`}
                 >
-                  <div className="overflow-hidden rounded-2xl border border-white/10 bg-[#120f18] p-2 shadow-2xl shadow-black/60">
+                  <div className="overflow-hidden rounded-2xl border border-white/10 bg-popover p-2 shadow-2xl shadow-shade/60">
                     {MENU_SLUGS.map((slug) => (
                       <Link
                         key={slug}
@@ -245,10 +246,17 @@ export default function Navigation() {
                   <TelegramIcon className="h-5 w-5" />
                 </a>
               </div>
-              <LanguageSwitcher />
+              <div className="flex items-center gap-3">
+                <ThemeToggle />
+                <LanguageSwitcher />
+              </div>
             </div>
 
-            <div className="flex items-center gap-3 lg:hidden">
+            {/* On a phone the logo, the theme button, the language and the burger share one
+                row: the logo, the button and the gaps get smaller below 640px (and the language
+                arrow goes below 380px, see LanguageSwitcher). */}
+            <div className="flex items-center gap-2 sm:gap-3 lg:hidden">
+              <ThemeToggle className="h-9 w-9 sm:h-10 sm:w-10" />
               <LanguageSwitcher />
               <button
                 type="button"
@@ -285,7 +293,7 @@ export default function Navigation() {
       {isOpen && (
         <div
           id="mobile-menu"
-          className="fixed inset-0 z-40 flex flex-col overflow-y-auto overscroll-contain bg-[#0a0a0a]/95 backdrop-blur-md lg:hidden"
+          className="fixed inset-0 z-40 flex flex-col overflow-y-auto overscroll-contain bg-page/95 backdrop-blur-md lg:hidden"
         >
           <div className="flex flex-1 flex-col items-center justify-center space-y-8 pb-8 pt-24 text-center">
             <div className="flex w-full flex-col items-center">
@@ -303,7 +311,7 @@ export default function Navigation() {
                   aria-hidden="true"
                   className={`absolute left-full top-1/2 ml-3 grid h-7 w-7 -translate-y-1/2 place-items-center rounded-full border transition-all duration-300 ${
                     servicesOpen
-                      ? "rotate-180 border-transparent bg-origin-border bg-linear-to-br from-cyan-400 via-violet-500 to-fuchsia-500 text-white shadow-lg shadow-violet-500/30"
+                      ? "rotate-180 border-transparent bg-origin-border bg-linear-to-br from-cyan-400 via-violet-500 to-fuchsia-500 text-snow shadow-lg shadow-violet-500/30"
                       : "border-white/15 bg-white/5 text-gray-300"
                   }`}
                 >
@@ -403,7 +411,7 @@ export default function Navigation() {
           {/* Direct contacts, pinned to the bottom of the screen: the number dials on
               tap, the messengers and email (the same round buttons as in the footer)
               open their apps. Links scroll under it (it fades in from the menu background). */}
-          <div className="sticky bottom-0 shrink-0 bg-linear-to-t from-[#0a0a0a] from-65% to-transparent px-6 pb-[max(1.5rem,env(safe-area-inset-bottom))] pt-8">
+          <div className="sticky bottom-0 shrink-0 bg-linear-to-t from-page from-65% to-transparent px-6 pb-[max(1.5rem,env(safe-area-inset-bottom))] pt-8">
             <div className="menu-rise flex flex-col items-center gap-5">
               <a
                 href={PHONE_URL}

@@ -33,7 +33,7 @@ export default function Home() {
       <Navigation />
       <SmoothScroll>
         <JsonLd data={structuredData} />
-        <main className="bg-[#0a0a0a]">
+        <main className="bg-page">
           <Hero />
           <Services />
           <Pricing />

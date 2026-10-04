@@ -40,7 +40,7 @@ export default function PrivacyPage() {
       <Navigation />
       <SmoothScroll>
         <JsonLd data={structuredData} />
-        <div className="flex min-h-screen flex-col bg-[#0a0a0a]">
+        <div className="flex min-h-screen flex-col bg-page">
           <main className="flex-1">
             {/* The look of headings, paragraphs, lists and links comes from the
                 `legal` class (globals.css). The text itself is content/privacy.html:

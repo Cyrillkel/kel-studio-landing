@@ -12,7 +12,7 @@ export default function Footer() {
   const { t } = useTranslation();
   const onHome = usePathname() === "/";
   return (
-    <footer className="py-12 bg-[linear-gradient(to_bottom,#0a0a0a_0px,#1a1a1a_180px,#1a1a1a_100%)]">
+    <footer className="py-12 bg-[linear-gradient(to_bottom,var(--page)_0px,var(--footer)_180px,var(--footer)_100%)]">
       <div className="max-w-7xl mx-auto px-6">
         <div className="flex flex-col md:flex-row justify-between items-center gap-6">
           <div className="flex flex-col items-center gap-1 md:items-start">

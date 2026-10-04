@@ -113,7 +113,7 @@ export default function Portfolio() {
     <section
       id="portfolio"
       ref={sectionRef}
-      className="relative overflow-hidden py-16 md:py-24 bg-[linear-gradient(to_bottom,#0a0a0a_0px,#141414_180px,#141414_calc(100%-200px),#000000_100%)]"
+      className="relative overflow-hidden py-16 md:py-24 bg-[linear-gradient(to_bottom,var(--page)_0px,var(--band-home)_180px,var(--band-home)_calc(100%-200px),var(--deep)_100%)]"
     >
       <div className="mx-auto mb-8 flex w-full max-w-7xl items-end justify-between gap-6 px-5 sm:px-6 lg:mb-10">
         <h2 className="font-heading text-3xl sm:text-4xl md:text-5xl font-bold text-white">
@@ -192,7 +192,7 @@ export default function Portfolio() {
           const host = item.url ? hostOf(item.url) : "";
           const content = (
             <div className="portfolio-reveal group">
-              <div className="portfolio-frame relative aspect-video overflow-hidden rounded-2xl border border-white/5 bg-[#1f1f1f]">
+              <div className="portfolio-frame relative aspect-video overflow-hidden rounded-2xl border border-white/5 bg-card">
                 {item.image && (
                   <div className="portfolio-media absolute inset-0">
                     <Image
@@ -265,7 +265,7 @@ export default function Portfolio() {
             <div className="portfolio-frame relative flex h-full flex-col justify-between gap-8 overflow-hidden rounded-2xl border border-dashed border-white/15 bg-white/2 p-7 sm:p-8">
               <div
                 aria-hidden="true"
-                className="absolute inset-0 bg-[radial-gradient(circle_at_25%_20%,rgba(168,85,247,0.2),transparent_60%)]"
+                className="absolute inset-0 bg-[radial-gradient(circle_at_25%_20%,var(--glow-card),transparent_60%)]"
               />
               <div className="portfolio-text relative">
                 <h3 className="font-heading text-2xl sm:text-3xl font-bold text-white">

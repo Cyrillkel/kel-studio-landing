@@ -83,7 +83,7 @@ export default function Services() {
   return (
     <section
       id="services"
-      className="relative isolate overflow-hidden py-16 md:py-24 bg-[linear-gradient(to_bottom,#0a0a0a_0px,#141414_180px,#141414_100%)]"
+      className="relative isolate overflow-hidden py-16 md:py-24 bg-[linear-gradient(to_bottom,var(--page)_0px,var(--band-home)_180px,var(--band-home)_100%)]"
     >
       <AmbientBlobs
         blobs={[
@@ -114,7 +114,7 @@ export default function Services() {
             <Link
               key={index}
               href={CARD_LINKS[index] ?? SERVICES_PATH}
-              className="block bg-[#1f1f1f] p-6 sm:p-8 xl:p-7 rounded-2xl border border-white/5 hover:-translate-y-2 hover:shadow-lg hover:shadow-black/25 transition-all duration-300"
+              className="block bg-card p-6 sm:p-8 xl:p-7 rounded-2xl border border-white/5 hover:-translate-y-2 hover:shadow-lg hover:shadow-shade/25 transition-all duration-300"
             >
               <div className="w-12 h-12 bg-white/10 rounded-lg flex items-center justify-center mb-6 text-white">
                 {icons[index]}
