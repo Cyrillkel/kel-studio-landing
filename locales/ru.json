@@ -124,6 +124,12 @@
         "description": "Личный сайт с услугами, отзывами и записью на пробный урок",
         "image": "/portfolio/mentoralex.jpg",
         "url": "https://mentoralex.ru/"
+      },
+      {
+        "title": "Сайт-визитка швейной фабрики",
+        "description": "WordPress и Elementor на готовой теме: о производстве, работы и контакты",
+        "image": "/portfolio/style69.jpg",
+        "url": "https://style-69.ru/"
       }
     ]
   },

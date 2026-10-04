@@ -231,7 +231,7 @@ export default function ContactForm({
               <path d="m5 12 5 5 9-10" />
             </svg>
           </span>
-          <span>
+          <span className="text-balance">
             <Trans
               i18nKey="contact.consent"
               components={{

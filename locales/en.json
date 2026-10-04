@@ -124,6 +124,12 @@
         "description": "A personal site with services, reviews and trial lesson booking",
         "image": "/portfolio/mentoralex.jpg",
         "url": "https://mentoralex.ru/"
+      },
+      {
+        "title": "Business card website for a garment factory",
+        "description": "WordPress and Elementor on a ready-made theme: about the production, works and contacts",
+        "image": "/portfolio/style69.jpg",
+        "url": "https://style-69.ru/"
       }
     ]
   },

@@ -173,20 +173,20 @@ export default function Pricing() {
         </p>
         <div
           ref={sliderRef}
-          className="relative -mx-5 flex snap-x snap-mandatory gap-3 overflow-x-auto px-[10vw] py-4 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden sm:-mx-6 md:mx-0 md:grid md:snap-none md:grid-cols-2 md:gap-6 md:overflow-visible md:p-0 lg:grid-cols-3"
+          className="relative flex snap-x snap-mandatory gap-3 overflow-x-auto py-4 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:grid md:snap-none md:grid-cols-2 md:gap-6 md:overflow-visible md:p-0 lg:grid-cols-3"
         >
           {items.map((item, index) => (
             <div
               key={index}
-              className="pricing-card flex min-h-56 w-[80vw] shrink-0 snap-center flex-col bg-white/3 p-7 rounded-2xl border border-white/10 hover:-translate-y-1 hover:border-white/25 hover:bg-white/5 hover:shadow-2xl hover:shadow-black/40 transition-[translate,border-color,background-color,box-shadow] duration-300 md:min-h-0 md:w-auto"
+              className="pricing-card flex min-h-64 w-full shrink-0 snap-start flex-col bg-white/3 p-6 sm:w-[22rem] sm:p-7 rounded-2xl border border-white/10 hover:-translate-y-1 hover:border-white/25 hover:bg-white/5 hover:shadow-2xl hover:shadow-black/40 transition-[translate,border-color,background-color,box-shadow] duration-300 md:min-h-0 md:w-auto"
             >
               <div className="w-12 h-12 md:w-11 md:h-11 bg-white/10 rounded-lg flex items-center justify-center mb-6 md:mb-5 text-white">
                 {icons[index]}
               </div>
-              <h3 className="font-heading text-xl font-bold text-white mb-2">
+              <h3 className="font-heading text-2xl font-bold text-white mb-2 md:text-xl">
                 {item.title}
               </h3>
-              <p className="mt-auto font-heading text-3xl font-bold bg-linear-to-br from-white to-gray-400 bg-clip-text text-transparent md:mt-0">
+              <p className="mt-auto font-heading text-4xl font-bold md:text-3xl bg-linear-to-br from-white to-gray-400 bg-clip-text text-transparent md:mt-0">
                 {item.price}
               </p>
             </div>
