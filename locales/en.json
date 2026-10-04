@@ -62,15 +62,15 @@
       },
       {
         "title": "Landing Page",
-        "price": "from $422"
+        "price": "from $526"
       },
       {
         "title": "Corporate Website",
-        "price": "from $632"
+        "price": "from $1,053"
       },
       {
         "title": "Online Store",
-        "price": "from $1,053"
+        "price": "from $1,579"
       },
       {
         "title": "Web Application",
@@ -194,7 +194,7 @@
     "items": [
       {
         "question": "How much does a website cost?",
-        "answer": "The price depends on the type of site, its scope, and features. You can find guideline prices in the Pricing section: for example, a landing page from $422 and a corporate website from $632. We give an exact quote after the brief and fix it in the contract."
+        "answer": "The price depends on the type of site, its scope, and features. You can find guideline prices in the Pricing section: for example, a landing page from $526 and a corporate website from $1,053. We give an exact quote after the brief and fix it in the contract."
       },
       {
         "question": "How long does development take?",
@@ -296,12 +296,12 @@
       "landing": {
         "name": "Landing pages",
         "title": "Turnkey landing page development",
-        "metaTitle": "Order a turnkey landing page from 40,000 ₽ - KEL Studio",
-        "metaDescription": "Turnkey landing pages and one-page sites: design, layout, request form and analytics. 1-2 weeks, from 40,000 ₽.",
+        "metaTitle": "Order a turnkey landing page from 50,000 ₽ - KEL Studio",
+        "metaDescription": "Turnkey landing pages and one-page sites: design, layout, request form and analytics. 1-2 weeks, from 50,000 ₽.",
         "short": "A one-page site for one service or offer: from prototype to launch in 1-2 weeks.",
-        "lead": "A landing page in 1-2 weeks, from 40,000 ₽. We plan the structure, draw the design, build it and connect the request form and Metrika. Price and timeline are fixed in the contract.",
+        "lead": "A landing page in 1-2 weeks, from 50,000 ₽. We plan the structure, draw the design, build it and connect the request form and Metrika. Price and timeline are fixed in the contract.",
         "cta": "Calculate my landing page",
-        "price": "from 40,000 ₽",
+        "price": "from 50,000 ₽",
         "term": "1-2 weeks",
         "bodyTitle": "A turnkey landing page you can send ad traffic to right away",
         "body": [
@@ -347,7 +347,7 @@
         "faq": [
           {
             "q": "How much does a landing page cost?",
-            "a": "A landing page costs from 40,000 ₽. The final price depends on the number of blocks, design complexity and integrations; we name it after the brief and fix it in the contract."
+            "a": "A landing page costs from 50,000 ₽. The final price depends on the number of blocks, design complexity and integrations; we name it after the brief and fix it in the contract."
           },
           {
             "q": "How long does it take to make a landing page?",
@@ -440,12 +440,12 @@
       "corporate": {
         "name": "Corporate websites",
         "title": "Turnkey corporate website development",
-        "metaTitle": "Corporate website development from 60,000 ₽ - KEL Studio",
-        "metaDescription": "Turnkey corporate websites: structure, design, service catalog, admin panel and integrations. 3-5 weeks, from 60,000 ₽.",
+        "metaTitle": "Corporate website development from 100,000 ₽ - KEL Studio",
+        "metaDescription": "Turnkey corporate websites: structure, design, service catalog, admin panel and integrations. 3-5 weeks, from 100,000 ₽.",
         "short": "A multi-page company site with services and an admin panel: 3-5 weeks.",
-        "lead": "A company site where clients find services, prices and contacts without calling you. Developed in 3-5 weeks, from 60,000 ₽, with an admin panel so you change texts and news yourself.",
+        "lead": "A company site where clients find services, prices and contacts without calling you. Developed in 3-5 weeks, from 100,000 ₽, with an admin panel so you change texts and news yourself.",
         "cta": "Calculate a company site",
-        "price": "from 60,000 ₽",
+        "price": "from 100,000 ₽",
         "term": "3-5 weeks",
         "bodyTitle": "A corporate website that answers the client's questions before a call",
         "body": [
@@ -491,7 +491,7 @@
         "faq": [
           {
             "q": "How much does a corporate website cost?",
-            "a": "Corporate websites start from 60,000 ₽. The price depends on the number of pages, design complexity, features and integrations. We name the exact cost after the brief and fix it in the contract."
+            "a": "Corporate websites start from 100,000 ₽. The price depends on the number of pages, design complexity, features and integrations. We name the exact cost after the brief and fix it in the contract."
           },
           {
             "q": "How long does development take?",
@@ -514,12 +514,12 @@
       "ecommerce": {
         "name": "Online stores",
         "title": "Turnkey online store development",
-        "metaTitle": "Create an online store turnkey from 100,000 ₽ - KEL Studio",
-        "metaDescription": "Turnkey online stores: catalog, cart, payment, delivery, MoySklad and CRM integration. From 1.5 months, from 100,000 ₽.",
+        "metaTitle": "Create an online store turnkey from 150,000 ₽ - KEL Studio",
+        "metaDescription": "Turnkey online stores: catalog, cart, payment, delivery, MoySklad and CRM integration. From 1.5 months, from 150,000 ₽.",
         "short": "A store with catalog, cart, payment and delivery, convenient on a phone: from 1.5 months.",
-        "lead": "An online store with a catalog, cart, payment and delivery that is convenient to use on a phone. From 100,000 ₽, from 1.5 months; the price and stages are fixed in the contract.",
+        "lead": "An online store with a catalog, cart, payment and delivery that is convenient to use on a phone. From 150,000 ₽, from 1.5 months; the price and stages are fixed in the contract.",
         "cta": "Calculate a store",
-        "price": "from 100,000 ₽",
+        "price": "from 150,000 ₽",
         "term": "from 1.5 months",
         "bodyTitle": "A turnkey online store: from the catalog to the first order",
         "body": [
@@ -565,7 +565,7 @@
         "faq": [
           {
             "q": "How much does it cost to create an online store?",
-            "a": "Online stores start from 100,000 ₽. The cost depends on the number of products and categories, features and integrations with MoySklad and CRM. We name the exact price after the brief."
+            "a": "Online stores start from 150,000 ₽. The cost depends on the number of products and categories, features and integrations with MoySklad and CRM. We name the exact price after the brief."
           },
           {
             "q": "How long does it take to create a store?",
@@ -639,7 +639,7 @@
         "faq": [
           {
             "q": "How much does a WordPress site cost?",
-            "a": "The price depends on the type of site: a [business card site](/services/vizitka) from 20,000 ₽, a [landing page](/services/landing) from 40,000 ₽, a [corporate website](/services/corporate) from 60,000 ₽, an [online store](/services/ecommerce) from 100,000 ₽. We name the exact price after the brief."
+            "a": "The price depends on the type of site: a [business card site](/services/vizitka) from 20,000 ₽, a [landing page](/services/landing) from 50,000 ₽, a [corporate website](/services/corporate) from 100,000 ₽, an [online store](/services/ecommerce) from 150,000 ₽. We name the exact price after the brief."
           },
           {
             "q": "Is WordPress better or worse than a custom-built site?",
@@ -1787,7 +1787,7 @@
     },
     "pricesPage": {
       "metaTitle": "How much does a website cost: development prices - KEL Studio",
-      "metaDescription": "How much does a website cost: business card site from 20,000 ₽, landing page from 40,000 ₽, corporate website from 60,000 ₽, online store from 100,000 ₽.",
+      "metaDescription": "How much does a website cost: business card site from 20,000 ₽, landing page from 50,000 ₽, corporate website from 100,000 ₽, online store from 150,000 ₽.",
       "crumb": "Prices",
       "title": "How much does a website cost",
       "lead": "Below are guideline prices for our services. We give the exact price after the brief and fix it in the contract.",
@@ -1844,7 +1844,7 @@
       "faq": [
         {
           "q": "How much does it cost to make a website?",
-          "a": "Guidelines: a [business card site](/services/vizitka) from 20,000 ₽, a [landing page](/services/landing) from 40,000 ₽, a [corporate website](/services/corporate) from 60,000 ₽, an [online store](/services/ecommerce) from 100,000 ₽. The exact price depends on scope and features; we name it after the brief."
+          "a": "Guidelines: a [business card site](/services/vizitka) from 20,000 ₽, a [landing page](/services/landing) from 50,000 ₽, a [corporate website](/services/corporate) from 100,000 ₽, an [online store](/services/ecommerce) from 150,000 ₽. The exact price depends on scope and features; we name it after the brief."
         },
         {
           "q": "Why are the prices \"from\"?",

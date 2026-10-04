@@ -8,10 +8,10 @@ import { useTranslation } from "react-i18next";
 import { smoothNavigate, smoothTop } from "./smoothNavigate";
 import LanguageSwitcher from "./LanguageSwitcher";
 import { ButtonLink } from "./Button";
-import { PhoneIcon } from "./ContactIcons";
+import { PhoneIcon, TelegramIcon } from "./ContactIcons";
 import ContactLinks from "./ContactLinks";
 import { MENU_SLUGS, PRICES_PATH, SERVICES_PATH, servicePath } from "@/lib/services";
-import { PHONE, PHONE_URL } from "@/lib/site";
+import { PHONE, PHONE_URL, TELEGRAM_URL } from "@/lib/site";
 
 export default function Navigation() {
   const { t } = useTranslation();
@@ -217,13 +217,16 @@ export default function Navigation() {
               >
                 {t("nav.about")}
               </a>
-              <ButtonLink
-                href={anchor("#contact")}
-                size="sm"
-                onClick={(e) => handleNavClick(e, "#contact")}
+              {/* The quickest way to write: a round glass button like the burger on a phone. */}
+              <a
+                href={TELEGRAM_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Telegram"
+                className="flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/5 text-gray-300 transition-colors duration-200 hover:border-[#2AABEE]/50 hover:bg-[#2AABEE]/10 hover:text-[#2AABEE] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white/60"
               >
-                {t("nav.contact")}
-              </ButtonLink>
+                <TelegramIcon className="h-5 w-5" />
+              </a>
               <LanguageSwitcher />
             </div>
 

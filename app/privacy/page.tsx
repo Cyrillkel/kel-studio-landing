@@ -36,40 +36,42 @@ const structuredData = graph([
 
 export default function PrivacyPage() {
   return (
-    <SmoothScroll>
-      <JsonLd data={structuredData} />
-      <div className="flex min-h-screen flex-col bg-[#0a0a0a]">
-        <Navigation />
-        <main className="flex-1">
-          {/* The look of headings, paragraphs, lists and links comes from the
-              `legal` class (globals.css). The text itself is content/privacy.html:
-              each h2 becomes a section with an id. The width is the site's container. */}
-          <article className="legal mx-auto w-full max-w-7xl px-6 pb-24 pt-32 md:pt-40">
-            <header>
-              <h1>Политика конфиденциальности</h1>
-              <p className="legal-meta">
-                Политика в отношении обработки персональных данных
-                {ready && (
-                  <>
-                    {" "}
-                    · редакция от <time dateTime={POLICY_UPDATED}>{formatPolicyDate(POLICY_UPDATED)}</time>
-                  </>
-                )}
-              </p>
-            </header>
+    <>
+      <Navigation />
+      <SmoothScroll>
+        <JsonLd data={structuredData} />
+        <div className="flex min-h-screen flex-col bg-[#0a0a0a]">
+          <main className="flex-1">
+            {/* The look of headings, paragraphs, lists and links comes from the
+                `legal` class (globals.css). The text itself is content/privacy.html:
+                each h2 becomes a section with an id. The width is the site's container. */}
+            <article className="legal mx-auto w-full max-w-7xl px-6 pb-24 pt-32 md:pt-40">
+              <header>
+                <h1>Политика конфиденциальности</h1>
+                <p className="legal-meta">
+                  Политика в отношении обработки персональных данных
+                  {ready && (
+                    <>
+                      {" "}
+                      · редакция от <time dateTime={POLICY_UPDATED}>{formatPolicyDate(POLICY_UPDATED)}</time>
+                    </>
+                  )}
+                </p>
+              </header>
 
-            {intro && <div dangerouslySetInnerHTML={{ __html: intro }} />}
+              {intro && <div dangerouslySetInnerHTML={{ __html: intro }} />}
 
-            {sections.map((section) => (
-              <section key={section.id} id={section.id} aria-labelledby={`${section.id}-title`}>
-                <h2 id={`${section.id}-title`} dangerouslySetInnerHTML={{ __html: section.titleHtml }} />
-                <div dangerouslySetInnerHTML={{ __html: section.html }} />
-              </section>
-            ))}
-          </article>
-        </main>
-        <Footer />
-      </div>
+              {sections.map((section) => (
+                <section key={section.id} id={section.id} aria-labelledby={`${section.id}-title`}>
+                  <h2 id={`${section.id}-title`} dangerouslySetInnerHTML={{ __html: section.titleHtml }} />
+                  <div dangerouslySetInnerHTML={{ __html: section.html }} />
+                </section>
+              ))}
+            </article>
+          </main>
+          <Footer />
+        </div>
     </SmoothScroll>
+    </>
   );
 }

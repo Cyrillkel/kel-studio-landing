@@ -49,10 +49,10 @@ type ServiceConfig = {
 };
 
 export const SERVICE_CONFIG: Record<ServiceSlug, ServiceConfig> = {
-  landing: { group: "sites", menu: true, priceFrom: 40000, cases: [2, 3], related: ["vizitka", "corporate", "yandex-direct", "yandex-maps"] },
+  landing: { group: "sites", menu: true, priceFrom: 50000, cases: [2, 3], related: ["vizitka", "corporate", "yandex-direct", "yandex-maps"] },
   vizitka: { group: "sites", menu: false, priceFrom: 20000, cases: [4, 3, 2], related: ["landing", "wordpress", "yandex-maps", "seo"] },
-  corporate: { group: "sites", menu: true, priceFrom: 60000, cases: [1], related: ["wordpress", "seo-audit", "support", "design"] },
-  ecommerce: { group: "sites", menu: true, priceFrom: 100000, cases: [0], related: ["wordpress", "react-nextjs", "parsing", "vk-ads"] },
+  corporate: { group: "sites", menu: true, priceFrom: 100000, cases: [1], related: ["wordpress", "seo-audit", "support", "design"] },
+  ecommerce: { group: "sites", menu: true, priceFrom: 150000, cases: [0], related: ["wordpress", "react-nextjs", "parsing", "vk-ads"] },
   wordpress: { group: "sites", menu: false, priceFrom: null, cases: [4], related: ["corporate", "vizitka", "support", "seo-audit"] },
   design: { group: "sites", menu: true, priceFrom: 20000, cases: [0, 1, 2], related: ["landing", "vizitka", "corporate", "web-apps"] },
   seo: { group: "promotion", menu: true, priceFrom: 20000, cases: [], related: ["seo-audit", "yandex-direct", "google-ads", "yandex-maps"] },

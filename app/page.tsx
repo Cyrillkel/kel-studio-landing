@@ -28,20 +28,23 @@ const structuredData = graph(
 
 export default function Home() {
   return (
-    <SmoothScroll>
-      <JsonLd data={structuredData} />
-      <main className="bg-[#0a0a0a]">
-        <Navigation />
-        <Hero />
-        <Services />
-        <Pricing />
-        <Portfolio />
-        <Process />
-        <AboutPremium />
-        <Faq />
-        <Contact />
-        <Footer />
-      </main>
+    <>
+      {/* Outside the smooth scroller: it moves its content with a transform, which would carry a fixed header away. */}
+      <Navigation />
+      <SmoothScroll>
+        <JsonLd data={structuredData} />
+        <main className="bg-[#0a0a0a]">
+          <Hero />
+          <Services />
+          <Pricing />
+          <Portfolio />
+          <Process />
+          <AboutPremium />
+          <Faq />
+          <Contact />
+          <Footer />
+        </main>
     </SmoothScroll>
+    </>
   );
 }
