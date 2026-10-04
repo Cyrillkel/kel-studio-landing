@@ -109,12 +109,12 @@ export default function Services() {
         <h2 className="font-heading text-3xl sm:text-4xl md:text-5xl font-bold mb-10 md:mb-16 text-center text-white">
           {t("services.heading")}
         </h2>
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6 lg:gap-8">
+        <div className="grid gap-5 sm:grid-cols-2 sm:gap-6 xl:grid-cols-4">
           {items.map((item, index) => (
             <Link
               key={index}
               href={CARD_LINKS[index] ?? SERVICES_PATH}
-              className="block bg-[#1f1f1f] p-6 sm:p-8 rounded-2xl border border-white/5 hover:-translate-y-2 hover:shadow-lg hover:shadow-black/25 transition-all duration-300"
+              className="block bg-[#1f1f1f] p-6 sm:p-8 xl:p-7 rounded-2xl border border-white/5 hover:-translate-y-2 hover:shadow-lg hover:shadow-black/25 transition-all duration-300"
             >
               <div className="w-12 h-12 bg-white/10 rounded-lg flex items-center justify-center mb-6 text-white">
                 {icons[index]}
@@ -122,7 +122,7 @@ export default function Services() {
               <h3 className="font-heading text-xl sm:text-2xl font-bold mb-4 text-white">
                 {item.title}
               </h3>
-              <p className="text-gray-400 leading-relaxed">
+              <p className="text-[15px] leading-relaxed text-pretty text-gray-400">
                 {item.description}
               </p>
             </Link>

@@ -147,10 +147,16 @@ const icons = [
 
 type PriceItem = { title: string; price: string };
 
+const AUTOPLAY_MS = 4000;
+
 export default function Pricing() {
   const { t } = useTranslation();
   const items = t("pricing.items", { returnObjects: true }) as PriceItem[];
-  const { sliderRef, activeSlide, scrollToSlide } = useSnapSlider(".pricing-card");
+  // On a phone the cards turn by themselves, slowly; a swipe or a tap on the dots
+  // pauses it (see useSnapSlider).
+  const { sliderRef, activeSlide, scrollToSlide } = useSnapSlider(".pricing-card", "(max-width: 767px)", {
+    autoplayMs: AUTOPLAY_MS,
+  });
 
   const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     if (smoothNavigate("#contact")) {
