@@ -260,6 +260,105 @@ function YandexDirect({ grad }: SceneProps) {
   );
 }
 
+function GoogleAds({ grad }: SceneProps) {
+  return (
+    <>
+      <circle data-draw cx="100" cy="116" r="66" />
+      <ellipse data-draw cx="100" cy="116" rx="28" ry="66" stroke={MUTED} />
+      <line data-draw x1="34" y1="116" x2="166" y2="116" stroke={MUTED} />
+      <path data-draw d="M46 82 q54 20 108 0 M46 150 q54 -20 108 0" stroke={MUTED} />
+      <circle data-pop cx="76" cy="92" r="5" fill={grad} stroke="none" />
+      <circle data-pop cx="124" cy="140" r="5" fill={grad} stroke="none" />
+      <circle data-pop cx="66" cy="132" r="4" fill={grad} stroke="none" />
+      <rect data-draw x="146" y="24" width="150" height="34" rx="17" fill={DARK} />
+      <circle data-draw cx="168" cy="41" r="8" />
+      <line data-draw x1="174" y1="47" x2="180" y2="53" />
+      <line data-draw x1="194" y1="41" x2="268" y2="41" stroke={MUTED} />
+      <rect data-draw x="146" y="72" width="150" height="70" rx="12" fill={DARK} />
+      <rect data-pop x="158" y="84" width="32" height="14" rx="7" fill={grad} fillOpacity={0.3} stroke="none" />
+      <line data-draw x1="198" y1="91" x2="276" y2="91" stroke={MUTED} />
+      <line data-draw x1="158" y1="110" x2="274" y2="110" strokeWidth={4} />
+      <line data-draw x1="158" y1="124" x2="230" y2="124" stroke={MUTED} />
+      {[
+        { x: 166, h: 20 },
+        { x: 192, h: 34 },
+        { x: 218, h: 50 },
+      ].map(({ x, h }) => (
+        <rect key={x} data-pop x={x} y={202 - h} width="16" height={h} rx="5" fill={grad} fillOpacity={0.28} stroke="none" />
+      ))}
+      <path data-draw d="M164 170 l28 -14 l26 8 l30 -26" stroke={MUTED} />
+      <g data-float>
+        <path data-draw d="M250 116 l0 30 l9 -9 l7 15 l8 -4 l-7 -14 l12 -2 Z" fill={DARK} />
+      </g>
+    </>
+  );
+}
+
+function VkAds({ grad }: SceneProps) {
+  return (
+    <>
+      <circle data-draw cx="102" cy="112" r="68" stroke={MUTED} />
+      <circle data-draw cx="102" cy="112" r="46" />
+      <circle data-draw cx="102" cy="112" r="24" stroke={MUTED} />
+      <circle data-pop cx="102" cy="112" r="9" fill={grad} stroke="none" />
+      <path data-draw d="M102 34 v-12 M102 190 v12 M24 112 h-12 M180 112 h12" stroke={MUTED} />
+      {[
+        { x: 60, y: 68 },
+        { x: 138, y: 66 },
+        { x: 54, y: 142 },
+        { x: 146, y: 150 },
+      ].map(({ x, y }) => (
+        <circle key={`${x}-${y}`} data-pop cx={x} cy={y} r="5" fill={grad} stroke="none" />
+      ))}
+      <rect data-draw x="204" y="36" width="96" height="148" rx="14" fill={DARK} />
+      <circle data-draw cx="222" cy="56" r="7" stroke={MUTED} />
+      <line data-draw x1="236" y1="54" x2="284" y2="54" stroke={MUTED} />
+      <rect data-draw x="216" y="72" width="72" height="46" rx="8" />
+      <rect data-pop x="216" y="72" width="72" height="46" rx="8" fill={grad} fillOpacity={0.18} stroke="none" />
+      <path data-draw d="M224 108 l14 -16 l10 10 l10 -12 l14 18" stroke={MUTED} />
+      <line data-draw x1="216" y1="134" x2="282" y2="134" strokeWidth={4} />
+      <line data-draw x1="216" y1="146" x2="260" y2="146" stroke={MUTED} />
+      <rect data-pop x="216" y="158" width="46" height="14" rx="7" fill={grad} fillOpacity={0.3} stroke="none" />
+      <g data-float>
+        <path data-draw d="M184 52 L112 106" />
+        <path data-draw d="M112 106 l11 -2 M112 106 l3 -12" />
+      </g>
+    </>
+  );
+}
+
+function TelegramAds({ grad }: SceneProps) {
+  return (
+    <>
+      <rect data-draw x="24" y="22" width="190" height="52" rx="12" stroke={MUTED} />
+      <circle data-draw cx="46" cy="48" r="10" stroke={MUTED} />
+      <line data-draw x1="66" y1="42" x2="186" y2="42" stroke={MUTED} />
+      <line data-draw x1="66" y1="56" x2="150" y2="56" stroke={MUTED} />
+      <rect data-draw x="24" y="86" width="190" height="64" rx="12" />
+      <rect data-pop x="24" y="86" width="190" height="64" rx="12" fill={grad} fillOpacity={0.12} stroke="none" />
+      <rect data-pop x="38" y="98" width="36" height="14" rx="7" fill={grad} fillOpacity={0.35} stroke="none" />
+      <line data-draw x1="38" y1="124" x2="190" y2="124" strokeWidth={4} />
+      <line data-draw x1="38" y1="137" x2="132" y2="137" stroke={MUTED} />
+      <rect data-draw x="24" y="162" width="190" height="40" rx="12" stroke={MUTED} />
+      <circle data-draw cx="46" cy="182" r="10" stroke={MUTED} />
+      <line data-draw x1="66" y1="182" x2="170" y2="182" stroke={MUTED} />
+      <path data-draw d="M234 128 q22 -16 44 0 M226 140 q30 -26 60 0" stroke={MUTED} />
+      <g data-float>
+        <path data-draw d="M240 78 L298 44 L282 104 L266 88 Z" fill={DARK} />
+        <path data-draw d="M266 88 L298 44" stroke={MUTED} />
+        <path data-draw d="M222 104 C230 94, 236 88, 246 82" stroke={MUTED} strokeDasharray="4 5" />
+      </g>
+      {[
+        { x: 248, y: 164 },
+        { x: 276, y: 178 },
+        { x: 254, y: 196 },
+      ].map(({ x, y }) => (
+        <circle key={`${x}-${y}`} data-pop cx={x} cy={y} r="6" fill={grad} stroke="none" />
+      ))}
+    </>
+  );
+}
+
 function YandexMaps({ grad }: SceneProps) {
   return (
     <>
@@ -416,6 +515,9 @@ const SCENES: Record<ServiceSlug, (props: SceneProps) => React.ReactElement> = {
   seo: Seo,
   "seo-audit": SeoAudit,
   "yandex-direct": YandexDirect,
+  "google-ads": GoogleAds,
+  "vk-ads": VkAds,
+  "telegram-ads": TelegramAds,
   "yandex-maps": YandexMaps,
   "web-apps": WebApps,
   "react-nextjs": ReactNext,

@@ -1,10 +1,10 @@
-import type { NextRequest } from "next/server";
+import { after, type NextRequest } from "next/server";
 import ru from "@/locales/ru.json";
 import { OTHER_SERVICE, parseContact } from "@/lib/contactSchema";
 import type { ServiceSlug } from "@/lib/services";
 
-// Leads go to Telegram (instant) and by email as a copy. The hosting blocks
-// outbound SMTP ports, so mail goes out through Resend's HTTPS API.
+// Leads go to Telegram and by email. The hosting blocks outbound SMTP ports,
+// so mail goes out through Resend's HTTPS API.
 
 type Lead = {
   name: string;
@@ -46,7 +46,85 @@ function rateLimited(ip: string) {
 const escapeHtml = (text: string) =>
   text.replace(/[&<>]/g, (char) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;" })[char]!);
 
-async function sendTelegram(lead: Lead) {
+// Telegram is the shaky channel from this server: connections to api.telegram.org
+// fail in streaks of up to about ten seconds (the first tries after a quiet period,
+// measured on 04.10.2026), while the mail API answers every time. So every attempt
+// has a time limit, a channel keeps trying with pauses for a while (long enough to
+// outlast a streak), and the visitor is answered as soon as ONE channel has the
+// lead; the other one carries on after that.
+type Attempts = { windowMs: number; attemptMs: number; pauseMs: number };
+const TELEGRAM: Attempts = { windowMs: 20000, attemptMs: 3000, pauseMs: 2000 };
+const EMAIL: Attempts = { windowMs: 15000, attemptMs: 8000, pauseMs: 1000 };
+
+const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+
+// What went wrong, with the network code (ETIMEDOUT and the like) that fetch
+// keeps in `cause`.
+function reason(error: unknown) {
+  if (!(error instanceof Error)) return String(error);
+  const code = (error.cause as { code?: string } | undefined)?.code;
+  return code ? `${error.message} (${code})` : error.message;
+}
+
+// One POST of JSON. A 429 or 5xx answer throws, so that deliver() tries again;
+// any other refusal is final.
+async function postJson(
+  label: string,
+  url: string,
+  body: unknown,
+  signal: AbortSignal,
+  headers: Record<string, string> = {},
+) {
+  const response = await fetch(url, {
+    method: "POST",
+    headers: { "Content-Type": "application/json", ...headers },
+    body: JSON.stringify(body),
+    signal,
+  });
+  if (response.ok) return true;
+  const detail = (await response.text()).slice(0, 200);
+  if (response.status === 429 || response.status >= 500) throw new Error(`${response.status} ${detail}`);
+  console.error(`${label}:`, response.status, detail);
+  return false;
+}
+
+// Runs one channel until the lead is through or its time window is used up.
+// `send` throws when another try may help (the network, a timeout, a busy
+// service) and returns false when the lead is refused for good. Never rejects,
+// so it can go on in the background.
+async function deliver(
+  label: string,
+  { windowMs, attemptMs, pauseMs }: Attempts,
+  send: (signal: AbortSignal) => Promise<boolean>,
+) {
+  const giveUpAt = Date.now() + windowMs;
+  for (let attempt = 1; ; attempt++) {
+    try {
+      const sent = await send(AbortSignal.timeout(attemptMs));
+      if (sent && attempt > 1) console.log(`${label}: delivered on attempt ${attempt}`);
+      return sent;
+    } catch (error) {
+      console.error(`${label}: attempt ${attempt} failed:`, reason(error));
+    }
+    if (Date.now() + pauseMs >= giveUpAt) return false;
+    await sleep(pauseMs);
+  }
+}
+
+// True the moment any channel has the lead, false once all of them have given up.
+function anyDelivered(channels: Promise<boolean>[]) {
+  return new Promise<boolean>((resolve) => {
+    let pending = channels.length;
+    for (const channel of channels) {
+      channel.then((delivered) => {
+        if (delivered) resolve(true);
+        else if (--pending === 0) resolve(false);
+      });
+    }
+  });
+}
+
+async function sendTelegram(lead: Lead, signal: AbortSignal) {
   const token = process.env.TELEGRAM_BOT_TOKEN;
   const chat = process.env.TELEGRAM_CHAT_ID;
   if (!token || !chat) return false;
@@ -65,33 +143,24 @@ async function sendTelegram(lead: Lead) {
     .filter(Boolean)
     .join("\n");
 
-  const response = await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      chat_id: chat,
-      text,
-      parse_mode: "HTML",
-      disable_web_page_preview: true,
-    }),
-  });
-  if (!response.ok) console.error("telegram:", response.status, await response.text());
-  return response.ok;
+  return postJson(
+    "telegram",
+    `https://api.telegram.org/bot${token}/sendMessage`,
+    { chat_id: chat, text, parse_mode: "HTML", disable_web_page_preview: true },
+    signal,
+  );
 }
 
-async function sendEmail(lead: Lead) {
+async function sendEmail(lead: Lead, signal: AbortSignal) {
   const key = process.env.RESEND_API_KEY;
   const to = process.env.LEADS_EMAIL_TO;
   const from = process.env.LEADS_EMAIL_FROM;
   if (!key || !to || !from) return false;
 
-  const response = await fetch("https://api.resend.com/emails", {
-    method: "POST",
-    headers: {
-      Authorization: `Bearer ${key}`,
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
+  return postJson(
+    "resend",
+    "https://api.resend.com/emails",
+    {
       from,
       to: [to],
       // Reply goes straight to the person who wrote (they may have left only a phone).
@@ -99,10 +168,10 @@ async function sendEmail(lead: Lead) {
       // The chosen service goes into the subject, so the mailbox shows it at a glance.
       subject: `Заявка с сайта: ${lead.service ? `${lead.service} - ` : ""}${lead.name}`,
       text: `${lead.service ? `Услуга: ${lead.service}\n` : ""}Имя: ${lead.name}\n${lead.email ? `Email: ${lead.email}\n` : ""}${lead.phone ? `Телефон: ${lead.phone}\n` : ""}Согласие на обработку персональных данных: да\nОткуда: ${lead.page ?? "-"}\n\n${lead.message}`,
-    }),
-  });
-  if (!response.ok) console.error("resend:", response.status, await response.text());
-  return response.ok;
+    },
+    signal,
+    { Authorization: `Bearer ${key}` },
+  );
 }
 
 export async function POST(request: NextRequest) {
@@ -115,10 +184,14 @@ export async function POST(request: NextRequest) {
 
   const company = String(body.company ?? "").trim();
   const message = String(body.message ?? "");
-  const startedAt = Number(body.startedAt ?? 0);
+  // How long the form was open, measured by the visitor's own browser. Not a
+  // timestamp compared with this server's clock: a phone whose clock runs
+  // ahead would make a real visitor look like a bot and lose their request
+  // while the form says "sent". A missing or odd value is not held against anyone.
+  const openMs = Number(body.openMs);
 
   // Honeypot and speed traps: answer as if all went well, so bots learn nothing.
-  const seconds = startedAt ? (Date.now() - startedAt) / 1000 : Infinity;
+  const seconds = Number.isFinite(openMs) && openMs >= 0 ? openMs / 1000 : Infinity;
   const links = (message.match(/https?:\/\//gi) ?? []).length;
   if (company || seconds < MIN_SECONDS || links > MAX_LINKS) {
     return Response.json({ ok: true });
@@ -134,10 +207,14 @@ export async function POST(request: NextRequest) {
   // Trusted from the form, but it still ends up in a message: keep it short.
   const page = String(body.page ?? "").trim().slice(0, 200);
   const lead: Lead = { ...fields, service: serviceName(fields.service), page };
-  const [telegram, mail] = await Promise.all([sendTelegram(lead), sendEmail(lead)]);
+  // Both channels start now and retry on their own; whichever is still trying
+  // when the answer goes out carries on after it.
+  const telegram = deliver("telegram", TELEGRAM, (signal) => sendTelegram(lead, signal));
+  const mail = deliver("email", EMAIL, (signal) => sendEmail(lead, signal));
+  after(() => Promise.all([telegram, mail]));
 
-  // One channel through is enough for the visitor; the other is logged above.
-  if (!telegram && !mail) {
+  // One channel through is enough for the visitor; the other logs its own failure.
+  if (!(await anyDelivered([telegram, mail]))) {
     console.error("lead lost, no channel available:", lead.email || lead.phone);
     return Response.json({ ok: false }, { status: 502 });
   }

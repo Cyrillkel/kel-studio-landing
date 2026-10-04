@@ -42,7 +42,7 @@
       },
       {
         "title": "Promotion",
-        "description": "SEO optimization, Yandex Direct, and Google Ads. We drive targeted traffic and grow your business's sales."
+        "description": "SEO, Yandex Direct, Google Ads, and targeting on VKontakte and in Telegram. We drive targeted traffic and grow your business's sales."
       },
       {
         "title": "Parsing",
@@ -945,6 +945,228 @@
           }
         ]
       },
+      "google-ads": {
+        "name": "Google Ads",
+        "title": "Google Ads setup and management",
+        "metaTitle": "Google Ads setup and management for markets outside Russia - KEL Studio",
+        "metaDescription": "Google Ads setup for markets outside Russia: search, display and YouTube ads, remarketing, goal tracking and reports. The price is named after the brief.",
+        "short": "Google contextual ads for foreign markets: campaigns, analytics and reports.",
+        "lead": "We set up and run Google Ads for sales outside Russia: ads in search, on partner sites and in YouTube, remarketing and reports on requests. The advertising budget is paid separately.",
+        "cta": "Calculate the budget",
+        "price": "priced after the brief",
+        "term": "named after the brief",
+        "bodyTitle": "Google Ads for customers outside Russia",
+        "body": [
+          "Google Ads shows ads in Google search, on partner sites and in YouTube to people who are looking for your product or service. Since 2022 Google has not shown ads to users in Russia, so for a Russian audience we set up [Yandex Direct](/services/yandex-direct). Google Ads is for you if you sell to CIS countries, to Europe or to a Russian-speaking audience abroad.",
+          "First we choose markets and languages, collect keywords and negative keywords, and forecast the budget and the cost of a request. Then we set up campaigns in search and, if needed, in the display network and YouTube, and connect goal tracking and remarketing. It is best to send ads to a page in the language of the audience: we can make it as a [landing page](/services/landing), while organic traffic from Google comes from [SEO promotion](/services/seo)."
+        ],
+        "includes": [
+          "Choosing markets and languages, analysis of demand and competitors, budget forecast",
+          "Collecting keywords and negative keywords, campaign structure",
+          "Ad texts, links and callouts, images for display ads",
+          "Goal tracking in Google Ads and Google Analytics",
+          "Remarketing: we bring back visitors who left the site",
+          "Regular optimization and reports: spend, requests, cost per request"
+        ],
+        "fitTitle": "When it fits",
+        "fit": [
+          "You sell outside Russia: to CIS countries, Europe or a Russian-speaking audience abroad",
+          "You need clients from Google search faster than SEO can give",
+          "You already advertise but requests are expensive or it is unclear what brings them"
+        ],
+        "steps": [
+          {
+            "title": "Brief and market",
+            "text": "We find out where your clients live, what they search for and in what language, and forecast the budget and the cost of a request."
+          },
+          {
+            "title": "Campaign preparation",
+            "text": "We collect keywords and negative keywords, write ads and set up goal tracking."
+          },
+          {
+            "title": "Launch",
+            "text": "We launch the campaigns and check that the ads pass Google's review and bring traffic to the right pages."
+          },
+          {
+            "title": "Optimization",
+            "text": "We switch off weak queries, adjust bids and texts and test new combinations."
+          },
+          {
+            "title": "Reports",
+            "text": "We show spend, the number of requests and the cost per request, and discuss how to develop the ads further."
+          }
+        ],
+        "faq": [
+          {
+            "q": "Can I advertise in Google Ads from Russia?",
+            "a": "Google does not show ads to users in Russia, so for a Russian audience we recommend Yandex Direct. If you sell to other countries, we will set up Google Ads for that market. Which ad account you need and how to pay for it depends on your company and country; we go through it at the brief."
+          },
+          {
+            "q": "How much does Google Ads management cost?",
+            "a": "We calculate management after the brief: it depends on the number of campaigns, countries and languages. The advertising budget that Google charges is paid separately. Its size depends on the country, the niche and the competition for queries; we make a forecast at the analysis stage."
+          },
+          {
+            "q": "When will the first requests come?",
+            "a": "Ads start showing after Google's review, usually within a couple of days. The first requests can come at once, but the system needs time to collect data, so we judge a stable cost per request after a few weeks."
+          },
+          {
+            "q": "How is Google Ads different from Yandex Direct?",
+            "a": "The principle is the same: you pay for clicks on ads. The difference is the audience: Google shows ads in other countries, while [Yandex Direct](/services/yandex-direct) works for a Russian audience. We choose the platform by where your clients live."
+          },
+          {
+            "q": "Do I need a separate page for foreign clients?",
+            "a": "Yes, it is better to send ads to a page in the language of the audience, with a clear offer and a request form. We will prepare a [landing page](/services/landing) for the right market."
+          }
+        ]
+      },
+      "vk-ads": {
+        "name": "VK targeting",
+        "title": "Targeted advertising setup on VKontakte",
+        "metaTitle": "Targeted advertising on VKontakte: setup and management - KEL Studio",
+        "metaDescription": "Turnkey targeted advertising on VKontakte: audiences, ads, retargeting, ad labelling and reports. The cost of management is named after the brief.",
+        "short": "Setup and management of targeted ads in VK Ads: audiences, ads, retargeting and reports.",
+        "lead": "We set up and run targeted advertising on VKontakte: we pick audiences, make ads, connect the pixel and show what a request costs. The advertising budget is paid separately.",
+        "cta": "Calculate the launch",
+        "price": "priced after the brief",
+        "term": "named after the brief",
+        "bodyTitle": "VKontakte targeting where you can see what a request costs",
+        "body": [
+          "Targeted advertising shows an ad to people who match the portrait of your client: by age, city, interests, communities and behavior on the site. It works where a person is not yet searching for your service but may want it: online schools, beauty salons, home goods, local services. Ads are shown on VKontakte and on other VK Ads placements.",
+          "We start with the client portrait and hypotheses: which audiences and which offers to test. Then we make ads in different formats (post, carousel, clip, lead form) and connect the pixel and goals so you see requests, not only clicks. We launch several combinations on a small budget, switch off the weak ones, strengthen the working ones and bring visitors back with retargeting. Requests are easier to collect on a page made for the offer, for example a [landing page](/services/landing), while clients who are already searching for your service come from [Yandex Direct](/services/yandex-direct)."
+        ],
+        "includes": [
+          "Client portrait, hypotheses and budget forecast",
+          "Audiences: interests, communities, keywords, a client base and lookalike audiences",
+          "Ad texts and layouts for posts, carousels, clips and lead forms",
+          "Pixel and goals: requests, calls and actions on the site",
+          "Retargeting for those who visited the site or viewed the ad",
+          "Ad labelling and reports: spend, requests, cost per request"
+        ],
+        "fitTitle": "When it fits",
+        "fit": [
+          "You sell to people who are not yet searching for you and need to tell them about yourself",
+          "You need requests from the social network: bookings, inquiries, leads for an online course or a store",
+          "You want to bring back those who already visited the site or the community"
+        ],
+        "steps": [
+          {
+            "title": "Brief and client portrait",
+            "text": "We study the product, clients and competitors, form hypotheses and forecast the budget."
+          },
+          {
+            "title": "Preparation",
+            "text": "We set up the VK Ads account, the pixel and goals, collect audiences, write ads and make layouts."
+          },
+          {
+            "title": "Labelling and launch",
+            "text": "We arrange the ad labelling, send the ads to moderation and launch several combinations on a small budget."
+          },
+          {
+            "title": "Optimization",
+            "text": "We switch off weak combinations, scale the working ones, test texts and layouts and connect retargeting."
+          },
+          {
+            "title": "Reports",
+            "text": "We show spend, the number of requests and the cost per request, and discuss how to develop the ads further."
+          }
+        ],
+        "faq": [
+          {
+            "q": "How much does VKontakte targeting setup cost?",
+            "a": "We calculate management after the brief: it depends on the number of audiences, formats and the scope of work. The advertising budget that VK Ads charges is paid separately; we make a forecast at the analysis stage."
+          },
+          {
+            "q": "What budget is needed to start?",
+            "a": "One that collects enough data for conclusions in a week or two: the cost of a request cannot be judged by the first days. The size depends on the niche and the price of impressions; at the brief we make a forecast."
+          },
+          {
+            "q": "When will the first requests come?",
+            "a": "Ads are shown after moderation, and the first requests usually come in the first days. A stable cost per request is visible after a week or two, when enough data has collected and the weak combinations are switched off."
+          },
+          {
+            "q": "How is targeting different from Yandex Direct?",
+            "a": "[Direct](/services/yandex-direct) shows ads to people who are searching for a service right now. Targeting shows an ad to a suitable audience even if the person searched for nothing, and helps find new clients. They are often used together."
+          },
+          {
+            "q": "Is ad labelling required?",
+            "a": "Yes, online advertising in Russia is labelled: every ad has a token (ERID), and data about the ad is passed to an advertising data operator. We arrange the labelling together with you; the details depend on who is the advertiser: a company, a sole proprietor or a self-employed person."
+          }
+        ]
+      },
+      "telegram-ads": {
+        "name": "Telegram targeting",
+        "title": "Targeted advertising setup in Telegram",
+        "metaTitle": "Targeted advertising in Telegram: setup and management - KEL Studio",
+        "metaDescription": "Turnkey targeted advertising in Telegram Ads: channels and audiences, ads, labelling, pixel and reports. The cost of management is named after the brief.",
+        "short": "Advertising in Telegram Ads: channels, audiences, ads, labelling and reports.",
+        "lead": "We set up and run advertising in Telegram Ads: we choose channels and audiences, write ads, install the pixel and count what a subscriber or a request costs. The advertising budget is paid separately.",
+        "cta": "Calculate the launch",
+        "price": "priced after the brief",
+        "term": "named after the brief",
+        "bodyTitle": "Telegram advertising seen by the readers of the right channels",
+        "body": [
+          "Telegram Ads shows short ads in channels and in Telegram search, where your audience reads news and niche posts. An ad takes up to 160 characters and leads to a channel, a bot or a website, so the result depends on choosing the audience precisely and on a strong offer. Channels can be chosen by topic and language, set as a list and excluded.",
+          "We start with the audience and a budget forecast, then write the texts by the rules of the platform: ads are checked manually and a weak text is sent back. We connect the Telegram pixel and UTM tags so you see requests and subscribers, not only impressions. After launch we compare channels and texts, switch off ineffective ones and strengthen the working ones. If the ad leads to a chat, it is convenient to connect a [Telegram bot](/services/telegram-bots) that takes requests, and the overall flow of clients is complemented by [VKontakte targeting](/services/vk-ads)."
+        ],
+        "includes": [
+          "Budget forecast, choosing topics and channels for your audience",
+          "Ad texts up to 160 characters and image preparation",
+          "Campaign setup: targeting, exclusions and bids",
+          "Telegram pixel, UTM tags and goals: requests and subscribers",
+          "Ad labelling and the advertiser data",
+          "Optimization and reports: spend, subscribers, requests, cost per request"
+        ],
+        "fitTitle": "When it fits",
+        "fit": [
+          "You promote a channel, a bot or a Mini App and need subscribers and users",
+          "You sell a service or a product to an audience that reads niche channels",
+          "You want to lead people to a Telegram bot that takes requests"
+        ],
+        "steps": [
+          {
+            "title": "Brief and audience",
+            "text": "We study the product and clients, choose topics and channels and forecast the budget."
+          },
+          {
+            "title": "Preparation",
+            "text": "We set up the account, write ads by the rules of the platform, install the pixel and UTM tags and arrange the labelling."
+          },
+          {
+            "title": "Moderation and launch",
+            "text": "The ads pass Telegram's manual review, then we launch the campaigns on a small budget."
+          },
+          {
+            "title": "Optimization",
+            "text": "We compare channels and texts, switch off the weak ones, strengthen the working ones and test new combinations."
+          },
+          {
+            "title": "Reports",
+            "text": "We show spend, the number of requests or subscribers and the cost of each, and discuss next steps."
+          }
+        ],
+        "faq": [
+          {
+            "q": "How much does advertising in Telegram cost?",
+            "a": "We calculate management after the brief. The advertising budget is paid separately: Telegram Ads charges per thousand impressions, and the minimum bids and the way to top up are set by the platform and change over time, so we name the current figures at the brief."
+          },
+          {
+            "q": "Where are ads shown and how do I choose the audience?",
+            "a": "Ads are shown in channels and in Telegram search. We choose channels by topic and language or make a list of specific ones and exclude the unwanted. Which other settings are available is decided by the platform; we discuss them at the brief."
+          },
+          {
+            "q": "Why might an ad be rejected?",
+            "a": "Telegram checks every ad manually and strictly: you cannot promise \"the best\", press with calls to action, or overuse capital letters and emoji. We write texts by the rules of the platform and rework them if an ad is returned."
+          },
+          {
+            "q": "Is ad labelling required in Telegram?",
+            "a": "Yes, advertising in the Russian internet is labelled: the advertiser data is entered in the account and the token (ERID) is added to the ad. We arrange this together with you."
+          },
+          {
+            "q": "How is Telegram advertising different from Direct and VKontakte targeting?",
+            "a": "[Yandex Direct](/services/yandex-direct) brings people who search for a service, [VKontakte targeting](/services/vk-ads) shows ads to the wide audience of the social network, and Telegram Ads reaches the readers of niche channels. We will choose a combination for your task."
+          }
+        ]
+      },
       "yandex-maps": {
         "name": "Yandex Maps",
         "title": "Promotion in Yandex Maps and Yandex Business",
@@ -1532,7 +1754,7 @@
     },
     "hub": {
       "metaTitle": "Web studio services: websites, SEO, ads, bots - KEL Studio",
-      "metaDescription": "Landing pages and turnkey websites, web design, SEO and Yandex Direct, Telegram bots, web applications, data parsing and website support. Prices and timelines on each page.",
+      "metaDescription": "Websites and landing pages, web design, SEO, Yandex Direct, Google Ads, VK and Telegram targeting, Telegram bots, web apps, parsing, support. Prices and timelines on each page.",
       "title": "KEL Studio services",
       "lead": "Websites, design, promotion, bots, applications and support. Every service has its stages, timeline and a price or a way to calculate it. Pick a suitable one or describe the task and we will suggest where to start.",
       "pricesLink": "See prices",
@@ -1543,7 +1765,7 @@
         },
         "promotion": {
           "title": "Promotion and advertising",
-          "text": "We bring clients from search, ads and maps: audit, SEO, Yandex Direct and Yandex Maps."
+          "text": "We bring clients from search, ads, social networks and maps: audit, SEO, Yandex Direct, Google Ads, targeting on VKontakte and in Telegram, and Yandex Maps."
         },
         "apps": {
           "title": "Applications and bots",

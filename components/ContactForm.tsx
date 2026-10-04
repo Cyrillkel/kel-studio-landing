@@ -44,13 +44,14 @@ export default function ContactForm({
   const [consent, setConsent] = useState(false);
   const [errors, setErrors] = useState<ContactErrors>({});
   // Anti-spam, both invisible to a real visitor: a field only bots fill in and
-  // the time it took to write the message.
+  // the time it took to write the message (a duration on the browser's own
+  // monotonic clock, so a wrong clock on the phone cannot spoil it).
   const [company, setCompany] = useState("");
   const formRef = useRef<HTMLFormElement>(null);
   const openedAt = useRef(0);
   const started = useRef(false);
   useEffect(() => {
-    openedAt.current = Date.now();
+    openedAt.current = performance.now();
   }, []);
 
   // The topic: "not chosen", every service page, "other".
@@ -94,7 +95,7 @@ export default function ContactForm({
           ...formData,
           consent,
           company,
-          startedAt: openedAt.current,
+          openMs: Math.round(performance.now() - openedAt.current),
           page: `${place} - ${window.location.pathname}`,
         }),
       });
