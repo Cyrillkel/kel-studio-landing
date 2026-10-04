@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { useTranslation } from "react-i18next";
 import ContactLinks from "./ContactLinks";
 import { smoothTop } from "./smoothNavigate";
+import { BLOG_PATH } from "@/lib/blog-path";
 import { MENU_SLUGS, PRICES_PATH, SERVICES_PATH, servicePath } from "@/lib/services";
 
 export default function Footer() {
@@ -58,6 +59,11 @@ export default function Footer() {
             <li>
               <Link href={PRICES_PATH} className="transition-colors hover:text-gray-300">
                 {t("nav.pricing")}
+              </Link>
+            </li>
+            <li>
+              <Link href={BLOG_PATH} className="transition-colors hover:text-gray-300">
+                {t("nav.blog")}
               </Link>
             </li>
             {MENU_SLUGS.map((slug) => (

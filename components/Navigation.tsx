@@ -10,6 +10,7 @@ import LanguageSwitcher from "./LanguageSwitcher";
 import { ButtonLink } from "./Button";
 import { PhoneIcon, TelegramIcon } from "./ContactIcons";
 import ContactLinks from "./ContactLinks";
+import { BLOG_PATH } from "@/lib/blog-path";
 import { MENU_SLUGS, PRICES_PATH, SERVICES_PATH, servicePath } from "@/lib/services";
 import { PHONE, PHONE_URL, TELEGRAM_URL } from "@/lib/site";
 
@@ -203,6 +204,13 @@ export default function Navigation() {
               >
                 {t("nav.pricing")}
               </Link>
+              <Link
+                href={BLOG_PATH}
+                className="text-gray-300 hover:text-white transition"
+                onClick={() => setServicesOpen(false)}
+              >
+                {t("nav.blog")}
+              </Link>
               <a
                 href={anchor("#portfolio")}
                 className="text-gray-300 hover:text-white transition"
@@ -357,6 +365,16 @@ export default function Navigation() {
               }}
             >
               {t("nav.pricing")}
+            </Link>
+            <Link
+              href={BLOG_PATH}
+              className="text-2xl text-gray-300 hover:text-white transition"
+              onClick={() => {
+                setIsOpen(false);
+                setServicesOpen(false);
+              }}
+            >
+              {t("nav.blog")}
             </Link>
             <a
               href={anchor("#portfolio")}

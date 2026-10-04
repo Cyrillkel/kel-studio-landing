@@ -9,6 +9,7 @@ import {
   TELEGRAM_CHANNEL_URL,
   TELEGRAM_URL,
 } from "./site";
+import { blogPath, type Post } from "./blog";
 import { SERVICE_CONFIG, SERVICE_SLUGS, plainText, servicePath, type ServiceSlug } from "./services";
 
 // Structured data (schema.org JSON-LD). Every page sends ONE graph with the
@@ -209,6 +210,27 @@ export function priceListNode(path: string, slugs: readonly ServiceSlug[]): Node
         ? [{ "@type": "Offer", itemOffered: serviceRef(slug), priceCurrency: "RUB", priceSpecification: price }]
         : [];
     }),
+  };
+}
+
+// A blog article. The byline reads "Админ", which says nothing to a search
+// engine, so the studio is both author and publisher in the markup.
+export function articleNode(post: Post): Node {
+  const url = pageUrl(blogPath(post.slug));
+  return {
+    "@type": "Article",
+    "@id": `${url}#article`,
+    headline: post.title,
+    description: post.description,
+    url,
+    mainEntityOfPage: { "@id": `${url}#webpage` },
+    inLanguage: "ru",
+    datePublished: post.date,
+    dateModified: post.updated,
+    image: `${SITE_URL}${blogPath(post.slug)}/opengraph-image`,
+    articleSection: post.category,
+    author: { "@id": ORG_ID },
+    publisher: { "@id": ORG_ID },
   };
 }
 
