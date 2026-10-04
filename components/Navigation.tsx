@@ -217,16 +217,26 @@ export default function Navigation() {
               >
                 {t("nav.about")}
               </a>
-              {/* The quickest way to write: a round glass button like the burger on a phone. */}
-              <a
-                href={TELEGRAM_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Telegram"
-                className="flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/5 text-gray-300 transition-colors duration-200 hover:border-[#2AABEE]/50 hover:bg-[#2AABEE]/10 hover:text-[#2AABEE] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white/60"
-              >
-                <TelegramIcon className="h-5 w-5" />
-              </a>
+              {/* The quickest ways to reach us: round glass buttons like the burger on a phone. */}
+              <div className="flex items-center gap-3">
+                <a
+                  href={PHONE_URL}
+                  aria-label={`${t("nav.call")} ${PHONE}`}
+                  title={PHONE}
+                  className="flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/5 text-gray-300 transition-colors duration-200 hover:border-violet-400/50 hover:bg-violet-400/10 hover:text-violet-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white/60"
+                >
+                  <PhoneIcon className="h-5 w-5" />
+                </a>
+                <a
+                  href={TELEGRAM_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Telegram"
+                  className="flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/5 text-gray-300 transition-colors duration-200 hover:border-[#2AABEE]/50 hover:bg-[#2AABEE]/10 hover:text-[#2AABEE] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white/60"
+                >
+                  <TelegramIcon className="h-5 w-5" />
+                </a>
+              </div>
               <LanguageSwitcher />
             </div>
 
