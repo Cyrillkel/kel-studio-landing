@@ -64,6 +64,8 @@
   --grid-line-soft: rgb(255 255 255 / 0.035);
   --grid-glow: rgb(167 139 250 / 0.5);
   --blob-opacity: 1;
+  --star-line: rgb(255 255 255 / 0.14); /* ring and icon of the hero "stars" */
+  --star-fill: rgb(255 255 255 / 0.12);
   --scroll-thumb: rgb(255 255 255 / 0.18);
   --scroll-thumb-hover: rgb(255 255 255 / 0.32);
   --scroll-thumb-thin: rgb(255 255 255 / 0.2);
@@ -128,14 +130,16 @@
   --shade: rgb(30 27 75 / 0.35);
   --scrim: rgb(20 18 50 / 0.5);
 
-  --glow: rgb(139 92 246 / 0.12);
-  --glow-card: rgb(139 92 246 / 0.12);
-  --glow-visual: rgb(139 92 246 / 0.1);
+  --glow: rgb(139 92 246 / 0.22);
+  --glow-card: rgb(139 92 246 / 0.2);
+  --glow-visual: rgb(139 92 246 / 0.18);
   --glow-hover: rgb(91 33 182 / 0.12);
-  --grid-line: rgb(15 15 30 / 0.05);
-  --grid-line-soft: rgb(15 15 30 / 0.05);
-  --grid-glow: rgb(124 58 237 / 0.35);
-  --blob-opacity: 0.4;
+  --grid-line: rgb(15 15 30 / 0.1);
+  --grid-line-soft: rgb(15 15 30 / 0.09);
+  --grid-glow: rgb(124 58 237 / 0.55);
+  --blob-opacity: 0.75;
+  --star-line: rgb(15 15 30 / 0.3);
+  --star-fill: rgb(15 15 30 / 0.22);
   --scroll-thumb: rgb(15 15 30 / 0.2);
   --scroll-thumb-hover: rgb(15 15 30 / 0.35);
   --scroll-thumb-thin: rgb(15 15 30 / 0.25);

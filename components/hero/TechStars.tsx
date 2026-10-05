@@ -73,10 +73,10 @@ const SkySvg = memo(function SkySvg({ layout, id }: { layout: SkyLayout; id: str
           <g key={icon.id} data-star={index} opacity={0}>
             <g className="star-float">
               <g className="star-inner">
-                <circle r={r} className="fill-page stroke-white/14" fillOpacity={0.92} />
+                <circle r={r} className="fill-page [stroke:var(--star-line)]" fillOpacity={0.92} />
                 <circle className="star-ring" r={r} fill="none" stroke={`url(#${iconGradient})`} strokeWidth={1.2} opacity={0} />
                 <g transform={`translate(${-iconSize / 2} ${-iconSize / 2}) scale(${iconSize / 24})`}>
-                  <path d={icon.path} className="fill-white/12" />
+                  <path d={icon.path} className="[fill:var(--star-fill)]" />
                   <path className="star-fill" d={icon.path} fill={`url(#${iconGradient})`} opacity={0} />
                   <path className="star-draw" d={icon.path} fill="none" stroke={`url(#${iconGradient})`} strokeWidth={0.5} opacity={0} />
                 </g>
