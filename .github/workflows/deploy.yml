@@ -29,21 +29,21 @@ jobs:
 
       # The standalone build has server.js and its own node_modules; static
       # assets and public/ are not copied into it by Next.
-      - name: Собрать пакет для сервера
+      - name: Assemble the bundle for the server
         run: |
           mkdir -p bundle/.next
           cp -r .next/standalone/. bundle/
           cp -r .next/static bundle/.next/static
           cp -r public bundle/public
 
-      - name: Подготовить SSH
+      - name: Set up SSH
         run: |
           install -d -m 700 ~/.ssh
           printf '%s\n' "${{ secrets.DEPLOY_SSH_KEY }}" > ~/.ssh/deploy_key
           chmod 600 ~/.ssh/deploy_key
           ssh-keyscan -H "${{ secrets.DEPLOY_HOST }}" >> ~/.ssh/known_hosts 2>/dev/null
 
-      - name: Выложить релиз и перезапустить
+      - name: Upload the release and restart
         env:
           DEPLOY_HOST: ${{ secrets.DEPLOY_HOST }}
           DEPLOY_USER: ${{ secrets.DEPLOY_USER }}
@@ -59,12 +59,12 @@ jobs:
 
       # By domain and over https: nginx redirects http and serves the site by
       # server_name, so a request to the bare IP answers 301, not 200.
-      - name: Проверить, что сайт отвечает
+      - name: Check that the site responds
         run: |
           for i in $(seq 1 15); do
             code=$(curl -sL -o /dev/null -w '%{http_code}' https://kel.agency/ || true)
-            [ "$code" = "200" ] && echo "сайт отвечает 200" && exit 0
+            [ "$code" = "200" ] && echo "site responds 200" && exit 0
             sleep 2
           done
-          echo "сайт не ответил 200, последний код: $code"
+          echo "site did not respond 200, last code: $code"
           exit 1
