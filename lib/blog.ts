@@ -70,13 +70,51 @@ const stripTags = (html: string) =>
 
 const marked = new Marked({ gfm: true });
 
+// Article images live in public/blog/<slug>/ and are written as ![alt](/blog/<slug>/name.webp).
+// Their size is read from the file header, so the page reserves the space before the image
+// loads. Only PNG and WebP are understood; anything else is left without a size.
+function imageSize(src: string): { width: number; height: number } | null {
+  try {
+    const fd = fs.openSync(path.join(process.cwd(), "public", src), "r");
+    const head = Buffer.alloc(32);
+    fs.readSync(fd, head, 0, 32, 0);
+    fs.closeSync(fd);
+    if (head.toString("latin1", 1, 4) === "PNG") {
+      return { width: head.readUInt32BE(16), height: head.readUInt32BE(20) };
+    }
+    if (head.toString("latin1", 0, 4) === "RIFF" && head.toString("latin1", 8, 12) === "WEBP") {
+      const kind = head.toString("latin1", 12, 16);
+      if (kind === "VP8 ") return { width: head.readUInt16LE(26) & 0x3fff, height: head.readUInt16LE(28) & 0x3fff };
+      if (kind === "VP8L") {
+        const bits = head.readUInt32LE(21);
+        return { width: (bits & 0x3fff) + 1, height: ((bits >> 14) & 0x3fff) + 1 };
+      }
+      if (kind === "VP8X") return { width: head.readUIntLE(24, 3) + 1, height: head.readUIntLE(27, 3) + 1 };
+    }
+  } catch {
+    // A missing or unreadable file just means no size attributes.
+  }
+  return null;
+}
+
 // Turns the Markdown body into HTML and collects the h2 headings for the table
 // of contents. The text is ours (it lives in the repository), so it is not
-// sanitised. Tables get a scrolling wrapper, outside links open in a new tab.
+// sanitised. Tables get a scrolling wrapper, outside links open in a new tab,
+// images get their size and load lazily (a cover above the first heading loads at once).
 function render(markdown: string): { html: string; headings: Heading[] } {
   const headings: Heading[] = [];
   const taken = new Set<string>();
-  const html = (marked.parse(markdown, { async: false }) as string)
+  const parsed = marked.parse(markdown, { async: false }) as string;
+  const firstImage = parsed.indexOf("<img ");
+  const firstHeading = parsed.indexOf("<h2>");
+  const coverFirst = firstImage !== -1 && (firstHeading === -1 || firstImage < firstHeading);
+  let images = 0;
+  const html = parsed
+    .replace(/<img src="(\/[^"]+)" alt="([^"]*)"([^>]*)>/g, (_m, src: string, alt: string, rest: string) => {
+      const size = imageSize(src);
+      const urgent = coverFirst && images++ === 0;
+      return `<img src="${src}" alt="${alt}"${rest}${size ? ` width="${size.width}" height="${size.height}"` : ""} decoding="async"${urgent ? ' fetchpriority="high"' : ' loading="lazy"'}>`;
+    })
     .replace(/<h2>([\s\S]*?)<\/h2>/g, (_m, inner: string) => {
       const text = stripTags(inner);
       let id = slugify(text) || `section-${headings.length + 1}`;

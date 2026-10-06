@@ -892,6 +892,14 @@
     padding: 0;
     background: none;
   }
+  .prose-blog img {
+    display: block;
+    width: 100%;
+    height: auto;
+    margin: 0 0 1.5rem;
+    border: 1px solid var(--doc-line);
+    border-radius: 0.75rem;
+  }
   .prose-blog hr {
     margin: 2.5rem 0;
     border: 0;
