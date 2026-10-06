@@ -23,6 +23,9 @@ export const SERVICE_SLUGS = [
   "telegram-bots",
   "telegram-mini-apps",
   "web3",
+  // AI and automation
+  "ai-assistants",
+  "mcp-servers",
   // Data and support
   "parsing",
   "support",
@@ -30,7 +33,7 @@ export const SERVICE_SLUGS = [
 
 export type ServiceSlug = (typeof SERVICE_SLUGS)[number];
 
-export const SERVICE_GROUPS = ["sites", "promotion", "apps", "data"] as const;
+export const SERVICE_GROUPS = ["sites", "promotion", "apps", "ai", "data"] as const;
 export type ServiceGroup = (typeof SERVICE_GROUPS)[number];
 
 type ServiceConfig = {
@@ -62,12 +65,15 @@ export const SERVICE_CONFIG: Record<ServiceSlug, ServiceConfig> = {
   "vk-ads": { group: "promotion", menu: false, priceFrom: null, cases: [], related: ["telegram-ads", "yandex-direct", "google-ads", "landing"] },
   "telegram-ads": { group: "promotion", menu: false, priceFrom: null, cases: [], related: ["vk-ads", "telegram-bots", "yandex-direct", "google-ads"] },
   "yandex-maps": { group: "promotion", menu: false, priceFrom: null, cases: [], related: ["seo", "yandex-direct", "vizitka", "seo-audit"] },
-  "web-apps": { group: "apps", menu: true, priceFrom: 2000, priceUnit: "HUR", cases: [], related: ["react-nextjs", "telegram-mini-apps", "web3", "support"] },
+  "web-apps": { group: "apps", menu: true, priceFrom: 2000, priceUnit: "HUR", cases: [], related: ["react-nextjs", "telegram-mini-apps", "web3", "mcp-servers"] },
   "react-nextjs": { group: "apps", menu: false, priceFrom: null, cases: [], related: ["web-apps", "web3", "telegram-mini-apps", "corporate"] },
-  "telegram-bots": { group: "apps", menu: true, priceFrom: null, cases: [], related: ["telegram-ads", "telegram-mini-apps", "web-apps", "parsing"] },
+  "telegram-bots": { group: "apps", menu: true, priceFrom: null, cases: [], related: ["telegram-ads", "telegram-mini-apps", "ai-assistants", "parsing"] },
   "telegram-mini-apps": { group: "apps", menu: false, priceFrom: null, cases: [], related: ["telegram-bots", "react-nextjs", "web3", "telegram-ads"] },
   web3: { group: "apps", menu: false, priceFrom: null, cases: [], related: ["web-apps", "telegram-mini-apps", "react-nextjs", "telegram-bots"] },
-  parsing: { group: "data", menu: true, priceFrom: 30000, cases: [], related: ["ecommerce", "telegram-bots", "web-apps", "seo"] },
+  // Both AI services are priced per task, so no starting price goes into the markup.
+  "ai-assistants": { group: "ai", menu: true, priceFrom: null, cases: [], related: ["mcp-servers", "telegram-bots", "web-apps", "corporate"] },
+  "mcp-servers": { group: "ai", menu: true, priceFrom: null, cases: [], related: ["ai-assistants", "web-apps", "parsing", "support"] },
+  parsing: { group: "data", menu: true, priceFrom: 30000, cases: [], related: ["ecommerce", "telegram-bots", "web-apps", "ai-assistants"] },
   support: { group: "data", menu: false, priceFrom: null, cases: [], related: ["wordpress", "corporate", "seo-audit", "design"] },
 };
 

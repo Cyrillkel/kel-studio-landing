@@ -503,6 +503,64 @@ function Support({ grad }: SceneProps) {
   );
 }
 
+function AiAssistants({ grad }: SceneProps) {
+  return (
+    <>
+      <rect data-draw x="62" y="18" width="196" height="184" rx="20" />
+      <line data-draw x1="62" y1="52" x2="258" y2="52" className="stroke-white/22" />
+      <circle data-pop cx="82" cy="35" r="5" fill={grad} stroke="none" />
+      <line data-draw x1="96" y1="35" x2="140" y2="35" className="stroke-white/22" />
+      <rect data-draw x="134" y="66" width="104" height="30" rx="12" />
+      <line data-draw x1="148" y1="81" x2="214" y2="81" className="stroke-white/22" />
+      <rect data-pop x="82" y="108" width="112" height="44" rx="12" fill={grad} fillOpacity={0.22} stroke="none" />
+      <rect data-draw x="82" y="108" width="112" height="44" rx="12" />
+      <line data-draw x1="96" y1="124" x2="178" y2="124" />
+      <line data-draw x1="96" y1="138" x2="156" y2="138" className="stroke-white/22" />
+      <rect data-draw x="78" y="168" width="164" height="22" rx="11" className="stroke-white/22" />
+      <circle data-pop cx="228" cy="179" r="5" fill={grad} stroke="none" />
+      <g data-float>
+        <path data-draw d="M284 40 l5 13 l13 5 l-13 5 l-5 13 l-5 -13 l-13 -5 l13 -5 Z" className="fill-page" />
+        <path data-draw d="M44 142 l3 8 l8 3 l-8 3 l-3 8 l-3 -8 l-8 -3 l8 -3 Z" className="stroke-white/22" />
+      </g>
+    </>
+  );
+}
+
+function McpServers({ grad }: SceneProps) {
+  return (
+    <>
+      <circle data-pop cx="52" cy="110" r="26" fill={grad} fillOpacity={0.14} stroke="none" />
+      <circle data-draw cx="52" cy="110" r="26" />
+      <path data-draw d="M52 96 l4 9 l9 4 l-9 4 l-4 9 l-4 -9 l-9 -4 l9 -4 Z" />
+      <line data-draw x1="78" y1="110" x2="118" y2="110" className="stroke-white/22" />
+      <rect data-draw x="118" y="52" width="84" height="116" rx="14" />
+      <line data-draw x1="118" y1="90" x2="202" y2="90" className="stroke-white/22" />
+      <line data-draw x1="118" y1="130" x2="202" y2="130" className="stroke-white/22" />
+      {[71, 110, 149].map((y, i) => (
+        <g key={y}>
+          <line data-draw x1="132" y1={y} x2={i === 1 ? 166 : 156} y2={y} className={i === 1 ? undefined : "stroke-white/22"} />
+          <circle data-pop cx="186" cy={y} r="4" fill={grad} stroke="none" />
+        </g>
+      ))}
+      <path data-draw d="M202 110 C222 110 222 56 244 56" className="stroke-white/22" />
+      <path data-draw d="M202 110 H244" className="stroke-white/22" />
+      <path data-draw d="M202 110 C222 110 222 164 244 164" className="stroke-white/22" />
+      <rect data-draw x="244" y="36" width="48" height="40" rx="10" />
+      <ellipse data-draw cx="268" cy="49" rx="11" ry="4" />
+      <path data-draw d="M257 49 v12 a11 4 0 0 0 22 0 v-12" className="stroke-white/22" />
+      <rect data-draw x="244" y="90" width="48" height="40" rx="10" />
+      <line data-draw x1="256" y1="104" x2="280" y2="104" className="stroke-white/22" />
+      <line data-draw x1="256" y1="116" x2="280" y2="116" className="stroke-white/22" />
+      <line data-draw x1="268" y1="98" x2="268" y2="124" className="stroke-white/22" />
+      <rect data-draw x="244" y="144" width="48" height="40" rx="10" />
+      <path data-draw d="M261 154 l-7 10 l7 10 M275 154 l7 10 l-7 10" />
+      <g data-float>
+        <circle data-pop cx="98" cy="110" r="5" fill={grad} stroke="none" />
+      </g>
+    </>
+  );
+}
+
 const SCENES: Record<ServiceSlug, (props: SceneProps) => React.ReactElement> = {
   landing: Landing,
   vizitka: Vizitka,
@@ -522,6 +580,8 @@ const SCENES: Record<ServiceSlug, (props: SceneProps) => React.ReactElement> = {
   "telegram-bots": TelegramBots,
   "telegram-mini-apps": MiniApps,
   web3: Web3,
+  "ai-assistants": AiAssistants,
+  "mcp-servers": McpServers,
   parsing: Parsing,
   support: Support,
 };

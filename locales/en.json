@@ -1618,6 +1618,154 @@
           }
         ]
       },
+      "ai-assistants": {
+        "name": "AI assistants",
+        "title": "AI assistant development for business",
+        "metaTitle": "AI assistant for business to order: development - KEL Studio",
+        "metaDescription": "AI assistant development: chat on your site and in Telegram, answers from your knowledge base, request intake, handoff to a manager, CRM integrations. Estimate after the brief.",
+        "short": "Chat assistants on your site and in Telegram: they answer from your knowledge base and take requests.",
+        "lead": "We build AI assistants that answer customers and staff from your own materials: prices, terms, instructions. They work on your site and in Telegram, collect requests and pass hard questions to a person.",
+        "cta": "Discuss an AI assistant",
+        "price": "priced after the brief",
+        "term": "named after the brief",
+        "bodyTitle": "An assistant that answers customers while you are busy",
+        "body": [
+          "Customers write outside working hours and ask the same questions, and managers spend hours on them. An AI assistant answers at once, relying on your documents. We set it up not to make things up: if the answer is not in your materials, it says so and calls a person. Requests and contacts go to you in Telegram, by email or to your CRM.",
+          "We start with your questions and materials: what is asked most often and where the answer lives. We pick a model for the task and the budget, build the knowledge base, set the tone and the rules, and connect your site, Telegram and CRM. If the assistant needs to work with your systems (find an order, check stock), we connect them through an [MCP server](/services/mcp-servers). In Telegram the assistant works as a [bot](/services/telegram-bots)."
+        ],
+        "includes": [
+          "An assistant on your site (a chat in the corner of the page) and in Telegram",
+          "Knowledge base: we load your documents, price list, terms and instructions and set up search over them",
+          "Scenarios: taking requests, booking, choosing a service, answers to frequent questions",
+          "Handoff to a manager when the assistant is unsure or the customer asks for a person",
+          "Integrations: CRM (for example amoCRM), Google Sheets, MoySklad, email and Telegram notifications",
+          "Testing on real questions, dialog statistics and answer tuning"
+        ],
+        "fitTitle": "When it fits",
+        "fit": [
+          "Customers ask the same questions and managers cannot keep up",
+          "You need answers outside working hours and request collection without losses",
+          "You want an internal helper for staff on regulations and documents"
+        ],
+        "steps": [
+          {
+            "title": "Brief and questions",
+            "text": "We collect frequent customer questions and the materials the assistant will answer from."
+          },
+          {
+            "title": "Knowledge base and scenarios",
+            "text": "We prepare the base and describe the rules, the tone and the cases when the dialog goes to a person."
+          },
+          {
+            "title": "Development",
+            "text": "We pick a model, set up the assistant and connect your site, Telegram and CRM."
+          },
+          {
+            "title": "Testing",
+            "text": "We check it on real questions, look for wrong and unwanted answers and fix them."
+          },
+          {
+            "title": "Launch and support",
+            "text": "We launch, read the dialogs and extend the knowledge base based on the results."
+          }
+        ],
+        "faq": [
+          {
+            "q": "How much does an AI assistant cost?",
+            "a": "The price depends on the channels (site, Telegram), the size of the knowledge base and the integrations. Besides development there is the cost of running the model itself: it depends on the number of dialogs, and we estimate it in advance and show it. We name the price after the brief."
+          },
+          {
+            "q": "Can the assistant make mistakes?",
+            "a": "Yes, like any language model. That is why we limit it to your knowledge base, set rules, test it on real questions, and in doubtful cases it hands the dialog to a manager. Mistakes cannot be ruled out entirely, but they can be made rare and safe."
+          },
+          {
+            "q": "Which model does the assistant run on?",
+            "a": "We choose it for the task: for example ChatGPT, Claude, Gemini or YandexGPT. The choice depends on answer quality, price and data storage requirements. We will advise at the brief."
+          },
+          {
+            "q": "Where is data stored and what does the model see?",
+            "a": "The model gets the customer's question and the relevant pieces of your knowledge base. Where to keep conversations and which data not to pass to the model we agree at the brief, especially if dialogs may contain personal data."
+          },
+          {
+            "q": "How is an assistant different from a regular bot?",
+            "a": "A regular bot follows a preset scenario with buttons. An AI assistant understands questions asked in free words and answers from your materials. We often combine them: buttons for requests and payment, the assistant for questions. For scenario bots see [Telegram bots](/services/telegram-bots)."
+          }
+        ]
+      },
+      "mcp-servers": {
+        "name": "MCP servers",
+        "title": "MCP server development for AI assistants",
+        "metaTitle": "MCP server development to order - KEL Studio",
+        "metaDescription": "MCP server development: we connect AI assistants (Claude, ChatGPT, Cursor and others) to your CRM, database and internal services. Access rights, tests, launch. Estimate after the brief.",
+        "short": "We connect AI assistants to your data and services through the MCP protocol.",
+        "lead": "MCP (Model Context Protocol) is an open protocol through which an AI assistant gets access to your data and tools: CRM, database, spreadsheets, internal API. We build MCP servers to order: you decide what exactly the assistant may read and do.",
+        "cta": "Discuss an MCP server",
+        "price": "priced after the brief",
+        "term": "named after the brief",
+        "bodyTitle": "An MCP server: your AI assistant's access to your systems",
+        "body": [
+          "Without MCP an assistant answers from general knowledge and from what you pasted into the chat. With an MCP server it reaches your systems itself: finds an order in the CRM, checks stock in a spreadsheet, builds a report from the database, creates a task. Each such action is a separate tool with a clear name and description that you have allowed.",
+          "We design a set of tools for your processes, write the server in TypeScript (Node.js), connect your systems through an API or straight to the database, set up rights so the assistant does only what is allowed (for example, only reads), and deploy the server on your hosting or ours. If you need a chat for customers and not only access to data, we will build an [AI assistant](/services/ai-assistants)."
+        ],
+        "includes": [
+          "Tool design: what the assistant can read and do, with descriptions and limits",
+          "An MCP server in TypeScript: remote connection over HTTP and local launch",
+          "Integrations with your systems: CRM (for example amoCRM), MoySklad, Google Sheets, databases, internal API",
+          "Access and security: keys, authorization, read-only or write rights, a call log",
+          "Testing in real clients that support MCP, for example Claude and Cursor",
+          "Deployment on a server, connection instructions and documentation for your team"
+        ],
+        "fitTitle": "When it fits",
+        "fit": [
+          "You want an AI assistant to work with your data, not only with general knowledge",
+          "You want your team to be able to ask the CRM or the database in plain words",
+          "You have your own API or service that you want to make available to AI assistants"
+        ],
+        "steps": [
+          {
+            "title": "Brief and scenarios",
+            "text": "We find out which tasks the assistant should solve and which systems it needs access to."
+          },
+          {
+            "title": "Tool design",
+            "text": "We describe the list of tools, access rights and the format of answers and agree it with you."
+          },
+          {
+            "title": "Development",
+            "text": "We write the server, connect your systems and set up authorization."
+          },
+          {
+            "title": "Testing",
+            "text": "We test in real clients and check errors, limits and the security of access."
+          },
+          {
+            "title": "Launch and support",
+            "text": "We deploy the server, hand over the documentation and, if needed, maintain it."
+          }
+        ],
+        "faq": [
+          {
+            "q": "What is an MCP server in simple words?",
+            "a": "It is an intermediary program between an AI assistant and your systems. It shows the assistant a list of actions it is allowed to take (find a client, get a report, create a task) and performs them on request. MCP is a common protocol, so one server works with different assistants that support it."
+          },
+          {
+            "q": "Which assistants work with an MCP server?",
+            "a": "Applications that support the MCP protocol: for example Claude, ChatGPT and Cursor. The list of such applications keeps growing, so before we start we check which ones you need."
+          },
+          {
+            "q": "Is it safe to give an assistant access to data?",
+            "a": "Access is limited on the server side: we expose only the tools you need, make them read-only where possible and keep a call log. The assistant gets nothing beyond what is allowed. Which data may be passed to the model we discuss at the brief."
+          },
+          {
+            "q": "How much does an MCP server cost?",
+            "a": "The price depends on the number of tools and the complexity of the integrations: a server with a few requests to one system costs less than a set of tools for several systems with different rights. We name the price after the brief."
+          },
+          {
+            "q": "How is an MCP server different from an AI assistant?",
+            "a": "An MCP server gives AI access to your data and actions, while an assistant is what a person talks to: a chat on a site, a bot, an application. We often build them together: the assistant holds the dialog, the MCP server goes to your systems. More in [AI assistants](/services/ai-assistants)."
+          }
+        ]
+      },
       "parsing": {
         "name": "Data parsing",
         "title": "Website parsing and data collection to order",
@@ -1765,9 +1913,9 @@
     },
     "hub": {
       "metaTitle": "Web studio services: websites, SEO, ads, bots - KEL Studio",
-      "metaDescription": "Websites and landing pages, web design, SEO, Yandex Direct, Google Ads, VK and Telegram targeting, Telegram bots, web apps, parsing, support. Prices and timelines on each page.",
+      "metaDescription": "Websites and landing pages, web design, SEO, Yandex Direct, Google Ads, VK and Telegram targeting, Telegram bots, AI assistants, MCP servers, web apps, parsing, support. Prices and timelines on each page.",
       "title": "KEL Studio services",
-      "lead": "Websites, design, promotion, bots, applications and support. Every service has its stages, timeline and a price or a way to calculate it. Pick a suitable one or describe the task and we will suggest where to start.",
+      "lead": "Websites, design, promotion, bots, AI assistants, applications and support. Every service has its stages, timeline and a price or a way to calculate it. Pick a suitable one or describe the task and we will suggest where to start.",
       "pricesLink": "See prices",
       "groups": {
         "sites": {
@@ -1781,6 +1929,10 @@
         "apps": {
           "title": "Applications and bots",
           "text": "Web applications, frontend, Telegram bots and mini apps, Web3: for tasks where a site alone is not enough."
+        },
+        "ai": {
+          "title": "AI and automation",
+          "text": "AI assistants for customers and staff, and MCP servers that give assistants access to your data and services."
         },
         "data": {
           "title": "Data and support",

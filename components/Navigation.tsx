@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { gsap } from "gsap";
+import { ScrollSmoother } from "gsap/ScrollSmoother";
 import { useTranslation } from "react-i18next";
 import { smoothNavigate, smoothTop } from "./smoothNavigate";
 import LanguageSwitcher from "./LanguageSwitcher";
@@ -76,13 +77,20 @@ export default function Navigation() {
   useEffect(() => {
     if (!isOpen) return;
 
+    // From 768px the page is moved by ScrollSmoother, which handles the wheel and
+    // touch itself, so overflow: hidden alone would let the page scroll under the
+    // menu. Pausing it first, because it stores the overflow it finds and puts it
+    // back on resume.
+    const smoother = ScrollSmoother.get();
+    smoother?.paused(true);
+
     // overflow: hidden (not position: fixed) keeps programmatic anchor jumps
     // from the menu links working while user scrolling is blocked.
     const root = document.documentElement;
     root.style.overflow = "hidden";
     document.body.style.overflow = "hidden";
 
-    // The overlay is hidden from lg up; close it (and release the lock) if
+    // The panel is hidden from lg up; close it (and release the lock) if
     // the viewport grows past that, e.g. rotating a phone to landscape.
     const desktop = window.matchMedia("(min-width: 1024px)");
     const closeOnDesktop = () => {
@@ -90,10 +98,20 @@ export default function Navigation() {
     };
     desktop.addEventListener("change", closeOnDesktop);
 
+    const closeOnEscape = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setIsOpen(false);
+        setServicesOpen(false);
+      }
+    };
+    window.addEventListener("keydown", closeOnEscape);
+
     return () => {
       root.style.overflow = "";
       document.body.style.overflow = "";
+      smoother?.paused(false);
       desktop.removeEventListener("change", closeOnDesktop);
+      window.removeEventListener("keydown", closeOnEscape);
     };
   }, [isOpen]);
 
@@ -112,6 +130,11 @@ export default function Navigation() {
 
   const anchor = (hash: string) => (onHome ? hash : `/${hash}`);
 
+  const closeMenu = () => {
+    setIsOpen(false);
+    setServicesOpen(false);
+  };
+
   return (
     <>
       <nav
@@ -119,9 +142,11 @@ export default function Navigation() {
         // with the class starts from `currentcolor` (Tailwind 4's default) and flashes as a
         // white (dark theme) or black (light theme) line under the bar while it fades in.
         className={`fixed top-0 right-0 left-0 z-50 border-b transition-colors duration-300 ${
-          scrolled && !isOpen
-            ? "border-white/5 bg-page/85 backdrop-blur-md"
-            : "border-transparent backdrop-blur-sm"
+          isOpen
+            ? "border-white/5 bg-page"
+            : scrolled
+              ? "border-white/5 bg-page/85 backdrop-blur-md"
+              : "border-transparent backdrop-blur-sm"
         }`}
       >
         <div className="max-w-7xl mx-auto px-6 py-4">
@@ -293,142 +318,145 @@ export default function Navigation() {
         </div>
       </nav>
 
-      {isOpen && (
-        <div
-          id="mobile-menu"
-          className="fixed inset-0 z-40 flex flex-col overflow-y-auto overscroll-contain bg-page/95 backdrop-blur-md lg:hidden"
-        >
-          <div className="flex flex-1 flex-col items-center justify-center space-y-8 pb-8 pt-24 text-center">
-            <div className="flex w-full flex-col items-center">
-              {/* Only opens the list below; the section itself is the last item in it. */}
-              <button
-                type="button"
-                aria-expanded={servicesOpen}
-                aria-controls="mobile-services"
-                className="relative cursor-pointer text-2xl text-gray-300 transition hover:text-white"
-                onClick={() => setServicesOpen((open) => !open)}
-              >
-                {t("nav.services")}
-                {/* Hangs off the text's right side, so the word itself stays exactly centered. */}
-                <span
-                  aria-hidden="true"
-                  className={`absolute left-full top-1/2 ml-3 grid h-7 w-7 -translate-y-1/2 place-items-center rounded-full border transition-all duration-300 ${
-                    servicesOpen
-                      ? "rotate-180 border-transparent bg-origin-border bg-linear-to-br from-cyan-400 via-violet-500 to-fuchsia-500 text-snow shadow-lg shadow-violet-500/30"
-                      : "border-white/15 bg-white/5 text-gray-300"
-                  }`}
-                >
-                  <svg
-                    viewBox="0 0 24 24"
-                    className="h-3.5 w-3.5"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth={2.5}
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  >
-                    <path d="m6 9 6 6 6-6" />
-                  </svg>
-                </span>
-              </button>
-              <div
-                id="mobile-services"
-                inert={!servicesOpen}
-                className={`grid w-full transition-[grid-template-rows,opacity] duration-300 ease-out ${
-                  servicesOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
+      {/* A panel hangs from the left edge under the bar; the page next to it is veiled, and a
+          tap there closes the menu. Both stay mounted so they can slide and fade out as well as
+          in; `inert` keeps the closed panel out of the tab order. */}
+      <div
+        aria-hidden="true"
+        className={`fixed inset-0 z-40 touch-none bg-page/70 backdrop-blur-sm transition-opacity duration-300 motion-reduce:transition-none lg:hidden ${
+          isOpen ? "opacity-100" : "pointer-events-none opacity-0"
+        }`}
+        onClick={closeMenu}
+      />
+      {/* top-[73px] is the bar: 16px padding twice, the 40px burger and the 1px border. */}
+      <div
+        id="mobile-menu"
+        inert={!isOpen}
+        className={`fixed bottom-0 left-0 top-[73px] z-40 flex w-[min(21rem,calc(100vw-3rem))] flex-col overflow-y-auto overscroll-contain border-r border-white/10 bg-page shadow-2xl shadow-shade/60 transition-[transform,visibility] duration-300 ease-out motion-reduce:transition-none lg:hidden ${
+          isOpen ? "visible translate-x-0" : "invisible -translate-x-full"
+        }`}
+      >
+        <div className="flex flex-1 flex-col px-6 pb-6 pt-4">
+          <div>
+            {/* Only opens the list below; the section itself is the last item in it. */}
+            <button
+              type="button"
+              aria-expanded={servicesOpen}
+              aria-controls="mobile-services"
+              className="flex w-full cursor-pointer items-center justify-between py-3 text-left text-xl text-gray-300 transition hover:text-white"
+              onClick={() => setServicesOpen((open) => !open)}
+            >
+              {t("nav.services")}
+              <span
+                aria-hidden="true"
+                className={`grid h-7 w-7 place-items-center rounded-full border transition-all duration-300 ${
+                  servicesOpen
+                    ? "rotate-180 border-transparent bg-origin-border bg-linear-to-br from-cyan-400 via-violet-500 to-fuchsia-500 text-snow shadow-lg shadow-violet-500/30"
+                    : "border-white/15 bg-white/5 text-gray-300"
                 }`}
               >
-                <div className="overflow-hidden">
-                  <div className="mt-4 flex w-full flex-col items-center gap-3 border-y border-white/10 py-4">
-                    {MENU_SLUGS.map((slug) => (
-                      <Link
-                        key={slug}
-                        href={servicePath(slug)}
-                        className="text-lg text-gray-400 transition-colors hover:text-white"
-                        onClick={() => {
-                          setIsOpen(false);
-                          setServicesOpen(false);
-                        }}
-                      >
-                        {t(`servicePages.items.${slug}.name`)}
-                      </Link>
-                    ))}
+                <svg
+                  viewBox="0 0 24 24"
+                  className="h-3.5 w-3.5"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth={2.5}
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <path d="m6 9 6 6 6-6" />
+                </svg>
+              </span>
+            </button>
+            <div
+              id="mobile-services"
+              inert={!servicesOpen}
+              className={`grid transition-[grid-template-rows,opacity] duration-300 ease-out ${
+                servicesOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
+              }`}
+            >
+              <div className="overflow-hidden">
+                <div className="mb-2 ml-1 flex flex-col border-l border-white/10 py-1 pl-4">
+                  {MENU_SLUGS.map((slug) => (
                     <Link
-                      href={SERVICES_PATH}
-                      className="text-base text-gray-500 transition-colors hover:text-white"
-                      onClick={() => {
-                        setIsOpen(false);
-                        setServicesOpen(false);
-                      }}
+                      key={slug}
+                      href={servicePath(slug)}
+                      className="py-2 text-base text-gray-400 transition-colors hover:text-white"
+                      onClick={closeMenu}
                     >
-                      {t("nav.allServices")}
+                      {t(`servicePages.items.${slug}.name`)}
                     </Link>
-                  </div>
+                  ))}
+                  <Link
+                    href={SERVICES_PATH}
+                    className="py-2 text-sm text-gray-500 transition-colors hover:text-white"
+                    onClick={closeMenu}
+                  >
+                    {t("nav.allServices")}
+                  </Link>
                 </div>
               </div>
             </div>
-            <Link
-              href={PRICES_PATH}
-              className="text-2xl text-gray-300 hover:text-white transition"
-              onClick={() => {
-                setIsOpen(false);
-                setServicesOpen(false);
-              }}
-            >
-              {t("nav.pricing")}
-            </Link>
-            <Link
-              href={BLOG_PATH}
-              className="text-2xl text-gray-300 hover:text-white transition"
-              onClick={() => {
-                setIsOpen(false);
-                setServicesOpen(false);
-              }}
-            >
-              {t("nav.blog")}
-            </Link>
-            <a
-              href={anchor("#portfolio")}
-              className="text-2xl text-gray-300 hover:text-white transition"
-              onClick={(e) => handleNavClick(e, "#portfolio")}
-            >
-              {t("nav.portfolio")}
-            </a>
-            <a
-              href={anchor("#about")}
-              className="text-2xl text-gray-300 hover:text-white transition"
-              onClick={(e) => handleNavClick(e, "#about")}
-            >
-              {t("nav.about")}
-            </a>
-            <ButtonLink
-              href={anchor("#contact")}
-              variant="outline"
-              className="mt-2"
-              onClick={(e) => handleNavClick(e, "#contact")}
-            >
-              {t("nav.contact")}
-            </ButtonLink>
           </div>
+          <Link
+            href={PRICES_PATH}
+            className="py-3 text-xl text-gray-300 transition hover:text-white"
+            onClick={closeMenu}
+          >
+            {t("nav.pricing")}
+          </Link>
+          <Link
+            href={BLOG_PATH}
+            className="py-3 text-xl text-gray-300 transition hover:text-white"
+            onClick={closeMenu}
+          >
+            {t("nav.blog")}
+          </Link>
+          <a
+            href={anchor("#portfolio")}
+            className="py-3 text-xl text-gray-300 transition hover:text-white"
+            onClick={(e) => handleNavClick(e, "#portfolio")}
+          >
+            {t("nav.portfolio")}
+          </a>
+          <a
+            href={anchor("#about")}
+            className="py-3 text-xl text-gray-300 transition hover:text-white"
+            onClick={(e) => handleNavClick(e, "#about")}
+          >
+            {t("nav.about")}
+          </a>
+          <ButtonLink
+            href={anchor("#contact")}
+            variant="outline"
+            className="mt-4 self-start"
+            onClick={(e) => handleNavClick(e, "#contact")}
+          >
+            {t("nav.contact")}
+          </ButtonLink>
+        </div>
 
-          {/* Direct contacts, pinned to the bottom of the screen: the number dials on
-              tap, the messengers and email (the same round buttons as in the footer)
-              open their apps. Links scroll under it (it fades in from the menu background). */}
-          <div className="sticky bottom-0 shrink-0 bg-linear-to-t from-page from-65% to-transparent px-6 pb-[max(1.5rem,env(safe-area-inset-bottom))] pt-8">
-            <div className="menu-rise flex flex-col items-center gap-5">
-              <a
-                href={PHONE_URL}
-                aria-label={`${t("nav.call")} ${PHONE}`}
-                className="inline-flex items-center gap-3 text-2xl font-semibold text-white"
-              >
-                <PhoneIcon className="h-6 w-6" />
-                <span className="whitespace-nowrap tabular-nums">{PHONE}</span>
-              </a>
-              <ContactLinks />
-            </div>
+        {/* Direct contacts, pinned to the bottom of the panel: the number dials on
+            tap, the messengers and email (the same round buttons as in the footer)
+            open their apps. Links scroll under it (it fades in from the panel background). */}
+        <div className="sticky bottom-0 shrink-0 bg-linear-to-t from-page from-65% to-transparent px-6 pb-[max(1.5rem,env(safe-area-inset-bottom))] pt-8">
+          <div
+            className={`flex flex-col items-start gap-4 transition duration-500 motion-reduce:transition-none ${
+              isOpen ? "translate-y-0 opacity-100 delay-150" : "translate-y-3.5 opacity-0"
+            }`}
+          >
+            <a
+              href={PHONE_URL}
+              aria-label={`${t("nav.call")} ${PHONE}`}
+              className="inline-flex items-center gap-3 text-xl font-semibold text-white"
+            >
+              <PhoneIcon className="h-6 w-6" />
+              <span className="whitespace-nowrap tabular-nums">{PHONE}</span>
+            </a>
+            <ContactLinks />
           </div>
         </div>
-      )}
+      </div>
     </>
   );
 }
