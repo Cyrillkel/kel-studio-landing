@@ -1749,6 +1749,10 @@
             "a": "It is an intermediary program between an AI assistant and your systems. It shows the assistant a list of actions it is allowed to take (find a client, get a report, create a task) and performs them on request. MCP is a common protocol, so one server works with different assistants that support it."
           },
           {
+            "q": "Which systems can be connected to an MCP server?",
+            "a": "Any system that can be reached from the outside. It is easiest when the system has an API or you give access to its database: then we connect it quickly and reliably. If the API is limited (no writing, strict limits), the server works within those limits: MCP adds no abilities the system itself does not have. If there is only a web interface, it can be driven through browser automation, but that is fragile and may break the service's rules, so we offer it last. For a program with no API and no data export, connecting usually makes no sense. Popular services often already have ready-made MCP servers: if one suits you, we will say so. In every case we need access from the owner of the system: a key, a token or an account."
+          },
+          {
             "q": "Which assistants work with an MCP server?",
             "a": "Applications that support the MCP protocol: for example Claude, ChatGPT and Cursor. The list of such applications keeps growing, so before we start we check which ones you need."
           },
