@@ -1474,7 +1474,7 @@
         "name": "Telegram Mini Apps",
         "title": "Telegram Mini Apps development",
         "metaTitle": "Telegram Mini Apps development to order - KEL Studio",
-        "metaDescription": "Telegram mini apps: stores, accounts, bookings and services inside the messenger. Integration with a bot, payment and your system.",
+        "metaDescription": "Telegram mini apps: stores, accounts, bookings and services inside the messenger. Integration with a bot, payment, TON and your system.",
         "short": "Apps inside Telegram: catalog, booking, client account, payment and integrations.",
         "lead": "We build Telegram Mini Apps: applications that open right in the messenger and look like a full service. A catalog with a cart, booking, a personal account, payment.",
         "cta": "Discuss a Mini App",
@@ -1483,7 +1483,8 @@
         "bodyTitle": "A Telegram Mini App: a service inside the messenger",
         "body": [
           "A Mini App opens inside Telegram from a bot button or a link. Nothing to download and no registration: Telegram passes the profile data, and payment and notifications go through the messenger. So the client gets a catalog, a form or an account that will not fit into chat buttons.",
-          "We design the interface in the style of Telegram and your brand, write the client and server parts, and connect the bot, payment and your accounting system. If you already have a site or service, we can make its version inside Telegram. For simple scenarios a [Telegram bot](/services/telegram-bots) is enough."
+          "We design the interface in the style of Telegram and your brand, write the client and server parts, and connect the bot, payment and your accounting system. If you already have a site or service, we can make its version inside Telegram. For simple scenarios a [Telegram bot](/services/telegram-bots) is enough.",
+          "If the app needs crypto payments, we connect the wallet through TON Connect and write a [smart contract in Tact](/services/web3). It accepts payments and makes payouts by the set rules, and any operation can be checked in a blockchain explorer."
         ],
         "includes": [
           "An interface in the style of Telegram and your brand",
@@ -1491,6 +1492,7 @@
           "Link with the bot: launch button, notifications",
           "Catalog, cart, booking, personal account - for your task",
           "Payment and integrations with CRM, a database and the site",
+          "Payment in Gram (formerly Toncoin): a wallet through TON Connect and smart contracts in Tact",
           "An admin panel for managing content"
         ],
         "fitTitle": "When it fits",
@@ -1539,6 +1541,10 @@
             "a": "Yes, through payment services that Telegram supports. We will pick a suitable option."
           },
           {
+            "q": "Can payments be accepted in Gram (Toncoin)?",
+            "a": "Yes. The user connects a wallet through TON Connect and confirms the transfer right in the mini app. If money has to be held and distributed by rules, for example contributions and payouts to participants, we write a smart contract in Tact for that."
+          },
+          {
             "q": "Can an existing site be moved into a mini app?",
             "a": "In many cases yes: we adapt the interface to the Telegram format and connect authorization through the messenger. First we look at your site and propose the scope of changes."
           }
@@ -1547,21 +1553,22 @@
       "web3": {
         "name": "Web3 development",
         "title": "Web3 development: smart contracts and dApps",
-        "metaTitle": "Web3 development: smart contracts and dApps to order - KEL Studio",
-        "metaDescription": "Web3 projects: Solidity smart contracts, decentralized applications (dApps), wallet connection, interfaces. Estimate after the brief.",
+        "metaTitle": "Web3 development: Tact (TON) and Solidity smart contracts - KEL Studio",
+        "metaDescription": "Web3 projects: smart contracts in Tact for TON and in Solidity for Ethereum, dApps, wallet connection, interfaces. Estimate after the brief.",
         "short": "Smart contracts, dApps and interfaces for blockchain projects.",
-        "lead": "We develop smart contracts in Solidity, decentralized applications (dApps) and interfaces that connect wallets. First a prototype on a test network, then a full launch.",
+        "lead": "We develop smart contracts in Tact for the TON blockchain and in Solidity for Ethereum-compatible networks, as well as dApps and interfaces that connect wallets. First a prototype on a test network, then a full launch.",
         "cta": "Discuss the project",
         "price": "priced after the brief",
         "term": "named after the brief",
         "bodyTitle": "Web3 development: smart contracts and interfaces for them",
         "body": [
           "In Web3 applications data and rules are stored on a blockchain, so there is no single server that can be switched off. The basis is smart contracts: programs that run automatically and need no intermediary. Tokens, exchanges, marketplaces and loyalty programs are built on them.",
-          "We write contracts in Solidity and build the dApp and web interface: we connect wallets, show data from the network and build transactions. Before publication we test the logic and scenarios, because a published contract is hard and costly to fix. For the other parts of the product, such as an account or an admin panel, we add a [web application](/services/web-apps)."
+          "We write contracts in Tact for TON and in Solidity for Ethereum and compatible networks, and build the dApp and web interface: we connect wallets, show data from the network and build transactions. Before publication we test the logic and scenarios, because a published contract is hard and costly to fix. For the other parts of the product, such as an account or an admin panel, we add a [web application](/services/web-apps).",
+          "TON projects are convenient to launch as a [Telegram Mini App](/services/telegram-mini-apps): the wallet connects through TON Connect and the user pays without leaving the messenger. The contract itself accepts contributions and makes payouts by the set rules."
         ],
         "includes": [
           "Architecture design: what to keep on the network and what off it",
-          "Smart contracts in Solidity",
+          "Smart contracts in Tact (TON) and Solidity (Ethereum and compatible networks)",
           "Testing contracts and scenarios before publication",
           "A dApp and web interface with wallet connection",
           "Integration with the network, blockchain data and your backend",
@@ -1602,7 +1609,11 @@
           },
           {
             "q": "Which networks do you work with?",
-            "a": "Most often with Ethereum-compatible (EVM) networks. The choice depends on the task, fees and audience, and we discuss it at the brief."
+            "a": "With TON and with Ethereum and compatible networks: BNB Chain, Polygon, Arbitrum, Base. These are called EVM networks. We write TON contracts in Tact and EVM contracts in Solidity. The choice depends on the task, fees and audience, and we discuss it at the brief."
+          },
+          {
+            "q": "Which to choose: TON or Ethereum?",
+            "a": "TON fits when your audience is in Telegram: the wallet is built into the messenger and the app opens as a Mini App. EVM networks are chosen when you need the ready tools and tokens of the Ethereum ecosystem. The languages differ, Tact and Solidity, so a contract cannot be moved from one network to the other without rewriting it."
           },
           {
             "q": "How much does Web3 development cost?",
