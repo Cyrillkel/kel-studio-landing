@@ -4,6 +4,7 @@ import Footer from "@/components/Footer";
 import SmoothScroll from "@/components/SmoothScroll";
 import JsonLd from "@/components/JsonLd";
 import { graph, webPageNode } from "@/lib/schema";
+import { pageMetadata } from "@/lib/pageMetadata";
 import {
   POLICY_UPDATED,
   cleanPolicyHtml,
@@ -17,9 +18,14 @@ const raw = readPrivacyHtml();
 const ready = hasPolicyText(raw);
 const { intro, sections } = splitPolicy(cleanPolicyHtml(raw));
 
+const TITLE = "Политика конфиденциальности - KEL Studio";
+const DESCRIPTION =
+  "Политика KEL Studio в отношении обработки персональных данных: какие данные мы собираем через сайт kel.agency, зачем, как храним и как отозвать согласие";
+
 export const metadata: Metadata = {
-  title: "Политика конфиденциальности - KEL Studio",
-  alternates: { canonical: "/privacy" },
+  // Without its own description the page inherits the home page's one from
+  // app/layout.tsx, which search engines report as a duplicate.
+  ...pageMetadata({ title: TITLE, description: DESCRIPTION, path: "/privacy" }),
   // While content/privacy.html is empty the page stays out of the search index;
   // with text in it the page opens for indexing by itself.
   ...(ready ? {} : { robots: { index: false, follow: true } }),
@@ -28,8 +34,8 @@ export const metadata: Metadata = {
 const structuredData = graph([
   webPageNode({
     path: "/privacy",
-    name: "Политика конфиденциальности - KEL Studio",
-    description: "Политика в отношении обработки персональных данных",
+    name: TITLE,
+    description: DESCRIPTION,
     modified: POLICY_UPDATED,
   }),
 ]);
