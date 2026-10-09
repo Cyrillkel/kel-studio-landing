@@ -107,6 +107,12 @@
     "ctaButton": "Обсудить проект",
     "items": [
       {
+        "title": "Лендинг сервиса банковских гарантий",
+        "description": "Одностраничный сайт с калькулятором стоимости гарантии и заявкой специалисту",
+        "image": "/portfolio/garant-bg.jpg",
+        "url": "https://garant-bg.ru/"
+      },
+      {
         "title": "E-commerce платформа",
         "description": "Интернет-магазин с интеграцией платёжных систем",
         "image": "/portfolio/millsey.jpg",

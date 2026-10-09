@@ -107,6 +107,12 @@
     "ctaButton": "Discuss a project",
     "items": [
       {
+        "title": "Landing page for a bank guarantee service",
+        "description": "A one-page site with a guarantee cost calculator and a request to a specialist",
+        "image": "/portfolio/garant-bg.jpg",
+        "url": "https://garant-bg.ru/"
+      },
+      {
         "title": "E-commerce Platform",
         "description": "An online store with payment system integration",
         "image": "/portfolio/millsey.jpg",
