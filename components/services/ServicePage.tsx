@@ -202,7 +202,7 @@ export default function ServicePage({ slug }: { slug: ServiceSlug }) {
                         strokeLinecap="round"
                         strokeLinejoin="round"
                       >
-                        <path d="m4 12 5 5L20 6" />
+                        <path d="M12 5v14M5 12h14" />
                       </svg>
                       <span className="leading-relaxed">{item}</span>
                     </li>
