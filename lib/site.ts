@@ -30,9 +30,13 @@ export const WHATSAPP_URL = "https://wa.me/79992193501";
 // Yandex Metrika counter (metrika.yandex.ru). Started by components/YandexMetrika.tsx.
 export const YANDEX_METRIKA_ID = 113363027;
 
-// Ownership codes from Yandex Webmaster and Google Search Console. Next turns
-// them into the meta tags both panels look for.
+// Ownership codes from Yandex Webmaster, Google Search Console and Dzen. Next
+// turns them into the meta tags the panels look for (`other` is for the ones
+// Next has no named field for: Dzen wants <meta name="zen-verification">).
 export const VERIFICATION = {
   yandex: "7b7b35e4bbf56e1b",
   google: "jqW6WGmgGgiSqInsX8XOOkVM3VBunaDnPzEOokzf9FI",
+  other: {
+    "zen-verification": "7KA3pzKKSgauZmh4OoFv4jiUXZ5mg2gH4bvCVlaSHHRcujUFPcvIIgwxcIzguSfB",
+  },
 };
