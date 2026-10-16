@@ -1,12 +1,18 @@
 import fs from "node:fs";
 import path from "node:path";
 import { Marked } from "marked";
+import { localizePath } from "./routes";
 import { isServiceSlug, type ServiceSlug } from "./services";
+import type { Lang } from "./lang";
 
 export { BLOG_PATH, blogPath } from "./blog-path";
 
-// Articles are Markdown files in content/blog/<slug>.md, read at build time (the
-// pages and the sitemap are static). The slug is the file name and the address.
+// Articles are Markdown files, read at build time (the pages and the sitemap are
+// static): the Russian ones in content/blog/<slug>.md, the English ones in
+// content/blog/en/<slug>.md. The slug is the file name and the address, and an
+// article has the same slug in both languages, which is how the two versions are
+// matched (hreflang, the language switcher). An article without a translation
+// simply does not appear on the English pages.
 // A file starts with a block of "key: value" lines between two "---" lines:
 //   title        H1 and the base of <title>
 //   description  meta description and the card text (140-160 characters)
@@ -17,22 +23,46 @@ export { BLOG_PATH, blogPath } from "./blog-path";
 //   query        the main search query, for our own reference
 //   related      comma-separated slugs of neighbouring articles
 //   draft        "true" keeps the article out of the build, the list and the sitemap
-const DIR = path.join(process.cwd(), "content", "blog");
+// File access is written out for each folder (rather than looked up in a table): the
+// build traces which files a page can read from the shape of path.join(process.cwd(),
+// "content", ...), and a path built from a variable makes it include the whole project.
+const listArticles = (lang: Lang): string[] =>
+  lang === "en"
+    ? fs.readdirSync(path.join(process.cwd(), "content", "blog", "en"))
+    : fs.readdirSync(path.join(process.cwd(), "content", "blog"));
 
-export const CATEGORIES = {
-  sites: "Создание сайта",
-  seo: "SEO и аналитика",
-  ads: "Реклама",
-  apps: "Боты и приложения",
-} as const;
-export type CategoryId = keyof typeof CATEGORIES;
+const readArticle = (lang: Lang, file: string): string =>
+  lang === "en"
+    ? fs.readFileSync(path.join(process.cwd(), "content", "blog", "en", file), "utf8")
+    : fs.readFileSync(path.join(process.cwd(), "content", "blog", file), "utf8");
+
+export const CATEGORIES: Record<Lang, Record<"sites" | "seo" | "ads" | "apps", string>> = {
+  ru: {
+    sites: "Создание сайта",
+    seo: "SEO и аналитика",
+    ads: "Реклама",
+    apps: "Боты и приложения",
+  },
+  en: {
+    sites: "Websites",
+    seo: "SEO and analytics",
+    ads: "Advertising",
+    apps: "Bots and apps",
+  },
+};
+export type CategoryId = keyof (typeof CATEGORIES)["ru"];
+const isCategory = (value: string): value is CategoryId => value in CATEGORIES.ru;
 
 // Signed by the studio's admin, not a named person.
-export const AUTHOR = { name: "Админ" };
+export const AUTHOR: Record<Lang, { name: string }> = {
+  ru: { name: "Админ" },
+  en: { name: "Admin" },
+};
 
 export type Heading = { id: string; text: string };
 
 export type Post = {
+  lang: Lang;
   slug: string;
   title: string;
   description: string;
@@ -101,7 +131,9 @@ function imageSize(src: string): { width: number; height: number } | null {
 // of contents. The text is ours (it lives in the repository), so it is not
 // sanitised. Tables get a scrolling wrapper, outside links open in a new tab,
 // images get their size and load lazily (a cover above the first heading loads at once).
-function render(markdown: string): { html: string; headings: Heading[] } {
+// Links to the site are written the Russian way in both languages ("/services/seo",
+// "/blog/some-article") and pointed at the page of the article's language here.
+function render(markdown: string, lang: Lang): { html: string; headings: Heading[] } {
   const headings: Heading[] = [];
   const taken = new Set<string>();
   const parsed = marked.parse(markdown, { async: false }) as string;
@@ -125,11 +157,12 @@ function render(markdown: string): { html: string; headings: Heading[] } {
     })
     .replace(/<table>/g, '<div class="table-wrap"><table>')
     .replace(/<\/table>/g, "</table></div>")
-    .replace(/<a href="(https?:\/\/[^"]+)"/g, '<a href="$1" target="_blank" rel="noopener noreferrer"');
+    .replace(/<a href="(https?:\/\/[^"]+)"/g, '<a href="$1" target="_blank" rel="noopener noreferrer"')
+    .replace(/<a href="(\/(?!\/)[^"]*)"/g, (_m, href: string) => `<a href="${localizePath(href, lang)}"`);
   return { html, headings };
 }
 
-function parseFile(slug: string, raw: string): (Post & { draft: boolean }) | null {
+function parseFile(lang: Lang, slug: string, raw: string): (Post & { draft: boolean }) | null {
   const match = raw.match(/^---\r?\n([\s\S]*?)\r?\n---\r?\n?([\s\S]*)$/);
   if (!match) return null;
   const meta: Record<string, string> = {};
@@ -138,17 +171,18 @@ function parseFile(slug: string, raw: string): (Post & { draft: boolean }) | nul
     if (at > 0) meta[line.slice(0, at).trim()] = line.slice(at + 1).trim();
   }
   const { title, description, category, date, service } = meta;
-  if (!title || !description || !date || !(category in CATEGORIES) || !isServiceSlug(service)) {
-    throw new Error(`content/blog/${slug}.md: title, description, date, category and service are required (and must be valid)`);
+  if (!title || !description || !date || !isCategory(category) || !isServiceSlug(service)) {
+    throw new Error(`${lang === "en" ? "content/blog/en" : "content/blog"}/${slug}.md: title, description, date, category and service are required (and must be valid)`);
   }
   const body = match[2].trim();
-  const { html, headings } = render(body);
+  const { html, headings } = render(body, lang);
   const words = stripTags(html).split(/\s+/).filter(Boolean).length;
   return {
+    lang,
     slug,
     title,
     description,
-    category: category as CategoryId,
+    category,
     date,
     updated: meta.updated || date,
     service,
@@ -160,28 +194,28 @@ function parseFile(slug: string, raw: string): (Post & { draft: boolean }) | nul
   };
 }
 
-// Published articles, newest first.
-export function getPosts(): Post[] {
+// Published articles of a language, newest first.
+export function getPosts(lang: Lang = "ru"): Post[] {
   let files: string[] = [];
   try {
-    files = fs.readdirSync(DIR).filter((f) => f.endsWith(".md"));
+    files = listArticles(lang).filter((f) => f.endsWith(".md"));
   } catch {
     return [];
   }
   const posts: Post[] = [];
   for (const file of files) {
     const slug = file.replace(/\.md$/, "");
-    const post = parseFile(slug, fs.readFileSync(path.join(DIR, file), "utf8"));
+    const post = parseFile(lang, slug, readArticle(lang, file));
     if (post && !post.draft) posts.push(post);
   }
   return posts.sort((a, b) => b.date.localeCompare(a.date) || a.slug.localeCompare(b.slug));
 }
 
-export const getPost = (slug: string) => getPosts().find((p) => p.slug === slug);
+export const getPost = (slug: string, lang: Lang = "ru") => getPosts(lang).find((p) => p.slug === slug);
 
-// "2026-10-04" -> "4 октября 2026".
-export function formatDate(iso: string): string {
-  return new Date(`${iso}T12:00:00Z`).toLocaleDateString("ru-RU", {
+// "2026-10-04" -> "4 октября 2026" / "October 4, 2026".
+export function formatDate(iso: string, lang: Lang = "ru"): string {
+  return new Date(`${iso}T12:00:00Z`).toLocaleDateString(lang === "en" ? "en-US" : "ru-RU", {
     day: "numeric",
     month: "long",
     year: "numeric",

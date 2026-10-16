@@ -1,6 +1,8 @@
+import type { Lang } from "./lang";
+
 // Search engines are allowed in (since 29.09). Flip to false to close the
 // site again: it switches the robots meta tag, /robots.txt and the
-// X-Robots-Tag header at once (app/layout.tsx, app/robots.ts, next.config.ts).
+// X-Robots-Tag header at once (lib/pageMetadata.ts, app/robots.ts, next.config.ts).
 export const INDEXABLE = true;
 
 export const SITE_URL = "https://kel.agency";
@@ -10,13 +12,25 @@ export const SITE_NAME = "KEL Studio";
 // sitemap. Set by hand: bump it when a page's content changes. A build-time
 // date would claim every page changed on every deploy, and search engines then
 // stop trusting the field.
-export const CONTENT_UPDATED = "2026-10-09";
+export const CONTENT_UPDATED = "2026-10-16";
 
-// The home page's title and description: the <title> and meta tags in
-// app/layout.tsx and the description of the company in the structured data.
-export const SITE_TITLE = "Разработка сайтов под ключ и digital-продуктов | KEL Studio";
-export const SITE_DESCRIPTION =
-  "Веб-студия полного цикла KEL Studio: разработка сайтов, дизайн, продвижение и создание digital-продуктов для бизнеса. Создаём решения под задачи вашего проекта";
+// The home page's title and description in each language: the <title> and meta
+// tags (lib/pageMetadata.ts) and the
+// description of the company in the structured data.
+export const SITE_TEXT: Record<Lang, { title: string; description: string }> = {
+  ru: {
+    title: "Разработка сайтов под ключ и digital-продуктов | KEL Studio",
+    description:
+      "Веб-студия полного цикла KEL Studio: разработка сайтов, дизайн, продвижение и создание digital-продуктов для бизнеса. Создаём решения под задачи вашего проекта",
+  },
+  en: {
+    title: "Turnkey Website and Digital Product Development | KEL Studio",
+    description:
+      "KEL Studio is a full-cycle web studio: website development, design, SEO and promotion, Telegram bots and digital products for business.",
+  },
+};
+export const SITE_TITLE = SITE_TEXT.ru.title;
+export const SITE_DESCRIPTION = SITE_TEXT.ru.description;
 
 export const CONTACT_EMAIL = "info@kel.agency";
 export const TELEGRAM_URL = "https://t.me/io112";

@@ -17,6 +17,7 @@ import RichText from "@/components/RichText";
 import Assurances from "@/components/services/Assurances";
 import ServiceIllustration from "@/components/services/ServiceIllustration";
 import { SERVICE_CONFIG, SERVICES_PATH, servicePath, type ServiceCopy, type ServiceSlug } from "@/lib/services";
+import { useLang, useLocalePath } from "@/components/useLang";
 
 gsap.registerPlugin(ScrollTrigger, DrawSVGPlugin);
 
@@ -24,6 +25,8 @@ type PortfolioItem = { title: string; description: string; image: string; url: s
 
 export default function ServicePage({ slug }: { slug: ServiceSlug }) {
   const { t } = useTranslation();
+  const lang = useLang();
+  const lp = useLocalePath();
   const page = t(`servicePages.items.${slug}`, { returnObjects: true }) as ServiceCopy;
   const portfolio = t("portfolio.items", { returnObjects: true }) as PortfolioItem[];
   const rootRef = useRef<HTMLElement>(null);
@@ -117,8 +120,8 @@ export default function ServicePage({ slug }: { slug: ServiceSlug }) {
   const cases = caseIndexes.map((index) => portfolio[index]).filter(Boolean);
   const place = `Страница услуги: ${page.name}`;
   const crumbs = [
-    { name: t("servicePages.common.breadcrumbHome"), href: "/" },
-    { name: t("servicePages.common.breadcrumbServices"), href: SERVICES_PATH },
+    { name: t("servicePages.common.breadcrumbHome"), href: lp("/") },
+    { name: t("servicePages.common.breadcrumbServices"), href: lp(SERVICES_PATH) },
     { name: page.name },
   ];
 
@@ -347,7 +350,7 @@ export default function ServicePage({ slug }: { slug: ServiceSlug }) {
                 {related.map((other) => (
                   <Link
                     key={other}
-                    href={servicePath(other)}
+                    href={servicePath(other, lang)}
                     className="service-card group flex items-center justify-between gap-4 rounded-2xl border border-white/10 bg-white/3 px-6 py-5 transition-colors hover:border-white/25 hover:bg-white/5"
                   >
                     <span className="font-heading font-bold text-white">
@@ -369,7 +372,7 @@ export default function ServicePage({ slug }: { slug: ServiceSlug }) {
                 ))}
               </div>
               <Link
-                href={SERVICES_PATH}
+                href={lp(SERVICES_PATH)}
                 className="mt-6 inline-block text-gray-400 underline underline-offset-4 transition-colors hover:text-white"
               >
                 {t("servicePages.common.allServices")}

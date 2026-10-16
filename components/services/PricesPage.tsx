@@ -10,6 +10,7 @@ import ContactModal from "@/components/ContactModal";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import RichText from "@/components/RichText";
 import { PER_TASK_SLUGS, PRICE_TABLE_SLUGS, SERVICES_PATH, servicePath, type ServiceCopy } from "@/lib/services";
+import { useLang, useLocalePath } from "@/components/useLang";
 
 type Pair = { title: string; text: string };
 type Faq = { q: string; a: string };
@@ -19,12 +20,14 @@ type Faq = { q: string; a: string };
 // price list on the home page.
 export default function PricesPage() {
   const { t } = useTranslation();
+  const lang = useLang();
+  const lp = useLocalePath();
   const copy = (slug: string) => t(`servicePages.items.${slug}`, { returnObjects: true }) as ServiceCopy;
   const factors = t("servicePages.pricesPage.factors", { returnObjects: true }) as Pair[];
   const how = t("servicePages.pricesPage.how", { returnObjects: true }) as Pair[];
   const faq = t("servicePages.pricesPage.faq", { returnObjects: true }) as Faq[];
   const crumbs = [
-    { name: t("servicePages.common.breadcrumbHome"), href: "/" },
+    { name: t("servicePages.common.breadcrumbHome"), href: lp("/") },
     { name: t("servicePages.pricesPage.crumb") },
   ];
 
@@ -78,7 +81,7 @@ export default function PricesPage() {
                         <tr key={slug} className="transition-colors hover:bg-white/3">
                           <th scope="row" className="px-4 py-4 font-normal sm:px-6">
                             <Link
-                              href={servicePath(slug)}
+                              href={servicePath(slug, lang)}
                               className="font-heading font-bold text-white underline-offset-4 hover:underline"
                             >
                               {row.name}
@@ -107,7 +110,7 @@ export default function PricesPage() {
                 {PER_TASK_SLUGS.map((slug) => (
                   <li key={slug}>
                     <Link
-                      href={servicePath(slug)}
+                      href={servicePath(slug, lang)}
                       className="inline-block rounded-full border border-white/10 bg-white/3 px-4 py-2 text-gray-300 transition-colors hover:border-white/25 hover:text-white"
                     >
                       {copy(slug).name}
@@ -198,7 +201,7 @@ export default function PricesPage() {
                 </ContactModal>
               </div>
               <Link
-                href={SERVICES_PATH}
+                href={lp(SERVICES_PATH)}
                 className="mt-6 inline-block text-gray-400 underline underline-offset-4 transition-colors hover:text-white"
               >
                 {t("servicePages.common.allServices")}

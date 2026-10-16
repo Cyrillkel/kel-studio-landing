@@ -2,7 +2,7 @@
 
 Marketing site of KEL Studio, a web studio: https://kel.agency
 
-The site is in Russian, with an English UI option for the main pages. The blog is Russian only.
+The site has two language versions: Russian at the root (`/`) and English under `/en`. Every page exists in both, with its own address, title, description, structured data and `hreflang` links (see "Languages").
 
 ## Stack
 
@@ -32,18 +32,35 @@ npx eslint .        # lint
 
 | Path | What is there |
 | --- | --- |
-| `app/` | Routes: home, `/services`, `/services/[slug]`, `/prices`, `/blog`, `/blog/[slug]` (plus `rss.xml` and a per-article social image), `/privacy`, `api/contact`, `robots.ts`, `sitemap.ts`, the 404 page, `globals.css` |
-| `components/` | Page sections (Hero, Services, Pricing, Portfolio, Process, Faq, Contact), `hero/` (technology icons animation), `services/` (service pages), `blog/`, `ui/` (buttons), header and footer, cookie notice, contact form and modal |
-| `lib/` | Site constants (`site.ts`), service config (`services.ts`), blog loader (`blog.ts`), JSON-LD builders (`schema.ts`), theme logic (`theme.ts`), contact form validation (`contactSchema.ts`), Yandex Metrika goals (`metrika.ts`), privacy policy loader (`privacy.ts`) |
-| `locales/` | `ru.json` and `en.json`: UI strings and the copy of every service page |
-| `content/` | `blog/*.md` (articles) and `privacy.html` (privacy policy) |
-| `public/` | Static files: portfolio screenshots, video |
+| `app/(ru)/` | The Russian routes, at the root: home, `/services`, `/services/[slug]`, `/prices`, `/blog`, `/blog/[slug]`, `/privacy`, `rss.xml`, social images, and the Russian root layout |
+| `app/(en)/en/` | The same routes under `/en`, and the English root layout (`app/(en)/layout.tsx`) |
+| `app/` (root) | `api/contact`, `robots.ts`, `sitemap.ts`, `global-not-found.tsx` (the 404 page of both languages), icons, `globals.css` |
+| `components/routes/` | One module per page type (home, services, service, prices, privacy, blog index, blog post): the page component and its metadata. The `page.tsx` files of both languages are thin wrappers around them |
+| `components/` | Page sections (Hero, Services, Pricing, Portfolio, Process, Faq, Contact), `hero/` (technology icons animation), `services/` (service pages), `blog/`, `ui/` (buttons), header and footer, language switcher, cookie notice, contact form and modal, `RootShell.tsx` (`<html>` and `<body>` of both layouts) |
+| `lib/` | Site constants (`site.ts`), languages and addresses (`lang.ts`, `routes.ts`), dictionaries (`dictionary.ts`, `i18n/`), service config (`services.ts`), blog loader (`blog.ts`), page metadata and hreflang (`pageMetadata.ts`), JSON-LD builders (`schema.ts`), theme logic (`theme.ts`), contact form validation (`contactSchema.ts`), Yandex Metrika goals (`metrika.ts`), privacy policy loader (`privacy.ts`) |
+| `locales/` | `ru.json` and `en.json`: UI strings and the copy of every service page; the two files have the same keys |
+| `content/` | `blog/*.md` and `blog/en/*.md` (articles), `privacy.html` and `privacy.en.html` (privacy policy) |
+| `public/` | Static files: portfolio screenshots, video, article images |
+
+## Languages
+
+Russian is the main language and lives at the root, so the addresses that are already indexed do not change. English lives under `/en`. The two versions are separate routes with separate root layouts (`app/(ru)/layout.tsx`, `app/(en)/layout.tsx`), because `<html lang>` has to be right in the HTML the server sends. Going from one language to the other is a normal page load.
+
+- **Addresses.** `/services/vizitka` has the English address `/en/services/business-card-website`; four services have different English addresses (`SERVICE_SLUG_EN` in `lib/services.ts`, change one there and add a redirect in `next.config.ts` once the old one has been indexed). Blog articles have the same slug in both languages.
+- **Texts.** `locales/ru.json` and `locales/en.json` have the same keys (`tools/i18n-check/check_keys.py` checks it). Each language has its own i18next instance with its dictionary inlined (`lib/i18n/`, `components/I18nProviderRu.tsx`, `components/I18nProviderEn.tsx`), so a page ships only its own language. Server code reads texts with `getDictionary(lang)` from `lib/dictionary.ts`; never import that file in a client component, it would pull both dictionaries into the bundle.
+- **Links in texts** (locale strings and articles) are always written the Russian way: `[text](/services/vizitka)`, `/blog/slug`, `/#contact`. `localizePath` in `lib/routes.ts` turns them into the right address for the page's language, and `alternatePath` finds the same page in the other language for the switcher.
+- **Search engines.** Every page has a canonical link to itself and `hreflang` links for `ru`, `en` and `x-default` (`lib/pageMetadata.ts`; `X_DEFAULT` says which version `x-default` points to), and the sitemap lists both versions with their alternates. There is no redirect by `Accept-Language`: one address always gives one language.
+- **Prices.** The English pages show dollars: the ruble price list divided by `RUB_PER_USD` (`lib/services.ts`, currently 100, so 20,000 RUB reads $200). The figures in `locales/en.json`, the blog and the structured data have to agree with it: run `tools/i18n-check/check_prices.py` after any price change.
+- **404.** Next.js cannot give each root layout its own `not-found` page, so there is one `app/global-not-found.tsx` (enabled by `experimental.globalNotFound` in `next.config.ts`). It holds both languages and a small script in `<head>` shows the one that matches the address.
+- **Fonts.** `lib/fonts.ru.ts` loads Latin and Cyrillic, `lib/fonts.en.ts` Latin only. Do not import `fonts.ru` from anything the English pages share (the 404 page uses `fonts.en` for this reason): the build would add the Cyrillic preloads to every page.
+
+To add a page type, write its route module in `components/routes/`, add a thin `page.tsx` in each language group, and add the page to `app/sitemap.ts`. The checks in `../tools/i18n-check/` (see its README) crawl a running copy and verify addresses, hreflang, canonicals, Cyrillic leftovers on English pages and structured data.
 
 ## Content
 
-**Services.** The list and order live in `lib/services.ts` (`SERVICE_SLUGS`, `SERVICE_CONFIG`); the text of each page is in `locales/*.json` under `servicePages.items.<slug>`. To add a service: add the slug and its config, add a scene to `components/services/ServiceIllustration.tsx`, write the copy in both locale files, then bump `CONTENT_UPDATED` in `lib/site.ts`.
+**Services.** The list and order live in `lib/services.ts` (`SERVICE_SLUGS`, `SERVICE_CONFIG`); the text of each page is in `locales/*.json` under `servicePages.items.<slug>`. To add a service: add the slug and its config, add a scene to `components/services/ServiceIllustration.tsx`, write the copy in both locale files (English prices in dollars), then bump `CONTENT_UPDATED` in `lib/site.ts`.
 
-**Blog.** One Markdown file per article in `content/blog/<slug>.md`; the file name is the URL. The file starts with a front matter block of `key: value` lines between two `---` lines:
+**Blog.** One Markdown file per article in `content/blog/<slug>.md` (Russian) and `content/blog/en/<slug>.md` (English); the file name is the URL, and the same name in both folders is what ties the two versions together. An article without an English file simply does not appear on the English pages. The file starts with a front matter block of `key: value` lines between two `---` lines (the English file has the same keys and the same `category`, `date`, `service` and `related`; only `title`, `description` and `query` are translated):
 
 | Key | Meaning |
 | --- | --- |
@@ -57,13 +74,13 @@ npx eslint .        # lint
 
 `title`, `description`, `date`, `category` and `service` are required; a bad header fails the build with a clear message. To publish: add the file, commit, push.
 
-**Privacy policy.** Plain HTML in `content/privacy.html`. After editing it, bump `POLICY_UPDATED` in `lib/privacy.ts`. The file must be committed: the site is built from the repository, and an empty file makes the page `noindex` and drops it from the sitemap.
+**Privacy policy.** Plain HTML in `content/privacy.html`; `content/privacy.en.html` is its English translation (the Russian text prevails, and the English page says so). After editing either, bump `POLICY_UPDATED` in `lib/privacy.ts`. The files must be committed: the site is built from the repository, and an empty file makes that language's page `noindex` and drops it from the sitemap. `tools/i18n-check/check_privacy.py` compares the two files clause by clause.
 
 **Dates.** `CONTENT_UPDATED` in `lib/site.ts` is the `lastmod` of the pages in the sitemap. Set it by hand when content changes.
 
 ## Theme
 
-The site has a dark theme (default) and a light theme, switched by the `data-theme` attribute on `<html>`. A small inline script in `app/layout.tsx` (source in `lib/theme.ts`) applies the saved choice before the first paint, so the page does not flash; the header button is `components/ThemeToggle.tsx`.
+The site has a dark theme (default) and a light theme, switched by the `data-theme` attribute on `<html>`. A small inline script in the root layouts (`components/RootShell.tsx`, source in `lib/theme.ts`) applies the saved choice before the first paint, so the page does not flash; the header button is `components/ThemeToggle.tsx`.
 
 Components are written in the dark palette. In the light theme the neutral Tailwind colors are mirrored in `app/globals.css`, so `text-white` means "primary text color", `bg-white/5` and `border-white/10` are tints of that ink, and `text-gray-*` steps are inverted. Write new code with the same classes and do not use hex colors. Surfaces and effects have variables (`bg-page`, `bg-card`, `bg-popover`, `shadow-shade/NN`, `var(--glow)` and so on). Use `text-snow` for text that must stay white on a colored fill.
 
@@ -80,7 +97,7 @@ A channel with missing variables is skipped; if no channel delivers, the endpoin
 
 ## SEO and analytics
 
-- `app/sitemap.ts`, `app/robots.ts`, social images, and JSON-LD (`lib/schema.ts`: one graph per page with the organization, the page, breadcrumbs, and service, FAQ or article data).
+- `app/sitemap.ts`, `app/robots.ts`, social images (route handlers named `opengraph-image/route.tsx` in each language group: the metadata-file convention puts a hash into the address inside route groups), and JSON-LD (`lib/schema.ts`: one graph per page with the organization, the page, breadcrumbs, and service, FAQ or article data, in the page's language).
 - `INDEXABLE` in `lib/site.ts` switches the robots meta tag, `/robots.txt` and the `X-Robots-Tag` header together. Set it to `false` to close the site from search engines.
 - Search engine ownership codes are in `VERIFICATION` (`lib/site.ts`) and rendered as meta tags.
 - Yandex Metrika is loaded after the page has loaded and only on the production domain. The goals sent from the site are listed in `lib/metrika.ts`.
@@ -104,6 +121,6 @@ journalctl -u kel-studio -n 50 --no-pager     # site logs, run on the server
 
 ## Conventions
 
-- Code comments and this README are written in English. User-facing text (Russian, plus the English UI) lives in `locales/` and `content/`.
+- Code comments and this README are written in English. User-facing text (Russian and English) lives in `locales/` and `content/`.
 - No secrets in the repository.
 - Detailed working notes (in Russian) are kept next to the repository, outside it: `KEL-STUDIO-CONTEXT.md`, `BLOG-PLAN.md`, `SEO-AUDIT.md`.

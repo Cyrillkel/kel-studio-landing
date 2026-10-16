@@ -9,7 +9,8 @@
     "menu": "Menu",
     "allServices": "All services",
     "call": "Call",
-    "home": "KEL Studio, home"
+    "home": "KEL Studio, home",
+    "language": "Language"
   },
   "theme": {
     "toLight": "Switch to light theme",
@@ -50,7 +51,7 @@
         "description": "SEO, Yandex Direct, Google Ads, and targeting on VKontakte and in Telegram. We drive targeted traffic and grow your business's sales."
       },
       {
-        "title": "Parsing",
+        "title": "Web Scraping",
         "description": "Automated collection and structuring of data from websites, marketplaces, and APIs. Price monitoring and exports tailored to your needs."
       }
     ],
@@ -63,39 +64,39 @@
     "items": [
       {
         "title": "Business Card Site",
-        "price": "from $211"
+        "price": "from $200"
       },
       {
         "title": "Landing Page",
-        "price": "from $526"
+        "price": "from $500"
       },
       {
         "title": "Corporate Website",
-        "price": "from $1,053"
+        "price": "from $1,000"
       },
       {
         "title": "Online Store",
-        "price": "from $1,579"
+        "price": "from $1,500"
       },
       {
         "title": "Web Application",
-        "price": "from $22/hour"
+        "price": "from $20/hour"
       },
       {
         "title": "Design",
-        "price": "from $158"
+        "price": "from $200"
       },
       {
         "title": "SEO Promotion",
-        "price": "from $158"
+        "price": "from $200"
       },
       {
         "title": "Yandex Direct Management",
-        "price": "from $250"
+        "price": "from $200"
       },
       {
-        "title": "Parsing",
-        "price": "from $316"
+        "title": "Web Scraping",
+        "price": "from $300"
       }
     ],
     "details": "More about prices and timelines"
@@ -205,7 +206,7 @@
     "items": [
       {
         "question": "How much does a website cost?",
-        "answer": "The price depends on the type of site, its scope, and features. You can find guideline prices in the Pricing section: for example, a landing page from $526 and a corporate website from $1,053. We give an exact quote after the brief and fix it in the contract."
+        "answer": "The price depends on the type of site, its scope, and features. You can find guideline prices in the Pricing section: for example, a landing page from $500 and a corporate website from $1,000. We give an exact quote after the brief and fix it in the contract."
       },
       {
         "question": "How long does development take?",
@@ -266,7 +267,8 @@
   "footer": {
     "copyright": "© 2026 KEL Studio. All rights reserved.",
     "privacy": "Privacy Policy",
-    "navLabel": "Site sections"
+    "navLabel": "Site sections",
+    "otherLanguage": "Русский"
   },
   "cookies": {
     "label": "Cookie notice",
@@ -277,7 +279,8 @@
     "title": "Page not found",
     "text": "The address may have changed or contains a typo. Go back to the home page or pick a service.",
     "home": "Back to home",
-    "services": "Services"
+    "services": "Services",
+    "metaTitle": "Page not found | KEL Studio"
   },
   "servicePages": {
     "common": {
@@ -306,12 +309,12 @@
       "landing": {
         "name": "Landing pages",
         "title": "Turnkey landing page development",
-        "metaTitle": "Order a turnkey landing page from 50,000 ₽ - KEL Studio",
-        "metaDescription": "Turnkey landing pages and one-page sites: design, layout, request form and analytics. 1-2 weeks, from 50,000 ₽.",
+        "metaTitle": "Landing page development from $500 - KEL Studio",
+        "metaDescription": "Turnkey landing pages and one-page sites: design, layout, request form and analytics. 1-2 weeks, from $500.",
         "short": "A one-page site for one service or offer: from prototype to launch in 1-2 weeks.",
-        "lead": "A landing page in 1-2 weeks, from 50,000 ₽. We plan the structure, draw the design, build it and connect the request form and Metrika. Price and timeline are fixed in the contract.",
+        "lead": "A landing page in 1-2 weeks, from $500. We plan the structure, draw the design, build it and connect the request form and Metrika. Price and timeline are fixed in the contract.",
         "cta": "Calculate my landing page",
-        "price": "from 50,000 ₽",
+        "price": "from $500",
         "term": "1-2 weeks",
         "bodyTitle": "A turnkey landing page you can send ad traffic to right away",
         "body": [
@@ -357,7 +360,7 @@
         "faq": [
           {
             "q": "How much does a landing page cost?",
-            "a": "A landing page costs from 50,000 ₽. The final price depends on the number of blocks, design complexity and integrations; we name it after the brief and fix it in the contract."
+            "a": "A landing page costs from $500. The final price depends on the number of blocks, design complexity and integrations; we name it after the brief and fix it in the contract."
           },
           {
             "q": "How long does it take to make a landing page?",
@@ -380,12 +383,12 @@
       "vizitka": {
         "name": "Business card sites",
         "title": "Turnkey business card website",
-        "metaTitle": "Order a business card website turnkey from 20,000 ₽ - KEL Studio",
-        "metaDescription": "Business card websites for companies, specialists and craftsmen: design, responsive layout, contacts, request form. 1-2 weeks, from 20,000 ₽.",
+        "metaTitle": "Business card website development from $200 - KEL Studio",
+        "metaDescription": "Business card websites for companies, specialists and craftsmen: design, responsive layout, contacts, request form. 1-2 weeks, from $200.",
         "short": "A small site about a company or a specialist: contacts, services and a request form in 1-2 weeks.",
-        "lead": "A neat site about you or your company: services, examples of work, contacts and a request form. Ready in 1-2 weeks, from 20,000 ₽.",
+        "lead": "A neat site about you or your company: services, examples of work, contacts and a request form. Ready in 1-2 weeks, from $200.",
         "cta": "Get the price of a business card site",
-        "price": "from 20,000 ₽",
+        "price": "from $200",
         "term": "1-2 weeks",
         "bodyTitle": "A business card site you can send a client to",
         "body": [
@@ -427,7 +430,7 @@
         "faq": [
           {
             "q": "How much does a business card website cost?",
-            "a": "Business card sites start from 20,000 ₽. The price depends on the number of pages and design complexity; we name it after the brief and fix it in the contract."
+            "a": "Business card sites start from $200. The price depends on the number of pages and design complexity; we name it after the brief and fix it in the contract."
           },
           {
             "q": "How is a business card site different from a landing page?",
@@ -450,12 +453,12 @@
       "corporate": {
         "name": "Corporate websites",
         "title": "Turnkey corporate website development",
-        "metaTitle": "Corporate website development from 100,000 ₽ - KEL Studio",
-        "metaDescription": "Turnkey corporate websites: structure, design, service catalog, admin panel and integrations. 3-5 weeks, from 100,000 ₽.",
+        "metaTitle": "Corporate website development from $1,000 - KEL Studio",
+        "metaDescription": "Turnkey corporate websites: structure, design, service catalog, admin panel and integrations. 3-5 weeks, from $1,000.",
         "short": "A multi-page company site with services and an admin panel: 3-5 weeks.",
-        "lead": "A company site where clients find services, prices and contacts without calling you. Developed in 3-5 weeks, from 100,000 ₽, with an admin panel so you change texts and news yourself.",
+        "lead": "A company site where clients find services, prices and contacts without calling you. Developed in 3-5 weeks, from $1,000, with an admin panel so you change texts and news yourself.",
         "cta": "Calculate a company site",
-        "price": "from 100,000 ₽",
+        "price": "from $1,000",
         "term": "3-5 weeks",
         "bodyTitle": "A corporate website that answers the client's questions before a call",
         "body": [
@@ -501,7 +504,7 @@
         "faq": [
           {
             "q": "How much does a corporate website cost?",
-            "a": "Corporate websites start from 100,000 ₽. The price depends on the number of pages, design complexity, features and integrations. We name the exact cost after the brief and fix it in the contract."
+            "a": "Corporate websites start from $1,000. The price depends on the number of pages, design complexity, features and integrations. We name the exact cost after the brief and fix it in the contract."
           },
           {
             "q": "How long does development take?",
@@ -524,12 +527,12 @@
       "ecommerce": {
         "name": "Online stores",
         "title": "Turnkey online store development",
-        "metaTitle": "Create an online store turnkey from 150,000 ₽ - KEL Studio",
-        "metaDescription": "Turnkey online stores: catalog, cart, payment, delivery, MoySklad and CRM integration. From 1.5 months, from 150,000 ₽.",
+        "metaTitle": "Online store development from $1,500 - KEL Studio",
+        "metaDescription": "Turnkey online stores: catalog, cart, payment, delivery, MoySklad and CRM integration. From 1.5 months, from $1,500.",
         "short": "A store with catalog, cart, payment and delivery, convenient on a phone: from 1.5 months.",
-        "lead": "An online store with a catalog, cart, payment and delivery that is convenient to use on a phone. From 150,000 ₽, from 1.5 months; the price and stages are fixed in the contract.",
+        "lead": "An online store with a catalog, cart, payment and delivery that is convenient to use on a phone. From $1,500, from 1.5 months; the price and stages are fixed in the contract.",
         "cta": "Calculate a store",
-        "price": "from 150,000 ₽",
+        "price": "from $1,500",
         "term": "from 1.5 months",
         "bodyTitle": "A turnkey online store: from the catalog to the first order",
         "body": [
@@ -575,7 +578,7 @@
         "faq": [
           {
             "q": "How much does it cost to create an online store?",
-            "a": "Online stores start from 150,000 ₽. The cost depends on the number of products and categories, features and integrations with MoySklad and CRM. We name the exact price after the brief."
+            "a": "Online stores start from $1,500. The cost depends on the number of products and categories, features and integrations with MoySklad and CRM. We name the exact price after the brief."
           },
           {
             "q": "How long does it take to create a store?",
@@ -649,7 +652,7 @@
         "faq": [
           {
             "q": "How much does a WordPress site cost?",
-            "a": "The price depends on the type of site: a [business card site](/services/vizitka) from 20,000 ₽, a [landing page](/services/landing) from 50,000 ₽, a [corporate website](/services/corporate) from 100,000 ₽, an [online store](/services/ecommerce) from 150,000 ₽. We name the exact price after the brief."
+            "a": "The price depends on the type of site: a [business card site](/services/vizitka) from $200, a [landing page](/services/landing) from $500, a [corporate website](/services/corporate) from $1,000, an [online store](/services/ecommerce) from $1,500. We name the exact price after the brief."
           },
           {
             "q": "Is WordPress better or worse than a custom-built site?",
@@ -672,12 +675,12 @@
       "design": {
         "name": "Web design",
         "title": "Web design and UI/UX design of websites",
-        "metaTitle": "Order website design: web design and UI/UX from 20,000 ₽ - KEL Studio",
-        "metaDescription": "Website and interface design to order: prototype, layout, UI/UX design for landing pages, corporate websites and applications. From 20,000 ₽.",
+        "metaTitle": "Order website design: web design and UI/UX from $200 - KEL Studio",
+        "metaDescription": "Website and interface design to order: prototype, layout, UI/UX design for landing pages, corporate websites and applications. From $200.",
         "short": "Prototypes and layouts of sites and applications: clear structure and design in your brand style.",
-        "lead": "Prototypes and layouts for sites, stores and applications: from page structure to finished screens for computer and phone. From 20,000 ₽. Can be ordered separately from development.",
+        "lead": "Prototypes and layouts for sites, stores and applications: from page structure to finished screens for computer and phone. From $200. Can be ordered separately from development.",
         "cta": "Calculate design",
-        "price": "from 20,000 ₽",
+        "price": "from $200",
         "term": "named after the brief",
         "bodyTitle": "Web design where it is clear what to click",
         "body": [
@@ -723,7 +726,7 @@
         "faq": [
           {
             "q": "How much does website design cost?",
-            "a": "Design starts from 20,000 ₽. The price depends on the number of pages and screens and the complexity of the interface. We name it after the brief."
+            "a": "Design starts from $200. The price depends on the number of pages and screens and the complexity of the interface. We name it after the brief."
           },
           {
             "q": "What is the difference between UX and UI?",
@@ -746,12 +749,12 @@
       "seo": {
         "name": "SEO promotion",
         "title": "SEO promotion in Yandex and Google",
-        "metaTitle": "SEO promotion in Yandex and Google from 20,000 ₽ - KEL Studio",
-        "metaDescription": "Website promotion in Yandex and Google: technical audit, semantics, page optimization and reporting. No promises of \"top 1 in a week\". From 20,000 ₽.",
+        "metaTitle": "SEO promotion in Yandex and Google from $200 - KEL Studio",
+        "metaDescription": "Website promotion in Yandex and Google: technical audit, semantics, page optimization and reporting. No promises of \"top 1 in a week\". From $200.",
         "short": "Audit, semantics, optimization and monthly reports. First results in 2-3 months.",
-        "lead": "We promote sites in Yandex and Google. We start with an audit and semantics, then fix the site and texts, and send a report with numbers once a month. From 20,000 ₽; first changes usually appear in 2-3 months.",
+        "lead": "We promote sites in Yandex and Google. We start with an audit and semantics, then fix the site and texts, and send a report with numbers once a month. From $200; first changes usually appear in 2-3 months.",
         "cta": "Calculate promotion",
-        "price": "from 20,000 ₽",
+        "price": "from $200",
         "term": "first results in 2-3 months",
         "bodyTitle": "SEO promotion with a monthly report",
         "body": [
@@ -797,7 +800,7 @@
         "faq": [
           {
             "q": "How much does SEO promotion cost?",
-            "a": "Promotion starts from 20,000 ₽. The cost depends on the size of the site, competition in the niche and scope of work. After the audit we propose a plan and name the price."
+            "a": "Promotion starts from $200. The cost depends on the size of the site, competition in the niche and scope of work. After the audit we propose a plan and name the price."
           },
           {
             "q": "How soon will there be results?",
@@ -890,12 +893,12 @@
       "yandex-direct": {
         "name": "Yandex Direct",
         "title": "Yandex Direct setup and management",
-        "metaTitle": "Yandex Direct setup and management from 20,000 ₽ - KEL Studio",
-        "metaDescription": "Turnkey contextual advertising in Yandex Direct: queries, ads, bids, analytics and reports. Ad management from 20,000 ₽.",
+        "metaTitle": "Yandex Direct setup and management from $200 - KEL Studio",
+        "metaDescription": "Turnkey contextual advertising in Yandex Direct: queries, ads, bids, analytics and reports. Ad management from $200.",
         "short": "Setup and management of contextual ads: queries, ads, bids and reports.",
-        "lead": "We set up and run Yandex Direct: we pick queries, write ads, watch bids and show the result in numbers. Management from 20,000 ₽; the advertising budget is paid separately.",
+        "lead": "We set up and run Yandex Direct: we pick queries, write ads, watch bids and show the result in numbers. Management from $200; the advertising budget is paid separately.",
         "cta": "Calculate the budget",
-        "price": "from 20,000 ₽",
+        "price": "from $200",
         "term": "named after the brief",
         "bodyTitle": "Yandex Direct where you can see what a request costs",
         "body": [
@@ -941,7 +944,7 @@
         "faq": [
           {
             "q": "How much does Yandex Direct management cost?",
-            "a": "Management starts from 20,000 ₽. The advertising budget that Yandex charges is paid separately. Its size depends on the niche and the number of queries; we make a forecast at the analysis stage."
+            "a": "Management starts from $200. The advertising budget that Yandex charges is paid separately. Its size depends on the niche and the number of queries; we make a forecast at the analysis stage."
           },
           {
             "q": "What budget is needed to start?",
@@ -964,7 +967,7 @@
       "google-ads": {
         "name": "Google Ads",
         "title": "Google Ads setup and management",
-        "metaTitle": "Google Ads setup and management for markets outside Russia - KEL Studio",
+        "metaTitle": "Google Ads setup and management outside Russia - KEL Studio",
         "metaDescription": "Google Ads setup for markets outside Russia: search, display and YouTube ads, remarketing, goal tracking and reports. The price is named after the brief.",
         "short": "Google contextual ads for foreign markets: campaigns, analytics and reports.",
         "lead": "We set up and run Google Ads for sales outside Russia: ads in search, on partner sites and in YouTube, remarketing and reports on requests. The advertising budget is paid separately.",
@@ -1038,7 +1041,7 @@
       "vk-ads": {
         "name": "VK targeting",
         "title": "Targeted advertising setup on VKontakte",
-        "metaTitle": "Targeted advertising on VKontakte: setup and management - KEL Studio",
+        "metaTitle": "VKontakte targeted ads: setup and management - KEL Studio",
         "metaDescription": "Turnkey targeted advertising on VKontakte: audiences, ads, retargeting, ad labelling and reports. The cost of management is named after the brief.",
         "short": "Setup and management of targeted ads in VK Ads: audiences, ads, retargeting and reports.",
         "lead": "We set up and run targeted advertising on VKontakte: we pick audiences, make ads, connect the pixel and show what a request costs. The advertising budget is paid separately.",
@@ -1112,7 +1115,7 @@
       "telegram-ads": {
         "name": "Telegram targeting",
         "title": "Targeted advertising setup in Telegram",
-        "metaTitle": "Targeted advertising in Telegram: setup and management - KEL Studio",
+        "metaTitle": "Telegram targeted ads: setup and management - KEL Studio",
         "metaDescription": "Turnkey targeted advertising in Telegram Ads: channels and audiences, ads, labelling, pixel and reports. The cost of management is named after the brief.",
         "short": "Advertising in Telegram Ads: channels, audiences, ads, labelling and reports.",
         "lead": "We set up and run advertising in Telegram Ads: we choose channels and audiences, write ads, install the pixel and count what a subscriber or a request costs. The advertising budget is paid separately.",
@@ -1256,12 +1259,12 @@
       "web-apps": {
         "name": "Web applications",
         "title": "Custom web application and service development",
-        "metaTitle": "Custom web application development from 2,000 ₽/hour - KEL Studio",
-        "metaDescription": "Custom web applications, personal accounts, CRM, SaaS and API integrations. React, Next.js, Node.js. From 2,000 ₽/hour.",
+        "metaTitle": "Custom web application development from $20/hour - KEL Studio",
+        "metaDescription": "Custom web applications, personal accounts, CRM, SaaS and API integrations. React, Next.js, Node.js. From $20/hour.",
         "short": "Personal accounts, dashboards, CRM, SaaS services and API integrations.",
-        "lead": "We develop personal accounts, dashboards, CRM and SaaS services to order. We work by the hour, from 2,000 ₽ per hour, and after analyzing the task we give an estimate by stages.",
+        "lead": "We develop personal accounts, dashboards, CRM and SaaS services to order. We work by the hour, from $20 per hour, and after analyzing the task we give an estimate by stages.",
         "cta": "Discuss the task",
-        "price": "from 2,000 ₽/hour",
+        "price": "from $20/hour",
         "term": "depends on the scope",
         "bodyTitle": "A web application for your processes",
         "body": [
@@ -1307,7 +1310,7 @@
         "faq": [
           {
             "q": "How much does web application development cost?",
-            "a": "We price the work by the hour: from 2,000 ₽ per hour. The total depends on scope and complexity. After analyzing the task we give an estimate by stages so you can see what you pay for."
+            "a": "We price the work by the hour: from $20 per hour. The total depends on scope and complexity. After analyzing the task we give an estimate by stages so you can see what you pay for."
           },
           {
             "q": "Where to start if I only have an idea?",
@@ -1558,7 +1561,7 @@
       "web3": {
         "name": "Web3 development",
         "title": "Web3 development: smart contracts and dApps",
-        "metaTitle": "Web3 development: Tact (TON) and Solidity smart contracts - KEL Studio",
+        "metaTitle": "Web3 development: TON (Tact) and Solidity contracts - KEL Studio",
         "metaDescription": "Web3 projects: smart contracts in Tact for TON and in Solidity for Ethereum, dApps, wallet connection, interfaces. Estimate after the brief.",
         "short": "Smart contracts, dApps and interfaces for blockchain projects.",
         "lead": "We develop smart contracts in Tact for the TON blockchain and in Solidity for Ethereum-compatible networks, as well as dApps and interfaces that connect wallets. First a prototype on a test network, then a full launch.",
@@ -1638,7 +1641,7 @@
         "name": "AI assistants",
         "title": "AI assistant development for business",
         "metaTitle": "AI assistant for business to order: development - KEL Studio",
-        "metaDescription": "AI assistant development: chat on your site and in Telegram, answers from your knowledge base, request intake, handoff to a manager, CRM integrations. Estimate after the brief.",
+        "metaDescription": "AI assistant for business: chat on your site and in Telegram, answers from your knowledge base, request intake, handoff to a manager. Estimate after the brief.",
         "short": "Chat assistants on your site and in Telegram: they answer from your knowledge base and take requests.",
         "lead": "We build AI assistants that answer customers and staff from your own materials: prices, terms, instructions. They work on your site and in Telegram, collect requests and pass hard questions to a person.",
         "cta": "Discuss an AI assistant",
@@ -1712,7 +1715,7 @@
         "name": "MCP servers",
         "title": "MCP server development for AI assistants",
         "metaTitle": "MCP server development to order - KEL Studio",
-        "metaDescription": "MCP server development: we connect AI assistants (Claude, ChatGPT, Cursor and others) to your CRM, database and internal services. Access rights, tests, launch. Estimate after the brief.",
+        "metaDescription": "MCP server development: we connect AI assistants (Claude, ChatGPT, Cursor) to your CRM, database and internal services. Access rights, tests, launch.",
         "short": "We connect AI assistants to your data and services through the MCP protocol.",
         "lead": "MCP (Model Context Protocol) is an open protocol through which an AI assistant gets access to your data and tools: CRM, database, spreadsheets, internal API. We build MCP servers to order: you decide what exactly the assistant may read and do.",
         "cta": "Discuss an MCP server",
@@ -1787,19 +1790,19 @@
         ]
       },
       "parsing": {
-        "name": "Data parsing",
-        "title": "Website parsing and data collection to order",
-        "metaTitle": "Website and data parsing to order from 30,000 ₽ - KEL Studio",
-        "metaDescription": "Order parsing: automatic data collection from websites and marketplaces, competitor price monitoring. Export to Excel, a database or an API. From 30,000 ₽.",
+        "name": "Web scraping",
+        "title": "Web scraping and data collection to order",
+        "metaTitle": "Web scraping and data parsing from $300 - KEL Studio",
+        "metaDescription": "Order web scraping: automatic data collection from websites and marketplaces, competitor price monitoring. Export to Excel, a database or an API. From $300.",
         "short": "Automatic collection of prices, catalogs and listings exported to a table, database or API.",
-        "lead": "We collect data from websites and deliver it to Excel, Google Sheets, a database or through an API: competitor prices, supplier catalogs, listings. From 30,000 ₽; first result from a few days.",
-        "cta": "Calculate parsing",
-        "price": "from 30,000 ₽",
+        "lead": "We collect data from websites and deliver it to Excel, Google Sheets, a database or through an API: competitor prices, supplier catalogs, listings. From $300; first result from a few days.",
+        "cta": "Get a scraping quote",
+        "price": "from $300",
         "term": "from a few days",
-        "bodyTitle": "Data parsing to order: prices, catalogs, listings",
+        "bodyTitle": "Web scraping to order: prices, catalogs, listings",
         "body": [
-          "A parser visits pages, takes the fields you need (price, name, availability, contacts, reviews) and puts them into a table or a database. This lets you track competitor prices, collect supplier catalogs, fill your own [online store](/services/ecommerce) and find new listings without manual work.",
-          "We write a parser for your task: we define sources and fields, clean the data, bring it to a single format and set up scheduled runs. We can report changes in Telegram through a [bot](/services/telegram-bots). We collect only publicly available data and respect the rules of the source sites."
+          "A scraper (also called a parser) visits pages, takes the fields you need (price, name, availability, contacts, reviews) and puts them into a table or a database. This lets you track competitor prices, collect supplier catalogs, fill your own [online store](/services/ecommerce) and find new listings without manual work.",
+          "We write a scraper for your task: we define sources and fields, clean the data, bring it to a single format and set up scheduled runs. We can report changes in Telegram through a [bot](/services/telegram-bots). We collect only publicly available data and respect the rules of the source sites."
         ],
         "includes": [
           "Data collection from websites, marketplaces and aggregators",
@@ -1825,7 +1828,7 @@
             "text": "We look at how the sites are built, whether there are limits and protection, and estimate volume and complexity."
           },
           {
-            "title": "Parser development",
+            "title": "Scraper development",
             "text": "We write the collector, cleaning and conversion of data to a single format."
           },
           {
@@ -1834,20 +1837,20 @@
           },
           {
             "title": "Launch and maintenance",
-            "text": "We set up regular runs and notifications and make sure the parser keeps working when the site changes."
+            "text": "We set up regular runs and notifications and make sure the scraper keeps working when the site changes."
           }
         ],
         "faq": [
           {
-            "q": "How much does parsing cost?",
-            "a": "Parsing starts from 30,000 ₽. The price depends on the number of sources, the complexity of the sites, the data volume and whether regular scheduled runs are needed. We name it after clarifying the task."
+            "q": "How much does web scraping cost?",
+            "a": "Web scraping starts from $300. The price depends on the number of sources, the complexity of the sites, the data volume and whether regular scheduled runs are needed. We name it after clarifying the task."
           },
           {
-            "q": "Is it legal to parse websites?",
+            "q": "Is web scraping legal?",
             "a": "Collecting publicly available information is acceptable, but you must consider the rules of the source site, copyright on content and personal data law. We collect only publicly available data and discuss the source's limits in advance."
           },
           {
-            "q": "Which sites can be parsed?",
+            "q": "Which sites can be scraped?",
             "a": "Online stores, supplier catalogs, marketplaces, aggregators, directories, classified boards and maps of organizations. Complexity depends on the site's protection, so we check the source first."
           },
           {
@@ -1855,8 +1858,8 @@
             "a": "In Excel or CSV, in Google Sheets, in a database or through an API. We can add Telegram notifications when data changes."
           },
           {
-            "q": "What if the site changes and the parser breaks?",
-            "a": "We can take the parser on maintenance: watch changes on the source site and update the collector so that data keeps coming."
+            "q": "What if the site changes and the scraper breaks?",
+            "a": "We can take the scraper on maintenance: watch changes on the source site and update the collector so that data keeps coming."
           }
         ]
       },
@@ -1933,7 +1936,7 @@
     },
     "hub": {
       "metaTitle": "Web studio services: websites, SEO, ads, bots - KEL Studio",
-      "metaDescription": "Websites and landing pages, web design, SEO, Yandex Direct, Google Ads, VK and Telegram targeting, Telegram bots, AI assistants, MCP servers, web apps, parsing, support. Prices and timelines on each page.",
+      "metaDescription": "Websites, web design, SEO, Yandex Direct, Google Ads, VK and Telegram ads, bots, AI assistants, MCP servers, web apps, scraping and support. Prices on each page.",
       "title": "KEL Studio services",
       "lead": "Websites, design, promotion, bots, AI assistants, applications and support. Every service has its stages, timeline and a price or a way to calculate it. Pick a suitable one or describe the task and we will suggest where to start.",
       "pricesLink": "See prices",
@@ -1964,7 +1967,7 @@
     },
     "pricesPage": {
       "metaTitle": "How much does a website cost: development prices - KEL Studio",
-      "metaDescription": "How much does a website cost: business card site from 20,000 ₽, landing page from 50,000 ₽, corporate website from 100,000 ₽, online store from 150,000 ₽.",
+      "metaDescription": "How much does a website cost: business card site from $200, landing page from $500, corporate website from $1,000, online store from $1,500.",
       "crumb": "Prices",
       "title": "How much does a website cost",
       "lead": "Below are guideline prices for our services. We give the exact price after the brief and fix it in the contract.",
@@ -1973,7 +1976,7 @@
       "colService": "Service",
       "colPrice": "Price",
       "colTerm": "Timeline",
-      "note": "Prices are \"from\" and depend on the scope and complexity of the task. We give the final price after the brief and fix it in the contract. The advertising budget is not included in the price of our work.",
+      "note": "Prices are in US dollars and \"from\": they depend on the scope and complexity of the task. We give the final price after the brief and fix it in the contract. The advertising budget is not included in the price of our work.",
       "otherTitle": "Priced per task",
       "otherText": "For these services the price depends on the task, so we name it after a short brief:",
       "factorsTitle": "What the price of a website depends on",
@@ -2021,7 +2024,7 @@
       "faq": [
         {
           "q": "How much does it cost to make a website?",
-          "a": "Guidelines: a [business card site](/services/vizitka) from 20,000 ₽, a [landing page](/services/landing) from 50,000 ₽, a [corporate website](/services/corporate) from 100,000 ₽, an [online store](/services/ecommerce) from 150,000 ₽. The exact price depends on scope and features; we name it after the brief."
+          "a": "Guidelines: a [business card site](/services/vizitka) from $200, a [landing page](/services/landing) from $500, a [corporate website](/services/corporate) from $1,000, an [online store](/services/ecommerce) from $1,500. The exact price depends on scope and features; we name it after the brief."
         },
         {
           "q": "Why are the prices \"from\"?",
@@ -2043,5 +2046,42 @@
       "ctaTitle": "Want to know the price for your project?",
       "ctaText": "Tell us about the task and we will come back with an offer and an approximate timeline."
     }
+  },
+  "meta": {
+    "ogAlt": "KEL Studio - a full-cycle web studio",
+    "ogTagline": "We build digital products of the future"
+  },
+  "blog": {
+    "metaTitle": "KEL Studio Blog: Websites, SEO, Bots and Advertising",
+    "metaDescription": "Practical articles from KEL Studio: how to choose a way to build a website, set up Yandex Webmaster and Metrica, launch advertising and automation.",
+    "home": "Home",
+    "crumbsLabel": "Breadcrumbs",
+    "title": "Blog",
+    "introBefore": "We write about what we deal with at work: how to build and promote a website, set up analytics and advertising, automate requests. Short, with examples from our own projects. Shorter notes appear on our ",
+    "introLink": "Telegram channel (in Russian)",
+    "introAfter": ".",
+    "empty": "The first articles are coming soon.",
+    "minutes": "{{count}} min read",
+    "updated": "updated",
+    "contents": "Contents",
+    "helpTitle": "Need help with {{service}}?",
+    "helpText": "Describe your task in a request. We will come back with a solution, a timeline and a price that we fix in the contract.",
+    "author": "{{name}}, KEL Studio",
+    "aboutBefore": "We build websites, promotion and bots for business. Short notes on the topic appear on the studio's ",
+    "aboutLink": "Telegram channel (in Russian)",
+    "aboutAfter": ".",
+    "more": "More articles",
+    "rssTitle": "KEL Studio Blog",
+    "rssDescription": "Articles by KEL Studio about websites, SEO, advertising and bots",
+    "ogFallbackTitle": "KEL Studio Blog",
+    "ogLabel": "Blog"
+  },
+  "privacy": {
+    "metaTitle": "Privacy Policy - KEL Studio",
+    "metaDescription": "KEL Studio's personal data processing policy: what data we collect through the kel.agency website, why, how we store it and how to withdraw consent.",
+    "title": "Privacy Policy",
+    "subtitle": "Personal data processing policy",
+    "edition": "version of",
+    "translationNote": "This is a translation of the Russian-language policy. If the two texts differ, the Russian version prevails."
   }
 }

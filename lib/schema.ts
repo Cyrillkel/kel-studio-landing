@@ -1,34 +1,47 @@
-import ru from "@/locales/ru.json";
+import { getDictionary } from "./dictionary";
 import {
   CONTACT_EMAIL,
   CONTENT_UPDATED,
   PHONE_URL,
-  SITE_DESCRIPTION,
   SITE_NAME,
+  SITE_TEXT,
   SITE_URL,
   TELEGRAM_CHANNEL_URL,
   TELEGRAM_URL,
 } from "./site";
 import { blogPath, type Post } from "./blog";
-import { SERVICE_CONFIG, SERVICE_SLUGS, plainText, servicePath, type ServiceSlug } from "./services";
+import { LANGS, withLang, type Lang } from "./lang";
+import { ogImagePath } from "./pageMetadata";
+import {
+  SERVICE_CONFIG,
+  SERVICE_SLUGS,
+  plainText,
+  servicePath,
+  toUsd,
+  type ServiceSlug,
+} from "./services";
 
 // Structured data (schema.org JSON-LD). Every page sends ONE graph with the
 // organization and the site plus its own nodes, tied together by @id, so a
-// crawler never has to match separate blocks. All text comes from the Russian
-// copy (the server always renders Russian) and describes what the page shows.
+// crawler never has to match separate blocks. All text comes from the copy of
+// the page's own language and describes what the page shows.
 
+// The company is one entity for both languages; each language has a website of its own.
 export const ORG_ID = `${SITE_URL}/#organization`;
-export const SITE_ID = `${SITE_URL}/#website`;
+export const siteId = (lang: Lang) => `${SITE_URL}${lang === "en" ? withLang("/", lang) : "/"}#website`;
 
 const telephone = PHONE_URL.replace("tel:", "");
 const russia = { "@type": "Country", name: "Россия" };
 
 type Node = Record<string, unknown>;
 
-// The company. An Organization rather than a LocalBusiness: the studio works
-// across Russia and has no public address. With `catalog` it also lists the
-// services (used on the home page and the services page).
-export function organizationNode({ catalog = false } = {}): Node {
+// The company. An Organization rather than a LocalBusiness: the studio has no
+// public address. With `catalog` it also lists the services (used on the home
+// page and the services page). The Russian pages say the studio serves Russia;
+// the English ones say nothing about the area, since where foreign clients can
+// be served is a business decision (add `areaServed` here when it is made).
+export function organizationNode({ catalog = false, lang = "ru" as Lang } = {}): Node {
+  const dict = getDictionary(lang);
   return {
     "@type": "Organization",
     "@id": ORG_ID,
@@ -36,8 +49,8 @@ export function organizationNode({ catalog = false } = {}): Node {
     alternateName: "kel.agency",
     url: SITE_URL,
     logo: { "@type": "ImageObject", url: `${SITE_URL}/apple-icon.png`, width: 180, height: 180 },
-    image: `${SITE_URL}/opengraph-image`,
-    description: SITE_DESCRIPTION,
+    image: `${SITE_URL}${ogImagePath(lang)}`,
+    description: SITE_TEXT[lang].description,
     email: CONTACT_EMAIL,
     telephone,
     contactPoint: [
@@ -46,21 +59,21 @@ export function organizationNode({ catalog = false } = {}): Node {
         contactType: "customer service",
         telephone,
         email: CONTACT_EMAIL,
-        availableLanguage: "ru",
-        areaServed: "RU",
+        availableLanguage: [...LANGS],
+        ...(lang === "ru" ? { areaServed: "RU" } : {}),
       },
     ],
     sameAs: [TELEGRAM_CHANNEL_URL, TELEGRAM_URL],
-    areaServed: russia,
-    knowsLanguage: "ru",
+    ...(lang === "ru" ? { areaServed: russia } : {}),
+    knowsLanguage: [...LANGS],
     ...(catalog
       ? {
           hasOfferCatalog: {
             "@type": "OfferCatalog",
-            name: ru.servicePages.hub.title,
+            name: dict.servicePages.hub.title,
             itemListElement: SERVICE_SLUGS.map((slug) => ({
               "@type": "Offer",
-              itemOffered: serviceRef(slug),
+              itemOffered: serviceRef(slug, lang),
             })),
           },
         }
@@ -68,14 +81,14 @@ export function organizationNode({ catalog = false } = {}): Node {
   };
 }
 
-export function websiteNode(): Node {
+export function websiteNode(lang: Lang = "ru"): Node {
   return {
     "@type": "WebSite",
-    "@id": SITE_ID,
-    url: `${SITE_URL}/`,
+    "@id": siteId(lang),
+    url: `${SITE_URL}${lang === "en" ? withLang("/", lang) : "/"}`,
     name: SITE_NAME,
     alternateName: "kel.agency",
-    inLanguage: "ru",
+    inLanguage: lang,
     publisher: { "@id": ORG_ID },
   };
 }
@@ -87,6 +100,7 @@ export function webPageNode({
   path,
   name,
   description,
+  lang = "ru",
   modified = CONTENT_UPDATED,
   type = "WebPage",
   breadcrumb = false,
@@ -96,6 +110,7 @@ export function webPageNode({
   path: string;
   name: string;
   description: string;
+  lang?: Lang;
   modified?: string;
   type?: string;
   breadcrumb?: boolean;
@@ -110,8 +125,8 @@ export function webPageNode({
     url,
     name,
     description,
-    inLanguage: "ru",
-    isPartOf: { "@id": SITE_ID },
+    inLanguage: lang,
+    isPartOf: { "@id": siteId(lang) },
     about: { "@id": aboutId },
     dateModified: modified,
     ...(mainEntityId ? { mainEntity: { "@id": mainEntityId } } : {}),
@@ -147,28 +162,31 @@ export function faqNode(path: string, faq: { q: string; a: string }[]): Node {
 }
 
 // A short reference to a service, for lists on other pages.
-function serviceRef(slug: ServiceSlug): Node {
+function serviceRef(slug: ServiceSlug, lang: Lang): Node {
   return {
     "@type": "Service",
-    "@id": `${pageUrl(servicePath(slug))}#service`,
-    name: ru.servicePages.items[slug].name,
-    url: pageUrl(servicePath(slug)),
+    "@id": `${pageUrl(servicePath(slug, lang))}#service`,
+    name: getDictionary(lang).servicePages.items[slug].name,
+    url: pageUrl(servicePath(slug, lang)),
   };
 }
 
-// "From N rubles", as the page states it; hourly rates carry their unit.
-export function priceSpecification(slug: ServiceSlug): Node | null {
+// "From N", as the page states it: rubles on the Russian pages, dollars (at the
+// rate in lib/services.ts) on the English ones. Hourly rates carry their unit.
+export function priceSpecification(slug: ServiceSlug, lang: Lang = "ru"): Node | null {
   const { priceFrom, priceUnit } = SERVICE_CONFIG[slug];
   if (!priceFrom) return null;
+  const priceCurrency = lang === "en" ? "USD" : "RUB";
+  const minPrice = lang === "en" ? toUsd(priceFrom) : priceFrom;
   return priceUnit
-    ? { "@type": "UnitPriceSpecification", priceCurrency: "RUB", minPrice: priceFrom, unitCode: priceUnit }
-    : { "@type": "PriceSpecification", priceCurrency: "RUB", minPrice: priceFrom };
+    ? { "@type": "UnitPriceSpecification", priceCurrency, minPrice, unitCode: priceUnit }
+    : { "@type": "PriceSpecification", priceCurrency, minPrice };
 }
 
-export function serviceNode(slug: ServiceSlug): Node {
-  const copy = ru.servicePages.items[slug];
-  const url = pageUrl(servicePath(slug));
-  const price = priceSpecification(slug);
+export function serviceNode(slug: ServiceSlug, lang: Lang = "ru"): Node {
+  const copy = getDictionary(lang).servicePages.items[slug];
+  const url = pageUrl(servicePath(slug, lang));
+  const price = priceSpecification(slug, lang);
   return {
     "@type": "Service",
     "@id": `${url}#service`,
@@ -176,47 +194,57 @@ export function serviceNode(slug: ServiceSlug): Node {
     serviceType: copy.name,
     description: copy.metaDescription,
     url,
-    image: `${SITE_URL}/opengraph-image`,
+    image: `${SITE_URL}${ogImagePath(lang)}`,
     provider: { "@id": ORG_ID },
-    areaServed: russia,
+    ...(lang === "ru" ? { areaServed: russia } : {}),
     mainEntityOfPage: { "@id": `${url}#webpage` },
-    ...(price ? { offers: { "@type": "Offer", url, priceCurrency: "RUB", priceSpecification: price } } : {}),
+    ...(price
+      ? { offers: { "@type": "Offer", url, priceCurrency: lang === "en" ? "USD" : "RUB", priceSpecification: price } }
+      : {}),
   };
 }
 
 // The list of services on /services.
-export function serviceListNode(path: string): Node {
+export function serviceListNode(path: string, lang: Lang = "ru"): Node {
+  const dict = getDictionary(lang);
   return {
     "@type": "ItemList",
     "@id": `${pageUrl(path)}#list`,
     itemListElement: SERVICE_SLUGS.map((slug, index) => ({
       "@type": "ListItem",
       position: index + 1,
-      name: ru.servicePages.items[slug].name,
-      url: pageUrl(servicePath(slug)),
+      name: dict.servicePages.items[slug].name,
+      url: pageUrl(servicePath(slug, lang)),
     })),
   };
 }
 
 // The price list on /prices: the same figures the table shows.
-export function priceListNode(path: string, slugs: readonly ServiceSlug[]): Node {
+export function priceListNode(path: string, slugs: readonly ServiceSlug[], lang: Lang = "ru"): Node {
   return {
     "@type": "OfferCatalog",
     "@id": `${pageUrl(path)}#prices`,
-    name: ru.servicePages.pricesPage.tableTitle,
+    name: getDictionary(lang).servicePages.pricesPage.tableTitle,
     itemListElement: slugs.flatMap((slug) => {
-      const price = priceSpecification(slug);
+      const price = priceSpecification(slug, lang);
       return price
-        ? [{ "@type": "Offer", itemOffered: serviceRef(slug), priceCurrency: "RUB", priceSpecification: price }]
+        ? [
+            {
+              "@type": "Offer",
+              itemOffered: serviceRef(slug, lang),
+              priceCurrency: lang === "en" ? "USD" : "RUB",
+              priceSpecification: price,
+            },
+          ]
         : [];
     }),
   };
 }
 
-// A blog article. The byline reads "Админ", which says nothing to a search
-// engine, so the studio is both author and publisher in the markup.
+// A blog article. The byline reads "Админ" ("Admin"), which says nothing to a
+// search engine, so the studio is both author and publisher in the markup.
 export function articleNode(post: Post): Node {
-  const url = pageUrl(blogPath(post.slug));
+  const url = pageUrl(blogPath(post.slug, post.lang));
   return {
     "@type": "Article",
     "@id": `${url}#article`,
@@ -224,10 +252,10 @@ export function articleNode(post: Post): Node {
     description: post.description,
     url,
     mainEntityOfPage: { "@id": `${url}#webpage` },
-    inLanguage: "ru",
+    inLanguage: post.lang,
     datePublished: post.date,
     dateModified: post.updated,
-    image: `${SITE_URL}${blogPath(post.slug)}/opengraph-image`,
+    image: `${SITE_URL}${blogPath(post.slug, post.lang)}/opengraph-image`,
     articleSection: post.category,
     author: { "@id": ORG_ID },
     publisher: { "@id": ORG_ID },
@@ -235,9 +263,9 @@ export function articleNode(post: Post): Node {
 }
 
 // One JSON-LD document for a page: the common nodes first, then the page's own.
-export function graph(nodes: Node[], { catalog = false } = {}) {
+export function graph(nodes: Node[], { catalog = false, lang = "ru" as Lang } = {}) {
   return {
     "@context": "https://schema.org",
-    "@graph": [organizationNode({ catalog }), websiteNode(), ...nodes],
+    "@graph": [organizationNode({ catalog, lang }), websiteNode(lang), ...nodes],
   };
 }

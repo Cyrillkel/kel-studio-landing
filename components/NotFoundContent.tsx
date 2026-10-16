@@ -4,10 +4,13 @@ import Link from "next/link";
 import { useTranslation } from "react-i18next";
 import { ButtonLink } from "./Button";
 import { SERVICE_SLUGS, servicePath } from "@/lib/services";
+import { useLang, useLocalePath } from "./useLang";
 
 // The 404 page: a wrong address still leads somewhere (home, the services).
 export default function NotFoundContent() {
   const { t } = useTranslation();
+  const lang = useLang();
+  const lp = useLocalePath();
 
   return (
     <main className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden bg-page px-6 py-24 text-center">
@@ -15,7 +18,7 @@ export default function NotFoundContent() {
         aria-hidden="true"
         className="glow-wash pointer-events-none absolute inset-0 [--glow-end:60%]"
       />
-      <Link href="/" className="relative font-heading text-xl font-bold text-white">
+      <Link href={lp("/")} className="relative font-heading text-xl font-bold text-white">
         KEL Studio
       </Link>
       <p
@@ -28,7 +31,7 @@ export default function NotFoundContent() {
         {t("notFound.title")}
       </h1>
       <p className="relative mt-4 max-w-md text-gray-400">{t("notFound.text")}</p>
-      <ButtonLink href="/" size="lg" className="relative mt-8">
+      <ButtonLink href={lp("/")} size="lg" className="relative mt-8">
         {t("notFound.home")}
       </ButtonLink>
       <nav
@@ -38,7 +41,7 @@ export default function NotFoundContent() {
         {SERVICE_SLUGS.map((slug) => (
           <Link
             key={slug}
-            href={servicePath(slug)}
+            href={servicePath(slug, lang)}
             className="transition-colors hover:text-white"
           >
             {t(`servicePages.items.${slug}.name`)}

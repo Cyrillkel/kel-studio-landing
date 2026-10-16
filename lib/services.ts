@@ -1,3 +1,5 @@
+import { withLang, type Lang, type PathPair } from "./lang";
+
 // One entry per service page. Order matters: it drives the services hub, the
 // sitemap and the lists of other services. The words of each page live in
 // locales/*.json under servicePages.items.<slug>.
@@ -82,7 +84,42 @@ export const isServiceSlug = (value: string): value is ServiceSlug =>
 
 export const SERVICES_PATH = "/services";
 export const PRICES_PATH = "/prices";
-export const servicePath = (slug: ServiceSlug) => `${SERVICES_PATH}/${slug}`;
+
+// The English pages show prices in dollars, converted from the ruble price
+// list at this rate (a round one, so the dollar prices are round too: 20,000 ₽
+// becomes $200). The same rate sits behind the figures in locales/en.json
+// (checked by tools/i18n-check/check_prices.py) and behind the prices in the
+// English structured data.
+export const RUB_PER_USD = 100;
+export const toUsd = (rubles: number) => Math.round(rubles / RUB_PER_USD);
+
+// The address of a service page in English, where it differs from the Russian
+// one: the English words people search for. Change an address here (and add a
+// redirect in next.config.ts, because the old one will have been indexed).
+const SERVICE_SLUG_EN: Partial<Record<ServiceSlug, string>> = {
+  vizitka: "business-card-website",
+  design: "web-design",
+  parsing: "web-scraping",
+  support: "website-support",
+};
+
+// The part of the address that names the service, in the given language.
+export const serviceUrlSlug = (slug: ServiceSlug, lang: Lang = "ru") =>
+  lang === "en" ? (SERVICE_SLUG_EN[slug] ?? slug) : slug;
+
+// The service an address part stands for, or null when there is none.
+export function serviceFromUrlSlug(urlSlug: string, lang: Lang): ServiceSlug | null {
+  return SERVICE_SLUGS.find((slug) => serviceUrlSlug(slug, lang) === urlSlug) ?? null;
+}
+
+export const servicePath = (slug: ServiceSlug, lang: Lang = "ru") =>
+  withLang(`${SERVICES_PATH}/${serviceUrlSlug(slug, lang)}`, lang);
+
+// The same service page in both languages.
+export const servicePaths = (slug: ServiceSlug): PathPair => ({
+  ru: servicePath(slug, "ru"),
+  en: servicePath(slug, "en"),
+});
 
 export const MENU_SLUGS = SERVICE_SLUGS.filter((slug) => SERVICE_CONFIG[slug].menu);
 export const slugsOf = (group: ServiceGroup) =>

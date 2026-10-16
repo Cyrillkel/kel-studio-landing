@@ -2,6 +2,7 @@
 
 import { useSyncExternalStore } from "react";
 import { Trans, useTranslation } from "react-i18next";
+import { useLocalePath } from "./useLang";
 
 const KEY = "kel-cookie-notice";
 
@@ -42,6 +43,7 @@ const dismiss = () => {
 // become the page's largest paint and slow down its measured load time.
 export default function CookieNotice() {
   const { t } = useTranslation();
+  const lp = useLocalePath();
   const dismissed = useSyncExternalStore(subscribe, isDismissed, () => true);
 
   if (dismissed) return null;
@@ -58,7 +60,7 @@ export default function CookieNotice() {
           components={{
             policy: (
               <a
-                href="/privacy"
+                href={lp("/privacy")}
                 className="text-violet-300 underline underline-offset-2 transition-colors hover:text-white"
               />
             ),

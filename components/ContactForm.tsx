@@ -8,6 +8,7 @@ import { OTHER_SERVICE, validateContact, type ContactErrors } from "@/lib/contac
 import { SERVICE_SLUGS, type ServiceSlug } from "@/lib/services";
 import { GOALS, reachGoal } from "@/lib/metrika";
 import { PHONE, PHONE_URL, TELEGRAM_URL, WHATSAPP_URL } from "@/lib/site";
+import { useLang, useLocalePath } from "./useLang";
 
 // ym-disable-keys: Metrika's session replay doesn't record what is typed here.
 const fieldClass = (invalid: boolean) =>
@@ -38,6 +39,8 @@ export default function ContactForm({
   onSent?: () => void;
 }) {
   const { t } = useTranslation();
+  const lang = useLang();
+  const lp = useLocalePath();
   const emptyForm = { name: "", email: "", phone: "", message: "", service: service ?? "" };
   const [formData, setFormData] = useState(emptyForm);
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error" | "tooMany">("idle");
@@ -96,7 +99,8 @@ export default function ContactForm({
           consent,
           company,
           openMs: Math.round(performance.now() - openedAt.current),
-          page: `${place} - ${window.location.pathname}`,
+          // The owner reads the lead in Russian; "[EN]" marks one that came from the English pages.
+          page: `${lang === "en" ? "[EN] " : ""}${place} - ${window.location.pathname}`,
         }),
       });
       if (response.status === 429) {
@@ -237,7 +241,7 @@ export default function ContactForm({
               components={{
                 policy: (
                   <a
-                    href="/privacy"
+                    href={lp("/privacy")}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-violet-300 underline underline-offset-2 transition-colors hover:text-white"

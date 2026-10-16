@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useTranslation } from "react-i18next";
 import { SERVICES_PATH, servicePath } from "@/lib/services";
+import { useLang, useLocalePath } from "./useLang";
 import AmbientBlobs from "./AmbientBlobs";
 
 const icons = [
@@ -73,11 +74,14 @@ const icons = [
 
 type ServiceItem = { title: string; description: string };
 
-// Where each card on the home page leads, in the order of services.items.
-const CARD_LINKS = [servicePath("design"), SERVICES_PATH, servicePath("seo"), servicePath("parsing")];
+// Where each card on the home page leads, in the order of services.items: a
+// service, or null for the list of all of them.
+const CARD_SERVICES = ["design", null, "seo", "parsing"] as const;
 
 export default function Services() {
   const { t } = useTranslation();
+  const lang = useLang();
+  const lp = useLocalePath();
   const items = t("services.items", { returnObjects: true }) as ServiceItem[];
 
   return (
@@ -113,7 +117,7 @@ export default function Services() {
           {items.map((item, index) => (
             <Link
               key={index}
-              href={CARD_LINKS[index] ?? SERVICES_PATH}
+              href={CARD_SERVICES[index] ? servicePath(CARD_SERVICES[index], lang) : lp(SERVICES_PATH)}
               className="block bg-card p-6 sm:p-8 xl:p-7 rounded-2xl border border-white/5 hover:-translate-y-2 hover:shadow-lg hover:shadow-shade/25 transition-all duration-300"
             >
               <div className="w-12 h-12 bg-white/10 rounded-lg flex items-center justify-center mb-6 text-white">
@@ -130,7 +134,7 @@ export default function Services() {
         </div>
         <div className="mt-10 text-center md:mt-14">
           <Link
-            href={SERVICES_PATH}
+            href={lp(SERVICES_PATH)}
             className="text-gray-300 underline underline-offset-4 transition-colors hover:text-white"
           >
             {t("services.all")}

@@ -330,6 +330,14 @@
   }
 }
 
+/* The 404 page (app/global-not-found.tsx) holds the Russian and the English version
+   and shows the one the address asks for: a script in <head> sets data-lang on <html>
+   before the first paint (components/GlobalNotFoundContent.tsx). */
+html[data-lang="en"] .not-found-ru,
+html:not([data-lang="en"]) .not-found-en {
+  display: none;
+}
+
 /* While the theme is being switched nothing may fade: backgrounds jump (gradients
    cannot be animated) and text colours would lag behind them. The button's own icon is exempt. */
 .theme-switching *:not(.theme-toggle *),

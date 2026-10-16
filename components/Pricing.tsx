@@ -7,6 +7,7 @@ import { useSnapSlider } from "./useSnapSlider";
 import SliderDots from "./SliderDots";
 import { ButtonLink } from "./Button";
 import { PRICES_PATH, servicePath } from "@/lib/services";
+import { useLang, useLocalePath } from "./useLang";
 import SectionGlow from "./SectionGlow";
 
 const icons = [
@@ -148,22 +149,24 @@ const icons = [
 type PriceItem = { title: string; price: string };
 
 // Where each price card leads, in the order of pricing.items.
-const PRICE_LINKS = [
-  servicePath("vizitka"),
-  servicePath("landing"),
-  servicePath("corporate"),
-  servicePath("ecommerce"),
-  servicePath("web-apps"),
-  servicePath("design"),
-  servicePath("seo"),
-  servicePath("yandex-direct"),
-  servicePath("parsing"),
-];
+const PRICE_SERVICES = [
+  "vizitka",
+  "landing",
+  "corporate",
+  "ecommerce",
+  "web-apps",
+  "design",
+  "seo",
+  "yandex-direct",
+  "parsing",
+] as const;
 
 const AUTOPLAY_MS = 4000;
 
 export default function Pricing() {
   const { t } = useTranslation();
+  const lang = useLang();
+  const lp = useLocalePath();
   const items = t("pricing.items", { returnObjects: true }) as PriceItem[];
   // On a phone the cards turn by themselves, slowly; a swipe or a tap on the dots
   // pauses it (see useSnapSlider).
@@ -197,7 +200,7 @@ export default function Pricing() {
           {items.map((item, index) => (
             <Link
               key={index}
-              href={PRICE_LINKS[index] ?? PRICES_PATH}
+              href={PRICE_SERVICES[index] ? servicePath(PRICE_SERVICES[index], lang) : lp(PRICES_PATH)}
               className="pricing-card group relative flex min-h-64 w-full shrink-0 snap-start flex-col bg-white/3 p-6 sm:w-[22rem] sm:p-7 rounded-2xl border border-white/10 hover:-translate-y-1 hover:border-white/25 hover:bg-white/5 hover:shadow-2xl hover:shadow-shade/40 transition-[translate,border-color,background-color,box-shadow] duration-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white/60 md:min-h-0 md:w-auto"
             >
               <svg
@@ -236,7 +239,7 @@ export default function Pricing() {
           </ButtonLink>
           <div className="mt-6">
             <Link
-              href={PRICES_PATH}
+              href={lp(PRICES_PATH)}
               className="text-gray-400 underline underline-offset-4 transition-colors hover:text-white"
             >
               {t("pricing.details")}

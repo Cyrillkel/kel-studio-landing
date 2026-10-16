@@ -11,6 +11,10 @@ const nextConfig: NextConfig = {
   outputFileTracingRoot: path.resolve(__dirname),
   // Nobody needs to know which framework is behind the site.
   poweredByHeader: false,
+  // The Russian and the English pages have root layouts of their own, so there is no
+  // single layout to draw an unknown address in. This lets app/global-not-found.tsx
+  // be the 404 page of the whole site.
+  experimental: { globalNotFound: true },
   async headers() {
     return [
       {

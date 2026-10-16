@@ -13,13 +13,17 @@ import { ButtonLink } from "./Button";
 import { PhoneIcon, TelegramIcon } from "./ContactIcons";
 import ContactLinks from "./ContactLinks";
 import { BLOG_PATH } from "@/lib/blog-path";
+import { isHome } from "@/lib/lang";
 import { MENU_SLUGS, PRICES_PATH, SERVICES_PATH, servicePath } from "@/lib/services";
 import { PHONE, PHONE_URL, TELEGRAM_URL } from "@/lib/site";
+import { useLang, useLocalePath } from "./useLang";
 
 export default function Navigation() {
   const { t } = useTranslation();
   const pathname = usePathname();
-  const onHome = pathname === "/";
+  const lang = useLang();
+  const lp = useLocalePath();
+  const onHome = isHome(pathname);
   const [isOpen, setIsOpen] = useState(false);
   const [servicesOpen, setServicesOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -128,7 +132,7 @@ export default function Navigation() {
     setServicesOpen(false);
   };
 
-  const anchor = (hash: string) => (onHome ? hash : `/${hash}`);
+  const anchor = (hash: string) => (onHome ? hash : lp(`/${hash}`));
 
   const closeMenu = () => {
     setIsOpen(false);
@@ -153,7 +157,7 @@ export default function Navigation() {
           <div className="flex items-center justify-between">
             {/* On the home page it scrolls to the top; from any other page it goes home. */}
             <Link
-              href="/"
+              href={lp("/")}
               aria-label={t("nav.home")}
               className="font-heading text-xl font-bold whitespace-nowrap text-white sm:text-2xl"
               onClick={(e) => {
@@ -179,7 +183,7 @@ export default function Navigation() {
                 }}
               >
                 <Link
-                  href={SERVICES_PATH}
+                  href={lp(SERVICES_PATH)}
                   className="flex items-center gap-1.5 py-2 text-gray-300 transition hover:text-white"
                   aria-expanded={servicesOpen}
                   onClick={() => setServicesOpen(false)}
@@ -209,7 +213,7 @@ export default function Navigation() {
                     {MENU_SLUGS.map((slug) => (
                       <Link
                         key={slug}
-                        href={servicePath(slug)}
+                        href={servicePath(slug, lang)}
                         className="block rounded-xl px-4 py-2.5 text-gray-300 transition-colors hover:bg-white/5 hover:text-white"
                         onClick={() => setServicesOpen(false)}
                       >
@@ -217,7 +221,7 @@ export default function Navigation() {
                       </Link>
                     ))}
                     <Link
-                      href={SERVICES_PATH}
+                      href={lp(SERVICES_PATH)}
                       className="mt-1 block rounded-xl border-t border-white/10 px-4 py-2.5 text-sm text-gray-500 transition-colors hover:text-white"
                       onClick={() => setServicesOpen(false)}
                     >
@@ -227,14 +231,14 @@ export default function Navigation() {
                 </div>
               </div>
               <Link
-                href={PRICES_PATH}
+                href={lp(PRICES_PATH)}
                 className="text-gray-300 hover:text-white transition"
                 onClick={() => setServicesOpen(false)}
               >
                 {t("nav.pricing")}
               </Link>
               <Link
-                href={BLOG_PATH}
+                href={lp(BLOG_PATH)}
                 className="text-gray-300 hover:text-white transition"
                 onClick={() => setServicesOpen(false)}
               >
@@ -380,7 +384,7 @@ export default function Navigation() {
                   {MENU_SLUGS.map((slug) => (
                     <Link
                       key={slug}
-                      href={servicePath(slug)}
+                      href={servicePath(slug, lang)}
                       className="py-2 text-base text-gray-400 transition-colors hover:text-white"
                       onClick={closeMenu}
                     >
@@ -388,7 +392,7 @@ export default function Navigation() {
                     </Link>
                   ))}
                   <Link
-                    href={SERVICES_PATH}
+                    href={lp(SERVICES_PATH)}
                     className="py-2 text-sm text-gray-500 transition-colors hover:text-white"
                     onClick={closeMenu}
                   >
@@ -399,14 +403,14 @@ export default function Navigation() {
             </div>
           </div>
           <Link
-            href={PRICES_PATH}
+            href={lp(PRICES_PATH)}
             className="py-3 text-xl text-gray-300 transition hover:text-white"
             onClick={closeMenu}
           >
             {t("nav.pricing")}
           </Link>
           <Link
-            href={BLOG_PATH}
+            href={lp(BLOG_PATH)}
             className="py-3 text-xl text-gray-300 transition hover:text-white"
             onClick={closeMenu}
           >

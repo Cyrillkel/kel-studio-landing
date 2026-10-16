@@ -1,16 +1,21 @@
 import fs from "node:fs";
 import path from "node:path";
 import { SITE_URL } from "./site";
+import { LANGS, withLang, type Lang, type PathPair } from "./lang";
 
 // When the current text of the policy was published. Set by hand, with the text.
+// The English text is a translation of the Russian one and carries its date.
 export const POLICY_UPDATED = "2026-10-03";
 
 // The privacy policy is plain HTML (headings, paragraphs, lists, links) in
-// content/privacy.html, so it can be edited without touching code. Read at
-// build time: the page and the sitemap are static.
-export function readPrivacyHtml(): string {
+// content/privacy.html (Russian) and content/privacy.en.html (English), so it
+// can be edited without touching code. Read at build time: the page and the
+// sitemap are static.
+const POLICY_FILES: Record<Lang, string> = { ru: "privacy.html", en: "privacy.en.html" };
+
+export function readPrivacyHtml(lang: Lang = "ru"): string {
   try {
-    return fs.readFileSync(path.join(process.cwd(), "content", "privacy.html"), "utf8");
+    return fs.readFileSync(path.join(process.cwd(), "content", POLICY_FILES[lang]), "utf8");
   } catch {
     return "";
   }
@@ -19,6 +24,21 @@ export function readPrivacyHtml(): string {
 // True when the file holds real text, not just comments or empty tags.
 export function hasPolicyText(html: string): boolean {
   return html.replace(/<!--[\s\S]*?-->/g, "").replace(/<[^>]*>/g, "").trim().length > 0;
+}
+
+export const PRIVACY_PATH = "/privacy";
+
+// A language's policy is "ready" when its file holds real text. A language
+// without text stays out of the search index and out of the sitemap, and is not
+// offered as the twin of the other.
+export const policyReady = (lang: Lang) => hasPolicyText(readPrivacyHtml(lang));
+
+// The address of the policy in the languages it can be read in; the language of
+// the page asking is always in it.
+export function privacyPaths(lang: Lang): Partial<PathPair> {
+  const ready = LANGS.filter((item) => policyReady(item));
+  if (ready.length === LANGS.length) return { ru: PRIVACY_PATH, en: withLang(PRIVACY_PATH, "en") };
+  return { [lang]: withLang(PRIVACY_PATH, lang) };
 }
 
 const ENTITIES: Record<string, string> = {
@@ -102,9 +122,9 @@ export function splitPolicy(html: string): { intro: string; sections: PolicySect
   return { intro: intro.trim(), sections };
 }
 
-// "2026-10-03" -> "3 октября 2026".
-export function formatPolicyDate(iso: string): string {
-  return new Date(`${iso}T12:00:00Z`).toLocaleDateString("ru-RU", {
+// "2026-10-03" -> "3 октября 2026" / "October 3, 2026".
+export function formatPolicyDate(iso: string, lang: Lang = "ru"): string {
+  return new Date(`${iso}T12:00:00Z`).toLocaleDateString(lang === "en" ? "en-US" : "ru-RU", {
     day: "numeric",
     month: "long",
     year: "numeric",

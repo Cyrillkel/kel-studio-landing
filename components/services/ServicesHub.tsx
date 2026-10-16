@@ -9,6 +9,7 @@ import SectionGlow from "@/components/SectionGlow";
 import ContactModal from "@/components/ContactModal";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import { PRICES_PATH, SERVICE_GROUPS, servicePath, slugsOf, type ServiceCopy } from "@/lib/services";
+import { useLang, useLocalePath } from "@/components/useLang";
 
 type GroupCopy = { title: string; text: string };
 
@@ -16,9 +17,11 @@ type GroupCopy = { title: string; text: string };
 // service pages link from, so each of them is two clicks from the home page.
 export default function ServicesHub() {
   const { t } = useTranslation();
+  const lang = useLang();
+  const lp = useLocalePath();
   const groups = t("servicePages.hub.groups", { returnObjects: true }) as Record<string, GroupCopy>;
   const crumbs = [
-    { name: t("servicePages.common.breadcrumbHome"), href: "/" },
+    { name: t("servicePages.common.breadcrumbHome"), href: lp("/") },
     { name: t("servicePages.common.breadcrumbServices") },
   ];
 
@@ -42,7 +45,7 @@ export default function ServicesHub() {
                   {t("servicePages.common.ctaButton")}
                 </ContactModal>
                 <Link
-                  href={PRICES_PATH}
+                  href={lp(PRICES_PATH)}
                   className="text-gray-400 underline underline-offset-4 transition-colors hover:text-white"
                 >
                   {t("servicePages.hub.pricesLink")}
@@ -68,7 +71,7 @@ export default function ServicesHub() {
                     return (
                       <li key={slug}>
                         <Link
-                          href={servicePath(slug)}
+                          href={servicePath(slug, lang)}
                           className="group flex h-full flex-col rounded-2xl border border-white/10 bg-white/3 p-6 transition-colors hover:border-white/25 hover:bg-white/5"
                         >
                           <span className="flex items-start justify-between gap-4">

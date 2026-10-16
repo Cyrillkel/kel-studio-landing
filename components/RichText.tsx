@@ -1,5 +1,8 @@
+"use client";
+
 import Link from "next/link";
 import type { ReactNode } from "react";
+import { useLocalePath } from "./useLang";
 
 const LINK = /\[([^\]]+)\]\((\/[^)\s]*)\)/g;
 
@@ -7,6 +10,7 @@ const LINK = /\[([^\]]+)\]\((\/[^)\s]*)\)/g;
 // stays plain strings in the locale files. Search engines get the label only
 // in the structured data (see plainText in lib/services.ts).
 export default function RichText({ text }: { text: string }) {
+  const lp = useLocalePath();
   const parts: ReactNode[] = [];
   let last = 0;
   for (const match of text.matchAll(LINK)) {
@@ -15,7 +19,7 @@ export default function RichText({ text }: { text: string }) {
     parts.push(
       <Link
         key={index}
-        href={match[2]}
+        href={lp(match[2])}
         className="text-violet-300 underline decoration-violet-300/40 underline-offset-4 transition-colors hover:text-white hover:decoration-white/60"
       >
         {match[1]}
