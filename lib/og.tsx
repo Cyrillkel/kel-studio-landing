@@ -20,7 +20,7 @@ export function homeOgImage(lang: Lang) {
           flexDirection: "column",
           justifyContent: "center",
           alignItems: "center",
-          background: "#0a0a0a",
+          background: "#121827",
           // Same violet wash as the hero.
           backgroundImage:
             "radial-gradient(ellipse at 50% 45%, rgba(139,92,246,0.35), transparent 65%)",
@@ -73,7 +73,7 @@ export function blogOgImage(lang: Lang, post: Post | undefined) {
           flexDirection: "column",
           justifyContent: "space-between",
           padding: "72px 80px",
-          background: "#0a0a0a",
+          background: "#121827",
           backgroundImage: "radial-gradient(ellipse at 80% 20%, rgba(139,92,246,0.35), transparent 65%)",
           color: "#fff",
           fontFamily: "sans-serif",

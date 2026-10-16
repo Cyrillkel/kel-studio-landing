@@ -9,6 +9,7 @@
   --color-page: var(--page);
   --color-band: var(--band);
   --color-band-home: var(--band-home);
+  --color-deep: var(--deep);
   --color-card: var(--card);
   --color-card-violet: var(--card-violet);
   --color-card-violet-hover: var(--card-violet-hover);
@@ -40,20 +41,28 @@
 :root {
   color-scheme: dark;
 
-  /* Page surfaces: the page, the alternating bands, cards, floating panels. */
-  --page: #0a0a0a;
-  --band: #111111; /* alternating sections on the inner pages */
-  --band-home: #141414; /* alternating sections on the home page */
-  --deep: #000000; /* the darkest edge of a section */
-  --footer: #1a1a1a;
-  --card: #1f1f1f;
-  --card-violet: #16121e;
-  --card-violet-hover: #1b1624;
-  --popover: #120f18; /* menus and lists */
-  --dialog: #141018; /* the contact window and the cookie notice */
-  --field: rgb(0 0 0 / 0.3); /* inputs */
-  --shade: #000000; /* shadow colour: `shadow-shade/60` */
-  --scrim: rgb(0 0 0 / 0.7); /* behind the contact window */
+  /* Page surfaces: the page, the alternating bands, cards, floating panels.
+     Until 16.10 these were neutral blacks (#0a0a0a page, #000 deep); the dark theme is now a
+     deep indigo-slate (hue about 223 degrees): the blue of a slate panel with a little of the
+     brand violet in it, so the violet glows and the cyan-to-fuchsia accents sit on it instead
+     of on a hole. Keep the order: deep < page < band < band-home < footer < card. */
+  --page: #121827;
+  --band: #161d2e; /* alternating sections on the inner pages */
+  --band-home: #182032; /* alternating sections on the home page */
+  --deep: #0b0f1a; /* the darkest edge of a section (the About block is flat deep) */
+  --footer: #1c253a;
+  --card: #232d44;
+  --card-violet: #1b1f36;
+  --card-violet-hover: #212640;
+  --popover: #101525; /* menus and lists */
+  --dialog: #111729; /* the contact window and the cookie notice */
+  --field: rgb(4 7 16 / 0.34); /* inputs */
+  --shade: #02040a; /* shadow colour: `shadow-shade/60` */
+  --scrim: rgb(4 6 16 / 0.72); /* behind the contact window */
+
+  /* The muted grey (labels, captions) one step lighter than Tailwind's gray-500, so that on the
+     lighter page it reads at least as well as it did on black (4.7:1 on the page, was 4.1). */
+  --color-gray-500: #7a8494;
 
   /* Glows, grids and the like. */
   --glow: rgb(139 92 246 / 0.18);
@@ -85,7 +94,7 @@
   --doc-strong: #e5e7eb;
   --doc-text: #b4bac4;
   --doc-legal: #9ca3af;
-  --doc-muted: #6b7280;
+  --doc-muted: #7a8494;
   --doc-link: #a78bfa;
   --doc-link-hover: #ffffff;
   --doc-line: rgb(255 255 255 / 0.08);
@@ -182,9 +191,10 @@
 /* ---------------------------------------------------------------------------
    Smooth dark gradients (banding fix of 16.10, see KEL-STUDIO-CONTEXT.md, pitfall 15).
 
-   A dark page has few colours to spare: between #000 and #141414 there are only
-   twenty steps, so on a bright monitor a long soft gradient shows up as stripes
-   and the glows as rings. Two things work together:
+   A dark page has few colours to spare (when it was neutral black, between #000 and
+   #141414 there were only twenty steps; the indigo-slate page of 16.10 moves red, green and
+   blue by different amounts, so its steps are smaller), so on a bright monitor a long soft
+   gradient can show up as stripes and the glows as rings. Two things work together:
    - .glow-wash, .fade-top and .fade-ends ease the colour with a smoothstep curve
      (zero slope at both ends) instead of a straight line. A linear fade ends in
      a corner that the eye reads as an edge, so the glow has no visible rim now.

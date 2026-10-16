@@ -89,7 +89,7 @@ export default function AboutPremium() {
     <section
       id="about"
       ref={sectionRef}
-      className="relative isolate py-20 sm:py-32 md:py-48 overflow-hidden bg-black"
+      className="relative isolate py-20 sm:py-32 md:py-48 overflow-hidden bg-deep"
     >
       <AmbientBlobs
         blobs={[

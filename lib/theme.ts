@@ -13,7 +13,7 @@ const FIRST_VISIT: Theme | "system" = "dark";
 // The colour of the browser's own bars (<meta name="theme-color">): Chrome paints the
 // address bar with it and Safari the status bar, so they match the page instead of
 // showing a light band above a dark header. The same values as --page in globals.css.
-const THEME_COLORS: Record<Theme, string> = { dark: "#0a0a0a", light: "#ffffff" };
+const THEME_COLORS: Record<Theme, string> = { dark: "#121827", light: "#ffffff" };
 
 // Runs in <head> before the first paint (app/layout.tsx), so the page never
 // flashes the wrong theme. Plain ES5 in a string: it is not part of any bundle.
