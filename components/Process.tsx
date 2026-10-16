@@ -221,7 +221,7 @@ export default function Process() {
     <section
       id="process"
       ref={sectionRef}
-      className="relative isolate overflow-hidden py-16 md:py-28 bg-[linear-gradient(to_bottom,var(--deep)_0px,var(--page)_180px,var(--page)_calc(100%-180px),var(--deep)_100%)]"
+      className="relative isolate overflow-hidden py-16 md:py-28 fade-ends [--from:var(--deep)] [--to:var(--page)] [--end:var(--deep)]"
     >
       <SectionGlow />
       <AmbientBlobs
@@ -318,7 +318,7 @@ export default function Process() {
                     <div className="process-visual relative aspect-[16/10] overflow-hidden rounded-2xl border border-white/10 bg-card-violet bg-[linear-gradient(var(--grid-line-soft)_1px,transparent_1px),linear-gradient(90deg,var(--grid-line-soft)_1px,transparent_1px)] bg-size-[24px_24px]">
                       <div
                         aria-hidden="true"
-                        className="absolute inset-0 bg-[radial-gradient(circle_at_50%_45%,var(--glow-visual),transparent_65%)]"
+                        className="glow-wash absolute inset-0 [--glow-shape:circle_at_50%_45%] [--glow-color:var(--glow-visual)] [--glow-end:65%]"
                       />
                       <div className="absolute inset-0 p-5 sm:p-8">
                         <ProcessIllustration index={index} />

@@ -180,7 +180,7 @@ export default function Pricing() {
   return (
     <section
       id="pricing"
-      className="relative isolate overflow-hidden py-16 md:py-24 bg-[linear-gradient(to_bottom,var(--band-home)_0px,var(--page)_180px,var(--page)_100%)]"
+      className="relative isolate overflow-hidden py-16 md:py-24 fade-top [--from:var(--band-home)] [--to:var(--page)]"
     >
       <SectionGlow />
       <div className="max-w-7xl mx-auto px-5 sm:px-6">

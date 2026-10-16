@@ -170,7 +170,7 @@ export default function ServicePage({ slug }: { slug: ServiceSlug }) {
             </div>
           </section>
 
-          <section className="relative isolate overflow-hidden px-5 py-16 sm:px-6 md:py-24 bg-[linear-gradient(to_bottom,var(--page)_0px,var(--band)_180px,var(--band)_100%)]">
+          <section className="relative isolate overflow-hidden px-5 py-16 sm:px-6 md:py-24 fade-top [--from:var(--page)] [--to:var(--band)]">
             <div className="mx-auto max-w-7xl">
               <h2 className="font-heading text-2xl font-bold text-white sm:text-3xl">
                 {page.bodyTitle}
@@ -228,7 +228,7 @@ export default function ServicePage({ slug }: { slug: ServiceSlug }) {
             </div>
           </section>
 
-          <section className="relative isolate overflow-hidden px-5 py-16 sm:px-6 md:py-24 bg-[linear-gradient(to_bottom,var(--band)_0px,var(--page)_180px,var(--page)_100%)]">
+          <section className="relative isolate overflow-hidden px-5 py-16 sm:px-6 md:py-24 fade-top [--from:var(--band)] [--to:var(--page)]">
             <div className="mx-auto max-w-7xl">
               <h2 className="font-heading text-2xl font-bold text-white sm:text-3xl">
                 {t("servicePages.common.stepsTitle")}
@@ -289,7 +289,7 @@ export default function ServicePage({ slug }: { slug: ServiceSlug }) {
             </section>
           )}
 
-          <section className="relative isolate overflow-hidden px-5 py-16 sm:px-6 md:py-24 bg-[linear-gradient(to_bottom,var(--page)_0px,var(--band)_180px,var(--band)_100%)]">
+          <section className="relative isolate overflow-hidden px-5 py-16 sm:px-6 md:py-24 fade-top [--from:var(--page)] [--to:var(--band)]">
             <div className="mx-auto max-w-3xl">
               <h2 className="font-heading text-2xl font-bold text-white sm:text-3xl">
                 {t("servicePages.common.faqTitle")}
@@ -323,7 +323,7 @@ export default function ServicePage({ slug }: { slug: ServiceSlug }) {
 
           <section
             ref={finalRef}
-            className="relative isolate overflow-hidden px-5 py-16 sm:px-6 md:py-24 bg-[linear-gradient(to_bottom,var(--band)_0px,var(--page)_180px,var(--page)_100%)]"
+            className="relative isolate overflow-hidden px-5 py-16 sm:px-6 md:py-24 fade-top [--from:var(--band)] [--to:var(--page)]"
           >
             <SectionGlow />
             <div className="mx-auto max-w-3xl text-center">

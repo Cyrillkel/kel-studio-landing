@@ -113,7 +113,7 @@ export default function Portfolio() {
     <section
       id="portfolio"
       ref={sectionRef}
-      className="relative overflow-hidden py-16 md:py-24 bg-[linear-gradient(to_bottom,var(--page)_0px,var(--band-home)_180px,var(--band-home)_calc(100%-200px),var(--deep)_100%)]"
+      className="relative overflow-hidden py-16 md:py-24 fade-ends [--from:var(--page)] [--to:var(--band-home)] [--end:var(--deep)] [--len-end:200px]"
     >
       <div className="mx-auto mb-8 flex w-full max-w-7xl items-end justify-between gap-6 px-5 sm:px-6 lg:mb-10">
         <h2 className="font-heading text-3xl sm:text-4xl md:text-5xl font-bold text-white">
@@ -265,7 +265,7 @@ export default function Portfolio() {
             <div className="portfolio-frame relative flex h-full flex-col justify-between gap-8 overflow-hidden rounded-2xl border border-dashed border-white/15 bg-white/2 p-7 sm:p-8">
               <div
                 aria-hidden="true"
-                className="absolute inset-0 bg-[radial-gradient(circle_at_25%_20%,var(--glow-card),transparent_60%)]"
+                className="glow-wash absolute inset-0 [--glow-shape:circle_at_25%_20%] [--glow-color:var(--glow-card)] [--glow-end:60%]"
               />
               <div className="portfolio-text relative">
                 <h3 className="font-heading text-2xl sm:text-3xl font-bold text-white">

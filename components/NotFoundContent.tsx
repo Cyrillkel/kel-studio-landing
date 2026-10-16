@@ -13,7 +13,7 @@ export default function NotFoundContent() {
     <main className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden bg-page px-6 py-24 text-center">
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,var(--glow),transparent_60%)]"
+        className="glow-wash pointer-events-none absolute inset-0 [--glow-end:60%]"
       />
       <Link href="/" className="relative font-heading text-xl font-bold text-white">
         KEL Studio

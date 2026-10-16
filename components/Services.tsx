@@ -83,7 +83,7 @@ export default function Services() {
   return (
     <section
       id="services"
-      className="relative isolate overflow-hidden py-16 md:py-24 bg-[linear-gradient(to_bottom,var(--page)_0px,var(--band-home)_180px,var(--band-home)_100%)]"
+      className="relative isolate overflow-hidden py-16 md:py-24 fade-top [--from:var(--page)] [--to:var(--band-home)]"
     >
       <AmbientBlobs
         blobs={[

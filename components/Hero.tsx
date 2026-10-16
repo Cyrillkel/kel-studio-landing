@@ -75,7 +75,7 @@ export default function Hero() {
       className="relative min-h-screen flex items-center justify-center overflow-hidden"
     >
       <div aria-hidden="true" className="absolute inset-0 bg-page">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,var(--glow),transparent_60%)]" />
+        <div className="glow-wash absolute inset-0 [--glow-end:60%]" />
         <div className="absolute inset-0 bg-[linear-gradient(var(--grid-line)_1px,transparent_1px),linear-gradient(90deg,var(--grid-line)_1px,transparent_1px)] bg-size-[56px_56px] [mask-image:radial-gradient(ellipse_at_center,black_20%,transparent_72%)]" />
         {/* Same grid in violet, revealed only in a soft spot around the cursor. */}
         <div className="hero-grid-glow absolute inset-0 opacity-0 bg-[linear-gradient(var(--grid-glow)_1px,transparent_1px),linear-gradient(90deg,var(--grid-glow)_1px,transparent_1px)] bg-size-[56px_56px] [mask-image:radial-gradient(260px_circle_at_var(--mx,50%)_var(--my,50%),black,transparent)]" />

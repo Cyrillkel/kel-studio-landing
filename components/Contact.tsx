@@ -11,7 +11,7 @@ export default function Contact() {
   return (
     <section
       id="contact"
-      className="relative isolate overflow-hidden py-16 md:py-24 bg-[linear-gradient(to_bottom,var(--deep)_0px,var(--page)_180px,var(--page)_100%)]"
+      className="relative isolate overflow-hidden py-16 md:py-24 fade-top [--from:var(--deep)] [--to:var(--page)]"
     >
       <SectionGlow />
       <AmbientAtom className="-left-10 top-4 w-56 h-56 sm:w-72 sm:h-72 md:w-80 md:h-80 -z-10" />

@@ -179,6 +179,157 @@
   }
 }
 
+/* ---------------------------------------------------------------------------
+   Smooth dark gradients (banding fix of 16.10, see KEL-STUDIO-CONTEXT.md, pitfall 15).
+
+   A dark page has few colours to spare: between #000 and #141414 there are only
+   twenty steps, so on a bright monitor a long soft gradient shows up as stripes
+   and the glows as rings. Two things work together:
+   - .glow-wash, .fade-top and .fade-ends ease the colour with a smoothstep curve
+     (zero slope at both ends) instead of a straight line. A linear fade ends in
+     a corner that the eye reads as an edge, so the glow has no visible rim now.
+   - The grain layer below breaks the one-level steps that remain.
+   Stops are every 5 % of the way; the weights are 1 - smoothstep(t).
+   --------------------------------------------------------------------------- */
+
+/* A very fine noise over the whole dark page: white at 0-3/255 alpha (public/grain.png,
+   a seamless 256px tile), so it lifts a dark colour by 0-3 levels and does nothing to white text.
+   Only the dark theme: the same steps on a white page are not visible.
+   Why a layer on top and not a texture under the glows: the steps appear when the browser
+   rounds the finished colour to 8 bits, so the noise has to be added after the glows. */
+:root:not([data-theme="light"]) body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 100; /* above the page, the header and the menus; dialogs sit in the top layer anyway */
+  pointer-events: none;
+  background: url("/grain.png") 0 0 / 256px 256px;
+  image-rendering: pixelated;
+}
+
+/* One image pixel per device pixel on dense screens. */
+@media (min-resolution: 2dppx) {
+  :root:not([data-theme="light"]) body::after {
+    background-size: 128px 128px;
+  }
+}
+
+@media print, (forced-colors: active) {
+  body::after {
+    display: none !important;
+  }
+}
+
+@layer utilities {
+  /* A radial glow that fades out smoothly. Set on the element (Tailwind arbitrary properties):
+       --glow-shape  where it sits, default "ellipse at center"
+       --glow-color  default var(--glow)
+       --glow-end    how far out it reaches zero, default 70% */
+  .glow-wash {
+    background-image: radial-gradient(
+      var(--glow-shape, ellipse at center),
+      var(--glow-color, var(--glow)) 0%,
+      color-mix(in srgb, var(--glow-color, var(--glow)) 99.3%, transparent) calc(var(--glow-end, 70%) * 0.05),
+      color-mix(in srgb, var(--glow-color, var(--glow)) 97.2%, transparent) calc(var(--glow-end, 70%) * 0.10),
+      color-mix(in srgb, var(--glow-color, var(--glow)) 93.9%, transparent) calc(var(--glow-end, 70%) * 0.15),
+      color-mix(in srgb, var(--glow-color, var(--glow)) 89.6%, transparent) calc(var(--glow-end, 70%) * 0.20),
+      color-mix(in srgb, var(--glow-color, var(--glow)) 84.4%, transparent) calc(var(--glow-end, 70%) * 0.25),
+      color-mix(in srgb, var(--glow-color, var(--glow)) 78.4%, transparent) calc(var(--glow-end, 70%) * 0.30),
+      color-mix(in srgb, var(--glow-color, var(--glow)) 71.8%, transparent) calc(var(--glow-end, 70%) * 0.35),
+      color-mix(in srgb, var(--glow-color, var(--glow)) 64.8%, transparent) calc(var(--glow-end, 70%) * 0.40),
+      color-mix(in srgb, var(--glow-color, var(--glow)) 57.5%, transparent) calc(var(--glow-end, 70%) * 0.45),
+      color-mix(in srgb, var(--glow-color, var(--glow)) 50%, transparent) calc(var(--glow-end, 70%) * 0.50),
+      color-mix(in srgb, var(--glow-color, var(--glow)) 42.5%, transparent) calc(var(--glow-end, 70%) * 0.55),
+      color-mix(in srgb, var(--glow-color, var(--glow)) 35.2%, transparent) calc(var(--glow-end, 70%) * 0.60),
+      color-mix(in srgb, var(--glow-color, var(--glow)) 28.2%, transparent) calc(var(--glow-end, 70%) * 0.65),
+      color-mix(in srgb, var(--glow-color, var(--glow)) 21.6%, transparent) calc(var(--glow-end, 70%) * 0.70),
+      color-mix(in srgb, var(--glow-color, var(--glow)) 15.6%, transparent) calc(var(--glow-end, 70%) * 0.75),
+      color-mix(in srgb, var(--glow-color, var(--glow)) 10.4%, transparent) calc(var(--glow-end, 70%) * 0.80),
+      color-mix(in srgb, var(--glow-color, var(--glow)) 6.1%, transparent) calc(var(--glow-end, 70%) * 0.85),
+      color-mix(in srgb, var(--glow-color, var(--glow)) 2.8%, transparent) calc(var(--glow-end, 70%) * 0.90),
+      color-mix(in srgb, var(--glow-color, var(--glow)) 0.7%, transparent) calc(var(--glow-end, 70%) * 0.95),
+      transparent var(--glow-end, 70%)
+    );
+  }
+
+  /* The top of a section eases from --from into --to over --len (default 180px). */
+  .fade-top {
+    background-image: linear-gradient(
+      to bottom,
+      var(--from) 0px,
+      color-mix(in srgb, var(--from) 99.3%, var(--to)) calc(var(--len, 180px) * 0.05),
+      color-mix(in srgb, var(--from) 97.2%, var(--to)) calc(var(--len, 180px) * 0.10),
+      color-mix(in srgb, var(--from) 93.9%, var(--to)) calc(var(--len, 180px) * 0.15),
+      color-mix(in srgb, var(--from) 89.6%, var(--to)) calc(var(--len, 180px) * 0.20),
+      color-mix(in srgb, var(--from) 84.4%, var(--to)) calc(var(--len, 180px) * 0.25),
+      color-mix(in srgb, var(--from) 78.4%, var(--to)) calc(var(--len, 180px) * 0.30),
+      color-mix(in srgb, var(--from) 71.8%, var(--to)) calc(var(--len, 180px) * 0.35),
+      color-mix(in srgb, var(--from) 64.8%, var(--to)) calc(var(--len, 180px) * 0.40),
+      color-mix(in srgb, var(--from) 57.5%, var(--to)) calc(var(--len, 180px) * 0.45),
+      color-mix(in srgb, var(--from) 50%, var(--to)) calc(var(--len, 180px) * 0.50),
+      color-mix(in srgb, var(--from) 42.5%, var(--to)) calc(var(--len, 180px) * 0.55),
+      color-mix(in srgb, var(--from) 35.2%, var(--to)) calc(var(--len, 180px) * 0.60),
+      color-mix(in srgb, var(--from) 28.2%, var(--to)) calc(var(--len, 180px) * 0.65),
+      color-mix(in srgb, var(--from) 21.6%, var(--to)) calc(var(--len, 180px) * 0.70),
+      color-mix(in srgb, var(--from) 15.6%, var(--to)) calc(var(--len, 180px) * 0.75),
+      color-mix(in srgb, var(--from) 10.4%, var(--to)) calc(var(--len, 180px) * 0.80),
+      color-mix(in srgb, var(--from) 6.1%, var(--to)) calc(var(--len, 180px) * 0.85),
+      color-mix(in srgb, var(--from) 2.8%, var(--to)) calc(var(--len, 180px) * 0.90),
+      color-mix(in srgb, var(--from) 0.7%, var(--to)) calc(var(--len, 180px) * 0.95),
+      var(--to) var(--len, 180px)
+    );
+  }
+
+  /* The same, plus an ease from --to into --end at the bottom over --len-end (default --len). */
+  .fade-ends {
+    background-image: linear-gradient(
+      to bottom,
+      var(--from) 0px,
+      color-mix(in srgb, var(--from) 99.3%, var(--to)) calc(var(--len, 180px) * 0.05),
+      color-mix(in srgb, var(--from) 97.2%, var(--to)) calc(var(--len, 180px) * 0.10),
+      color-mix(in srgb, var(--from) 93.9%, var(--to)) calc(var(--len, 180px) * 0.15),
+      color-mix(in srgb, var(--from) 89.6%, var(--to)) calc(var(--len, 180px) * 0.20),
+      color-mix(in srgb, var(--from) 84.4%, var(--to)) calc(var(--len, 180px) * 0.25),
+      color-mix(in srgb, var(--from) 78.4%, var(--to)) calc(var(--len, 180px) * 0.30),
+      color-mix(in srgb, var(--from) 71.8%, var(--to)) calc(var(--len, 180px) * 0.35),
+      color-mix(in srgb, var(--from) 64.8%, var(--to)) calc(var(--len, 180px) * 0.40),
+      color-mix(in srgb, var(--from) 57.5%, var(--to)) calc(var(--len, 180px) * 0.45),
+      color-mix(in srgb, var(--from) 50%, var(--to)) calc(var(--len, 180px) * 0.50),
+      color-mix(in srgb, var(--from) 42.5%, var(--to)) calc(var(--len, 180px) * 0.55),
+      color-mix(in srgb, var(--from) 35.2%, var(--to)) calc(var(--len, 180px) * 0.60),
+      color-mix(in srgb, var(--from) 28.2%, var(--to)) calc(var(--len, 180px) * 0.65),
+      color-mix(in srgb, var(--from) 21.6%, var(--to)) calc(var(--len, 180px) * 0.70),
+      color-mix(in srgb, var(--from) 15.6%, var(--to)) calc(var(--len, 180px) * 0.75),
+      color-mix(in srgb, var(--from) 10.4%, var(--to)) calc(var(--len, 180px) * 0.80),
+      color-mix(in srgb, var(--from) 6.1%, var(--to)) calc(var(--len, 180px) * 0.85),
+      color-mix(in srgb, var(--from) 2.8%, var(--to)) calc(var(--len, 180px) * 0.90),
+      color-mix(in srgb, var(--from) 0.7%, var(--to)) calc(var(--len, 180px) * 0.95),
+      var(--to) var(--len, 180px),
+      var(--to) calc(100% - var(--len-end, var(--len, 180px))),
+      color-mix(in srgb, var(--to) 99.3%, var(--end)) calc(100% - var(--len-end, var(--len, 180px)) * 0.95),
+      color-mix(in srgb, var(--to) 97.2%, var(--end)) calc(100% - var(--len-end, var(--len, 180px)) * 0.90),
+      color-mix(in srgb, var(--to) 93.9%, var(--end)) calc(100% - var(--len-end, var(--len, 180px)) * 0.85),
+      color-mix(in srgb, var(--to) 89.6%, var(--end)) calc(100% - var(--len-end, var(--len, 180px)) * 0.80),
+      color-mix(in srgb, var(--to) 84.4%, var(--end)) calc(100% - var(--len-end, var(--len, 180px)) * 0.75),
+      color-mix(in srgb, var(--to) 78.4%, var(--end)) calc(100% - var(--len-end, var(--len, 180px)) * 0.70),
+      color-mix(in srgb, var(--to) 71.8%, var(--end)) calc(100% - var(--len-end, var(--len, 180px)) * 0.65),
+      color-mix(in srgb, var(--to) 64.8%, var(--end)) calc(100% - var(--len-end, var(--len, 180px)) * 0.60),
+      color-mix(in srgb, var(--to) 57.5%, var(--end)) calc(100% - var(--len-end, var(--len, 180px)) * 0.55),
+      color-mix(in srgb, var(--to) 50%, var(--end)) calc(100% - var(--len-end, var(--len, 180px)) * 0.50),
+      color-mix(in srgb, var(--to) 42.5%, var(--end)) calc(100% - var(--len-end, var(--len, 180px)) * 0.45),
+      color-mix(in srgb, var(--to) 35.2%, var(--end)) calc(100% - var(--len-end, var(--len, 180px)) * 0.40),
+      color-mix(in srgb, var(--to) 28.2%, var(--end)) calc(100% - var(--len-end, var(--len, 180px)) * 0.35),
+      color-mix(in srgb, var(--to) 21.6%, var(--end)) calc(100% - var(--len-end, var(--len, 180px)) * 0.30),
+      color-mix(in srgb, var(--to) 15.6%, var(--end)) calc(100% - var(--len-end, var(--len, 180px)) * 0.25),
+      color-mix(in srgb, var(--to) 10.4%, var(--end)) calc(100% - var(--len-end, var(--len, 180px)) * 0.20),
+      color-mix(in srgb, var(--to) 6.1%, var(--end)) calc(100% - var(--len-end, var(--len, 180px)) * 0.15),
+      color-mix(in srgb, var(--to) 2.8%, var(--end)) calc(100% - var(--len-end, var(--len, 180px)) * 0.10),
+      color-mix(in srgb, var(--to) 0.7%, var(--end)) calc(100% - var(--len-end, var(--len, 180px)) * 0.05),
+      var(--end) 100%
+    );
+  }
+}
+
 /* While the theme is being switched nothing may fade: backgrounds jump (gradients
    cannot be animated) and text colours would lag behind them. The button's own icon is exempt. */
 .theme-switching *:not(.theme-toggle *),

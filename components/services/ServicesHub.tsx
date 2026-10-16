@@ -97,7 +97,7 @@ export default function ServicesHub() {
             </section>
           ))}
 
-          <section className="relative isolate overflow-hidden px-5 py-16 sm:px-6 md:py-24 bg-[linear-gradient(to_bottom,var(--band)_0px,var(--page)_180px,var(--page)_100%)]">
+          <section className="relative isolate overflow-hidden px-5 py-16 sm:px-6 md:py-24 fade-top [--from:var(--band)] [--to:var(--page)]">
             <SectionGlow />
             <div className="mx-auto max-w-3xl text-center">
               <h2 className="font-heading text-3xl font-bold text-white sm:text-4xl">

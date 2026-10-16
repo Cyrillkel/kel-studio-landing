@@ -67,6 +67,8 @@ The site has a dark theme (default) and a light theme, switched by the `data-the
 
 Components are written in the dark palette. In the light theme the neutral Tailwind colors are mirrored in `app/globals.css`, so `text-white` means "primary text color", `bg-white/5` and `border-white/10` are tints of that ink, and `text-gray-*` steps are inverted. Write new code with the same classes and do not use hex colors. Surfaces and effects have variables (`bg-page`, `bg-card`, `bg-popover`, `shadow-shade/NN`, `var(--glow)` and so on). Use `text-snow` for text that must stay white on a colored fill.
 
+Large soft gradients between the dark page colors show as stripes and rings on bright monitors (a dark page has only a few dozen distinct colors). Do not write raw `radial-gradient` or `linear-gradient` for glows and section edges: use `.glow-wash`, `.fade-top` and `.fade-ends` from `app/globals.css`, which ease the color with a smoothstep curve. A fine grain layer over the dark page (`body::after`, tile in `public/grain.png`) hides the steps that remain; keep it. The tools that check this are in `../tools/banding/`.
+
 ## Contact form
 
 `POST /api/contact` validates the request with the same rules as the form (`lib/contactSchema.ts`) and delivers the lead through two independent channels:
