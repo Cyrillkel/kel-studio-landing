@@ -317,6 +317,73 @@
           ],
           "note": "The project is under NDA: we do not disclose its name or interface, the picture is an illustration."
         }
+      },
+      {
+        "title": "Telegram Mini App with TON escrow contracts",
+        "description": "Mutual-aid platform: smart contract, backend and Mini App",
+        "image": "/portfolio/ton-miniapp.jpg",
+        "case": {
+          "role": "Smart contract, backend and Mini App",
+          "about": "A mutual-aid platform inside Telegram: participants join tickets with equal contributions in TON, the money is held by a smart contract, and the distribution of the fund can be verified. It runs on the TON mainnet with real money, so the core of the project is reliable accounting and verifiability.",
+          "work": [
+            "Escrow smart contract in Tact: a separate contract for every ticket takes the contributions and sends the fund itself, tested in the TON sandbox",
+            "Verifiable selection: the round of the external drand randomness network is fixed in advance, its signature is checked, and anyone can re-check the result",
+            "NestJS and PostgreSQL backend: tickets, levels and leagues, personal goals, a referral program, payments, notifications, background jobs on pg-boss",
+            "React Mini App: sign-in through Telegram, wallet connection through TON Connect with proof of ownership, tickets, statistics, a landing page and an admin panel",
+            "Money is counted only as integers in nanotons, never as floating-point numbers",
+            "Hundreds of automated tests, CI on GitHub Actions: checks on every pull request, deployment only after them, a separate test environment on testnet",
+            "Infrastructure: Docker Compose, Caddy with automatic TLS, a VPS"
+          ],
+          "stack": [
+            {
+              "name": "Smart contract",
+              "items": [
+                "Tact",
+                "TON Blueprint",
+                "@ton/sandbox",
+                "@ton/core"
+              ]
+            },
+            {
+              "name": "Backend",
+              "items": [
+                "NestJS 10",
+                "TypeScript",
+                "Prisma",
+                "PostgreSQL 16",
+                "pg-boss",
+                "@ton/ton",
+                "drand",
+                "JWT",
+                "Swagger",
+                "Jest"
+              ]
+            },
+            {
+              "name": "Frontend",
+              "items": [
+                "React 18",
+                "Vite",
+                "React Router",
+                "TON Connect",
+                "Telegram Mini Apps"
+              ]
+            },
+            {
+              "name": "Infrastructure",
+              "items": [
+                "Docker Compose",
+                "Caddy",
+                "GitHub Actions"
+              ]
+            }
+          ],
+          "gallery": [
+            "/portfolio/ton-miniapp.jpg",
+            "/portfolio/ton-miniapp-landing.jpg"
+          ],
+          "note": "We do not disclose the project's name; it is hidden on the screenshots. The data on the screens is demo data."
+        }
       }
     ]
   },
