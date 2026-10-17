@@ -10,15 +10,10 @@ import { useSnapSlider } from "./useSnapSlider";
 import { useWhenNear } from "./useWhenNear";
 import SliderDots from "./SliderDots";
 import { ButtonLink } from "./Button";
+import CaseDialog from "./CaseDialog";
+import type { PortfolioItem } from "@/lib/portfolio";
 
 gsap.registerPlugin(ScrollTrigger);
-
-type ProjectItem = {
-  title: string;
-  description: string;
-  image?: string;
-  url?: string;
-};
 
 // The slides change by themselves this often until the visitor takes over.
 const AUTOPLAY_MS = 5000;
@@ -45,7 +40,7 @@ const arrowButton =
 
 export default function Portfolio() {
   const { t } = useTranslation();
-  const items = t("portfolio.items", { returnObjects: true }) as ProjectItem[];
+  const items = t("portfolio.items", { returnObjects: true }) as PortfolioItem[];
   const total = items.length;
   // The project cards plus the "your project could be here" card.
   const slideCount = total + 1;
@@ -204,7 +199,7 @@ export default function Portfolio() {
                     />
                   </div>
                 )}
-                {item.url && (
+                {(item.url || item.case) && (
                   <span
                     aria-hidden="true"
                     className="absolute right-4 top-4 flex h-11 w-11 items-center justify-center rounded-full bg-black/60 text-white backdrop-blur-sm transition duration-300 lg:translate-y-2 lg:opacity-0 lg:group-hover:translate-y-0 lg:group-hover:opacity-100"
@@ -218,7 +213,8 @@ export default function Portfolio() {
                       strokeLinecap="round"
                       strokeLinejoin="round"
                     >
-                      <path d="M7 17 17 7M8 7h9v9" />
+                      {/* An arrow out to the live site, a plus for a case that opens here. */}
+                      <path d={item.url ? "M7 17 17 7M8 7h9v9" : "M12 5v14M5 12h14"} />
                     </svg>
                   </span>
                 )}
@@ -253,6 +249,8 @@ export default function Portfolio() {
                 >
                   {content}
                 </a>
+              ) : item.case ? (
+                <CaseDialog item={item}>{content}</CaseDialog>
               ) : (
                 content
               )}

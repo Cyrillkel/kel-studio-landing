@@ -203,7 +203,7 @@ export default function Navigation() {
                   </svg>
                 </Link>
                 <div
-                  className={`absolute left-1/2 top-full w-64 -translate-x-1/2 pt-3 transition duration-200 ${
+                  className={`absolute left-0 top-full w-64 pt-3 transition duration-200 ${
                     servicesOpen
                       ? "visible translate-y-0 opacity-100"
                       : "invisible -translate-y-1 opacity-0"

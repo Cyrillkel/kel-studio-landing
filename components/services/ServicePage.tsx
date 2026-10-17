@@ -12,16 +12,17 @@ import Footer from "@/components/Footer";
 import SmoothScroll from "@/components/SmoothScroll";
 import SectionGlow from "@/components/SectionGlow";
 import ContactModal from "@/components/ContactModal";
+import CaseDialog from "@/components/CaseDialog";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import RichText from "@/components/RichText";
 import Assurances from "@/components/services/Assurances";
 import ServiceIllustration from "@/components/services/ServiceIllustration";
 import { SERVICE_CONFIG, SERVICES_PATH, servicePath, type ServiceCopy, type ServiceSlug } from "@/lib/services";
 import { useLang, useLocalePath } from "@/components/useLang";
+import type { PortfolioItem } from "@/lib/portfolio";
 
 gsap.registerPlugin(ScrollTrigger, DrawSVGPlugin);
 
-type PortfolioItem = { title: string; description: string; image: string; url: string };
 
 export default function ServicePage({ slug }: { slug: ServiceSlug }) {
   const { t } = useTranslation();
@@ -262,18 +263,12 @@ export default function ServicePage({ slug }: { slug: ServiceSlug }) {
                 <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
                   {cases.map((item) => {
                     const host = item.url ? new URL(item.url).hostname : "";
-                    return (
-                      <a
-                        key={item.url}
-                        href={item.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="service-card group block"
-                      >
+                    const card = (
+                      <>
                         <div className="relative aspect-video overflow-hidden rounded-2xl border border-white/5 bg-card">
                           <Image
                             src={item.image}
-                            alt={`${item.title} - ${host}`}
+                            alt={host ? `${item.title} - ${host}` : item.title}
                             fill
                             sizes="(max-width: 639px) 100vw, (max-width: 1023px) 50vw, 33vw"
                             className="object-cover object-top transition-transform duration-700 ease-out group-hover:scale-[1.04]"
@@ -282,9 +277,27 @@ export default function ServicePage({ slug }: { slug: ServiceSlug }) {
                         <h3 className="mt-4 font-heading text-lg font-bold text-white">{item.title}</h3>
                         <p className="mt-1 text-gray-400">
                           {item.description}
-                          <span className="text-gray-500"> - {host}</span>
+                          {host && <span className="text-gray-500"> - {host}</span>}
                         </p>
+                      </>
+                    );
+                    // A project with a live site links to it; one without opens its story here.
+                    return item.url ? (
+                      <a
+                        key={item.title}
+                        href={item.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="service-card group block"
+                      >
+                        {card}
                       </a>
+                    ) : (
+                      <div key={item.title} className="service-card">
+                        <CaseDialog item={item} className="group">
+                          {card}
+                        </CaseDialog>
+                      </div>
                     );
                   })}
                 </div>
