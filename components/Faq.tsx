@@ -106,7 +106,11 @@ function FaqItem({
         role="region"
         aria-labelledby={`faq-question-${index}`}
         inert={!isOpen}
-        className="overflow-hidden"
+        // A click on the open answer closes it too, unless it ends a text selection.
+        onClick={() => {
+          if (!window.getSelection()?.toString()) onToggle();
+        }}
+        className="cursor-pointer overflow-hidden"
         style={{ height: initialOpen ? "auto" : 0 }}
       >
         <p className="pb-6 pr-12 text-gray-400 leading-relaxed">{item.answer}</p>

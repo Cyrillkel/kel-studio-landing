@@ -8,7 +8,7 @@ import SmoothScroll from "@/components/SmoothScroll";
 import SectionGlow from "@/components/SectionGlow";
 import ContactModal from "@/components/ContactModal";
 import Breadcrumbs from "@/components/Breadcrumbs";
-import RichText from "@/components/RichText";
+import FaqList from "./FaqList";
 import { PER_TASK_SLUGS, PRICE_TABLE_SLUGS, SERVICES_PATH, servicePath, type ServiceCopy } from "@/lib/services";
 import { useLang, useLocalePath } from "@/components/useLang";
 
@@ -161,30 +161,7 @@ export default function PricesPage() {
               <h2 className="font-heading text-2xl font-bold text-white sm:text-3xl">
                 {t("servicePages.common.faqTitle")}
               </h2>
-              <div className="mt-8 divide-y divide-white/10 rounded-2xl border border-white/10 bg-white/3">
-                {faq.map((item) => (
-                  <details key={item.q} className="group px-5 py-5 sm:px-6">
-                    <summary className="flex cursor-pointer list-none items-center justify-between gap-4 font-heading text-base font-bold text-white sm:text-lg [&::-webkit-details-marker]:hidden">
-                      {item.q}
-                      <svg
-                        aria-hidden="true"
-                        viewBox="0 0 24 24"
-                        className="h-5 w-5 shrink-0 text-gray-500 transition-transform duration-300 group-open:rotate-180"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth={2.5}
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      >
-                        <path d="m6 9 6 6 6-6" />
-                      </svg>
-                    </summary>
-                    <p className="mt-3 leading-relaxed text-gray-300">
-                      <RichText text={item.a} />
-                    </p>
-                  </details>
-                ))}
-              </div>
+              <FaqList items={faq} />
             </div>
           </section>
 
