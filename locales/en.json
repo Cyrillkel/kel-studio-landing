@@ -37,24 +37,14 @@
   },
   "services": {
     "heading": "Our Services",
-    "items": [
-      {
-        "title": "Web Design",
-        "description": "We create unique interfaces that convert visitors into customers. Modern design with a focus on UX/UI."
-      },
-      {
-        "title": "Development",
-        "description": "Fast, secure, and scalable web applications built on a modern tech stack. From landing pages to complex platforms."
-      },
-      {
-        "title": "Promotion",
-        "description": "SEO, Yandex Direct, Google Ads, and targeting on VKontakte and in Telegram. We drive targeted traffic and grow your business's sales."
-      },
-      {
-        "title": "Web Scraping",
-        "description": "Automated collection and structuring of data from websites, marketplaces, and APIs. Price monitoring and exports tailored to your needs."
-      }
-    ],
+    "subheading": "Choose a service to see what is included, the timeline and the price",
+    "tabsLabel": "Services",
+    "label": {
+      "service": "service",
+      "about": "in short",
+      "includes": "what's included"
+    },
+    "more": "More about the service",
     "all": "All services"
   },
   "pricing": {
