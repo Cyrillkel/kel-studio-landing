@@ -6,7 +6,7 @@ type Crumb = { name: string; href?: string };
 // BreadcrumbList markup by the page itself.
 export default function Breadcrumbs({ items, label }: { items: Crumb[]; label: string }) {
   return (
-    <nav aria-label={label} className="mb-6 text-sm text-gray-500">
+    <nav aria-label={label} className="mb-6 text-sm text-gray-500 print:hidden">
       <ol className="flex flex-wrap items-center gap-x-2 gap-y-1">
         {items.map((item, index) => (
           <li key={item.name} className="flex items-center gap-2">

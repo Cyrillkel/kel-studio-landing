@@ -26,7 +26,7 @@ const ICONS = [
   <path key="tls" d="M7 11V7a5 5 0 0 1 10 0v4M6 11h12a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1v-8a1 1 0 0 1 1-1z" />,
   <path key="domain" d="M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18zM3.6 9h16.8M3.6 15h16.8M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18" />,
   <path key="search" d="M11 18a7 7 0 1 0 0-14 7 7 0 0 0 0 14zM20 20l-4-4M8 11h6" />,
-  <path key="redirect" d="M4 7h11l-3-3M15 7l-3 3M20 17H9l3 3M9 17l3-3" />,
+  <path key="ai" d="M10 4l1.8 4.7L16.5 10.5l-4.7 1.8L10 17l-1.8-4.7L3.5 10.5l4.7-1.8zM18 14l.9 2.1 2.1.9-2.1.9L18 20l-.9-2.1-2.1-.9 2.1-.9z" />,
   <path key="meta" d="M7 7h.01M3 12V5a2 2 0 0 1 2-2h7l9 9-9 9-9-9z" />,
 ];
 
@@ -49,22 +49,22 @@ export default function SiteCheckPage() {
       <Navigation />
       <SmoothScroll>
         <main className="bg-page">
-          <section className="relative isolate overflow-hidden px-5 pt-32 pb-16 sm:px-6 md:pt-40 md:pb-20">
+          <section className="relative isolate overflow-hidden px-5 pt-32 pb-16 sm:px-6 md:pt-40 md:pb-20 print:p-0">
             <SectionGlow />
             <div className="mx-auto max-w-page">
               <Breadcrumbs items={crumbs} label={t("servicePages.common.breadcrumbLabel")} />
-              <h1 className="max-w-3xl font-heading text-3xl leading-tight font-bold text-white sm:text-4xl lg:text-5xl">
+              <h1 className="max-w-3xl font-heading text-3xl leading-tight font-bold text-white sm:text-4xl lg:text-5xl print:hidden">
                 {t("siteCheck.title")}
               </h1>
-              <p className="mt-6 max-w-3xl text-lg leading-relaxed text-gray-300 sm:text-xl">{t("siteCheck.lead")}</p>
-              <HeroFacts items={facts} className="mt-6" />
-              <div className="mt-8">
+              <p className="mt-6 max-w-3xl text-lg leading-relaxed text-gray-300 sm:text-xl print:hidden">{t("siteCheck.lead")}</p>
+              <HeroFacts items={facts} className="mt-6 print:hidden" />
+              <div className="mt-8 print:mt-0">
                 <SiteCheckForm />
               </div>
             </div>
           </section>
 
-          <section className="bg-band px-5 py-12 sm:px-6 md:py-16">
+          <section className="bg-band px-5 py-12 sm:px-6 md:py-16 print:hidden">
             <div className="mx-auto max-w-page">
               <h2 className="font-heading text-2xl font-bold text-white sm:text-3xl">{t("siteCheck.includesTitle")}</h2>
               <ul className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -98,7 +98,7 @@ export default function SiteCheckPage() {
             </div>
           </section>
 
-          <section className="bg-page px-5 py-12 sm:px-6 md:py-16">
+          <section className="bg-page px-5 py-12 sm:px-6 md:py-16 print:hidden">
             <div className="mx-auto max-w-page">
               <div className="relative isolate overflow-hidden rounded-3xl border border-white/10 bg-card-violet p-6 sm:p-10">
                 <div
@@ -133,7 +133,7 @@ export default function SiteCheckPage() {
             </div>
           </section>
 
-          <section className="bg-band px-5 py-12 sm:px-6 md:py-16">
+          <section className="bg-band px-5 py-12 sm:px-6 md:py-16 print:hidden">
             {/* The questions keep a reading width but start at the page's left edge, under the logo. */}
             <div className="mx-auto max-w-page *:max-w-3xl">
               <h2 className="font-heading text-2xl font-bold text-white sm:text-3xl">

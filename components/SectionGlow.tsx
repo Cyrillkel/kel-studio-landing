@@ -5,7 +5,7 @@
 export default function SectionGlow() {
   return (
     <div
-      className="glow-wash pointer-events-none absolute inset-0 -z-10"
+      className="glow-wash pointer-events-none absolute inset-0 -z-10 print:hidden"
       aria-hidden="true"
     />
   );

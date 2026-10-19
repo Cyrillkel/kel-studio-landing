@@ -2441,7 +2441,7 @@
   },
   "siteCheck": {
     "metaTitle": "Free website check online: find errors on your site | KEL Studio",
-    "metaDescription": "Check a website for errors online, no sign-up: uptime, SSL, domain expiry, indexing, security, meta tags and structured data. A report in half a minute.",
+    "metaDescription": "Check a website for errors online, no sign-up: uptime, SSL, domain, indexing, broken links, readiness for AI search and meta tags. A report in half a minute.",
     "crumb": "Website check",
     "navLabel": "Website check",
     "facts": [
@@ -2459,7 +2459,7 @@
       }
     ],
     "title": "Free website check online",
-    "lead": "We check your site for errors in half a minute: whether it opens and how fast it answers, SSL and protection, the domain's paid period and mail, whether it is closed to search, the redirects, the meta tags and the home page's markup.",
+    "lead": "We check your site for errors in half a minute: whether it opens and how fast, SSL and protection, the domain's paid period and mail, indexing and broken links, readiness for AI search, the meta tags and the home page's markup.",
     "inputLabel": "Website address",
     "placeholder": "for example, example.com",
     "submit": "Check",
@@ -2476,6 +2476,8 @@
         "Reading meta tags and markup",
         "Checking security headers",
         "Checking the domain's mail",
+        "Checking links and sitemap addresses",
+        "Checking readiness for AI search",
         "Putting the report together"
       ]
     },
@@ -2493,7 +2495,7 @@
     },
     "report": {
       "title": "Report: {{host}}",
-      "checked": "Checked {{date}} at {{time}} Moscow time, in {{seconds}} s",
+      "checked": "Checked {{date}} at {{time}} Moscow time, in {{seconds}} s",
       "verdict": {
         "bad": "Serious problems",
         "warn": "Worth fixing",
@@ -2533,6 +2535,7 @@
         "security": "Security",
         "domain": "Domain and mail",
         "search": "Search",
+        "geo": "AI search (GEO)",
         "page": "Home page"
       },
       "notChecked": {
@@ -2555,7 +2558,16 @@
       "watchCta": "Connect in Telegram",
       "helpTitle": "Need help fixing it?",
       "helpText": "We will look at the report and name the price and the timeline.",
-      "helpCta": "Write to us"
+      "helpCta": "Write to us",
+      "print": {
+        "button": "Save as PDF",
+        "note": "A print window opens: choose \"Save as PDF\".",
+        "by": "Free website check · kel.agency/en/site-check",
+        "helpTitle": "Need help fixing it?",
+        "helpText": "Write to us:",
+        "watchText": "Watch the site for free: the Telegram bot checks it every 10 minutes and sends a report monthly:",
+        "file": "Website check {{host}} {{date}}"
+      }
     },
     "rows": {
       "open": {
@@ -2575,14 +2587,14 @@
       "speed": {
         "label": "Server response time",
         "fast": {
-          "value": "{{seconds}} s"
+          "value": "{{seconds}} s"
         },
         "medium": {
-          "value": "{{seconds}} s",
+          "value": "{{seconds}} s",
           "hint": "Better under a second: while the server thinks, the visitor sees a blank screen. Caching or a faster hosting usually helps."
         },
         "slow": {
-          "value": "{{seconds}} s",
+          "value": "{{seconds}} s",
           "hint": "Visitors wait seconds before the page starts loading, and some leave. Worth looking at the hosting and caching."
         }
       },
@@ -2815,9 +2827,31 @@
           "value_index_one": "{{address}}: an index of {{count}} sitemap",
           "value_index_other": "{{address}}: an index of {{count}} sitemaps"
         },
+        "not-in-robots": {
+          "value": "{{address}}",
+          "value_urls_one": "{{address}}: {{count}} address",
+          "value_urls_other": "{{address}}: {{count}} addresses",
+          "value_index_one": "{{address}}: an index of {{count}} sitemap",
+          "value_index_other": "{{address}}: an index of {{count}} sitemaps",
+          "hint": "The sitemap is not listed in robots.txt. Add a Sitemap line with its address there: then every search engine finds it, not only those where it was submitted by hand."
+        },
         "missing": {
           "value": "Not found",
           "hint": "A sitemap helps Yandex and Google find new pages sooner. Its address goes into robots.txt."
+        }
+      },
+      "sitemap-urls": {
+        "label": "Addresses from the sitemap",
+        "ok": {
+          "value": "Checked {{checked}}: all open"
+        },
+        "redirects": {
+          "value": "{{count}} of {{checked}} redirect",
+          "hint": "For example, {{example}}. A sitemap should list the final addresses of pages, with no redirects: search engines then crawl the site faster."
+        },
+        "errors": {
+          "value": "{{count}} of {{checked}} do not open",
+          "hint": "For example, {{example}} ({{reason}}). Search engines visit these addresses and hit an error: fix them or remove them from the sitemap."
         }
       },
       "canonical": {
@@ -2856,6 +2890,67 @@
         },
         "unknown": {
           "value": "Could not check (status {{status}})"
+        }
+      },
+      "links": {
+        "label": "Links on the home page",
+        "ok": {
+          "value": "Checked {{checked}}: all open"
+        },
+        "broken": {
+          "value": "{{count}} of {{checked}} do not open",
+          "hint": "For example, {{example}} ({{reason}}). Visitors and search engines hit an error: fix the link or remove it."
+        }
+      },
+      "ai-bots": {
+        "label": "AI search bots in robots.txt",
+        "open": {
+          "value": "All allowed"
+        },
+        "training": {
+          "value": "AI search allowed, training bots closed ({{training}})"
+        },
+        "blocked": {
+          "value": "Closed to: {{bots}}",
+          "hint": "These services cannot use the site in their answers or link to it. If that is not intended, remove the ban in robots.txt. Bots that collect texts for training (GPTBot, ClaudeBot) can stay closed: that does not affect answers."
+        }
+      },
+      "text": {
+        "label": "Text without JavaScript",
+        "ok": {
+          "value_one": "{{count}} word in the HTML",
+          "value_other": "{{count}} words in the HTML"
+        },
+        "little": {
+          "value_one": "{{count}} word in the HTML",
+          "value_other": "{{count}} words in the HTML",
+          "hint": "Little text, so AI search and search engines have almost nothing to quote. Describe on the home page what you do, for whom, terms and prices."
+        },
+        "empty": {
+          "value_one": "{{count}} word in the HTML",
+          "value_other": "{{count}} words in the HTML",
+          "hint": "The text seems to appear only after JavaScript runs. Many AI bots run no scripts and see an empty page, and search engines index such pages less reliably. Server-side rendering (SSR) or static HTML helps."
+        }
+      },
+      "snippets": {
+        "label": "Quoting (nosnippet)",
+        "ok": {
+          "value": "Allowed"
+        },
+        "blocked": {
+          "value": "Banned by the robots tag",
+          "value_header": "Banned by the X-Robots-Tag header",
+          "hint": "With nosnippet search engines show no text under the link, and Google does not use the page in AI Overviews. If that is not intended, remove nosnippet (or max-snippet:0)."
+        }
+      },
+      "llms": {
+        "label": "llms.txt file",
+        "found": {
+          "value": "Present"
+        },
+        "missing": {
+          "value": "None",
+          "hint": "Optional. A new convention: a short description of the site for AI assistants. Some AI services read it; Google and Yandex do not use it."
         }
       },
       "title": {
@@ -2966,6 +3061,16 @@
           "hint": "Schema.org markup tells search engines about the company: contacts, address, reviews. Rich results in search are built from it."
         }
       },
+      "analytics": {
+        "label": "Analytics counter",
+        "found": {
+          "value": "{{counters}}"
+        },
+        "missing": {
+          "value": "Not found on the home page",
+          "hint": "Without a counter you cannot see where visitors come from and how many of them get in touch. Google Analytics and Yandex Metrica are free. A counter added by an outside script may escape us."
+        }
+      },
       "favicon": {
         "label": "Site icon (favicon)",
         "ok": {
@@ -3018,7 +3123,7 @@
     "includes": [
       {
         "title": "Access and speed",
-        "text": "Whether the site opens, how fast the server answers, whether the page is compressed and served over HTTP/2. The check runs from our server in Russia."
+        "text": "Whether the site opens, how fast the server answers, compression, HTTP/2 and redirects: from http to https and between the addresses with and without www. The check runs from our server in Russia."
       },
       {
         "title": "SSL and protection",
@@ -3029,16 +3134,16 @@
         "text": "The domain's paid-till date from the registry, and the SPF and DMARC records without which mail from the domain lands in spam more often."
       },
       {
-        "title": "Closed to search",
-        "text": "noindex on the home page, bans in robots.txt for Google and Yandex, the sitemap and the canonical address."
+        "title": "Search and indexing",
+        "text": "noindex, robots.txt for Google and Yandex, the sitemap and its addresses, the canonical address, the answer for missing pages and broken links on the home page."
       },
       {
-        "title": "Redirects and duplicates",
-        "text": "Whether the site moves visitors from http to https, whether it opens with and without www as two copies, and what it answers for missing pages."
+        "title": "AI search (GEO)",
+        "text": "Whether robots.txt lets in the bots of ChatGPT, Perplexity, Claude and Alice AI, whether they see the text without JavaScript, whether quoting is allowed and whether there is an llms.txt."
       },
       {
         "title": "Home page meta tags and markup",
-        "text": "The title and description, the H1, the mobile setting, the language, the social preview, structured data, the icon and image alt texts."
+        "text": "The title and description, the H1, the mobile setting, the language, the social preview, structured data, the analytics counter, the icon and image alt texts."
       }
     ],
     "limitsTitle": "What this check does not do",
@@ -3061,6 +3166,10 @@
         "a": "\"Important\" hurts the site right now: it does not open, it is closed to search, the certificate or the domain has expired. \"Worth fixing\" will matter soon or hurts search. \"Nice to have\" is not critical but worth doing."
       },
       {
+        "q": "What is the check for AI search (GEO)?",
+        "a": "It is getting a site ready for the answers of AI services: ChatGPT, Perplexity, Alice AI and Google's AI Overviews. We check the technical side: whether robots.txt lets their bots in, whether they see the page's text without JavaScript, whether quoting is allowed and whether there is an llms.txt. Whether the site makes it into answers also depends on its content and how well the company is known: the check does not measure that."
+      },
+      {
         "q": "Do you keep the site's address?",
         "a": "No. The address is needed for the check only. The result stays in the server's memory for a few minutes, so a repeated check is quicker, and is then wiped."
       },
@@ -3079,6 +3188,20 @@
       "text": "Uptime, SSL and protection, domain expiry, indexing, meta tags and what is worth fixing. No sign-up.",
       "submit": "Check",
       "bot": "or connect free monitoring in Telegram"
+    },
+    "bots": {
+      "chatgpt": "ChatGPT",
+      "perplexity": "Perplexity",
+      "claude": "Claude",
+      "alice": "Alice AI"
+    },
+    "counters": {
+      "metrika": "Yandex Metrica",
+      "ga": "Google Analytics",
+      "gtm": "Google Tag Manager",
+      "vk": "VK Pixel",
+      "mailru": "Top.Mail.Ru",
+      "tilda": "Tilda statistics"
     }
   }
 }

@@ -33,6 +33,9 @@ export function useRowText(): (row: CheckRow) => RowText | null {
       ? t("siteCheck.report.mb", { value: decimal(bytes / 1_000_000, 1) })
       : t("siteCheck.report.kb", { value: decimal(Math.max(1, Math.round(bytes / 1000)), 0) });
   const list = (items: unknown) => (Array.isArray(items) ? items.join(", ") : "");
+  // Names of the bots' products and of the counters, from their ids.
+  const names = (items: unknown, group: "bots" | "counters") =>
+    (Array.isArray(items) ? items : []).map((id) => t(`siteCheck.${group}.${id}`, { defaultValue: String(id) })).join(", ");
   const engines = (items: unknown) => {
     const names = (Array.isArray(items) ? items : []).map((name) => t(`siteCheck.report.engines.${name}`));
     return names.length > 1 ? `${names.slice(0, -1).join(", ")} ${t("siteCheck.report.engines.and")} ${names.at(-1)}` : (names[0] ?? "");
@@ -93,6 +96,23 @@ export function useRowText(): (row: CheckRow) => RowText | null {
           context = data.index ? "index" : "urls";
           vars.count = data.entries;
         }
+        break;
+      case "sitemap-urls":
+      case "links":
+        if (row.case === "errors" || row.case === "broken") vars.reason = reason(data);
+        break;
+      case "ai-bots":
+        vars.bots = names(data.bots, "bots");
+        vars.training = list(data.training);
+        break;
+      case "text":
+        vars.count = data.words;
+        break;
+      case "snippets":
+        if (data.source === "header") context = "header";
+        break;
+      case "analytics":
+        vars.counters = names(data.counters, "counters");
         break;
       case "title":
       case "description":

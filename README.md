@@ -101,7 +101,9 @@ A channel with missing variables is skipped; if no channel delivers, the endpoin
 
 - `/site-check`: a website check on the page, about 28 checks in five groups (access and speed, security, domain and mail, search, the home page). `POST /api/site-check` keeps a per-visitor limit in memory and passes the request to the checks API of the Pulse bot on the same server (`http://127.0.0.1:3200/check`, override with `PULSE_API_URL`), with the shared key from `PULSE_API_KEY`. For local work, run that API from the `kel-pulse` project next to this one: `PULSE_API_PORT=3200 node dist/src/serve-api.js`.
   - The API answers with rows (`lib/sitecheck.ts`): a group, a status and a `case` with data, but no words. `components/sitecheck/useRowText.ts` turns a row into text from `siteCheck.rows.<id>.<case>` in the locales (dates, sizes, plurals and variants by i18next). A case the bot sends and the locales do not have yet is left out of the table, so the bot can be updated first.
+  - "Save as PDF" prints the report: the print styles in `app/globals.css` leave only the report, `CheckReport` switches to the light theme and all rows for the print and names the file after the site and the date (Metrika goal `report_pdf`).
   - While a check runs, `CheckProgress` shows the scanner (`ScanVisual`) and the steps by time. The form on the home page (`SiteCheckTeaser`) opens a curtain with the same scanner from its button (`components/LaunchCurtain.tsx`, mounted in `RootShell`), which stays up until the check page is there.
+- `/llms.txt` (`lib/llms.ts`): the studio's services with prices and terms, the tools and the contacts for AI assistants, built from the same texts as the pages.
 - `/pulse`: the page of the free monitoring bot `@kel_pulse_bot`. Buttons open the bot with a start parameter that tells where the visitor came from (`lib/pulse.ts`).
 
 ## SEO and analytics

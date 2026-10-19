@@ -153,7 +153,7 @@ export default function Navigation() {
         // The border is always there, transparent at the top: a border that only appears
         // with the class starts from `currentcolor` (Tailwind 4's default) and flashes as a
         // white (dark theme) or black (light theme) line under the bar while it fades in.
-        className={`fixed top-0 right-0 left-0 z-50 border-b transition-colors duration-300 ${
+        className={`fixed top-0 right-0 left-0 z-50 border-b transition-colors duration-300 print:hidden ${
           isOpen
             ? "border-white/5 bg-page"
             : scrolled

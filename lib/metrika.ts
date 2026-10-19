@@ -31,6 +31,8 @@ export const GOALS = {
   phoneClick: "phone_click",
   // A click on the email link (opens the visitor's mail app).
   emailClick: "email_click",
+  // The report of the website check was printed or saved as a PDF.
+  reportPdf: "report_pdf",
   // The language was switched (parameter `lang`).
   langSwitch: "lang_switch",
   // A click on "connect" to the free monitoring bot (parameter `place`: where).

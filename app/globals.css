@@ -1261,3 +1261,56 @@ html:not([data-lang="en"]) .not-found-en {
     transition: none;
   }
 }
+
+/* The report of the website check on paper or in a PDF ("Save as PDF" in the
+   print window, components/sitecheck/CheckReport.tsx): only the report, in the
+   light theme (the report switches it for the print), with ScrollSmoother's
+   fixed wrapper and moved content put back into the flow of the page. */
+@media print {
+  @page {
+    size: A4;
+    margin: 14mm 12mm;
+  }
+
+  html,
+  body {
+    height: auto !important;
+    overflow: visible !important;
+    background: #fff !important;
+  }
+
+  #smooth-wrapper {
+    position: static !important;
+    inset: auto !important;
+    height: auto !important;
+    overflow: visible !important;
+  }
+
+  #smooth-content {
+    transform: none !important;
+  }
+
+  body::after {
+    display: none !important;
+  }
+
+  .report-in,
+  .report-row,
+  .score-ring {
+    animation: none !important;
+  }
+
+  /* Status marks and the tints of rows with issues keep their colours. */
+  .print-exact {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .report-table tr {
+    break-inside: avoid;
+  }
+
+  .report-table tbody > tr:first-child {
+    break-after: avoid;
+  }
+}

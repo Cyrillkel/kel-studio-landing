@@ -9,9 +9,9 @@ export const SITE_CHECK_PATH = "/site-check";
 // поправить", "Хорошо бы"). none: a plain fact, not a verdict.
 export type RowStatus = "ok" | "critical" | "warning" | "info" | "none";
 
-export type RowGroup = "access" | "security" | "domain" | "search" | "page";
+export type RowGroup = "access" | "security" | "domain" | "search" | "geo" | "page";
 
-export const ROW_GROUPS: RowGroup[] = ["access", "security", "domain", "search", "page"];
+export const ROW_GROUPS: RowGroup[] = ["access", "security", "domain", "search", "geo", "page"];
 
 // One row of the report. The service sends no words: `case` picks the text in
 // siteCheck.rows.<id>.<case> of the locales, and `data` fills it in.

@@ -1,10 +1,14 @@
 "use client";
 
-import { useState, type CSSProperties } from "react";
+import { useEffect, useRef, useState, type CSSProperties } from "react";
+import { flushSync } from "react-dom";
 import { useTranslation } from "react-i18next";
 import ContactModal from "@/components/ContactModal";
 import PulseButton from "@/components/pulse/PulseButton";
 import { useLang } from "@/components/useLang";
+import { GOALS, reachGoal } from "@/lib/metrika";
+import { PULSE_BOT, pulseBotUrl } from "@/lib/pulse";
+import { CONTACT_EMAIL, SITE_URL, TELEGRAM_URL } from "@/lib/site";
 import { ROW_GROUPS, type CheckResult, type CheckRow, type RowStatus } from "@/lib/sitecheck";
 import { useRowText, type RowText } from "./useRowText";
 
@@ -76,6 +80,8 @@ function ScoreRing({ passed, total, status, label, caption }: { passed: number; 
 // The result of one check: how many checks passed and the verdict, then every
 // check in a table by groups, issues first within a group, with what to do
 // about each; then what next (watch the site with the bot, or ask us to fix it).
+// "Save as PDF" prints it: only the report, in the light theme, every row, with
+// our contacts at the end (print styles in globals.css).
 export default function CheckReport({ result, onAgain }: { result: CheckResult; onAgain: () => void }) {
   const { t } = useTranslation();
   const lang = useLang();
@@ -114,6 +120,38 @@ export default function CheckReport({ result, onAgain }: { result: CheckResult; 
     return { group, rows, passed: judgedHere.filter(({ row }) => row.status === "ok").length, judged: judgedHere.length };
   }).filter((group) => group.rows.length > 0);
 
+  // Printing (the button, or Ctrl+P): every row, the light theme, and a file
+  // name with the site and the date for "Save as PDF"; all back afterwards.
+  // What to put back: kept in a ref, since the filter change re-renders the report.
+  const saved = useRef<{ theme: string | null; title: string } | null>(null);
+  useEffect(() => {
+    const html = document.documentElement;
+    const before = () => {
+      if (!saved.current) saved.current = { theme: html.getAttribute("data-theme"), title: document.title };
+      flushSync(() => setFilter("all"));
+      html.setAttribute("data-theme", "light");
+      const day = new Intl.DateTimeFormat(lang === "ru" ? "ru-RU" : "en-US", { day: "2-digit", month: "2-digit", year: "numeric", timeZone: "Europe/Moscow" }).format(result.checkedAt);
+      document.title = t("siteCheck.report.print.file", { host: result.host, date: day });
+    };
+    const after = () => {
+      if (!saved.current) return;
+      if (saved.current.theme) html.setAttribute("data-theme", saved.current.theme);
+      document.title = saved.current.title;
+      saved.current = null;
+    };
+    window.addEventListener("beforeprint", before);
+    window.addEventListener("afterprint", after);
+    return () => {
+      window.removeEventListener("beforeprint", before);
+      window.removeEventListener("afterprint", after);
+    };
+  }, [lang, result.checkedAt, result.host, t]);
+
+  const print = () => {
+    reachGoal(GOALS.reportPdf);
+    window.print();
+  };
+
   const time = new Date(result.checkedAt);
   const checked = r("checked", {
     date: new Intl.DateTimeFormat(locale, { day: "numeric", month: "long", timeZone: "Europe/Moscow" }).format(time),
@@ -129,7 +167,11 @@ export default function CheckReport({ result, onAgain }: { result: CheckResult; 
 
   let index = 0;
   return (
-    <div className="mt-10 text-left">
+    <div className="print-exact mt-10 text-left print:mt-0">
+      <div className="mb-5 hidden items-baseline justify-between gap-4 border-b border-white/10 pb-3 print:flex">
+        <span className="font-heading text-xl font-bold text-white">KEL Studio</span>
+        <span className="text-sm text-gray-500">{r("print.by")}</span>
+      </div>
       <section aria-labelledby="check-report" className="report-in rounded-3xl border border-white/10 bg-white/3 p-5 sm:p-8">
         <div className="flex flex-col gap-6 sm:flex-row sm:items-center sm:gap-8">
           <ScoreRing
@@ -158,11 +200,24 @@ export default function CheckReport({ result, onAgain }: { result: CheckResult; 
                 ))}
             </dl>
             <p className="mt-3 text-sm text-gray-500">{checked}</p>
+            <div className="mt-5 flex flex-wrap items-center gap-x-4 gap-y-2 print:hidden">
+              <button
+                type="button"
+                onClick={print}
+                className="inline-flex cursor-pointer items-center gap-2 rounded-xl border border-white/15 px-4 py-2.5 text-sm font-semibold text-white transition-colors hover:border-white/30 hover:bg-white/5"
+              >
+                <svg aria-hidden="true" viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M12 4v11m0 0l-4.5-4.5M12 15l4.5-4.5M5 19h14" />
+                </svg>
+                {r("print.button")}
+              </button>
+              <span className="text-xs text-gray-500">{r("print.note")}</span>
+            </div>
           </div>
         </div>
       </section>
 
-      <div role="group" aria-label={r("filters.label")} className="report-in mt-8 inline-flex flex-wrap gap-1 rounded-xl border border-white/10 bg-white/3 p-1">
+      <div role="group" aria-label={r("filters.label")} className="report-in mt-8 inline-flex flex-wrap gap-1 rounded-xl border border-white/10 bg-white/3 p-1 print:hidden">
         {filters.map((item) => (
           <button
             key={item.id}
@@ -180,8 +235,8 @@ export default function CheckReport({ result, onAgain }: { result: CheckResult; 
       </div>
 
       {groups.length > 0 ? (
-        <div className="report-in mt-4 overflow-hidden rounded-2xl border border-white/10">
-          <table className="w-full border-collapse text-left">
+        <div className="report-in mt-4 overflow-hidden rounded-2xl border border-white/10 print:mt-6">
+          <table className="report-table w-full border-collapse text-left">
             <caption className="sr-only">{r("caption", { host: result.host })}</caption>
             <thead className="bg-white/5 text-xs tracking-wider text-gray-400 uppercase">
               <tr>
@@ -250,7 +305,18 @@ export default function CheckReport({ result, onAgain }: { result: CheckResult; 
 
       {notChecked && <p className="mt-4 max-w-3xl text-sm leading-relaxed text-gray-400">{r(`notChecked.${notChecked}`)}</p>}
 
-      <div className="mt-8 grid gap-3 md:grid-cols-[1.4fr_1fr]">
+      <div className="mt-6 hidden rounded-2xl border border-white/10 p-5 text-sm leading-relaxed text-gray-300 print:block">
+        <p>
+          <strong className="text-white">{r("print.helpTitle")}</strong> {r("print.helpText")}{" "}
+          <a href={SITE_URL}>kel.agency</a>, Telegram <a href={TELEGRAM_URL}>{TELEGRAM_URL.replace("https://", "")}</a>,{" "}
+          <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>
+        </p>
+        <p className="mt-2">
+          {r("print.watchText")} <a href={pulseBotUrl(lang === "en" ? "site_check_pdf_en" : "site_check_pdf")}>t.me/{PULSE_BOT}</a>
+        </p>
+      </div>
+
+      <div className="mt-8 grid gap-3 md:grid-cols-[1.4fr_1fr] print:hidden">
         <div className="rounded-2xl bg-linear-to-br from-cyan-400 via-violet-500 to-fuchsia-500 p-px">
           <div className="flex h-full flex-col rounded-[15px] bg-card p-5 sm:p-6">
             <h3 className="font-heading text-lg font-bold text-white">{r("watchTitle")}</h3>
@@ -276,7 +342,7 @@ export default function CheckReport({ result, onAgain }: { result: CheckResult; 
       <button
         type="button"
         onClick={onAgain}
-        className="mt-6 cursor-pointer text-gray-400 underline underline-offset-4 transition-colors hover:text-white"
+        className="mt-6 cursor-pointer text-gray-400 underline underline-offset-4 transition-colors hover:text-white print:hidden"
       >
         {r("again")}
       </button>

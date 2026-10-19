@@ -97,7 +97,7 @@ export default function SiteCheckForm() {
           e.preventDefault();
           if (!loading) void run(url);
         }}
-        className="flex max-w-2xl flex-col gap-3 sm:flex-row"
+        className="flex max-w-2xl flex-col gap-3 sm:flex-row print:hidden"
       >
         <label htmlFor="site-check-url" className="sr-only">
           {t("siteCheck.inputLabel")}

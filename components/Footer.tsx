@@ -21,7 +21,7 @@ export default function Footer() {
   const onHome = isHome(pathname);
   const other: Lang = lang === "en" ? "ru" : "en";
   return (
-    <footer className="py-12 fade-top [--from:var(--page)] [--to:var(--footer)]">
+    <footer className="py-12 print:hidden fade-top [--from:var(--page)] [--to:var(--footer)]">
       <div className="max-w-7xl mx-auto px-5 sm:px-6">
         <div className="flex flex-col md:flex-row justify-between items-center gap-6">
           <div className="flex flex-col items-center gap-1 md:items-start">

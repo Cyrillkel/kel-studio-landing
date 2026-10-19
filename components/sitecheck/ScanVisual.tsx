@@ -14,6 +14,8 @@ const TAGS = [
   { label: "title · H1", x: "34%", y: "19%" },
   { label: "HSTS", x: "68%", y: "74%" },
   { label: "SPF · DMARC", x: "6%", y: "77%" },
+  { label: "sitemap.xml", x: "38%", y: "88%" },
+  { label: "GEO", x: "82%", y: "56%" },
 ];
 
 export const SCAN_TAG_COUNT = TAGS.length;
