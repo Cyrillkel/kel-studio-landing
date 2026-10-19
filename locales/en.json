@@ -2363,7 +2363,7 @@
       },
       {
         "title": "Send your site's address",
-        "text": "For example, example.com. The bot checks the site at once and sends the first report within a minute."
+        "text": "For example, example.com. The bot checks the site at once and sends the first report."
       },
       {
         "title": "The bot takes it from there",
@@ -2414,8 +2414,8 @@
         "a": "Yes. Write to us: we will look at the report and name the price and the timeline of the fixes."
       }
     ],
-    "finalTitle": "Connect monitoring in a minute",
-    "finalText": "Open the bot, send your site's address, and the first check comes right away.",
+    "finalTitle": "Connect monitoring now",
+    "finalText": "Open the bot and send your site's address: it checks it right away.",
     "helpText": "The bot found issues and you need help?",
     "helpCta": "Write to us",
     "teaser": {
@@ -2424,6 +2424,152 @@
       "text": "It writes in Telegram when the site stops opening, its SSL or domain is about to expire, or it was closed to search. Once a month it sends a report.",
       "cta": "Connect in Telegram",
       "more": "How it works"
+    }
+  },
+  "siteCheck": {
+    "metaTitle": "Free website check online: find errors on your site | KEL Studio",
+    "metaDescription": "Check a website for errors online, no sign-up: uptime, SSL certificate, domain expiry, indexing, redirects and meta tags. A report in half a minute.",
+    "crumb": "Website check",
+    "navLabel": "Website check",
+    "eyebrow": "Free · no sign-up",
+    "title": "Free website check online",
+    "lead": "We check your site for errors in half a minute: whether it opens and how fast it answers, the SSL certificate and the domain's paid period, whether it is closed to search, the redirects, the sitemap and the home page's meta tags.",
+    "inputLabel": "Website address",
+    "placeholder": "for example, example.com",
+    "submit": "Check",
+    "progress": [
+      "Opening the site",
+      "Looking at the SSL certificate",
+      "Looking up the domain's paid period",
+      "Reading robots.txt and the sitemap",
+      "Checking the redirects",
+      "Putting the report together"
+    ],
+    "errors": {
+      "not-url": "That does not look like a website address. Enter, for example, example.com",
+      "blocked": "This address cannot be checked: we need a regular website on the internet, without a port or an IP address.",
+      "not-found": "No such site: the domain does not exist or its DNS is not set up. Check the address.",
+      "rate-limited": "Too many checks in a row. Please try again in a few minutes.",
+      "busy": "We are checking a lot of sites right now. Please try again in a minute.",
+      "unavailable": "The check is unavailable for now. Please try again later.",
+      "failed": "Could not check the site. Please try again."
+    },
+    "report": {
+      "title": "Report: {{host}}",
+      "verdictOk": "All good",
+      "verdictWarn": "Worth fixing",
+      "verdictBad": "Serious problems",
+      "availability": "Uptime",
+      "up": "Opens",
+      "upDetail": "code {{status}}, answered in {{seconds}} s",
+      "down": "Does not open",
+      "restricted": "Behind a bot protection",
+      "restrictedDetail": "the site answers the robot with code {{status}}",
+      "ssl": "SSL certificate",
+      "sslOk": "Valid until {{date}}",
+      "sslLeft": "{{days}} left",
+      "sslNone": "No HTTPS",
+      "sslNoneDetail": "browsers mark the site as \"Not secure\"",
+      "sslProblem": "Not trusted by browsers",
+      "domain": "Domain",
+      "domainOk": "Paid until {{date}}",
+      "domainLeft": "{{name}}, {{days}} left",
+      "domainUnknown": "Could not find out",
+      "domainNone": "Not checked",
+      "domainNoneDetail": "a platform address or an IP",
+      "indexing": "Search",
+      "indexOpen": "Open to search",
+      "indexNoindex": "Closed with noindex",
+      "indexRobots": "Closed in robots.txt",
+      "indexUnknown": "Could not check",
+      "sitemapYes": "sitemap.xml is in place",
+      "sitemapNo": "no sitemap.xml found",
+      "findingsTitle": "Worth fixing",
+      "noFindings": "No issues: the site is fine.",
+      "notChecked": "The home page did not open, so search, redirects and meta tags will be checked once it works.",
+      "levels": {
+        "critical": "Important",
+        "warning": "Worth fixing",
+        "info": "Nice to have"
+      },
+      "again": "Check another site",
+      "watchTitle": "Watch the site for free",
+      "watchText": "The Telegram bot will check {{host}} every 10 minutes and write if the site stops opening, its SSL or domain is about to expire, or it gets closed to search. It looks for broken links weekly and sends a monthly report.",
+      "watchCta": "Connect in Telegram",
+      "helpTitle": "Need help fixing it?",
+      "helpText": "We will look at the report and name the price and the timeline.",
+      "helpCta": "Write to us"
+    },
+    "days": {
+      "one": "day",
+      "few": "days",
+      "many": "days"
+    },
+    "includesTitle": "What we check",
+    "includes": [
+      {
+        "title": "Whether the site opens",
+        "text": "The response code, how fast the home page answers and the redirects on the way. The check runs from our server in Russia."
+      },
+      {
+        "title": "SSL certificate",
+        "text": "Until when it is valid, which domain it is issued for and whether browsers trust it."
+      },
+      {
+        "title": "Domain's paid period",
+        "text": "The date from the registry for .com, .ru and most other zones. We flag it when less than a month is left."
+      },
+      {
+        "title": "Closed to search",
+        "text": "noindex on the home page, bans in robots.txt for Google and Yandex, the sitemap."
+      },
+      {
+        "title": "Redirects and duplicates",
+        "text": "Whether the site moves visitors from http to https, and whether it opens both with and without www as two copies."
+      },
+      {
+        "title": "Home page meta tags",
+        "text": "The title, the description, the H1, the setting for phones and the canonical address."
+      }
+    ],
+    "limitsTitle": "What this check does not do",
+    "limitsText": "We look at the technical state of the site. Traffic, search positions, backlinks and PageSpeed scores are not counted here: Metrika, Search Console and PageSpeed Insights are there for that. If you need a full review with a plan of work, order an [SEO audit](/services/seo-audit).",
+    "botTitle": "A check that runs by itself",
+    "botText": "A one-off check shows how the site is doing now. The Site Pulse bot watches it all the time: uptime every 10 minutes, SSL, domain and search every night, broken links weekly, a report monthly. Free for one site.",
+    "botCta": "Connect in Telegram",
+    "botMore": "More about the bot",
+    "faq": [
+      {
+        "q": "Is it really free and without sign-up?",
+        "a": "Yes. Enter the site's address and press Check: the report appears on this page. No sign-up needed."
+      },
+      {
+        "q": "Where does the check run from?",
+        "a": "From our server in Russia. If the site opens for you but not for us, its server may be refusing Russian addresses, or our robot ran into a bot protection: the report shows the response code."
+      },
+      {
+        "q": "What do the issue levels mean?",
+        "a": "\"Important\" hurts the site right now: it does not open, it is closed to search, the certificate or the domain has expired. \"Worth fixing\" will matter soon or hurts search. \"Nice to have\" is not critical but worth doing."
+      },
+      {
+        "q": "Do you keep the site's address?",
+        "a": "No. The address is needed for the check only. The result stays in the server's memory for a few minutes, so a repeated check is quicker, and is then wiped."
+      },
+      {
+        "q": "Why no page speed score?",
+        "a": "PageSpeed scores come from Google and change noticeably from run to run. We show how fast the home page answers: how long the server thinks before it starts sending the page."
+      },
+      {
+        "q": "Can you fix the issues found?",
+        "a": "Yes. Write to us: we will look at the report and name the price and the timeline."
+      }
+    ],
+    "teaser": {
+      "eyebrow": "Free",
+      "title": "Check your site in half a minute",
+      "text": "Uptime, SSL certificate, domain expiry, whether it is closed to search and what is worth fixing. No sign-up.",
+      "submit": "Check",
+      "bot": "or connect free monitoring in Telegram"
     }
   }
 }

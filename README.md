@@ -97,6 +97,11 @@ Large soft gradients between the dark page colors can show as stripes and rings 
 
 A channel with missing variables is skipped; if no channel delivers, the endpoint answers 502. Spam protection needs no captcha: a hidden honeypot field, a minimum fill time, a limit on links in the message, and a per-IP rate limit kept in memory (one server instance). Set the variables in `.env.local` for local runs and in the server environment in production; never commit them.
 
+## Free tools
+
+- `/site-check`: a website check on the page (availability, SSL, domain expiry, indexing, redirects, meta tags). `POST /api/site-check` keeps a per-visitor limit in memory and passes the request to the checks API of the Pulse bot on the same server (`http://127.0.0.1:3200/check`, override with `PULSE_API_URL`), with the shared key from `PULSE_API_KEY`. For local work, run that API from the `kel-pulse` project next to this one: `PULSE_API_PORT=3200 node dist/src/serve-api.js`.
+- `/pulse`: the page of the free monitoring bot `@kel_pulse_bot`. Buttons open the bot with a start parameter that tells where the visitor came from (`lib/pulse.ts`).
+
 ## SEO and analytics
 
 - `app/sitemap.ts`, `app/robots.ts`, social images (route handlers named `opengraph-image/route.tsx` in each language group: the metadata-file convention puts a hash into the address inside route groups), and JSON-LD (`lib/schema.ts`: one graph per page with the organization, the page, breadcrumbs, and service, FAQ or article data, in the page's language).

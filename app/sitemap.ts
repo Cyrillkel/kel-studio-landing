@@ -5,6 +5,7 @@ import { LANGS, withLang, type Lang, type PathPair } from "@/lib/lang";
 import { hreflangPaths } from "@/lib/pageMetadata";
 import { POLICY_UPDATED, PRIVACY_PATH, policyReady } from "@/lib/privacy";
 import { PULSE_PATH } from "@/lib/pulse";
+import { SITE_CHECK_PATH } from "@/lib/sitecheck";
 import { CONTENT_UPDATED, SITE_URL } from "@/lib/site";
 
 type Entry = MetadataRoute.Sitemap[number];
@@ -35,6 +36,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...entries(page("/"), () => ({ lastModified, changeFrequency: "monthly", priority: 1 })),
     ...entries(page(SERVICES_PATH), () => ({ lastModified, changeFrequency: "monthly", priority: 0.9 })),
     ...entries(page(PRICES_PATH), () => ({ lastModified, changeFrequency: "monthly", priority: 0.8 })),
+    ...entries(page(SITE_CHECK_PATH), () => ({ lastModified, changeFrequency: "monthly", priority: 0.9 })),
     ...entries(page(PULSE_PATH), () => ({ lastModified, changeFrequency: "monthly", priority: 0.8 })),
     // The blog's list exists in a language once that language has an article.
     ...entries(

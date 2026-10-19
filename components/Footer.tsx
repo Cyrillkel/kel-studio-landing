@@ -9,6 +9,7 @@ import { useLang, useLocalePath } from "./useLang";
 import { BLOG_PATH } from "@/lib/blog-path";
 import { isHome, type Lang } from "@/lib/lang";
 import { PULSE_PATH } from "@/lib/pulse";
+import { SITE_CHECK_PATH } from "@/lib/sitecheck";
 import { alternatePath } from "@/lib/routes";
 import { MENU_SLUGS, PRICES_PATH, SERVICES_PATH, servicePath } from "@/lib/services";
 
@@ -82,6 +83,11 @@ export default function Footer() {
             <li>
               <Link href={lp(BLOG_PATH)} className="transition-colors hover:text-gray-300">
                 {t("nav.blog")}
+              </Link>
+            </li>
+            <li>
+              <Link href={lp(SITE_CHECK_PATH)} className="transition-colors hover:text-gray-300">
+                {t("siteCheck.navLabel")}
               </Link>
             </li>
             <li>

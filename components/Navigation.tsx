@@ -16,8 +16,15 @@ import { BLOG_PATH } from "@/lib/blog-path";
 import { isHome } from "@/lib/lang";
 import { MENU_SLUGS, PRICES_PATH, SERVICES_PATH, servicePath } from "@/lib/services";
 import { PULSE_PATH } from "@/lib/pulse";
+import { SITE_CHECK_PATH } from "@/lib/sitecheck";
 import { PHONE, PHONE_URL, TELEGRAM_URL } from "@/lib/site";
 import { useLang, useLocalePath } from "./useLang";
+
+// The free tools, listed under the services with a "free" mark.
+const FREE_TOOLS = [
+  { href: SITE_CHECK_PATH, label: "siteCheck.navLabel" },
+  { href: PULSE_PATH, label: "pulse.navLabel" },
+] as const;
 
 export default function Navigation() {
   const { t } = useTranslation();
@@ -221,16 +228,19 @@ export default function Navigation() {
                         {t(`servicePages.items.${slug}.name`)}
                       </Link>
                     ))}
-                    <Link
-                      href={lp(PULSE_PATH)}
-                      className="flex items-center justify-between gap-3 rounded-xl px-4 py-2.5 whitespace-nowrap text-gray-300 transition-colors hover:bg-white/5 hover:text-white"
-                      onClick={() => setServicesOpen(false)}
-                    >
-                      {t("pulse.navLabel")}
-                      <span className="rounded-full bg-emerald-400/15 px-2 py-0.5 text-xs font-semibold text-emerald-400">
-                        {t("pulse.free")}
-                      </span>
-                    </Link>
+                    {FREE_TOOLS.map((tool) => (
+                      <Link
+                        key={tool.href}
+                        href={lp(tool.href)}
+                        className="flex items-center justify-between gap-3 rounded-xl px-4 py-2.5 whitespace-nowrap text-gray-300 transition-colors hover:bg-white/5 hover:text-white"
+                        onClick={() => setServicesOpen(false)}
+                      >
+                        {t(tool.label)}
+                        <span className="rounded-full bg-emerald-400/15 px-2 py-0.5 text-xs font-semibold text-emerald-400">
+                          {t("pulse.free")}
+                        </span>
+                      </Link>
+                    ))}
                     <Link
                       href={lp(SERVICES_PATH)}
                       className="mt-1 block rounded-xl border-t border-white/10 px-4 py-2.5 text-sm text-gray-500 transition-colors hover:text-white"
@@ -402,16 +412,19 @@ export default function Navigation() {
                       {t(`servicePages.items.${slug}.name`)}
                     </Link>
                   ))}
-                  <Link
-                    href={lp(PULSE_PATH)}
-                    className="flex items-center gap-2 py-2 text-base text-gray-400 transition-colors hover:text-white"
-                    onClick={closeMenu}
-                  >
-                    {t("pulse.navLabel")}
-                    <span className="rounded-full bg-emerald-400/15 px-2 py-0.5 text-xs font-semibold text-emerald-400">
-                      {t("pulse.free")}
-                    </span>
-                  </Link>
+                  {FREE_TOOLS.map((tool) => (
+                    <Link
+                      key={tool.href}
+                      href={lp(tool.href)}
+                      className="flex items-center gap-2 py-2 text-base text-gray-400 transition-colors hover:text-white"
+                      onClick={closeMenu}
+                    >
+                      {t(tool.label)}
+                      <span className="rounded-full bg-emerald-400/15 px-2 py-0.5 text-xs font-semibold text-emerald-400">
+                        {t("pulse.free")}
+                      </span>
+                    </Link>
+                  ))}
                   <Link
                     href={lp(SERVICES_PATH)}
                     className="py-2 text-sm text-gray-500 transition-colors hover:text-white"

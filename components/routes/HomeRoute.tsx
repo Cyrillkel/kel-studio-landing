@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Hero from "@/components/Hero";
 import Services from "@/components/Services";
 import Pricing from "@/components/Pricing";
-import PulseTeaser from "@/components/PulseTeaser";
+import SiteCheckTeaser from "@/components/SiteCheckTeaser";
 import Portfolio from "@/components/Portfolio";
 import Process from "@/components/Process";
 import AboutPremium from "@/components/AboutPremium";
@@ -50,7 +50,7 @@ export default function HomeRoute({ lang }: { lang: Lang }) {
           <Hero />
           <Services />
           <Pricing />
-          <PulseTeaser />
+          <SiteCheckTeaser />
           <Portfolio />
           <Process />
           <AboutPremium />
