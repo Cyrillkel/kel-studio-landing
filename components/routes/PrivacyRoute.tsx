@@ -60,7 +60,7 @@ export default function PrivacyRoute({ lang }: { lang: Lang }) {
             {/* The look of headings, paragraphs, lists and links comes from the
                 `legal` class (globals.css). The text itself is the policy file:
                 each h2 becomes a section with an id. The width is the site's container. */}
-            <article className="legal mx-auto w-full max-w-7xl px-6 pb-24 pt-32 md:pt-40">
+            <article className="legal mx-auto w-full max-w-7xl px-5 pb-24 sm:px-6 pt-32 md:pt-40">
               <header>
                 <h1>{privacy.title}</h1>
                 <p className="legal-meta">

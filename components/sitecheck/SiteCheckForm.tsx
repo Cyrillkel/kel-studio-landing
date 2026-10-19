@@ -2,25 +2,32 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useLang } from "@/components/useLang";
+import { revealBelowHeader } from "@/components/smoothNavigate";
 import { GOALS, reachGoal } from "@/lib/metrika";
-import type { CheckErrorCode, CheckResult } from "@/lib/sitecheck";
+import { typedHost, type CheckErrorCode, type CheckResult } from "@/lib/sitecheck";
+import CheckProgress from "./CheckProgress";
 import CheckReport from "./CheckReport";
 
-type Status = { kind: "idle" } | { kind: "loading"; step: number } | { kind: "done"; result: CheckResult } | { kind: "error"; code: CheckErrorCode };
+type Status =
+  | { kind: "idle" }
+  | { kind: "loading"; host: string; step: number }
+  | { kind: "done"; result: CheckResult }
+  | { kind: "error"; code: CheckErrorCode };
 
 const ERRORS: CheckErrorCode[] = ["not-url", "blocked", "not-found", "rate-limited", "busy", "unavailable", "failed"];
+
+// How long each step of the progress shows; the last one waits for the answer.
+const STEP_MS = 1600;
 
 // The address field of the website check and the report under it. The address
 // also goes into the page's ?url=, so a report can be reloaded or shared, and a
 // link from elsewhere (the form on the home page) runs the check at once.
 export default function SiteCheckForm() {
   const { t } = useTranslation();
-  const lang = useLang();
   const [url, setUrl] = useState("");
   const [status, setStatus] = useState<Status>({ kind: "idle" });
   const inputRef = useRef<HTMLInputElement>(null);
-  const steps = t("siteCheck.progress", { returnObjects: true }) as string[];
+  const steps = t("siteCheck.progress.steps", { returnObjects: true }) as string[];
 
   const run = useCallback(
     async (address: string) => {
@@ -34,17 +41,19 @@ export default function SiteCheckForm() {
       window.history.replaceState(null, "", `${window.location.pathname}?${params}`);
       reachGoal(GOALS.siteCheck);
 
-      setStatus({ kind: "loading", step: 0 });
-      // The steps are shown one after another while the check runs; the last one waits.
+      setStatus({ kind: "loading", host: typedHost(value), step: 0 });
+      // The form and the scanner under it come into view (after a frame, so the
+      // page's ScrollSmoother exists when the check starts on arrival).
+      requestAnimationFrame(() => requestAnimationFrame(() => revealBelowHeader("#site-check")));
       const timer = setInterval(
-        () => setStatus((s) => (s.kind === "loading" ? { kind: "loading", step: Math.min(s.step + 1, steps.length - 1) } : s)),
-        2200,
+        () => setStatus((s) => (s.kind === "loading" ? { ...s, step: Math.min(s.step + 1, steps.length - 1) } : s)),
+        STEP_MS,
       );
       try {
         const res = await fetch("/api/site-check", {
           method: "POST",
           headers: { "content-type": "application/json" },
-          body: JSON.stringify({ url: value, lang }),
+          body: JSON.stringify({ url: value }),
         });
         const data = (await res.json()) as CheckResult | { ok: false; error?: string };
         if (data.ok) setStatus({ kind: "done", result: data });
@@ -55,7 +64,7 @@ export default function SiteCheckForm() {
         clearInterval(timer);
       }
     },
-    [lang, steps.length],
+    [steps.length],
   );
 
   // A link with ?url= starts the check right away (once: development mode runs effects twice).
@@ -82,7 +91,7 @@ export default function SiteCheckForm() {
   const loading = status.kind === "loading";
 
   return (
-    <div>
+    <div id="site-check" className="scroll-mt-28">
       <form
         onSubmit={(e) => {
           e.preventDefault();
@@ -106,7 +115,7 @@ export default function SiteCheckForm() {
           value={url}
           onChange={(e) => setUrl(e.target.value)}
           placeholder={t("siteCheck.placeholder")}
-          className="h-14 min-w-0 flex-1 rounded-xl border border-white/15 bg-field px-5 text-lg text-white placeholder:text-gray-500 focus:border-violet-400 focus:outline-none"
+          className="h-14 w-full min-w-0 rounded-xl sm:flex-1 border border-white/15 bg-field px-5 text-lg text-white placeholder:text-gray-500 focus:border-violet-400 focus:outline-none"
         />
         <button
           type="submit"
@@ -117,14 +126,9 @@ export default function SiteCheckForm() {
         </button>
       </form>
 
-      <div aria-live="polite" className="max-w-2xl">
-        {status.kind === "loading" && (
-          <p className="mt-5 flex items-center gap-3 text-gray-300">
-            <span aria-hidden="true" className="h-4 w-4 animate-spin rounded-full border-2 border-violet-400 border-t-transparent" />
-            {steps[status.step]}…
-          </p>
-        )}
-        {status.kind === "error" && <p className="mt-5 text-rose-400">{t(`siteCheck.errors.${status.code}`)}</p>}
+      <div aria-live="polite">
+        {status.kind === "loading" && <CheckProgress host={status.host} step={status.step} />}
+        {status.kind === "error" && <p className="mt-5 max-w-2xl text-rose-400">{t(`siteCheck.errors.${status.code}`)}</p>}
       </div>
 
       {status.kind === "done" && <CheckReport result={status.result} onAgain={again} />}

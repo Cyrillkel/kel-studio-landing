@@ -35,3 +35,21 @@ export function smoothNavigate(target: string): boolean {
 
   return true;
 }
+
+// Brings an element up to just under the fixed header, unless its top is
+// already in the upper part of the screen. With the smooth scroller (desktop)
+// it eases like the anchors; on phones the browser scrolls smoothly.
+export function revealBelowHeader(target: string, gap = 96): void {
+  const element = document.querySelector(target);
+  if (!element) return;
+  const top = element.getBoundingClientRect().top;
+  if (top >= gap - 8 && top <= window.innerHeight * 0.35) return;
+
+  const smoother = ScrollSmoother.get();
+  if (smoother) {
+    const y = gsap.utils.clamp(0, ScrollTrigger.maxScroll(window), smoother.offset(element, `top ${gap}px`));
+    gsap.to(smoother, { scrollTop: y, duration: 1.2, ease: "power2.inOut", overwrite: "auto" });
+    return;
+  }
+  window.scrollTo({ top: window.scrollY + top - gap, behavior: "smooth" });
+}

@@ -1,144 +1,256 @@
 "use client";
 
+import { useState, type CSSProperties } from "react";
 import { useTranslation } from "react-i18next";
 import ContactModal from "@/components/ContactModal";
 import PulseButton from "@/components/pulse/PulseButton";
 import { useLang } from "@/components/useLang";
-import type { CheckResult, FindingLevel } from "@/lib/sitecheck";
+import { ROW_GROUPS, type CheckResult, type CheckRow, type RowStatus } from "@/lib/sitecheck";
+import { useRowText, type RowText } from "./useRowText";
 
-type Tone = "good" | "warn" | "bad" | "none";
+type Filter = "all" | "issues" | "ok";
+type Shown = { row: CheckRow; text: RowText };
 
-const TONE: Record<Tone, string> = {
-  good: "bg-emerald-400",
-  warn: "bg-amber-400",
-  bad: "bg-rose-400",
-  none: "bg-gray-500",
+const ISSUES: RowStatus[] = ["critical", "warning", "info"];
+
+// Colours of a status: the mark, the label and the tint of a row with an issue.
+const TONE: Record<RowStatus, { text: string; mark: string; row: string; stroke: string }> = {
+  ok: { text: "text-emerald-400", mark: "bg-emerald-400/15 text-emerald-400", row: "", stroke: "stroke-emerald-400" },
+  critical: { text: "text-rose-400", mark: "bg-rose-400/15 text-rose-400", row: "bg-rose-400/[0.05]", stroke: "stroke-rose-400" },
+  warning: { text: "text-amber-400", mark: "bg-amber-400/15 text-amber-400", row: "bg-amber-400/[0.04]", stroke: "stroke-amber-400" },
+  info: { text: "text-violet-300", mark: "bg-violet-400/15 text-violet-300", row: "", stroke: "stroke-violet-400" },
+  none: { text: "text-gray-400", mark: "bg-white/8 text-gray-400", row: "", stroke: "stroke-gray-400" },
 };
 
-const LEVEL: Record<FindingLevel, string> = {
-  critical: "border-rose-400/40 bg-rose-400/10 text-rose-400",
-  warning: "border-amber-400/40 bg-amber-400/10 text-amber-400",
-  info: "border-white/15 bg-white/5 text-gray-400",
+const MARKS: Record<RowStatus, string> = {
+  ok: "M5 12.5l4.5 4.5L19 7.5",
+  critical: "M12 6.5v7M12 17.5h.01",
+  warning: "M12 6.5v7M12 17.5h.01",
+  info: "M12 10.5v7M12 6.5h.01",
+  none: "M7.5 12h9",
 };
 
-function Card({ label, tone, title, detail }: { label: string; tone: Tone; title: string; detail?: string }) {
+function StatusMark({ status, className = "h-6 w-6" }: { status: RowStatus; className?: string }) {
   return (
-    <div className="rounded-2xl border border-white/10 bg-white/3 p-5">
-      <p className="flex items-center gap-2 text-sm text-gray-400">
-        <span aria-hidden="true" className={`h-2.5 w-2.5 rounded-full ${TONE[tone]}`} />
-        {label}
-      </p>
-      <p className="mt-3 font-heading text-lg leading-snug font-bold text-white">{title}</p>
-      {detail && <p className="mt-1 text-sm leading-relaxed text-gray-400">{detail}</p>}
+    <span aria-hidden="true" className={`flex shrink-0 items-center justify-center rounded-full ${TONE[status].mark} ${className}`}>
+      <svg viewBox="0 0 24 24" className="h-3.5 w-3.5" fill="none" stroke="currentColor" strokeWidth={3} strokeLinecap="round" strokeLinejoin="round">
+        <path d={MARKS[status]} />
+      </svg>
+    </span>
+  );
+}
+
+// How many checks passed, as a circle that fills up when the report appears.
+function ScoreRing({ passed, total, status, label, caption }: { passed: number; total: number; status: RowStatus; label: string; caption: string }) {
+  const radius = 44;
+  const circle = 2 * Math.PI * radius;
+  const offset = circle * (1 - (total ? passed / total : 0));
+  return (
+    <div role="img" aria-label={label} className="relative h-32 w-32 shrink-0">
+      <svg viewBox="0 0 100 100" className="h-full w-full -rotate-90">
+        <circle cx="50" cy="50" r={radius} fill="none" strokeWidth={7} className="stroke-white/10" />
+        <circle
+          cx="50"
+          cy="50"
+          r={radius}
+          fill="none"
+          strokeWidth={7}
+          strokeLinecap="round"
+          strokeDasharray={circle}
+          strokeDashoffset={offset}
+          className={`score-ring ${TONE[status].stroke}`}
+          style={{ "--ring-empty": circle } as CSSProperties}
+        />
+      </svg>
+      <div className="absolute inset-0 flex flex-col items-center justify-center">
+        <span className="font-heading text-3xl font-bold text-white">
+          {passed}
+          <span className="text-lg text-gray-500">/{total}</span>
+        </span>
+        <span className="text-xs text-gray-400">{caption}</span>
+      </div>
     </div>
   );
 }
 
-// The result of one check: a verdict, four cards (uptime, certificate, domain,
-// search), the issues worst first, and what to do next (watch it with the bot,
-// or ask us to fix it).
+// The result of one check: how many checks passed and the verdict, then every
+// check in a table by groups, issues first within a group, with what to do
+// about each; then what next (watch the site with the bot, or ask us to fix it).
 export default function CheckReport({ result, onAgain }: { result: CheckResult; onAgain: () => void }) {
   const { t } = useTranslation();
   const lang = useLang();
+  const describe = useRowText();
+  const [filter, setFilter] = useState<Filter>("all");
   const r = (key: string, options?: Record<string, unknown>) => t(`siteCheck.report.${key}`, options);
   const locale = lang === "ru" ? "ru-RU" : "en-US";
-  const date = (time: number) =>
-    new Intl.DateTimeFormat(locale, lang === "ru"
-      ? { day: "2-digit", month: "2-digit", year: "numeric", timeZone: "Europe/Moscow" }
-      : { day: "numeric", month: "short", year: "numeric", timeZone: "Europe/Moscow" }).format(time);
-  const plural = new Intl.PluralRules(locale);
-  const days = (n: number) => {
-    const form = plural.select(n);
-    return `${n} ${t(`siteCheck.days.${form === "one" ? "one" : form === "few" ? "few" : "many"}`)}`;
-  };
-  const seconds = (ms: number) => (ms / 1000).toFixed(2).replace(".", lang === "ru" ? "," : ".");
 
-  const { availability: up, tls, domain, indexing } = result;
-  // The outage is in the first card; the list does not repeat it.
-  const findings = result.findings.filter((f) => f.key !== "unreachable");
-  const critical = !up.ok && !up.restricted ? 1 : findings.filter((f) => f.level === "critical").length;
-  const warnings = findings.filter((f) => f.level === "warning").length;
-  const verdict: { tone: Tone; text: string } = critical
-    ? { tone: "bad", text: r("verdictBad") }
-    : warnings
-      ? { tone: "warn", text: r("verdictWarn") }
-      : { tone: "good", text: r("verdictOk") };
+  const shown: Shown[] = [];
+  for (const row of result.rows) {
+    const text = describe(row);
+    if (text) shown.push({ row, text });
+  }
+  const count = (status: RowStatus) => shown.filter(({ row }) => row.status === status).length;
+  const counts = { ok: count("ok"), critical: count("critical"), warning: count("warning"), info: count("info") };
+  const judged = counts.ok + counts.critical + counts.warning + counts.info;
+  const issues = counts.critical + counts.warning + counts.info;
+  const worst: RowStatus = counts.critical ? "critical" : counts.warning ? "warning" : "ok";
+  const verdict = counts.critical ? "bad" : counts.warning ? "warn" : counts.info ? "fine" : "ok";
 
-  const upCard = up.ok
-    ? { tone: "good" as Tone, title: r("up"), detail: up.status && up.ms !== undefined ? r("upDetail", { status: up.status, seconds: seconds(up.ms) }) : undefined }
-    : up.restricted
-      ? { tone: "warn" as Tone, title: r("restricted"), detail: up.status ? r("restrictedDetail", { status: up.status }) : undefined }
-      : { tone: "bad" as Tone, title: r("down"), detail: up.reason };
+  const open = result.rows.find((row) => row.id === "open");
+  const notChecked = result.pageLoaded
+    ? null
+    : open?.status === "critical"
+      ? "down"
+      : open?.case === "restricted"
+        ? "restricted"
+        : "partial";
 
-  const sslCard = !result.https && !tls
-    ? { tone: "bad" as Tone, title: r("sslNone"), detail: r("sslNoneDetail") }
-    : tls?.problem
-      ? { tone: "bad" as Tone, title: r("sslProblem"), detail: tls.problem }
-      : tls?.validTo !== undefined
-        ? {
-            tone: (tls.daysLeft ?? 0) < 14 ? ("warn" as Tone) : ("good" as Tone),
-            title: r("sslOk", { date: date(tls.validTo) }),
-            detail: r("sslLeft", { days: days(tls.daysLeft ?? 0) }),
-          }
-        : { tone: "none" as Tone, title: r("indexUnknown") };
+  const visible = (status: RowStatus) => (filter === "all" ? true : filter === "ok" ? status === "ok" : ISSUES.includes(status));
+  const rank = (status: RowStatus) => ["critical", "warning", "info", "ok", "none"].indexOf(status);
+  const groups = ROW_GROUPS.map((group) => {
+    const all = shown.filter(({ row }) => row.group === group);
+    const rows = all.filter(({ row }) => visible(row.status)).sort((a, b) => rank(a.row.status) - rank(b.row.status));
+    const judgedHere = all.filter(({ row }) => row.status !== "none");
+    return { group, rows, passed: judgedHere.filter(({ row }) => row.status === "ok").length, judged: judgedHere.length };
+  }).filter((group) => group.rows.length > 0);
 
-  const domainCard = !domain
-    ? { tone: "none" as Tone, title: r("domainNone"), detail: r("domainNoneDetail") }
-    : domain.expiresAt !== undefined
-      ? {
-          tone: domain.expiresAt < result.checkedAt ? ("bad" as Tone) : (domain.daysLeft ?? 0) < 30 ? ("warn" as Tone) : ("good" as Tone),
-          title: r("domainOk", { date: date(domain.expiresAt) }),
-          detail: r("domainLeft", { name: domain.name, days: days(domain.daysLeft ?? 0) }),
-        }
-      : { tone: "none" as Tone, title: r("domainUnknown"), detail: domain.name };
+  const time = new Date(result.checkedAt);
+  const checked = r("checked", {
+    date: new Intl.DateTimeFormat(locale, { day: "numeric", month: "long", timeZone: "Europe/Moscow" }).format(time),
+    time: new Intl.DateTimeFormat(locale, { hour: "2-digit", minute: "2-digit", timeZone: "Europe/Moscow" }).format(time),
+    seconds: new Intl.NumberFormat(locale, { maximumFractionDigits: 1 }).format(result.tookMs / 1000),
+  });
 
-  const searchCard = !indexing
-    ? { tone: "none" as Tone, title: r("indexUnknown") }
-    : {
-        tone: indexing.noindex || indexing.blockedFor.length > 0 ? ("bad" as Tone) : ("good" as Tone),
-        title: indexing.noindex ? r("indexNoindex") : indexing.blockedFor.length > 0 ? r("indexRobots") : r("indexOpen"),
-        detail: indexing.sitemapFound ? r("sitemapYes") : r("sitemapNo"),
-      };
+  const filters: { id: Filter; label: string; count: number }[] = [
+    { id: "all", label: r("filters.all"), count: shown.length },
+    { id: "issues", label: r("filters.issues"), count: issues },
+    { id: "ok", label: r("filters.ok"), count: counts.ok },
+  ];
 
+  let index = 0;
   return (
     <div className="mt-10 text-left">
-      <div className="flex flex-wrap items-center justify-between gap-4">
-        <h2 tabIndex={-1} id="check-report" className="font-heading text-2xl font-bold text-white outline-none sm:text-3xl">
-          {r("title", { host: result.host })}
-        </h2>
-        <span className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1.5 text-sm font-semibold text-white">
-          <span aria-hidden="true" className={`h-2.5 w-2.5 rounded-full ${TONE[verdict.tone]}`} />
-          {verdict.text}
-        </span>
+      <section aria-labelledby="check-report" className="report-in rounded-3xl border border-white/10 bg-white/3 p-5 sm:p-8">
+        <div className="flex flex-col gap-6 sm:flex-row sm:items-center sm:gap-8">
+          <ScoreRing
+            passed={counts.ok}
+            total={judged}
+            status={worst}
+            label={r("passedLabel", { passed: counts.ok, total: judged })}
+            caption={r("passed")}
+          />
+          <div className="min-w-0 flex-1">
+            <h2 tabIndex={-1} id="check-report" className="font-heading text-2xl font-bold wrap-anywhere text-white outline-none sm:text-3xl">
+              {r("title", { host: result.host })}
+            </h2>
+            <p className={`mt-3 flex items-center gap-2 text-lg font-semibold ${TONE[worst].text}`}>
+              <StatusMark status={worst} />
+              {r(`verdict.${verdict}`)}
+            </p>
+            <dl className="mt-4 flex flex-wrap gap-x-6 gap-y-2">
+              {(["critical", "warning", "info", "ok"] as const)
+                .filter((status) => counts[status] > 0)
+                .map((status) => (
+                  <div key={status} className="flex items-baseline gap-1.5">
+                    <dt className="order-2 text-sm text-gray-400">{r(`counts.${status}`)}</dt>
+                    <dd className={`order-1 font-heading text-lg font-bold ${TONE[status].text}`}>{counts[status]}</dd>
+                  </div>
+                ))}
+            </dl>
+            <p className="mt-3 text-sm text-gray-500">{checked}</p>
+          </div>
+        </div>
+      </section>
+
+      <div role="group" aria-label={r("filters.label")} className="report-in mt-8 inline-flex flex-wrap gap-1 rounded-xl border border-white/10 bg-white/3 p-1">
+        {filters.map((item) => (
+          <button
+            key={item.id}
+            type="button"
+            aria-pressed={filter === item.id}
+            onClick={() => setFilter(item.id)}
+            className={`cursor-pointer rounded-lg px-3.5 py-2 text-sm font-medium transition-colors ${
+              filter === item.id ? "bg-white text-black" : "text-gray-300 hover:bg-white/5 hover:text-white"
+            }`}
+          >
+            {item.label}
+            <span className="ml-1.5 opacity-60">{item.count}</span>
+          </button>
+        ))}
       </div>
 
-      <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-        <Card label={r("availability")} {...upCard} />
-        <Card label={r("ssl")} {...sslCard} />
-        <Card label={r("domain")} {...domainCard} />
-        <Card label={r("indexing")} {...searchCard} />
-      </div>
-
-      <div className="mt-8 rounded-2xl border border-white/10 bg-white/3 p-5 sm:p-6">
-        <h3 className="font-heading text-lg font-bold text-white">{r("findingsTitle")}</h3>
-        {findings.length > 0 ? (
-          <ul className="mt-4 space-y-3">
-            {findings.map((finding) => (
-              <li key={finding.key} className="flex flex-col gap-2 sm:flex-row sm:items-start sm:gap-4">
-                <span className={`inline-flex w-fit shrink-0 rounded-full border px-2.5 py-0.5 text-xs font-semibold sm:mt-0.5 sm:w-36 sm:justify-center ${LEVEL[finding.level]}`}>
-                  {r(`levels.${finding.level}`)}
-                </span>
-                <span className="leading-relaxed text-gray-200">{finding.text}</span>
-              </li>
+      {groups.length > 0 ? (
+        <div className="report-in mt-4 overflow-hidden rounded-2xl border border-white/10">
+          <table className="w-full border-collapse text-left">
+            <caption className="sr-only">{r("caption", { host: result.host })}</caption>
+            <thead className="bg-white/5 text-xs tracking-wider text-gray-400 uppercase">
+              <tr>
+                <th scope="col" className="w-12 py-3 pl-4 sm:w-16 sm:pl-6">
+                  <span className="sr-only">{r("columns.status")}</span>
+                </th>
+                <th scope="col" className="px-4 py-3 font-semibold sm:pl-2">
+                  {r("columns.check")}
+                </th>
+                <th scope="col" className="hidden px-4 py-3 font-semibold sm:table-cell sm:pr-6">
+                  {r("columns.result")}
+                </th>
+              </tr>
+            </thead>
+            {groups.map(({ group, rows, passed, judged: judgedHere }) => (
+              <tbody key={group} className="divide-y divide-white/10 border-t border-white/10">
+                <tr>
+                  <th colSpan={3} scope="colgroup" className="bg-white/[0.02] px-4 pt-5 pb-2 text-left sm:px-6">
+                    <span className="flex items-baseline justify-between gap-4">
+                      <span className="font-heading text-base font-bold text-white">{r(`groups.${group}`)}</span>
+                      {judgedHere > 0 && (
+                        <span className="text-sm font-normal text-gray-500">
+                          {passed}/{judgedHere}
+                        </span>
+                      )}
+                    </span>
+                  </th>
+                </tr>
+                {rows.map(({ row, text }) => {
+                  const issue = ISSUES.includes(row.status);
+                  return (
+                    <tr
+                      key={row.id}
+                      className={`report-row align-top transition-colors hover:bg-white/3 ${TONE[row.status].row}`}
+                      style={{ "--i": index++ } as CSSProperties}
+                    >
+                      <td className="py-4 pl-4 sm:pl-6">
+                        <StatusMark status={row.status} />
+                      </td>
+                      <th scope="row" className="px-4 py-4 text-left font-normal sm:pl-2">
+                        <span className="flex flex-wrap items-baseline gap-x-2.5 gap-y-0.5">
+                          <span className="font-medium text-white">{text.label}</span>
+                          {issue && (
+                            <span className={`text-xs font-semibold tracking-wider uppercase ${TONE[row.status].text}`}>
+                              {r(`status.${row.status}`)}
+                            </span>
+                          )}
+                        </span>
+                        <span className="mt-1 block wrap-anywhere text-gray-300 sm:hidden">{text.value}</span>
+                        {text.hint && <span className="mt-1.5 block max-w-xl text-sm leading-relaxed text-gray-400">{text.hint}</span>}
+                      </th>
+                      <td className="hidden w-[38%] py-4 pr-6 pl-4 wrap-anywhere text-gray-200 sm:table-cell">
+                        <span className="sr-only">{r(`status.${row.status}`)}: </span>
+                        {text.value}
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
             ))}
-          </ul>
-        ) : (
-          <p className="mt-3 text-gray-300">{indexing ? r("noFindings") : r("notChecked")}</p>
-        )}
-        {findings.length > 0 && !indexing && <p className="mt-4 text-sm text-gray-400">{r("notChecked")}</p>}
-      </div>
+          </table>
+        </div>
+      ) : (
+        <p className="mt-4 rounded-2xl border border-white/10 bg-white/3 p-5 text-gray-300">{r("noIssues")}</p>
+      )}
 
-      <div className="mt-6 grid gap-3 md:grid-cols-[1.4fr_1fr]">
+      {notChecked && <p className="mt-4 max-w-3xl text-sm leading-relaxed text-gray-400">{r(`notChecked.${notChecked}`)}</p>}
+
+      <div className="mt-8 grid gap-3 md:grid-cols-[1.4fr_1fr]">
         <div className="rounded-2xl bg-linear-to-br from-cyan-400 via-violet-500 to-fuchsia-500 p-px">
           <div className="flex h-full flex-col rounded-[15px] bg-card p-5 sm:p-6">
             <h3 className="font-heading text-lg font-bold text-white">{r("watchTitle")}</h3>

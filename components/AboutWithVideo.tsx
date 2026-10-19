@@ -57,7 +57,7 @@ export default function AboutWithVideo() {
       ref={sectionRef}
       className="relative py-24 bg-[#141414] overflow-hidden"
     >
-      <div className="max-w-7xl mx-auto px-6">
+      <div className="max-w-7xl mx-auto px-5 sm:px-6">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           {/* Text on the left */}
           <div className="order-2 lg:order-1">

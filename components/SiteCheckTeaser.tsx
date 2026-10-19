@@ -5,19 +5,21 @@ import Image from "next/image";
 import Link from "next/link";
 import { useTranslation } from "react-i18next";
 import { PULSE_PATH } from "@/lib/pulse";
-import { SITE_CHECK_PATH } from "@/lib/sitecheck";
+import { SITE_CHECK_PATH, typedHost } from "@/lib/sitecheck";
+import { launchCurtain } from "./LaunchCurtain";
 import { useLocalePath } from "./useLang";
 
 // A card on the home page with the free tools: an address field that opens the
 // website check with the address filled in (it starts at once), and a link to
-// the monitoring bot.
+// the monitoring bot. On the way the curtain with the scanner opens from the
+// button (components/LaunchCurtain.tsx), so the click answers at once.
 export default function SiteCheckTeaser() {
   const { t } = useTranslation();
   const lp = useLocalePath();
 
   return (
     <section aria-labelledby="free-check" className="bg-page px-5 sm:px-6">
-      <div className="mx-auto max-w-7xl">
+      <div className="mx-auto max-w-page">
         <div className="relative isolate overflow-hidden rounded-3xl border border-white/10 bg-card-violet p-6 sm:p-10">
           <div
             aria-hidden="true"
@@ -37,7 +39,22 @@ export default function SiteCheckTeaser() {
                 {t("siteCheck.teaser.title")}
               </h2>
               <p className="mt-3 max-w-2xl leading-relaxed text-gray-300">{t("siteCheck.teaser.text")}</p>
-              <Form action={lp(SITE_CHECK_PATH)} className="mt-5 flex max-w-2xl flex-col gap-3 sm:flex-row">
+              <Form
+                action={lp(SITE_CHECK_PATH)}
+                onSubmit={(event) => {
+                  const address = String(new FormData(event.currentTarget).get("url") ?? "").trim();
+                  if (!address) return;
+                  const button = (event.nativeEvent as SubmitEvent).submitter ?? event.currentTarget.querySelector("button");
+                  const box = button?.getBoundingClientRect();
+                  launchCurtain({
+                    x: box ? box.left + box.width / 2 : window.innerWidth / 2,
+                    y: box ? box.top + box.height / 2 : window.innerHeight / 2,
+                    host: typedHost(address),
+                    title: t("siteCheck.curtain.title"),
+                  });
+                }}
+                className="mt-5 flex max-w-2xl flex-col gap-3 sm:flex-row"
+              >
                 <label htmlFor="free-check-url" className="sr-only">
                   {t("siteCheck.inputLabel")}
                 </label>
@@ -52,7 +69,7 @@ export default function SiteCheckTeaser() {
                   required
                   maxLength={300}
                   placeholder={t("siteCheck.placeholder")}
-                  className="h-12 min-w-0 flex-1 rounded-xl border border-white/15 bg-field px-4 text-white placeholder:text-gray-500 focus:border-violet-400 focus:outline-none"
+                  className="h-12 w-full min-w-0 rounded-xl sm:flex-1 border border-white/15 bg-field px-4 text-white placeholder:text-gray-500 focus:border-violet-400 focus:outline-none"
                 />
                 <button
                   type="submit"

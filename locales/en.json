@@ -2322,7 +2322,20 @@
     "crumb": "Website monitoring",
     "navLabel": "Website monitoring",
     "free": "free",
-    "eyebrow": "Free · Telegram bot",
+    "facts": [
+      {
+        "label": "Price",
+        "value": "Free"
+      },
+      {
+        "label": "Where",
+        "value": "In Telegram"
+      },
+      {
+        "label": "Checks",
+        "value": "Every 10 minutes"
+      }
+    ],
     "title": "Free website monitoring in Telegram",
     "lead": "Site Pulse watches your website and writes to you in Telegram when it stops opening, its SSL certificate or domain is about to expire, or it has been closed to search engines by mistake. Once a month it sends a report.",
     "cta": "Connect in Telegram",
@@ -2428,23 +2441,47 @@
   },
   "siteCheck": {
     "metaTitle": "Free website check online: find errors on your site | KEL Studio",
-    "metaDescription": "Check a website for errors online, no sign-up: uptime, SSL certificate, domain expiry, indexing, redirects and meta tags. A report in half a minute.",
+    "metaDescription": "Check a website for errors online, no sign-up: uptime, SSL, domain expiry, indexing, security, meta tags and structured data. A report in half a minute.",
     "crumb": "Website check",
     "navLabel": "Website check",
-    "eyebrow": "Free · no sign-up",
+    "facts": [
+      {
+        "label": "Price",
+        "value": "Free"
+      },
+      {
+        "label": "Time",
+        "value": "Up to 30 seconds"
+      },
+      {
+        "label": "Sign-up",
+        "value": "Not needed"
+      }
+    ],
     "title": "Free website check online",
-    "lead": "We check your site for errors in half a minute: whether it opens and how fast it answers, the SSL certificate and the domain's paid period, whether it is closed to search, the redirects, the sitemap and the home page's meta tags.",
+    "lead": "We check your site for errors in half a minute: whether it opens and how fast it answers, SSL and protection, the domain's paid period and mail, whether it is closed to search, the redirects, the meta tags and the home page's markup.",
     "inputLabel": "Website address",
     "placeholder": "for example, example.com",
     "submit": "Check",
-    "progress": [
-      "Opening the site",
-      "Looking at the SSL certificate",
-      "Looking up the domain's paid period",
-      "Reading robots.txt and the sitemap",
-      "Checking the redirects",
-      "Putting the report together"
-    ],
+    "progress": {
+      "eyebrow": "Checking",
+      "title": "Checking {{host}}",
+      "note": "It usually takes up to half a minute. Meanwhile, see below what exactly we check.",
+      "steps": [
+        "Opening the site",
+        "Looking at the SSL certificate and HTTPS",
+        "Looking up the domain's paid period",
+        "Reading robots.txt and the sitemap",
+        "Checking redirects and mirrors",
+        "Reading meta tags and markup",
+        "Checking security headers",
+        "Checking the domain's mail",
+        "Putting the report together"
+      ]
+    },
+    "curtain": {
+      "title": "Starting the check"
+    },
     "errors": {
       "not-url": "That does not look like a website address. Enter, for example, example.com",
       "blocked": "This address cannot be checked: we need a regular website on the internet, without a port or an IP address.",
@@ -2456,41 +2493,61 @@
     },
     "report": {
       "title": "Report: {{host}}",
-      "verdictOk": "All good",
-      "verdictWarn": "Worth fixing",
-      "verdictBad": "Serious problems",
-      "availability": "Uptime",
-      "up": "Opens",
-      "upDetail": "code {{status}}, answered in {{seconds}} s",
-      "down": "Does not open",
-      "restricted": "Behind a bot protection",
-      "restrictedDetail": "the site answers the robot with code {{status}}",
-      "ssl": "SSL certificate",
-      "sslOk": "Valid until {{date}}",
-      "sslLeft": "{{days}} left",
-      "sslNone": "No HTTPS",
-      "sslNoneDetail": "browsers mark the site as \"Not secure\"",
-      "sslProblem": "Not trusted by browsers",
-      "domain": "Domain",
-      "domainOk": "Paid until {{date}}",
-      "domainLeft": "{{name}}, {{days}} left",
-      "domainUnknown": "Could not find out",
-      "domainNone": "Not checked",
-      "domainNoneDetail": "a platform address or an IP",
-      "indexing": "Search",
-      "indexOpen": "Open to search",
-      "indexNoindex": "Closed with noindex",
-      "indexRobots": "Closed in robots.txt",
-      "indexUnknown": "Could not check",
-      "sitemapYes": "sitemap.xml is in place",
-      "sitemapNo": "no sitemap.xml found",
-      "findingsTitle": "Worth fixing",
-      "noFindings": "No issues: the site is fine.",
-      "notChecked": "The home page did not open, so search, redirects and meta tags will be checked once it works.",
-      "levels": {
+      "checked": "Checked {{date}} at {{time}} Moscow time, in {{seconds}} s",
+      "verdict": {
+        "bad": "Serious problems",
+        "warn": "Worth fixing",
+        "fine": "Mostly fine",
+        "ok": "All good"
+      },
+      "passed": "passed",
+      "passedLabel": "{{passed}} of {{total}} checks passed",
+      "counts": {
+        "critical": "important",
+        "warning": "worth fixing",
+        "info": "nice to have",
+        "ok": "passed"
+      },
+      "filters": {
+        "label": "Which checks to show",
+        "all": "All",
+        "issues": "Issues",
+        "ok": "Passed"
+      },
+      "noIssues": "No issues: everything we check is fine.",
+      "caption": "Check results for {{host}}",
+      "columns": {
+        "status": "Status",
+        "check": "Check",
+        "result": "Result"
+      },
+      "status": {
+        "ok": "Passed",
         "critical": "Important",
         "warning": "Worth fixing",
-        "info": "Nice to have"
+        "info": "Nice to have",
+        "none": "For reference"
+      },
+      "groups": {
+        "access": "Access and speed",
+        "security": "Security",
+        "domain": "Domain and mail",
+        "search": "Search",
+        "page": "Home page"
+      },
+      "notChecked": {
+        "down": "The home page did not open, so search and the page itself will be checked once the site works.",
+        "restricted": "The site did not let our robot in, so search and the page itself could not be checked.",
+        "partial": "The home page did not load completely, so search and the page itself could not be checked. Please try again in a minute."
+      },
+      "days_one": "{{count}} day",
+      "days_other": "{{count}} days",
+      "kb": "{{value}} KB",
+      "mb": "{{value}} MB",
+      "engines": {
+        "yandex": "Yandex",
+        "google": "Google",
+        "and": "and"
       },
       "again": "Check another site",
       "watchTitle": "Watch the site for free",
@@ -2500,36 +2557,488 @@
       "helpText": "We will look at the report and name the price and the timeline.",
       "helpCta": "Write to us"
     },
-    "days": {
-      "one": "day",
-      "few": "days",
-      "many": "days"
+    "rows": {
+      "open": {
+        "label": "The site opens",
+        "ok": {
+          "value": "Yes, status {{status}}"
+        },
+        "restricted": {
+          "value": "Behind a bot protection (status {{status}})",
+          "hint": "The site did not let our robot in, so some checks are incomplete. Visitors may still see it fine."
+        },
+        "down": {
+          "value": "No: {{reason}}",
+          "hint": "Right now neither visitors nor search engines can open the site. If this is not planned maintenance, check the hosting."
+        }
+      },
+      "speed": {
+        "label": "Server response time",
+        "fast": {
+          "value": "{{seconds}} s"
+        },
+        "medium": {
+          "value": "{{seconds}} s",
+          "hint": "Better under a second: while the server thinks, the visitor sees a blank screen. Caching or a faster hosting usually helps."
+        },
+        "slow": {
+          "value": "{{seconds}} s",
+          "hint": "Visitors wait seconds before the page starts loading, and some leave. Worth looking at the hosting and caching."
+        }
+      },
+      "https-redirect": {
+        "label": "Redirect from http to https",
+        "permanent": {
+          "value": "Yes, permanent ({{code}})"
+        },
+        "temporary": {
+          "value": "Temporary ({{code}})",
+          "hint": "Search engines need a permanent 301 redirect: with a temporary one they may keep the old http:// address in search."
+        },
+        "none": {
+          "value": "No: the site also opens over http://",
+          "hint": "Some visitors and search engines land on the unprotected version, and search sees it as a copy of the site. It needs a permanent 301 redirect to https://."
+        },
+        "no-http": {
+          "value": "http:// does not open",
+          "hint": "Old links and bookmarks with http:// lead to an error. Better set up a 301 redirect to https://."
+        },
+        "http-error": {
+          "value": "http:// answers with an error (status {{status}})",
+          "hint": "Old links and bookmarks with http:// lead to an error. Better set up a 301 redirect to https://."
+        }
+      },
+      "www": {
+        "label": "With and without www",
+        "redirect": {
+          "value": "{{twin}} → {{host}}"
+        },
+        "temporary": {
+          "value": "{{twin}} → {{host}}, temporary ({{code}})",
+          "hint": "The redirect between the www and non-www addresses should be permanent (301), or search engines may treat them as different sites."
+        },
+        "duplicate": {
+          "value": "Both open, as two sites",
+          "hint": "For search engines {{twin}} and {{host}} are two copies of one site. It needs a permanent 301 redirect to the main address."
+        },
+        "missing": {
+          "value": "{{twin}} does not open",
+          "hint": "Anyone who types {{twin}} sees an error. Worth adding a DNS record and a redirect to {{host}}."
+        },
+        "certificate": {
+          "value": "{{twin}}: the certificate does not match",
+          "hint": "Anyone who opens {{twin}} sees a browser security warning. The certificate should cover both addresses, with and without www."
+        },
+        "elsewhere": {
+          "value": "{{twin}} leads to {{target}}",
+          "hint": "The www and non-www addresses should lead to the same site. Check that this is intended."
+        }
+      },
+      "http2": {
+        "label": "HTTP/2 and HTTP/3",
+        "on": {
+          "value": "HTTP/2 is on",
+          "value_h3": "HTTP/2 and HTTP/3 are on"
+        },
+        "off": {
+          "value": "HTTP/1.1 only",
+          "hint": "With HTTP/2 pages load faster: the files come in parallel over one connection. It is switched on in the server or hosting settings."
+        }
+      },
+      "compression": {
+        "label": "Page compression",
+        "on": {
+          "value": "{{encoding}}: {{size}} → {{bytes}}"
+        },
+        "off": {
+          "value": "None, the page weighs {{size}}",
+          "hint": "The page is sent uncompressed and loads slower, especially on phones. Gzip or Brotli is switched on in the server settings."
+        }
+      },
+      "ssl": {
+        "label": "SSL certificate",
+        "valid": {
+          "value": "Valid until {{date}}, {{days}} left",
+          "value_issuer": "{{issuer}}, valid until {{date}}, {{days}} left"
+        },
+        "soon": {
+          "value": "Ends {{date}}, in {{days}}",
+          "hint": "Renew it in advance: once it ends, browsers warn visitors that the site is unsafe. If renewal is automatic, check that it works."
+        },
+        "expired": {
+          "value": "Expired {{date}}",
+          "hint": "Browsers show visitors a security warning instead of the site. The certificate needs renewing."
+        },
+        "invalid": {
+          "value": "Browsers do not trust it: {{reason}}",
+          "hint": "Visitors see a security warning instead of the site."
+        },
+        "none": {
+          "value": "No HTTPS",
+          "hint": "Browsers mark the site as \"Not secure\", and form requests travel in plain text. Most hostings offer a free Let's Encrypt certificate."
+        },
+        "unknown": {
+          "value": "Could not check"
+        }
+      },
+      "tls-version": {
+        "label": "TLS version",
+        "modern": {
+          "value": "TLS {{version}}"
+        },
+        "old": {
+          "value": "TLS {{version}}",
+          "hint": "Worth switching on TLS 1.3: secure connections are set up faster. It is a server setting."
+        }
+      },
+      "hsts": {
+        "label": "Strict HTTPS (HSTS)",
+        "on": {
+          "value": "On for {{days}}"
+        },
+        "short": {
+          "value": "On for {{days}}",
+          "value_hours": "On for less than a day",
+          "hint": "Too short: the browser forgets the rule between visits. A year is the usual max-age."
+        },
+        "off": {
+          "value": "Off",
+          "hint": "With HSTS the browser opens https right away, even from an old http:// link, and the connection is harder to tamper with. It is the Strict-Transport-Security header in the server settings."
+        }
+      },
+      "headers": {
+        "label": "Security headers",
+        "all": {
+          "value": "All 4 in place"
+        },
+        "some": {
+          "value": "{{count}} of {{total}}",
+          "hint": "Missing: {{missing}}. They protect visitors from the site being framed by other pages and from content tampering; they are set on the server."
+        }
+      },
+      "mixed": {
+        "label": "Files over http:// on an https page",
+        "none": {
+          "value": "None"
+        },
+        "found": {
+          "value_one": "{{count}} file",
+          "value_other": "{{count}} files",
+          "hint": "For example, {{example}}. Browsers block such files or drop the padlock from the address bar. The links should move to https://."
+        }
+      },
+      "versions": {
+        "label": "Software versions in server answers",
+        "hidden": {
+          "value": "Not disclosed"
+        },
+        "shown": {
+          "value": "{{list}}",
+          "hint": "A version makes it easier to pick a known vulnerability. Better hide versions in the server and CMS settings, and keep the software updated."
+        }
+      },
+      "domain": {
+        "label": "Domain paid until",
+        "paid": {
+          "value": "{{date}}, {{days}} left"
+        },
+        "soon": {
+          "value": "Ends {{date}}, in {{days}}",
+          "hint": "Renew the domain in advance: once it ends, the site and the domain's mail stop working."
+        },
+        "expired": {
+          "value": "Ended {{date}}",
+          "hint": "Without renewal the site and mail go off, and later someone else can buy the domain."
+        },
+        "unknown": {
+          "value": "Could not find out"
+        },
+        "platform": {
+          "value": "A platform's address, the platform renews it"
+        }
+      },
+      "mail": {
+        "label": "Domain mail (SPF, DMARC)",
+        "ok": {
+          "value": "SPF and DMARC are set"
+        },
+        "no-spf": {
+          "value": "No SPF",
+          "value_nodmarc": "No SPF or DMARC",
+          "hint": "Mail from @{{domain}} lands in spam more often, and it is easier to send mail in your name. The records go into the domain's DNS, usually following the mail service's guide."
+        },
+        "no-dmarc": {
+          "value": "SPF yes, DMARC no",
+          "hint": "DMARC tells mail services what to do with fake mail from @{{domain}} and helps delivery. It is one DNS record."
+        },
+        "no-mail": {
+          "value": "No mail on the domain"
+        },
+        "unknown": {
+          "value": "Could not check"
+        }
+      },
+      "indexing": {
+        "label": "Home page open to search",
+        "open": {
+          "value": "Yes"
+        },
+        "meta": {
+          "value": "Closed with noindex",
+          "hint": "Yandex and Google will not show the home page in search and will drop it if they had it. If the site is live, remove the tag."
+        },
+        "header": {
+          "value": "Closed with the X-Robots-Tag header",
+          "hint": "Yandex and Google will not show the home page in search and will drop it if they had it. If the site is live, remove the header in the server settings."
+        }
+      },
+      "robots": {
+        "label": "robots.txt",
+        "found": {
+          "value": "Present, the site is open to Yandex and Google"
+        },
+        "blocks": {
+          "value": "Closes the site to {{engines}}",
+          "hint": "Search engines stop visiting the site, and it drops out of search. Check the Disallow lines."
+        },
+        "missing": {
+          "value": "None",
+          "hint": "robots.txt tells search engines which sections not to index (the cart, search, service pages) and where the sitemap is."
+        }
+      },
+      "sitemap": {
+        "label": "Sitemap (sitemap.xml)",
+        "found": {
+          "value": "{{address}}",
+          "value_urls_one": "{{address}}: {{count}} address",
+          "value_urls_other": "{{address}}: {{count}} addresses",
+          "value_index_one": "{{address}}: an index of {{count}} sitemap",
+          "value_index_other": "{{address}}: an index of {{count}} sitemaps"
+        },
+        "missing": {
+          "value": "Not found",
+          "hint": "A sitemap helps Yandex and Google find new pages sooner. Its address goes into robots.txt."
+        }
+      },
+      "canonical": {
+        "label": "Canonical address",
+        "self": {
+          "value": "Points to the page itself"
+        },
+        "found": {
+          "value": "Points to {{address}}"
+        },
+        "other": {
+          "value": "Points to another site: {{address}}",
+          "hint": "Search engines then treat someone else's page as the main copy and may not show this one. Usually a leftover from moving the site."
+        },
+        "missing": {
+          "value": "Not set",
+          "hint": "The canonical tag tells search engines the page's main address when it also opens at others (with tags or parameters)."
+        }
+      },
+      "not-found": {
+        "label": "Answer for a missing page",
+        "ok": {
+          "value": "Status {{status}}"
+        },
+        "soft": {
+          "value": "Status {{status}} instead of 404",
+          "hint": "Search engines may take missing addresses for real pages and clutter search with them. The server should answer them with 404."
+        },
+        "redirect": {
+          "value": "A redirect instead of 404",
+          "hint": "Search engines count such redirects as a \"soft 404\". Better show a not-found page with status 404 and a link home."
+        },
+        "error": {
+          "value": "Server error, status {{status}}",
+          "hint": "The site fails on missing addresses. It should answer with 404 and a clear page."
+        },
+        "unknown": {
+          "value": "Could not check (status {{status}})"
+        }
+      },
+      "title": {
+        "label": "Page title",
+        "ok": {
+          "value_one": "\"{{text}}\", {{count}} character",
+          "value_other": "\"{{text}}\", {{count}} characters"
+        },
+        "long": {
+          "value_one": "\"{{text}}\", {{count}} character",
+          "value_other": "\"{{text}}\", {{count}} characters",
+          "hint": "Search shows about 60-70 characters, the rest is cut. Put the key words first."
+        },
+        "short": {
+          "value_one": "\"{{text}}\", {{count}} character",
+          "value_other": "\"{{text}}\", {{count}} characters",
+          "hint": "A short title tells people and search engines little. Usually it says what you do and where, plus the company name."
+        },
+        "missing": {
+          "value": "None",
+          "hint": "The title is shown in search and on the browser tab; without it the search engine makes up its own."
+        }
+      },
+      "description": {
+        "label": "Meta description",
+        "ok": {
+          "value_one": "{{count}} character",
+          "value_other": "{{count}} characters"
+        },
+        "long": {
+          "value_one": "{{count}} character",
+          "value_other": "{{count}} characters",
+          "hint": "Search shows about 160 characters, the rest is cut."
+        },
+        "short": {
+          "value_one": "{{count}} character",
+          "value_other": "{{count}} characters",
+          "hint": "A search engine may replace a short description with a piece of the page. Usually it is 1-2 sentences about what you offer."
+        },
+        "missing": {
+          "value": "None",
+          "hint": "Without a description, search engines show a random piece of the page under the link."
+        }
+      },
+      "h1": {
+        "label": "H1 heading",
+        "ok": {
+          "value": "\"{{text}}\"",
+          "value_notext": "Present"
+        },
+        "many": {
+          "value_one": "{{count}} H1 heading",
+          "value_other": "{{count}} H1 headings",
+          "hint": "Better one H1 per page: the main heading of the first screen. The rest can be H2."
+        },
+        "missing": {
+          "value": "None",
+          "hint": "The H1 tells people and search engines what the page is about. Usually it is the main heading of the first screen."
+        }
+      },
+      "viewport": {
+        "label": "Mobile version (viewport)",
+        "ok": {
+          "value": "Set"
+        },
+        "missing": {
+          "value": "No meta viewport",
+          "hint": "Without it phones show a shrunk desktop version, and search engines consider the site unfriendly to mobile."
+        }
+      },
+      "lang": {
+        "label": "Page language (lang)",
+        "ok": {
+          "value": "{{lang}}"
+        },
+        "missing": {
+          "value": "Not set",
+          "hint": "The lang attribute of the html tag tells browsers and search engines the page's language: translation and screen readers depend on it."
+        }
+      },
+      "og": {
+        "label": "Social preview (Open Graph)",
+        "ok": {
+          "value": "Image and title",
+          "value_notitle": "Image"
+        },
+        "no-image": {
+          "value": "No image",
+          "value_notitle": "None",
+          "hint": "A link to the site in Telegram, WhatsApp or Facebook will have no picture. It needs the og:image and og:title tags."
+        }
+      },
+      "schema": {
+        "label": "Structured data (Schema.org)",
+        "jsonld": {
+          "value": "JSON-LD: {{types}}"
+        },
+        "microdata": {
+          "value": "Microdata"
+        },
+        "broken": {
+          "value_one": "{{count}} JSON-LD block with an error",
+          "value_other": "{{count}} JSON-LD blocks with errors",
+          "hint": "Search engines skip markup with a JSON error. Check it with the Schema.org validator."
+        },
+        "missing": {
+          "value": "None",
+          "hint": "Schema.org markup tells search engines about the company: contacts, address, reviews. Rich results in search are built from it."
+        }
+      },
+      "favicon": {
+        "label": "Site icon (favicon)",
+        "ok": {
+          "value": "Present"
+        },
+        "missing": {
+          "value": "None",
+          "hint": "The icon is shown on the browser tab and next to the site in Yandex search. Without it there is a blank icon."
+        }
+      },
+      "alt": {
+        "label": "Image alt text",
+        "ok": {
+          "value": "All images have it ({{count}})"
+        },
+        "missing": {
+          "value": "Without alt: {{count}} of {{images}}",
+          "hint": "Alt text is read by search engines (image search) and screen readers. Decorative images can have an empty alt."
+        }
+      }
+    },
+    "reasons": {
+      "dns": "the domain does not resolve (DNS error)",
+      "refused": "the server refuses connections",
+      "reset": "the server drops the connection",
+      "timeout": "the server did not answer in 20 seconds",
+      "tls": "secure connection (SSL) error",
+      "redirects": "endless redirects",
+      "blocked": "the address leads into a private network",
+      "bad-url": "invalid address",
+      "network": "network error",
+      "status": "status {{status}}",
+      "404": "status 404, page not found",
+      "410": "status 410, page removed",
+      "500": "status 500, internal server error",
+      "502": "status 502, bad gateway",
+      "503": "status 503, service unavailable",
+      "504": "status 504, gateway timeout"
+    },
+    "tlsReasons": {
+      "expired": "the certificate has expired",
+      "name": "the certificate is issued for another domain",
+      "self": "the certificate is self-signed",
+      "chain": "the certificate chain is incomplete or its authority is not trusted by browsers",
+      "early": "the certificate is not valid yet",
+      "revoked": "the certificate is revoked",
+      "other": "certificate error"
     },
     "includesTitle": "What we check",
     "includes": [
       {
-        "title": "Whether the site opens",
-        "text": "The response code, how fast the home page answers and the redirects on the way. The check runs from our server in Russia."
+        "title": "Access and speed",
+        "text": "Whether the site opens, how fast the server answers, whether the page is compressed and served over HTTP/2. The check runs from our server in Russia."
       },
       {
-        "title": "SSL certificate",
-        "text": "Until when it is valid, which domain it is issued for and whether browsers trust it."
+        "title": "SSL and protection",
+        "text": "The certificate's term and trust, the TLS version, HSTS, security headers, files over http:// and the software versions the server shows everyone."
       },
       {
-        "title": "Domain's paid period",
-        "text": "The date from the registry for .com, .ru and most other zones. We flag it when less than a month is left."
+        "title": "Domain and mail",
+        "text": "The domain's paid-till date from the registry, and the SPF and DMARC records without which mail from the domain lands in spam more often."
       },
       {
         "title": "Closed to search",
-        "text": "noindex on the home page, bans in robots.txt for Google and Yandex, the sitemap."
+        "text": "noindex on the home page, bans in robots.txt for Google and Yandex, the sitemap and the canonical address."
       },
       {
         "title": "Redirects and duplicates",
-        "text": "Whether the site moves visitors from http to https, and whether it opens both with and without www as two copies."
+        "text": "Whether the site moves visitors from http to https, whether it opens with and without www as two copies, and what it answers for missing pages."
       },
       {
-        "title": "Home page meta tags",
-        "text": "The title, the description, the H1, the setting for phones and the canonical address."
+        "title": "Home page meta tags and markup",
+        "text": "The title and description, the H1, the mobile setting, the language, the social preview, structured data, the icon and image alt texts."
       }
     ],
     "limitsTitle": "What this check does not do",
@@ -2567,7 +3076,7 @@
     "teaser": {
       "eyebrow": "Free",
       "title": "Check your site in half a minute",
-      "text": "Uptime, SSL certificate, domain expiry, whether it is closed to search and what is worth fixing. No sign-up.",
+      "text": "Uptime, SSL and protection, domain expiry, indexing, meta tags and what is worth fixing. No sign-up.",
       "submit": "Check",
       "bot": "or connect free monitoring in Telegram"
     }

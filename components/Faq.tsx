@@ -185,7 +185,7 @@ export default function Faq() {
       ref={sectionRef}
       className="relative py-16 md:py-28 fade-ends [--from:var(--deep)] [--to:var(--page)] [--end:var(--deep)]"
     >
-      <div className="max-w-6xl mx-auto px-5 sm:px-6 grid gap-10 lg:grid-cols-[1fr_1.7fr] lg:gap-20">
+      <div className="max-w-7xl mx-auto px-5 sm:px-6 grid gap-10 lg:grid-cols-[1fr_1.7fr] lg:gap-20">
         <div className="faq-intro">
           <h2 className="font-heading text-3xl sm:text-4xl md:text-5xl font-bold text-white">
             {t("faq.heading")}

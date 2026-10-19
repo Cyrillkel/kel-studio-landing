@@ -94,7 +94,7 @@ export default function BlogPostRoute({ lang, slug }: { lang: Lang; slug: string
         <JsonLd data={structuredData} />
         <div className="blog-page flex min-h-screen flex-col">
           <main className="flex-1">
-            <article className="mx-auto w-full max-w-7xl px-6 pb-20 pt-32 md:pt-40">
+            <article className="mx-auto w-full max-w-7xl px-5 pb-20 sm:px-6 pt-32 md:pt-40">
               <Breadcrumbs
                 label={blog.crumbsLabel}
                 items={[
@@ -165,7 +165,7 @@ export default function BlogPostRoute({ lang, slug }: { lang: Lang; slug: string
             </article>
 
             {more.length > 0 && (
-              <section className="mx-auto w-full max-w-7xl px-6 pb-24">
+              <section className="mx-auto w-full max-w-7xl px-5 pb-24 sm:px-6">
                 <h2 className="blog-heading text-2xl font-bold">{blog.more}</h2>
                 <ul className="mt-8 grid gap-6 md:grid-cols-3">
                   {more.map((p) => (

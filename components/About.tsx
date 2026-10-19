@@ -16,7 +16,7 @@ const stack = [
 export default function About() {
   return (
     <section id="about" className="py-24 bg-[#141414]">
-      <div className="max-w-7xl mx-auto px-6">
+      <div className="max-w-7xl mx-auto px-5 sm:px-6">
         <div className="grid md:grid-cols-2 gap-16 items-center">
           <div>
             <h2 className="text-4xl md:text-5xl font-bold mb-6 text-white">

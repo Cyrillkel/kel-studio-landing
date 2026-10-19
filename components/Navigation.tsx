@@ -161,7 +161,7 @@ export default function Navigation() {
               : "border-transparent backdrop-blur-sm"
         }`}
       >
-        <div className="max-w-7xl mx-auto px-6 py-4">
+        <div className="max-w-7xl mx-auto px-5 py-4 sm:px-6">
           <div className="flex items-center justify-between">
             {/* On the home page it scrolls to the top; from any other page it goes home. */}
             <Link
@@ -236,7 +236,7 @@ export default function Navigation() {
                         onClick={() => setServicesOpen(false)}
                       >
                         {t(tool.label)}
-                        <span className="rounded-full bg-emerald-400/15 px-2 py-0.5 text-xs font-semibold text-emerald-400">
+                        <span className="text-[11px] font-semibold tracking-wider text-emerald-400 uppercase">
                           {t("pulse.free")}
                         </span>
                       </Link>
@@ -420,7 +420,7 @@ export default function Navigation() {
                       onClick={closeMenu}
                     >
                       {t(tool.label)}
-                      <span className="rounded-full bg-emerald-400/15 px-2 py-0.5 text-xs font-semibold text-emerald-400">
+                      <span className="text-[11px] font-semibold tracking-wider text-emerald-400 uppercase">
                         {t("pulse.free")}
                       </span>
                     </Link>

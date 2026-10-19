@@ -10,6 +10,7 @@ import ContactModal from "@/components/ContactModal";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import FaqList from "@/components/services/FaqList";
 import { useLang, useLocalePath } from "@/components/useLang";
+import HeroFacts from "@/components/HeroFacts";
 import PulseButton from "./PulseButton";
 
 type Item = { title: string; text: string };
@@ -61,17 +62,14 @@ export default function PulsePage() {
         <main className="bg-page">
           <section className="relative isolate overflow-hidden px-5 pt-32 pb-16 sm:px-6 md:pt-40 md:pb-24">
             <SectionGlow />
-            <div className="mx-auto grid max-w-7xl items-center gap-12 lg:grid-cols-[1.2fr_1fr] lg:gap-16">
+            <div className="mx-auto grid max-w-page items-center gap-12 lg:grid-cols-[1.2fr_1fr] lg:gap-16">
               <div>
                 <Breadcrumbs items={crumbs} label={t("servicePages.common.breadcrumbLabel")} />
-                <p className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-sm text-gray-300">
-                  <span aria-hidden="true" className="h-2 w-2 rounded-full bg-emerald-400 shadow-[0_0_10px_rgba(52,211,153,0.8)]" />
-                  {t("pulse.eyebrow")}
-                </p>
-                <h1 className="mt-5 max-w-3xl font-heading text-3xl leading-tight font-bold text-white sm:text-4xl lg:text-[2.75rem]">
+                <h1 className="max-w-3xl font-heading text-3xl leading-tight font-bold text-white sm:text-4xl lg:text-[2.75rem]">
                   {t("pulse.title")}
                 </h1>
                 <p className="mt-6 max-w-2xl text-lg leading-relaxed text-gray-300 sm:text-xl">{t("pulse.lead")}</p>
+                <HeroFacts items={t("pulse.facts", { returnObjects: true }) as { label: string; value: string }[]} className="mt-6" />
                 <div className="mt-8 flex flex-col items-start gap-3">
                   <PulseButton source={source} place={place}>
                     {t("pulse.cta")}
@@ -106,7 +104,7 @@ export default function PulsePage() {
           </section>
 
           <section className="bg-band px-5 py-12 sm:px-6 md:py-16">
-            <div className="mx-auto max-w-7xl">
+            <div className="mx-auto max-w-page">
               <h2 className="font-heading text-2xl font-bold text-white sm:text-3xl">{t("pulse.checksTitle")}</h2>
               <ul className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
                 {checks.map((check, index) => (
@@ -134,7 +132,7 @@ export default function PulsePage() {
           </section>
 
           <section className="bg-page px-5 py-12 sm:px-6 md:py-16">
-            <div className="mx-auto max-w-7xl">
+            <div className="mx-auto max-w-page">
               <h2 className="font-heading text-2xl font-bold text-white sm:text-3xl">{t("pulse.stepsTitle")}</h2>
               <ol className="mt-8 grid gap-4 md:grid-cols-3">
                 {steps.map((step, index) => (
@@ -151,7 +149,7 @@ export default function PulsePage() {
           </section>
 
           <section className="bg-band px-5 py-12 sm:px-6 md:py-16">
-            <div className="mx-auto max-w-7xl">
+            <div className="mx-auto max-w-page">
               <h2 className="font-heading text-2xl font-bold text-white sm:text-3xl">{t("pulse.plansTitle")}</h2>
               <div className="mt-8 grid gap-4 md:grid-cols-2">
                 <div className="rounded-2xl bg-linear-to-br from-cyan-400 via-violet-500 to-fuchsia-500 p-px">
@@ -188,7 +186,8 @@ export default function PulsePage() {
           </section>
 
           <section className="bg-page px-5 py-12 sm:px-6 md:py-16">
-            <div className="mx-auto max-w-3xl">
+            {/* The questions keep a reading width but start at the page's left edge, under the logo. */}
+            <div className="mx-auto max-w-page *:max-w-3xl">
               <h2 className="font-heading text-2xl font-bold text-white sm:text-3xl">
                 {t("servicePages.common.faqTitle")}
               </h2>

@@ -20,6 +20,7 @@ import Assurances from "@/components/services/Assurances";
 import ServiceIllustration from "@/components/services/ServiceIllustration";
 import { SERVICE_CONFIG, SERVICES_PATH, servicePath, type ServiceCopy, type ServiceSlug } from "@/lib/services";
 import { useLang, useLocalePath } from "@/components/useLang";
+import HeroFacts from "@/components/HeroFacts";
 import type { PortfolioItem } from "@/lib/portfolio";
 
 gsap.registerPlugin(ScrollTrigger, DrawSVGPlugin);
@@ -136,7 +137,7 @@ export default function ServicePage({ slug }: { slug: ServiceSlug }) {
             <SectionGlow />
             {/* Hidden until the intro runs, so nothing flashes before animating in. */}
             <div
-              className="service-reveal mx-auto grid max-w-7xl items-center gap-10 md:grid-cols-2 md:gap-16"
+              className="service-reveal mx-auto grid max-w-page items-center gap-10 md:grid-cols-2 md:gap-16"
               style={{ visibility: "hidden" }}
             >
               <div>
@@ -147,20 +148,13 @@ export default function ServicePage({ slug }: { slug: ServiceSlug }) {
                 <p className="service-lead mt-6 text-lg leading-relaxed text-gray-300 sm:text-xl">
                   {page.lead}
                 </p>
-                <dl className="service-action mt-6 flex flex-wrap gap-3">
-                  <div className="rounded-xl border border-white/10 bg-white/3 px-4 py-3">
-                    <dt className="text-xs tracking-wider text-gray-500 uppercase">
-                      {t("servicePages.common.priceLabel")}
-                    </dt>
-                    <dd className="mt-1 font-semibold text-white">{page.price}</dd>
-                  </div>
-                  <div className="rounded-xl border border-white/10 bg-white/3 px-4 py-3">
-                    <dt className="text-xs tracking-wider text-gray-500 uppercase">
-                      {t("servicePages.common.termLabel")}
-                    </dt>
-                    <dd className="mt-1 font-semibold text-white">{page.term}</dd>
-                  </div>
-                </dl>
+                <HeroFacts
+                  className="service-action mt-6"
+                  items={[
+                    { label: t("servicePages.common.priceLabel"), value: page.price },
+                    { label: t("servicePages.common.termLabel"), value: page.term },
+                  ]}
+                />
                 <div ref={heroActionRef} className="service-action mt-8 flex flex-col sm:flex-row">
                   <ContactModal place={place} service={slug} size="lg">
                     {page.cta}
@@ -176,7 +170,7 @@ export default function ServicePage({ slug }: { slug: ServiceSlug }) {
           </section>
 
           <section className="relative isolate overflow-hidden px-5 py-16 sm:px-6 md:py-24 fade-top [--from:var(--page)] [--to:var(--band)]">
-            <div className="mx-auto max-w-7xl">
+            <div className="mx-auto max-w-page">
               <h2 className="font-heading text-2xl font-bold text-white sm:text-3xl">
                 {page.bodyTitle}
               </h2>
@@ -189,7 +183,7 @@ export default function ServicePage({ slug }: { slug: ServiceSlug }) {
               </div>
             </div>
 
-            <div className="mx-auto mt-16 grid max-w-7xl gap-12 md:grid-cols-2 md:gap-16">
+            <div className="mx-auto mt-16 grid max-w-page gap-12 md:grid-cols-2 md:gap-16">
               <div>
                 <h2 className="font-heading text-2xl font-bold text-white sm:text-3xl">
                   {t("servicePages.common.includesTitle")}
@@ -234,7 +228,7 @@ export default function ServicePage({ slug }: { slug: ServiceSlug }) {
           </section>
 
           <section className="relative isolate overflow-hidden px-5 py-16 sm:px-6 md:py-24 fade-top [--from:var(--band)] [--to:var(--page)]">
-            <div className="mx-auto max-w-7xl">
+            <div className="mx-auto max-w-page">
               <h2 className="font-heading text-2xl font-bold text-white sm:text-3xl">
                 {t("servicePages.common.stepsTitle")}
               </h2>
@@ -257,7 +251,7 @@ export default function ServicePage({ slug }: { slug: ServiceSlug }) {
 
           {cases.length > 0 && (
             <section className="relative isolate overflow-hidden bg-page px-5 py-16 sm:px-6 md:py-24">
-              <div className="mx-auto max-w-7xl">
+              <div className="mx-auto max-w-page">
                 <h2 className="font-heading text-2xl font-bold text-white sm:text-3xl">
                   {t("servicePages.common.casesTitle")}
                 </h2>
@@ -307,7 +301,8 @@ export default function ServicePage({ slug }: { slug: ServiceSlug }) {
           )}
 
           <section className="relative isolate overflow-hidden px-5 py-16 sm:px-6 md:py-24 fade-top [--from:var(--page)] [--to:var(--band)]">
-            <div className="mx-auto max-w-3xl">
+            {/* The questions keep a reading width but start at the page's left edge, under the logo. */}
+            <div className="mx-auto max-w-page *:max-w-3xl">
               <h2 className="font-heading text-2xl font-bold text-white sm:text-3xl">
                 {t("servicePages.common.faqTitle")}
               </h2>
@@ -333,7 +328,7 @@ export default function ServicePage({ slug }: { slug: ServiceSlug }) {
               <Assurances className="mt-5 justify-center" />
             </div>
 
-            <div className="mx-auto mt-16 max-w-7xl">
+            <div className="mx-auto mt-16 max-w-page">
               <h2 className="font-heading text-xl font-bold text-white sm:text-2xl">
                 {t("servicePages.common.otherTitle")}
               </h2>

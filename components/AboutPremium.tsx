@@ -104,7 +104,7 @@ export default function AboutPremium() {
           },
         ]}
       />
-      <div className="max-w-7xl mx-auto px-5 sm:px-6 lg:px-12">
+      <div className="max-w-7xl mx-auto px-5 sm:px-6">
         <div className="about-intro grid lg:grid-cols-2 gap-10 sm:gap-16 lg:gap-24 items-start">
           <h2 className="font-heading text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold leading-none">
             {[t("about.titleLine1"), t("about.titleLine2")].map((line) => (

@@ -236,7 +236,7 @@ export default function Process() {
           },
         ]}
       />
-      <div className="max-w-6xl mx-auto px-5 sm:px-6">
+      <div className="max-w-7xl mx-auto px-5 sm:px-6">
         <div className="process-heading text-center mb-12 md:mb-20">
           <h2 className="font-heading text-3xl sm:text-4xl md:text-5xl font-bold mb-3 text-white">
             {t("process.heading")}

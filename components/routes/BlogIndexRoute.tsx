@@ -63,7 +63,7 @@ export default function BlogIndexRoute({ lang }: { lang: Lang }) {
         <JsonLd data={structuredData} />
         <div className="blog-page flex min-h-screen flex-col">
           <main className="flex-1">
-            <div className="mx-auto w-full max-w-7xl px-6 pb-24 pt-32 md:pt-40">
+            <div className="mx-auto w-full max-w-7xl px-5 pb-24 sm:px-6 pt-32 md:pt-40">
               <Breadcrumbs label={blog.crumbsLabel} items={[{ name: blog.home, href: home }, { name: blog.title }]} />
               <h1 className="blog-heading text-[clamp(1.75rem,6vw,3rem)] font-bold leading-tight">{blog.title}</h1>
               <p className="blog-text mt-4 max-w-2xl text-lg leading-relaxed">

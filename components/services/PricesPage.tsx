@@ -38,7 +38,7 @@ export default function PricesPage() {
         <main className="bg-page">
           <section className="relative isolate overflow-hidden px-5 pt-32 pb-12 sm:px-6 md:pt-40 md:pb-16">
             <SectionGlow />
-            <div className="mx-auto max-w-7xl">
+            <div className="mx-auto max-w-page">
               <Breadcrumbs items={crumbs} label={t("servicePages.common.breadcrumbLabel")} />
               <h1 className="max-w-4xl font-heading text-3xl leading-tight font-bold text-white sm:text-4xl lg:text-[2.75rem]">
                 {t("servicePages.pricesPage.title")}
@@ -55,7 +55,7 @@ export default function PricesPage() {
           </section>
 
           <section className="bg-band px-5 py-12 sm:px-6 md:py-16">
-            <div className="mx-auto max-w-7xl">
+            <div className="mx-auto max-w-page">
               <h2 className="font-heading text-2xl font-bold text-white sm:text-3xl">
                 {t("servicePages.pricesPage.tableTitle")}
               </h2>
@@ -122,7 +122,7 @@ export default function PricesPage() {
           </section>
 
           <section className="bg-page px-5 py-12 sm:px-6 md:py-16">
-            <div className="mx-auto max-w-7xl">
+            <div className="mx-auto max-w-page">
               <h2 className="font-heading text-2xl font-bold text-white sm:text-3xl">
                 {t("servicePages.pricesPage.factorsTitle")}
               </h2>
@@ -138,7 +138,7 @@ export default function PricesPage() {
           </section>
 
           <section className="bg-band px-5 py-12 sm:px-6 md:py-16">
-            <div className="mx-auto max-w-7xl">
+            <div className="mx-auto max-w-page">
               <h2 className="font-heading text-2xl font-bold text-white sm:text-3xl">
                 {t("servicePages.pricesPage.howTitle")}
               </h2>
@@ -157,7 +157,8 @@ export default function PricesPage() {
           </section>
 
           <section className="bg-page px-5 py-12 sm:px-6 md:py-16">
-            <div className="mx-auto max-w-3xl">
+            {/* The questions keep a reading width but start at the page's left edge, under the logo. */}
+            <div className="mx-auto max-w-page *:max-w-3xl">
               <h2 className="font-heading text-2xl font-bold text-white sm:text-3xl">
                 {t("servicePages.common.faqTitle")}
               </h2>

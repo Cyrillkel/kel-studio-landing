@@ -22,7 +22,7 @@ export default function Footer() {
   const other: Lang = lang === "en" ? "ru" : "en";
   return (
     <footer className="py-12 fade-top [--from:var(--page)] [--to:var(--footer)]">
-      <div className="max-w-7xl mx-auto px-6">
+      <div className="max-w-7xl mx-auto px-5 sm:px-6">
         <div className="flex flex-col md:flex-row justify-between items-center gap-6">
           <div className="flex flex-col items-center gap-1 md:items-start">
             {/* Same as the logo in the header: to the top on the home page, home from any other. */}

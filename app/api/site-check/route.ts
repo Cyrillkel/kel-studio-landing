@@ -1,4 +1,4 @@
-// POST /api/site-check {url, lang}: the on-page website check (lib/sitecheck.ts).
+// POST /api/site-check {url}: the on-page website check (lib/sitecheck.ts).
 // Passes the request to the checks service of the Pulse bot on this server and
 // keeps the limits per visitor, so the page cannot be used to hammer other
 // people's sites: a few checks in ten minutes, a few dozen a day.
@@ -31,11 +31,9 @@ export async function POST(request: Request) {
   // nginx sets X-Real-IP from the connection itself; X-Forwarded-For can be written by the visitor.
   const ip = request.headers.get("x-real-ip") ?? request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ?? "local";
   let url = "";
-  let lang = "ru";
   try {
-    const body = (await request.json()) as { url?: unknown; lang?: unknown };
+    const body = (await request.json()) as { url?: unknown };
     url = typeof body.url === "string" ? body.url.trim().slice(0, 300) : "";
-    lang = body.lang === "en" ? "en" : "ru";
   } catch {
     return Response.json({ ok: false, error: "not-url" }, { status: 400 });
   }
@@ -51,7 +49,8 @@ export async function POST(request: Request) {
     const res = await fetch(`${process.env.PULSE_API_URL ?? "http://127.0.0.1:3200"}/check`, {
       method: "POST",
       headers: { "content-type": "application/json", ...(key ? { "x-pulse-key": key } : {}) },
-      body: JSON.stringify({ url, lang }),
+      // The answer has no words, the page puts them in its own language.
+      body: JSON.stringify({ url }),
       signal: AbortSignal.timeout(60_000),
       cache: "no-store",
     });

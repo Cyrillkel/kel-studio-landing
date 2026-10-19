@@ -1,3 +1,4 @@
+import LaunchCurtain from "@/components/LaunchCurtain";
 import YandexMetrika from "@/components/YandexMetrika";
 import "@/app/globals.css";
 import { THEME_SCRIPT } from "@/lib/theme";
@@ -15,6 +16,13 @@ import { YANDEX_METRIKA_ID } from "@/lib/site";
 // React would see that as a mismatch, hence suppressHydrationWarning on this one
 // element (it covers only the element's own attributes, not its children). This
 // is the pattern from the Next.js guide "Preventing flash before hydration".
+//
+// data-scroll-behavior="smooth": the page scrolls smoothly (scroll-smooth), but
+// a move to another page must land at its top at once. Since Next.js 16 the
+// router only switches smooth scrolling off for that when this attribute is
+// there; without it the jump to the top was animated, the new page's
+// ScrollSmoother cut it short, and a page opened from far down the home page
+// stayed at its bottom.
 export default function RootShell({
   lang,
   fontClasses,
@@ -28,7 +36,7 @@ export default function RootShell({
   children: React.ReactNode;
 }) {
   return (
-    <html lang={lang} data-theme="dark" className="scroll-smooth" suppressHydrationWarning>
+    <html lang={lang} data-theme="dark" data-scroll-behavior="smooth" className="scroll-smooth" suppressHydrationWarning>
       {/* The rule below is meant for the Pages Router and only exempts files under app/. */}
       {/* eslint-disable-next-line @next/next/no-head-element */}
       <head>
@@ -37,6 +45,7 @@ export default function RootShell({
       </head>
       <body className={fontClasses}>
         {children}
+        <LaunchCurtain />
         <YandexMetrika />
         {/* Counts visitors who have JavaScript turned off. */}
         <noscript>

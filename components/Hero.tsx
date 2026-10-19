@@ -83,7 +83,7 @@ export default function Hero() {
       <StarsWide />
 
       {/* The intro (.hero-line, .hero-subtitle, .hero-action) is plain CSS in globals.css, so the text is painted with the HTML instead of waiting for the JS bundle. */}
-      <div className="hero-content relative z-10 w-full max-w-7xl mx-auto px-6 py-24 md:py-32 text-center">
+      <div className="hero-content relative z-10 w-full max-w-7xl mx-auto px-5 sm:px-6 py-24 md:py-32 text-center">
         <StarsCompact />
         {/* data-stars-avoid: the wide sky keeps icons clear of these boxes. */}
         <HeroTitle />

@@ -9,6 +9,7 @@ import SmoothScroll from "@/components/SmoothScroll";
 import SectionGlow from "@/components/SectionGlow";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import RichText from "@/components/RichText";
+import HeroFacts from "@/components/HeroFacts";
 import FaqList from "@/components/services/FaqList";
 import PulseButton from "@/components/pulse/PulseButton";
 import { useLang, useLocalePath } from "@/components/useLang";
@@ -17,6 +18,7 @@ import SiteCheckForm from "./SiteCheckForm";
 
 type Item = { title: string; text: string };
 type Faq = { q: string; a: string };
+type Fact = { label: string; value: string };
 
 // Line icons of what the check looks at, in the order of siteCheck.includes.
 const ICONS = [
@@ -36,6 +38,7 @@ export default function SiteCheckPage() {
   const lp = useLocalePath();
   const includes = t("siteCheck.includes", { returnObjects: true }) as Item[];
   const faq = t("siteCheck.faq", { returnObjects: true }) as Faq[];
+  const facts = t("siteCheck.facts", { returnObjects: true }) as Fact[];
   const crumbs = [
     { name: t("servicePages.common.breadcrumbHome"), href: lp("/") },
     { name: t("siteCheck.crumb") },
@@ -48,16 +51,13 @@ export default function SiteCheckPage() {
         <main className="bg-page">
           <section className="relative isolate overflow-hidden px-5 pt-32 pb-16 sm:px-6 md:pt-40 md:pb-20">
             <SectionGlow />
-            <div className="mx-auto max-w-6xl">
+            <div className="mx-auto max-w-page">
               <Breadcrumbs items={crumbs} label={t("servicePages.common.breadcrumbLabel")} />
-              <p className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-sm text-gray-300">
-                <span aria-hidden="true" className="h-2 w-2 rounded-full bg-emerald-400 shadow-[0_0_10px_rgba(52,211,153,0.8)]" />
-                {t("siteCheck.eyebrow")}
-              </p>
-              <h1 className="mt-5 max-w-3xl font-heading text-3xl leading-tight font-bold text-white sm:text-4xl lg:text-5xl">
+              <h1 className="max-w-3xl font-heading text-3xl leading-tight font-bold text-white sm:text-4xl lg:text-5xl">
                 {t("siteCheck.title")}
               </h1>
               <p className="mt-6 max-w-3xl text-lg leading-relaxed text-gray-300 sm:text-xl">{t("siteCheck.lead")}</p>
+              <HeroFacts items={facts} className="mt-6" />
               <div className="mt-8">
                 <SiteCheckForm />
               </div>
@@ -65,7 +65,7 @@ export default function SiteCheckPage() {
           </section>
 
           <section className="bg-band px-5 py-12 sm:px-6 md:py-16">
-            <div className="mx-auto max-w-6xl">
+            <div className="mx-auto max-w-page">
               <h2 className="font-heading text-2xl font-bold text-white sm:text-3xl">{t("siteCheck.includesTitle")}</h2>
               <ul className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
                 {includes.map((item, index) => (
@@ -99,7 +99,7 @@ export default function SiteCheckPage() {
           </section>
 
           <section className="bg-page px-5 py-12 sm:px-6 md:py-16">
-            <div className="mx-auto max-w-6xl">
+            <div className="mx-auto max-w-page">
               <div className="relative isolate overflow-hidden rounded-3xl border border-white/10 bg-card-violet p-6 sm:p-10">
                 <div
                   aria-hidden="true"
@@ -134,7 +134,8 @@ export default function SiteCheckPage() {
           </section>
 
           <section className="bg-band px-5 py-12 sm:px-6 md:py-16">
-            <div className="mx-auto max-w-3xl">
+            {/* The questions keep a reading width but start at the page's left edge, under the logo. */}
+            <div className="mx-auto max-w-page *:max-w-3xl">
               <h2 className="font-heading text-2xl font-bold text-white sm:text-3xl">
                 {t("servicePages.common.faqTitle")}
               </h2>
