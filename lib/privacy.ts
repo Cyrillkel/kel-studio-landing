@@ -5,7 +5,7 @@ import { LANGS, withLang, type Lang, type PathPair } from "./lang";
 
 // When the current text of the policy was published. Set by hand, with the text.
 // The English text is a translation of the Russian one and carries its date.
-export const POLICY_UPDATED = "2026-10-03";
+export const POLICY_UPDATED = "2026-10-19";
 
 // The privacy policy is plain HTML (headings, paragraphs, lists, links) in
 // content/privacy.html (Russian) and content/privacy.en.html (English), so it

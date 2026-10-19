@@ -15,6 +15,7 @@ import ContactLinks from "./ContactLinks";
 import { BLOG_PATH } from "@/lib/blog-path";
 import { isHome } from "@/lib/lang";
 import { MENU_SLUGS, PRICES_PATH, SERVICES_PATH, servicePath } from "@/lib/services";
+import { PULSE_PATH } from "@/lib/pulse";
 import { PHONE, PHONE_URL, TELEGRAM_URL } from "@/lib/site";
 import { useLang, useLocalePath } from "./useLang";
 
@@ -203,7 +204,7 @@ export default function Navigation() {
                   </svg>
                 </Link>
                 <div
-                  className={`absolute left-0 top-full w-64 pt-3 transition duration-200 ${
+                  className={`absolute left-0 top-full w-72 pt-3 transition duration-200 ${
                     servicesOpen
                       ? "visible translate-y-0 opacity-100"
                       : "invisible -translate-y-1 opacity-0"
@@ -220,6 +221,16 @@ export default function Navigation() {
                         {t(`servicePages.items.${slug}.name`)}
                       </Link>
                     ))}
+                    <Link
+                      href={lp(PULSE_PATH)}
+                      className="flex items-center justify-between gap-3 rounded-xl px-4 py-2.5 whitespace-nowrap text-gray-300 transition-colors hover:bg-white/5 hover:text-white"
+                      onClick={() => setServicesOpen(false)}
+                    >
+                      {t("pulse.navLabel")}
+                      <span className="rounded-full bg-emerald-400/15 px-2 py-0.5 text-xs font-semibold text-emerald-400">
+                        {t("pulse.free")}
+                      </span>
+                    </Link>
                     <Link
                       href={lp(SERVICES_PATH)}
                       className="mt-1 block rounded-xl border-t border-white/10 px-4 py-2.5 text-sm text-gray-500 transition-colors hover:text-white"
@@ -391,6 +402,16 @@ export default function Navigation() {
                       {t(`servicePages.items.${slug}.name`)}
                     </Link>
                   ))}
+                  <Link
+                    href={lp(PULSE_PATH)}
+                    className="flex items-center gap-2 py-2 text-base text-gray-400 transition-colors hover:text-white"
+                    onClick={closeMenu}
+                  >
+                    {t("pulse.navLabel")}
+                    <span className="rounded-full bg-emerald-400/15 px-2 py-0.5 text-xs font-semibold text-emerald-400">
+                      {t("pulse.free")}
+                    </span>
+                  </Link>
                   <Link
                     href={lp(SERVICES_PATH)}
                     className="py-2 text-sm text-gray-500 transition-colors hover:text-white"

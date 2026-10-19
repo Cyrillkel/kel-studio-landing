@@ -12,7 +12,7 @@ export const SITE_NAME = "KEL Studio";
 // sitemap. Set by hand: bump it when a page's content changes. A build-time
 // date would claim every page changed on every deploy, and search engines then
 // stop trusting the field.
-export const CONTENT_UPDATED = "2026-10-16";
+export const CONTENT_UPDATED = "2026-10-19";
 
 // The home page's title and description in each language: the <title> and meta
 // tags (lib/pageMetadata.ts) and the

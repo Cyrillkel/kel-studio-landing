@@ -33,6 +33,8 @@ export const GOALS = {
   emailClick: "email_click",
   // The language was switched (parameter `lang`).
   langSwitch: "lang_switch",
+  // A click on "connect" to the free monitoring bot (parameter `place`: where).
+  pulseClick: "pulse_click",
 } as const;
 
 // Does nothing when the counter is not running (local builds, preview hosts),

@@ -14,6 +14,7 @@ export default function ContactModal({
   place,
   service,
   size = "lg",
+  variant = "primary",
   className,
   children,
 }: {
@@ -21,6 +22,8 @@ export default function ContactModal({
   // The service page the button sits on: preselected as the topic in the form.
   service?: ServiceSlug;
   size?: "sm" | "md" | "lg";
+  // "outline" next to another, main button.
+  variant?: "primary" | "outline";
   className?: string;
   children: React.ReactNode;
 }) {
@@ -68,6 +71,7 @@ export default function ContactModal({
       <ButtonLink
         href="#contact"
         size={size}
+        variant={variant}
         className={className}
         onClick={(e) => {
           e.preventDefault();

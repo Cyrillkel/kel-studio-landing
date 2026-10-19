@@ -2315,5 +2315,115 @@
     "subtitle": "Personal data processing policy",
     "edition": "version of",
     "translationNote": "This is a translation of the Russian-language policy. If the two texts differ, the Russian version prevails."
+  },
+  "pulse": {
+    "metaTitle": "Free website monitoring in Telegram | KEL Studio",
+    "metaDescription": "A bot checks your site every 10 minutes and writes in Telegram if it does not open, its SSL or domain is about to expire, or it was closed to search. Free.",
+    "crumb": "Website monitoring",
+    "navLabel": "Website monitoring",
+    "free": "free",
+    "eyebrow": "Free · Telegram bot",
+    "title": "Free website monitoring in Telegram",
+    "lead": "Site Pulse watches your website and writes to you in Telegram when it stops opening, its SSL certificate or domain is about to expire, or it has been closed to search engines by mistake. Once a month it sends a report.",
+    "cta": "Connect in Telegram",
+    "ctaNote": "Free for one site. No sign-up, just Telegram.",
+    "phoneAlt": "Chat with the Site Pulse bot: the first check of kel.agency",
+    "checksTitle": "What the bot checks",
+    "checks": [
+      {
+        "title": "Whether the site opens",
+        "text": "It checks the home page every 10 minutes. It writes after two failed checks in a row, and again when the site is back, with how long it was down."
+      },
+      {
+        "title": "SSL certificate",
+        "text": "A warning 14, 7, 3 and 1 day before it ends, and at once if browsers stop trusting the certificate."
+      },
+      {
+        "title": "Domain renewal",
+        "text": "It looks up in the registry until when the domain is paid and warns 30, 14, 7, 3 and 1 day ahead. .com, .ru and most other zones."
+      },
+      {
+        "title": "Closed to search",
+        "text": "Every night it looks for noindex on the home page and a ban in robots.txt for Google and Yandex: they are often left over after development."
+      },
+      {
+        "title": "Search basics",
+        "text": "The sitemap, the redirect to https, the www duplicate, the home page's title and description, the setting for phones."
+      },
+      {
+        "title": "Broken links",
+        "text": "Once a week it walks up to 30 pages and checks their links. The broken ones go into the report."
+      }
+    ],
+    "stepsTitle": "How to connect",
+    "steps": [
+      {
+        "title": "Open the bot",
+        "text": "Tap the button on this page, or find @kel_pulse_bot in Telegram and tap Start."
+      },
+      {
+        "title": "Send your site's address",
+        "text": "For example, example.com. The bot checks the site at once and sends the first report within a minute."
+      },
+      {
+        "title": "The bot takes it from there",
+        "text": "It writes if something breaks and sends a monthly report on the 1st. Stop any time with /delete."
+      }
+    ],
+    "plansTitle": "What it costs",
+    "freePlan": {
+      "name": "Free",
+      "note": "for one site",
+      "items": [
+        "1 site",
+        "Uptime every 10 minutes",
+        "SSL, domain and search every night",
+        "Broken links once a week",
+        "A monthly report"
+      ]
+    },
+    "morePlan": {
+      "name": "Several sites",
+      "note": "paid plans are on the way",
+      "text": "More sites, more frequent checks and reports for your clients. If you need it now, write to us and we will work it out.",
+      "cta": "Write to us"
+    },
+    "faq": [
+      {
+        "q": "Is it really free?",
+        "a": "Yes, for one site. The bot is made by KEL Studio: this is how we get to know site owners. If the bot finds issues and you need help, you know whom to ask, but you do not have to."
+      },
+      {
+        "q": "What does the bot keep?",
+        "a": "Your Telegram ID, name, language, the site's address and the check results: without them it cannot send notifications and reports. The /delete command removes everything. More in the [privacy policy](/privacy)."
+      },
+      {
+        "q": "Why does the bot not write after the first failed check?",
+        "a": "One failed check is often a fluke: the network blinked or the server paused for a second. The bot checks again 2 minutes later and writes only if the site failed both times."
+      },
+      {
+        "q": "My site is behind a bot protection. What then?",
+        "a": "If the site answers the robot with 401, 403 or 429, or shows a bot check, Site Pulse warns that it cannot see whether the site opens for visitors. The certificate, the domain and the rest are checked as usual."
+      },
+      {
+        "q": "Will the bot load my site?",
+        "a": "No. One request to the home page every 10 minutes, a few requests at night (robots.txt, the sitemap, the redirects), and once a week up to 30 pages with pauses between requests. The bot follows robots.txt and introduces itself as KELPulse."
+      },
+      {
+        "q": "Can you fix what the bot finds?",
+        "a": "Yes. Write to us: we will look at the report and name the price and the timeline of the fixes."
+      }
+    ],
+    "finalTitle": "Connect monitoring in a minute",
+    "finalText": "Open the bot, send your site's address, and the first check comes right away.",
+    "helpText": "The bot found issues and you need help?",
+    "helpCta": "Write to us",
+    "teaser": {
+      "eyebrow": "Free",
+      "title": "A bot that watches your website",
+      "text": "It writes in Telegram when the site stops opening, its SSL or domain is about to expire, or it was closed to search. Once a month it sends a report.",
+      "cta": "Connect in Telegram",
+      "more": "How it works"
+    }
   }
 }
