@@ -28,7 +28,8 @@ const TONE: Record<RowStatus, { text: string; mark: string; row: string; stroke:
 
 const MARKS: Record<RowStatus, string> = {
   ok: "M5 12.5l4.5 4.5L19 7.5",
-  critical: "M12 6.5v7M12 17.5h.01",
+  // A cross, so "important" differs from "worth fixing" by shape, not only by colour.
+  critical: "M8.5 8.5l7 7M15.5 8.5l-7 7",
   warning: "M12 6.5v7M12 17.5h.01",
   info: "M12 10.5v7M12 6.5h.01",
   none: "M7.5 12h9",
@@ -275,18 +276,15 @@ export default function CheckReport({ result, onAgain }: { result: CheckResult; 
                   </th>
                 </tr>
                 {rows.map(({ row, text }) => {
-                  const issue = ISSUES.includes(row.status);
                   const open = opened.includes(row.id);
                   const hintId = `hint-${row.id}`;
+                  // The level shows in the mark at the start of the row, and in words for
+                  // screen readers; the name stays short.
                   const heading = (
-                    <>
-                      <span className="font-medium text-white">{text.label}</span>
-                      {issue && (
-                        <span className={`text-xs font-semibold tracking-wider uppercase ${TONE[row.status].text}`}>
-                          {r(`status.${row.status}`)}
-                        </span>
-                      )}
-                    </>
+                    <span className="font-medium text-white">
+                      {text.label}
+                      <span className="sr-only">: {r(`status.${row.status}`)}</span>
+                    </span>
                   );
                   return (
                     <tr
@@ -332,10 +330,7 @@ export default function CheckReport({ result, onAgain }: { result: CheckResult; 
                           </span>
                         )}
                       </th>
-                      <td className="hidden w-[38%] py-4 pr-6 pl-4 wrap-anywhere text-gray-200 sm:table-cell">
-                        <span className="sr-only">{r(`status.${row.status}`)}: </span>
-                        {text.value}
-                      </td>
+                      <td className="hidden w-[38%] py-4 pr-6 pl-4 wrap-anywhere text-gray-200 sm:table-cell">{text.value}</td>
                     </tr>
                   );
                 })}
