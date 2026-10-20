@@ -78,15 +78,24 @@ function ScoreRing({ passed, total, status, label, caption }: { passed: number; 
 }
 
 // The result of one check: how many checks passed and the verdict, then every
-// check in a table by groups, issues first within a group, with what to do
-// about each; then what next (watch the site with the bot, or ask us to fix it).
-// "Save as PDF" prints it: only the report, in the light theme, every row, with
-// our contacts at the end (print styles in globals.css).
+// check in a table by groups, issues first within a group (a click on an issue
+// opens what it means and how to fix it); then what next (watch the site with
+// the bot, or ask us to fix it).
+// "Save as PDF" prints it: only the report, in the light theme, every row with
+// its explanation, with our contacts at the end (print styles in globals.css).
 export default function CheckReport({ result, onAgain }: { result: CheckResult; onAgain: () => void }) {
   const { t } = useTranslation();
   const lang = useLang();
   const describe = useRowText();
   const [filter, setFilter] = useState<Filter>("all");
+  // Rows whose explanation is open: the table shows only the verdicts, a click
+  // anywhere on a row opens what the issue means and how to fix it.
+  const [opened, setOpened] = useState<string[]>([]);
+  const toggle = (id: string) => {
+    // Selecting text in an open explanation must not close it.
+    if (window.getSelection()?.toString()) return;
+    setOpened((ids) => (ids.includes(id) ? ids.filter((other) => other !== id) : [...ids, id]));
+  };
   const r = (key: string, options?: Record<string, unknown>) => t(`siteCheck.report.${key}`, options);
   const locale = lang === "ru" ? "ru-RU" : "en-US";
 
@@ -267,26 +276,61 @@ export default function CheckReport({ result, onAgain }: { result: CheckResult; 
                 </tr>
                 {rows.map(({ row, text }) => {
                   const issue = ISSUES.includes(row.status);
+                  const open = opened.includes(row.id);
+                  const hintId = `hint-${row.id}`;
+                  const heading = (
+                    <>
+                      <span className="font-medium text-white">{text.label}</span>
+                      {issue && (
+                        <span className={`text-xs font-semibold tracking-wider uppercase ${TONE[row.status].text}`}>
+                          {r(`status.${row.status}`)}
+                        </span>
+                      )}
+                    </>
+                  );
                   return (
                     <tr
                       key={row.id}
-                      className={`report-row align-top transition-colors hover:bg-white/3 ${TONE[row.status].row}`}
+                      onClick={text.hint ? () => toggle(row.id) : undefined}
+                      className={`report-row align-top transition-colors hover:bg-white/3 ${TONE[row.status].row} ${text.hint ? "cursor-pointer" : ""}`}
                       style={{ "--i": index++ } as CSSProperties}
                     >
                       <td className="py-4 pl-4 sm:pl-6">
                         <StatusMark status={row.status} />
                       </td>
                       <th scope="row" className="px-4 py-4 text-left font-normal sm:pl-2">
-                        <span className="flex flex-wrap items-baseline gap-x-2.5 gap-y-0.5">
-                          <span className="font-medium text-white">{text.label}</span>
-                          {issue && (
-                            <span className={`text-xs font-semibold tracking-wider uppercase ${TONE[row.status].text}`}>
-                              {r(`status.${row.status}`)}
-                            </span>
-                          )}
-                        </span>
+                        {text.hint ? (
+                          // The click reaches the row, which opens the explanation; the button is
+                          // there for the keyboard and screen readers.
+                          <button
+                            type="button"
+                            aria-expanded={open}
+                            aria-controls={hintId}
+                            className="flex cursor-pointer flex-wrap items-baseline gap-x-2.5 gap-y-0.5 text-left"
+                          >
+                            {heading}
+                            <svg
+                              aria-hidden="true"
+                              viewBox="0 0 24 24"
+                              className={`h-3.5 w-3.5 self-center text-gray-500 transition-transform duration-200 print:hidden ${open ? "rotate-180" : ""}`}
+                              fill="none"
+                              stroke="currentColor"
+                              strokeWidth={2.5}
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                            >
+                              <path d="M6 9l6 6 6-6" />
+                            </svg>
+                          </button>
+                        ) : (
+                          <span className="flex flex-wrap items-baseline gap-x-2.5 gap-y-0.5">{heading}</span>
+                        )}
                         <span className="mt-1 block wrap-anywhere text-gray-300 sm:hidden">{text.value}</span>
-                        {text.hint && <span className="mt-1.5 block max-w-xl text-sm leading-relaxed text-gray-400">{text.hint}</span>}
+                        {text.hint && (
+                          <span id={hintId} className={`mt-1.5 max-w-xl text-sm leading-relaxed text-gray-400 print:block ${open ? "block" : "hidden"}`}>
+                            {text.hint}
+                          </span>
+                        )}
                       </th>
                       <td className="hidden w-[38%] py-4 pr-6 pl-4 wrap-anywhere text-gray-200 sm:table-cell">
                         <span className="sr-only">{r(`status.${row.status}`)}: </span>
