@@ -56,6 +56,8 @@ According to Yandex's help, after you add it the file goes into a queue and the 
 
 A good habit: after adding the file, go back to the section and look at the status. "OK" means the file has been downloaded and recognized. The status "Not indexed" means access to the file is closed by a `Disallow` directive in robots.txt.
 
+How to write the sitemap and robots.txt themselves, and the mistakes we see in them most often, is covered in our article on [robots.txt and sitemap.xml](/blog/sitemap-robots-txt).
+
 ## Page recrawl
 
 When you have added a new page or noticeably changed an old one, you do not have to wait for the robot to come on its own. In the "Indexing" - "Page recrawl" section you can submit addresses and ask the robot to visit them with priority.
