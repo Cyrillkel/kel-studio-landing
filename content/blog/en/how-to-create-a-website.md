@@ -54,7 +54,7 @@ An example from our own practice: after launching the studio's site we connected
 
 ## What to budget for besides development
 
-**Domain and hosting.** Paid regularly. Register the domain in your own name: it is your address on the internet, and you will not have to change it if you switch contractors.
+**Domain and hosting.** Paid regularly. Register the domain in your own name: it is your address on the internet, and you will not have to change it if you switch contractors. How to choose the name and the zone is covered in our article on [a domain for a website](/blog/domain-for-website), and the kinds of servers and how to choose one in the article on [hosting](/blog/website-hosting).
 
 **Support.** Updates, backups, edits after launch. The price depends on the platform, the size of the site and the amount of work, so we price [support](/services/support) after getting to know the site.
 
