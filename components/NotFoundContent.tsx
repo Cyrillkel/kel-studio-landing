@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import BrandLogo from "./BrandLogo";
 import { useTranslation } from "react-i18next";
 import { ButtonLink } from "./Button";
 import { SERVICE_SLUGS, servicePath } from "@/lib/services";
@@ -18,8 +19,8 @@ export default function NotFoundContent() {
         aria-hidden="true"
         className="glow-wash pointer-events-none absolute inset-0 [--glow-end:60%]"
       />
-      <Link href={lp("/")} className="relative font-heading text-xl font-bold text-white">
-        KEL Studio
+      <Link href={lp("/")} aria-label={t("nav.home")} className="relative text-white">
+        <BrandLogo className="h-9" />
       </Link>
       <p
         aria-hidden="true"

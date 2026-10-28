@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import BrandLogo from "./BrandLogo";
 import { usePathname } from "next/navigation";
 import { useTranslation } from "react-i18next";
 import ContactLinks from "./ContactLinks";
@@ -29,14 +30,14 @@ export default function Footer() {
             <Link
               href={lp("/")}
               aria-label={t("nav.home")}
-              className="font-heading text-2xl font-bold text-white"
+              className="text-white"
               onClick={(e) => {
                 if (!onHome) return;
                 e.preventDefault();
                 if (!smoothTop()) window.scrollTo({ top: 0, behavior: "smooth" });
               }}
             >
-              KEL Studio
+              <BrandLogo className="h-10" />
             </Link>
             {/* The brand is the name, the domain is the address: shown together so both stick. */}
             <a

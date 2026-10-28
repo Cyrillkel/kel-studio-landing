@@ -11,6 +11,7 @@ import { PULSE_BOT, pulseBotUrl } from "@/lib/pulse";
 import { CONTACT_EMAIL, SITE_URL, TELEGRAM_URL } from "@/lib/site";
 import { ROW_GROUPS, type CheckResult, type CheckRow, type RowStatus } from "@/lib/sitecheck";
 import { useRowText, type RowText } from "./useRowText";
+import BrandLogo from "../BrandLogo";
 
 type Filter = "all" | "issues" | "ok";
 type Shown = { row: CheckRow; text: RowText };
@@ -179,7 +180,9 @@ export default function CheckReport({ result, onAgain }: { result: CheckResult; 
   return (
     <div className="print-exact mt-10 text-left print:mt-0">
       <div className="mb-5 hidden items-baseline justify-between gap-4 border-b border-white/10 pb-3 print:flex">
-        <span className="font-heading text-xl font-bold text-white">KEL Studio</span>
+        <span className="text-white" role="img" aria-label="KEL Studio">
+          <BrandLogo className="h-8" />
+        </span>
         <span className="text-sm text-gray-500">{r("print.by")}</span>
       </div>
       <section aria-labelledby="check-report" className="report-in rounded-3xl border border-white/10 bg-white/3 p-5 sm:p-8">

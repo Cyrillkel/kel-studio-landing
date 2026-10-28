@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
+import BrandLogo from "./BrandLogo";
 import { usePathname } from "next/navigation";
 import { gsap } from "gsap";
 import { ScrollSmoother } from "gsap/ScrollSmoother";
@@ -167,7 +168,7 @@ export default function Navigation() {
             <Link
               href={lp("/")}
               aria-label={t("nav.home")}
-              className="font-heading text-xl font-bold whitespace-nowrap text-white sm:text-2xl"
+              className="shrink-0 text-white"
               onClick={(e) => {
                 setIsOpen(false);
                 setServicesOpen(false);
@@ -176,7 +177,7 @@ export default function Navigation() {
                 if (!smoothTop()) window.scrollTo({ top: 0, behavior: "smooth" });
               }}
             >
-              KEL Studio
+              <BrandLogo className="h-7 sm:h-9" />
             </Link>
 
             <div className="hidden lg:flex items-center gap-8">

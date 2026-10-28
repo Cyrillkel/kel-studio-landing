@@ -65,6 +65,11 @@
   --field: rgb(3 5 12 / 0.4); /* inputs */
   --shade: #010309; /* shadow colour: `shadow-shade/60` */
   --scrim: rgb(3 5 12 / 0.74); /* behind the contact window */
+  /* The logo (components/BrandLogo.tsx): the cube faces (top, right, left) and "studio". */
+  --logo-a: #22d3ee;
+  --logo-b: #8b5cf6;
+  --logo-c: #e879f9;
+  --logo-soft: #cbd5e1;
 
   /* The muted grey (labels, captions) one step lighter than Tailwind's gray-500, so that it
      reads at least as well as it did on black (5.1:1 on the page, was 4.1). */
@@ -111,6 +116,12 @@
 
 :root[data-theme="light"] {
   color-scheme: light;
+
+  /* The logo: the same hues, deep enough for a white background. */
+  --logo-a: #0891b2;
+  --logo-b: #6d28d9;
+  --logo-c: #c026d3;
+  --logo-soft: #475569;
 
   /* Mirrored neutrals (see the comment above). */
   --color-white: #0e0e14;

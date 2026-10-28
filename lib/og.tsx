@@ -1,12 +1,27 @@
 import { ImageResponse } from "next/og";
 import { CATEGORIES, type Post } from "./blog";
 import { getDictionary } from "./dictionary";
+import { LOGO_DARK, LOGO_KEL, LOGO_MARK, LOGO_STUDIO, LOGO_VIEWBOX } from "./brand";
 import type { Lang } from "./lang";
 
 // The cards shown when a link is posted in Telegram, WhatsApp, social networks
 // (the opengraph-image files of both languages call these; the files themselves
 // declare the size as a literal, which Next reads without running them).
 const OG_SIZE = { width: 1200, height: 630 };
+
+// The logo (lib/brand.ts) in the dark theme's colours, at the given height.
+const LOGO_ASPECT = Number(LOGO_VIEWBOX.split(" ")[2]) / Number(LOGO_VIEWBOX.split(" ")[3]);
+function Logo({ height }: { height: number }) {
+  return (
+    <svg viewBox={LOGO_VIEWBOX} width={Math.round(height * LOGO_ASPECT)} height={height}>
+      {LOGO_MARK.map((face) => (
+        <path key={face.d} d={face.d} fill={LOGO_DARK[face.face]} />
+      ))}
+      <path d={LOGO_KEL} fill={LOGO_DARK.text} />
+      <path d={LOGO_STUDIO} fill={LOGO_DARK.soft} />
+    </svg>
+  );
+}
 
 export function homeOgImage(lang: Lang) {
   const { ogTagline } = getDictionary(lang).meta;
@@ -28,9 +43,7 @@ export function homeOgImage(lang: Lang) {
           fontFamily: "sans-serif",
         }}
       >
-        <div style={{ fontSize: 104, fontWeight: 800, letterSpacing: -2 }}>
-          KEL Studio
-        </div>
+        <Logo height={132} />
         <div
           style={{
             marginTop: 24,
@@ -86,7 +99,7 @@ export function blogOgImage(lang: Lang, post: Post | undefined) {
           {title}
         </div>
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-          <div style={{ display: "flex", fontSize: 36, fontWeight: 800 }}>KEL Studio</div>
+          <Logo height={52} />
           <div style={{ display: "flex", width: 220, height: 4, borderRadius: 2, background: "linear-gradient(to right, #22d3ee, #a78bfa, #e879f9)" }} />
           <div style={{ display: "flex", fontSize: 30, color: "#a1a1aa" }}>kel.agency/blog</div>
         </div>
