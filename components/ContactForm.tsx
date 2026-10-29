@@ -11,10 +11,11 @@ import { PHONE, PHONE_URL, TELEGRAM_URL, WHATSAPP_URL } from "@/lib/site";
 import { useLang, useLocalePath } from "./useLang";
 
 // ym-disable-keys: Metrika's session replay doesn't record what is typed here.
-const fieldClass = (invalid: boolean) =>
-  `ym-disable-keys w-full rounded-lg border bg-field px-5 py-3 text-white transition placeholder-gray-500 focus:outline-none sm:px-6 sm:py-4 ${
-    invalid ? "border-rose-500/60 focus:border-rose-400" : "border-white/10 focus:border-white/30"
-  }`;
+// The compact form keeps the phone-sized fields on every screen.
+const fieldClass = (invalid: boolean, compact: boolean) =>
+  `ym-disable-keys w-full rounded-lg border bg-field px-5 py-3 text-white transition placeholder-gray-500 focus:outline-none ${
+    compact ? "" : "sm:px-6 sm:py-4"
+  } ${invalid ? "border-rose-500/60 focus:border-rose-400" : "border-white/10 focus:border-white/30"}`;
 
 // The message sits under its field, small and left-aligned, so the layout
 // height barely moves when it appears.
@@ -31,14 +32,19 @@ export default function ContactForm({
   // Shown in the Telegram message, so it is clear where the lead came from.
   place,
   service,
+  compact = false,
   onSent,
 }: {
   place: string;
   // The service page the form sits on: preselected as the topic.
   service?: ServiceSlug;
+  // The dialog version: tighter gaps, lower fields and a shorter message box,
+  // so the whole form fits a laptop screen without scrolling.
+  compact?: boolean;
   onSent?: () => void;
 }) {
   const { t } = useTranslation();
+  const field = (invalid: boolean) => fieldClass(invalid, compact);
   const lang = useLang();
   const lp = useLocalePath();
   const emptyForm = { name: "", email: "", phone: "", message: "", service: service ?? "" };
@@ -123,7 +129,7 @@ export default function ContactForm({
       ref={formRef}
       onSubmit={handleSubmit}
       noValidate
-      className="space-y-4 sm:space-y-6"
+      className={compact ? "space-y-4" : "space-y-4 sm:space-y-6"}
       // Focus bubbles up to the form: the first field the visitor enters counts
       // as starting the form (once per open form).
       onFocus={() => {
@@ -132,7 +138,7 @@ export default function ContactForm({
         reachGoal(GOALS.formStart, { place });
       }}
     >
-      <div className="grid gap-4 sm:gap-6 md:grid-cols-2">
+      <div className={`grid gap-4 md:grid-cols-2 ${compact ? "" : "sm:gap-6"}`}>
         <Field error={errors.name && t(`contact.errors.${errors.name}`)}>
           <input
             type="text"
@@ -143,7 +149,7 @@ export default function ContactForm({
             onChange={(e) => update("name", e.target.value)}
             onBlur={() => checkField("name")}
             aria-invalid={Boolean(errors.name)}
-            className={fieldClass(Boolean(errors.name))}
+            className={field(Boolean(errors.name))}
           />
         </Field>
         <Field error={errors.email && t(`contact.errors.${errors.email}`)}>
@@ -156,7 +162,7 @@ export default function ContactForm({
             onChange={(e) => update("email", e.target.value)}
             onBlur={() => checkField("email")}
             aria-invalid={Boolean(errors.email || errors.contact)}
-            className={fieldClass(Boolean(errors.email || errors.contact))}
+            className={field(Boolean(errors.email || errors.contact))}
           />
         </Field>
       </div>
@@ -180,7 +186,7 @@ export default function ContactForm({
           onChange={(e) => update("phone", e.target.value)}
           onBlur={() => checkField("phone")}
           aria-invalid={Boolean(errors.phone || errors.contact)}
-          className={fieldClass(Boolean(errors.phone || errors.contact))}
+          className={field(Boolean(errors.phone || errors.contact))}
         />
       </Field>
       <Select
@@ -189,18 +195,18 @@ export default function ContactForm({
         options={topics}
         placeholder={t("contact.topicPlaceholder")}
         label={t("contact.topicLabel")}
-        className={fieldClass(false)}
+        className={field(false)}
       />
       <Field error={errors.message && t(`contact.errors.${errors.message}`)}>
         <textarea
           placeholder={t("contact.messagePlaceholder")}
           aria-label={t("contact.messagePlaceholder")}
-          rows={5}
+          rows={compact ? 3 : 5}
           value={formData.message}
           onChange={(e) => update("message", e.target.value)}
           onBlur={() => checkField("message")}
           aria-invalid={Boolean(errors.message)}
-          className={`${fieldClass(Boolean(errors.message))} resize-none`}
+          className={`${field(Boolean(errors.message))} resize-none`}
         />
       </Field>
       {/* Required consent. The real checkbox is hidden but stays the control

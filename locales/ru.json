@@ -469,6 +469,7 @@
   "contact": {
     "heading": "Получите расчёт цены и срока",
     "subheading": "Нужны только имя и email или телефон. Вернёмся с решением, ценой и сроком.",
+    "modalHeading": "Оставить заявку",
     "namePlaceholder": "Ваше имя",
     "emailPlaceholder": "Email",
     "phonePlaceholder": "Или телефон",

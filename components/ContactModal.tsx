@@ -5,7 +5,7 @@ import { gsap } from "gsap";
 import { ScrollSmoother } from "gsap/ScrollSmoother";
 import { useTranslation } from "react-i18next";
 import ContactForm from "./ContactForm";
-import { ButtonLink } from "./Button";
+import { Button, ButtonLink } from "./Button";
 import type { ServiceSlug } from "@/lib/services";
 
 // Opens the same form in a dialog, so a visitor on a service page never has to
@@ -31,7 +31,17 @@ export default function ContactModal({
   const dialogRef = useRef<HTMLDialogElement>(null);
   const panelRef = useRef<HTMLDivElement>(null);
   const closeRef = useRef<HTMLButtonElement>(null);
+  const doneRef = useRef<HTMLParagraphElement>(null);
   const [open, setOpen] = useState(false);
+  // Once the lead is sent, the form gives way to a short confirmation, so the
+  // result is in view on any screen and never below the fold of the panel.
+  const [sent, setSent] = useState(false);
+
+  // The submit button disappears with the form: move the focus to the message,
+  // which also gets it read out.
+  useEffect(() => {
+    if (sent) doneRef.current?.focus();
+  }, [sent]);
 
   useEffect(() => {
     const dialog = dialogRef.current;
@@ -80,6 +90,7 @@ export default function ContactModal({
         className={className}
         onClick={(e) => {
           e.preventDefault();
+          setSent(false);
           setOpen(true);
         }}
       >
@@ -88,7 +99,7 @@ export default function ContactModal({
 
       <dialog
         ref={dialogRef}
-        aria-label={t("contact.heading")}
+        aria-label={t("contact.modalHeading")}
         className="m-auto max-h-[calc(100dvh-2rem)] w-full max-w-2xl overflow-visible bg-transparent p-4 text-white backdrop:bg-scrim backdrop:backdrop-blur-sm"
         // A click on the backdrop lands on the dialog itself, not the panel.
         onClick={(e) => {
@@ -100,7 +111,7 @@ export default function ContactModal({
             below the dialog plus its own 1rem padding. */}
         <div
           ref={panelRef}
-          className="dialog-scroll relative max-h-[calc(100dvh-4rem)] overflow-y-auto overscroll-contain rounded-2xl border border-white/10 bg-dialog p-6 text-center shadow-2xl shadow-shade/60 sm:p-8"
+          className="dialog-scroll relative max-h-[calc(100dvh-4rem)] overflow-y-auto overscroll-contain rounded-2xl border border-white/10 bg-dialog p-6 text-center shadow-2xl shadow-shade/60 sm:p-7"
         >
           <button
             ref={closeRef}
@@ -121,9 +132,46 @@ export default function ContactModal({
               <path d="M6 6l12 12M18 6L6 18" />
             </svg>
           </button>
-          <h2 className="px-8 font-heading text-xl font-bold sm:px-0 sm:text-3xl">{t("contact.heading")}</h2>
-          <p className="mt-3 mb-6 text-gray-300">{t("contact.subheading")}</p>
-          <ContactForm place={place} service={service} />
+          {sent ? (
+            <div className="py-6">
+              <span
+                aria-hidden="true"
+                className="mx-auto grid h-14 w-14 place-items-center rounded-full bg-linear-to-br from-cyan-400 via-violet-500 to-fuchsia-500 text-snow shadow-lg shadow-violet-500/30"
+              >
+                <svg
+                  viewBox="0 0 24 24"
+                  className="h-7 w-7"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth={2.5}
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <path d="m5 12 5 5 9-10" />
+                </svg>
+              </span>
+              <p
+                ref={doneRef}
+                tabIndex={-1}
+                role="status"
+                className="mx-auto mt-5 max-w-sm text-lg text-gray-200 focus:outline-none"
+              >
+                {t("contact.success")}
+              </p>
+              <Button type="button" className="mt-6" onClick={() => setOpen(false)}>
+                {t("contact.close")}
+              </Button>
+            </div>
+          ) : (
+            <>
+              {/* One short line, no lead-in: the fields say what is needed. The side
+                  padding keeps it clear of the close button on a phone. */}
+              <h2 className="mb-5 px-6 font-heading text-lg font-bold sm:px-0 sm:text-2xl">
+                {t("contact.modalHeading")}
+              </h2>
+              <ContactForm place={place} service={service} compact onSent={() => setSent(true)} />
+            </>
+          )}
         </div>
       </dialog>
     </>

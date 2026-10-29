@@ -469,6 +469,7 @@
   "contact": {
     "heading": "Get a price and timeline quote",
     "subheading": "All we need is a name and an email or phone. We will come back with a solution, a price and a timeline.",
+    "modalHeading": "Request a quote",
     "namePlaceholder": "Your name",
     "emailPlaceholder": "Email",
     "phonePlaceholder": "Or phone",

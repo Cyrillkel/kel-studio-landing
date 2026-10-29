@@ -4,6 +4,22 @@ import { useEffect, useId, useRef, useState, type KeyboardEvent } from "react";
 
 export type SelectOption = { value: string; label: string };
 
+// The part of the screen the list can show in: the window, cut by the nearest
+// ancestor that clips what sticks out of it (a scrolling dialog panel, say).
+function clipBounds(element: HTMLElement) {
+  let top = 0;
+  let bottom = window.innerHeight;
+  for (let node = element.parentElement; node; node = node.parentElement) {
+    if (getComputedStyle(node).overflowY !== "visible") {
+      const box = node.getBoundingClientRect();
+      top = Math.max(top, box.top);
+      bottom = Math.min(bottom, box.bottom);
+      break;
+    }
+  }
+  return { top, bottom };
+}
+
 // A drop-down in the style of the site (the native one cannot be styled). It
 // follows the "select-only combobox" pattern: the button keeps the focus, the
 // arrows move through the list, Enter or Space pick, Esc closes only the list
@@ -33,6 +49,7 @@ export default function Select({
   const rootRef = useRef<HTMLDivElement>(null);
   const listRef = useRef<HTMLUListElement>(null);
   const typed = useRef({ text: "", at: 0 });
+  const centerOnOpen = useRef(false);
   const [open, setOpen] = useState(false);
   const [upward, setUpward] = useState(false);
   const [active, setActive] = useState(0);
@@ -42,11 +59,15 @@ export default function Select({
 
   const show = () => {
     // Opens upward when there is no room below, e.g. at the bottom of a dialog.
-    const rect = rootRef.current?.getBoundingClientRect();
-    if (rect) {
-      const below = window.innerHeight - rect.bottom;
-      setUpward(below < 280 && rect.top > below);
+    // The room is counted inside whatever would cut the list off, not the window alone.
+    const root = rootRef.current;
+    if (root) {
+      const rect = root.getBoundingClientRect();
+      const bounds = clipBounds(root);
+      const below = bounds.bottom - rect.bottom;
+      setUpward(below < 280 && rect.top - bounds.top > below);
     }
+    centerOnOpen.current = true;
     setActive(selectedIndex);
     setOpen(true);
   };
@@ -68,11 +89,16 @@ export default function Select({
 
   // Keep the highlighted option in view. Scrolling the list itself, not the
   // page: scrollIntoView could also move the page under the smooth scroller.
+  // On opening, the picked option goes to the middle of the list, so the
+  // options after it are in view too rather than hidden under the bottom edge.
   useEffect(() => {
     const list = listRef.current;
     const item = list?.children[active] as HTMLElement | undefined;
     if (!open || !list || !item) return;
-    if (item.offsetTop < list.scrollTop) list.scrollTop = item.offsetTop;
+    if (centerOnOpen.current) {
+      centerOnOpen.current = false;
+      list.scrollTop = item.offsetTop - (list.clientHeight - item.offsetHeight) / 2;
+    } else if (item.offsetTop < list.scrollTop) list.scrollTop = item.offsetTop;
     else if (item.offsetTop + item.offsetHeight > list.scrollTop + list.clientHeight) {
       list.scrollTop = item.offsetTop + item.offsetHeight - list.clientHeight;
     }
