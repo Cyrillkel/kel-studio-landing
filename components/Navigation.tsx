@@ -280,13 +280,13 @@ export default function Navigation() {
               >
                 {t("nav.about")}
               </a>
-              {/* The quickest ways to reach us: round glass buttons like the burger on a phone. */}
-              <div className="flex items-center gap-3">
+              {/* The quickest ways to reach us: bare icons, like the theme button next to them. */}
+              <div className="flex items-center gap-1">
                 <a
                   href={PHONE_URL}
                   aria-label={`${t("nav.call")} ${PHONE}`}
                   title={PHONE}
-                  className="flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/5 text-gray-300 transition-colors duration-200 hover:border-violet-400/50 hover:bg-violet-400/10 hover:text-violet-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white/60"
+                  className="flex h-10 w-10 items-center justify-center rounded-full text-gray-300 transition-colors duration-200 hover:text-violet-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white/60"
                 >
                   <PhoneIcon className="h-5 w-5" />
                 </a>
@@ -295,7 +295,7 @@ export default function Navigation() {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="Telegram"
-                  className="flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/5 text-gray-300 transition-colors duration-200 hover:border-[#2AABEE]/50 hover:bg-[#2AABEE]/10 hover:text-[#2AABEE] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white/60"
+                  className="flex h-10 w-10 items-center justify-center rounded-full text-gray-300 transition-colors duration-200 hover:text-[#2AABEE] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white/60"
                 >
                   <TelegramIcon className="h-5 w-5" />
                 </a>
@@ -307,8 +307,9 @@ export default function Navigation() {
             </div>
 
             {/* On a phone the logo, the theme button, the language and the burger share one
-                row: the logo, the button and the gaps get smaller below 640px (and the language
-                arrow goes below 380px, see LanguageSwitcher). */}
+                row: the logo, the button and the gaps get smaller below 640px. The burger has
+                no circle, so it is pulled 8px right: its bars, not its box, end at the page
+                margin where the logo starts. */}
             <div className="flex items-center gap-2 sm:gap-3 lg:hidden">
               <ThemeToggle className="h-9 w-9 sm:h-10 sm:w-10" />
               <LanguageSwitcher />
@@ -317,7 +318,7 @@ export default function Navigation() {
                 aria-label={t("nav.menu")}
                 aria-expanded={isOpen}
                 aria-controls="mobile-menu"
-                className="relative z-50 flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border border-white/10 bg-white/5 transition-colors hover:bg-white/10"
+                className="relative z-50 -mr-2 flex h-10 w-10 cursor-pointer items-center justify-center rounded-full"
                 onClick={() => setIsOpen(!isOpen)}
               >
                 <span aria-hidden="true" className="relative block h-4 w-6">
@@ -476,8 +477,9 @@ export default function Navigation() {
         </div>
 
         {/* Direct contacts, pinned to the bottom of the panel: the number dials on
-            tap, the messengers and email (the same round buttons as in the footer)
-            open their apps. Links scroll under it (it fades in from the panel background). */}
+            tap, the messengers and email (the same icons as in the footer) open their
+            apps; those are pulled left by their padding to line up with the phone icon.
+            Links scroll under it (it fades in from the panel background). */}
         <div className="sticky bottom-0 shrink-0 bg-linear-to-t from-page from-65% to-transparent px-6 pb-[max(1.5rem,env(safe-area-inset-bottom))] pt-8">
           <div
             className={`flex flex-col items-start gap-4 transition duration-500 motion-reduce:transition-none ${
@@ -492,7 +494,7 @@ export default function Navigation() {
               <PhoneIcon className="h-6 w-6" />
               <span className="whitespace-nowrap tabular-nums">{PHONE}</span>
             </a>
-            <ContactLinks />
+            <ContactLinks className="-ml-2.5" />
           </div>
         </div>
       </div>

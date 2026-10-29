@@ -742,6 +742,45 @@ html:not([data-lang="en"]) .not-found-en {
   }
 }
 
+/* The scrollbar of the dialog panels (the case and the contact window): a slim
+   rounded thumb set in from the panel's edge and clear of its rounded corners,
+   no arrows, no track, and the brand gradient under the pointer. The transparent
+   border is the inset: the thumb is painted inside it (padding-box). Not on touch
+   screens: they keep their own overlay scrollbar, which takes no room and fades
+   out by itself. Firefox gets its thin one, as for the list above. */
+@media not all and (pointer: coarse) {
+  .dialog-scroll::-webkit-scrollbar {
+    width: 14px;
+  }
+
+  .dialog-scroll::-webkit-scrollbar-track {
+    margin: 14px 0;
+    background: transparent;
+  }
+
+  .dialog-scroll::-webkit-scrollbar-thumb {
+    border: 4px solid transparent;
+    border-radius: 999px;
+    background: var(--scroll-thumb) padding-box;
+  }
+
+  .dialog-scroll::-webkit-scrollbar-thumb:hover,
+  .dialog-scroll::-webkit-scrollbar-thumb:active {
+    background: linear-gradient(var(--brand-1), var(--brand-2), var(--brand-3)) padding-box;
+  }
+
+  .dialog-scroll::-webkit-scrollbar-button {
+    display: none;
+  }
+}
+
+@supports (-moz-appearance: none) {
+  .dialog-scroll {
+    scrollbar-width: thin;
+    scrollbar-color: var(--scroll-thumb-thin) transparent;
+  }
+}
+
 @layer utilities {
   .ambient-blob {
     animation: blob-drift 22s ease-in-out infinite;

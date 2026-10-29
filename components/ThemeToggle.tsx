@@ -5,8 +5,8 @@ import { useTranslation } from "react-i18next";
 import { applyTheme, getTheme, subscribeTheme } from "@/lib/theme";
 import { cn } from "@/lib/utils";
 
-// Round glass button in the header, the same size and look as the burger and
-// the contact buttons. It shows the theme it switches to; which of the two
+// A bare icon in the header, like the burger and the contact icons; the 40px box
+// is the click area. It shows the theme it switches to; which of the two
 // icons is visible is decided by CSS from <html data-theme> (globals.css), so
 // it is right before React is even loaded. Only the label needs the state.
 export default function ThemeToggle({ className = "" }: { className?: string }) {
@@ -23,7 +23,7 @@ export default function ThemeToggle({ className = "" }: { className?: string }) 
       title={label}
       onClick={() => applyTheme(theme === "dark" ? "light" : "dark")}
       className={cn(
-        "theme-toggle relative flex h-10 w-10 shrink-0 cursor-pointer items-center justify-center rounded-full border border-white/10 bg-white/5 text-gray-300 transition-colors duration-200 hover:border-violet-400/50 hover:bg-violet-400/10 hover:text-violet-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white/60",
+        "theme-toggle relative flex h-10 w-10 shrink-0 cursor-pointer items-center justify-center rounded-full text-gray-300 transition-colors duration-200 hover:text-violet-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white/60",
         className
       )}
     >

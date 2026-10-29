@@ -4,10 +4,10 @@
 
 type IconProps = { className?: string };
 
-// Only the paper plane of the Telegram mark, without the disc around it: the link
-// is a round button already, and a second circle inside it looked like a ring in
-// a ring. The viewBox hugs the plane (about 13 x 11 units in the 24-unit logo),
-// so it fills its box instead of floating small in the middle.
+// Only the paper plane of the Telegram mark, without the disc around it, so it
+// is no heavier than the line icons next to it. The viewBox hugs the plane (about
+// 13 x 11 units in the 24-unit logo), so it fills its box instead of floating
+// small in the middle.
 export function TelegramIcon({ className }: IconProps) {
   return (
     <svg aria-hidden="true" viewBox="4.35 5.92 13.4 13.4" fill="currentColor" className={className}>

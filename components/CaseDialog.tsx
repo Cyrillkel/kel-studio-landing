@@ -23,6 +23,7 @@ export default function CaseDialog({
   const { t } = useTranslation();
   const dialogRef = useRef<HTMLDialogElement>(null);
   const panelRef = useRef<HTMLDivElement>(null);
+  const closeRef = useRef<HTMLButtonElement>(null);
   const titleId = useId();
   const [open, setOpen] = useState(false);
   const details = item.case;
@@ -43,7 +44,11 @@ export default function CaseDialog({
     document.body.style.overflow = "hidden";
 
     dialog.showModal();
-    dialog.scrollTop = 0;
+    // The panel scrolls, and Chrome makes a scroller focusable, so the dialog would
+    // focus the whole panel (a ring around the card from the keyboard): start on the
+    // close button instead, as before the panel scrolled.
+    closeRef.current?.focus();
+    panel.scrollTop = 0;
 
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const tween = reduced
@@ -81,17 +86,21 @@ export default function CaseDialog({
       <dialog
         ref={dialogRef}
         aria-labelledby={titleId}
-        className="m-auto max-h-[calc(100dvh-2rem)] w-full max-w-4xl overflow-y-auto overscroll-contain bg-transparent p-4 text-white backdrop:bg-scrim backdrop:backdrop-blur-sm"
+        className="m-auto max-h-[calc(100dvh-2rem)] w-full max-w-4xl overflow-visible bg-transparent p-4 text-white backdrop:bg-scrim backdrop:backdrop-blur-sm"
         // A click on the backdrop lands on the dialog itself, not the panel.
         onClick={(e) => {
           if (e.target === dialogRef.current) setOpen(false);
         }}
       >
+        {/* The panel scrolls, not the dialog, so the scrollbar stays inside its rounded
+            frame (.dialog-scroll in globals.css). 4rem leaves 1rem of screen above and
+            below the dialog plus its own 1rem padding. */}
         <div
           ref={panelRef}
-          className="relative rounded-2xl border border-white/10 bg-dialog p-6 shadow-2xl shadow-shade/60 sm:p-8"
+          className="dialog-scroll relative max-h-[calc(100dvh-4rem)] overflow-y-auto overscroll-contain rounded-2xl border border-white/10 bg-dialog p-6 shadow-2xl shadow-shade/60 sm:p-8"
         >
           <button
+            ref={closeRef}
             type="button"
             aria-label={t("contact.close")}
             className="absolute right-4 top-4 flex h-9 w-9 cursor-pointer items-center justify-center rounded-full text-gray-400 transition-colors hover:bg-white/5 hover:text-white"

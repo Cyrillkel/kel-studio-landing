@@ -55,25 +55,10 @@ export default function LanguageSwitcher({
         onClick={() => setOpen((o) => !o)}
         aria-label={t("nav.language")}
         aria-expanded={open}
-        className="flex items-center gap-1.5 rounded-lg border border-white/10 bg-white/5 px-3 py-1.5 text-sm text-gray-300 transition hover:border-white/30 hover:text-white cursor-pointer"
+        className="flex h-10 items-center gap-1.5 rounded-lg px-1 text-sm text-gray-300 transition hover:text-white cursor-pointer"
       >
         <span className="text-base leading-none">{current.flag}</span>
         <span className="font-medium uppercase">{current.code}</span>
-        <svg
-          className={`h-3.5 w-3.5 transition-transform duration-200 max-[379px]:hidden ${
-            open ? "rotate-180" : ""
-          }`}
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M19 9l-7 7-7-7"
-          />
-        </svg>
       </button>
 
       {open && (
