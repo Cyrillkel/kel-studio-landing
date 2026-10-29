@@ -146,6 +146,17 @@ export type ServiceCopy = {
   fitTitle: string;
   fit: string[];
   steps: { title: string; text: string }[];
+  // Only on some pages: what the price is made of and sample prices, for the
+  // "how much does it cost" searches.
+  pricing?: {
+    title: string;
+    lead: string;
+    factorsTitle: string;
+    factors: { title: string; text: string }[];
+    examplesTitle: string;
+    examples: { title: string; price: string; text: string }[];
+    note: string;
+  };
   faq: { q: string; a: string }[];
 };
 

@@ -2073,10 +2073,69 @@
             "text": "We set up regular runs and notifications and make sure the scraper keeps working when the site changes."
           }
         ],
+        "pricing": {
+          "title": "How much web scraping costs",
+          "lead": "We price web scraping for each task, but there is a starting point: the simplest option, a one-time export from one site, costs from $300. Beyond that, the price depends on how many sources there are, how well they are protected and how often you need the data.",
+          "factorsTitle": "What the price depends on",
+          "factors": [
+            {
+              "title": "Number of sources",
+              "text": "We write a separate scraper for each site: sites differ in page structure and protection."
+            },
+            {
+              "title": "Site protection",
+              "text": "Captchas, request limits and data loaded by scripts call for proxies and browser emulation. That is why marketplaces cost more than ordinary sites."
+            },
+            {
+              "title": "Volume and fields",
+              "text": "Hundreds of pages or hundreds of thousands, prices only or also specifications, photos and reviews."
+            },
+            {
+              "title": "Frequency",
+              "text": "A one-time export costs less than scheduled collection with change tracking."
+            },
+            {
+              "title": "Where the data goes",
+              "text": "An Excel or CSV file is the simplest. Google Sheets, a database, an API and Telegram notifications add work."
+            }
+          ],
+          "examplesTitle": "Examples with prices",
+          "examples": [
+            {
+              "title": "One-time catalog export",
+              "price": "from $300",
+              "text": "One online store or supplier catalog: product names, prices, availability and specifications in Excel or CSV."
+            },
+            {
+              "title": "Competitor price monitoring",
+              "price": "from $600",
+              "text": "3-5 competitor sites, collected daily, a sheet with price changes and Telegram notifications."
+            },
+            {
+              "title": "Marketplace scraping",
+              "price": "from $800",
+              "text": "Products and prices from marketplace categories with regular updates. It costs more because of the protection against automated collection."
+            },
+            {
+              "title": "Scraper maintenance",
+              "price": "from $50 a month",
+              "text": "We make sure the data keeps coming: we check the exports and update the scraper when the source site changes."
+            }
+          ],
+          "note": "These are guidelines. We name the exact price after a brief and a check of the source."
+        },
         "faq": [
           {
             "q": "How much does web scraping cost?",
             "a": "Web scraping starts from $300. The price depends on the number of sources, the complexity of the sites, the data volume and whether regular scheduled runs are needed. We name it after clarifying the task."
+          },
+          {
+            "q": "Can I order a one-time data export?",
+            "a": "Yes, it is the simplest option: a one-time export from one site costs from $300. If you later need regular collection, the same scraper can be put on a schedule."
+          },
+          {
+            "q": "Why does marketplace scraping cost more?",
+            "a": "Marketplaces protect themselves from automated collection: they limit the number of requests, show captchas and load data with scripts. Stable collection needs proxies and browser emulation, and the scraper has to be updated more often."
           },
           {
             "q": "Is web scraping legal?",

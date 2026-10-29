@@ -249,6 +249,55 @@ export default function ServicePage({ slug }: { slug: ServiceSlug }) {
             </div>
           </section>
 
+          {/* In the page's own color, like the cases: the steps fade into it, and the
+              cases or the questions start from it. */}
+          {page.pricing && (
+            <section className="relative isolate overflow-hidden bg-page px-5 py-16 sm:px-6 md:py-24">
+              <div className="mx-auto max-w-page">
+                <h2 className="font-heading text-2xl font-bold text-white sm:text-3xl">
+                  {page.pricing.title}
+                </h2>
+                <p className="mt-6 max-w-4xl text-lg leading-relaxed text-gray-300">{page.pricing.lead}</p>
+                <div className="mt-12 grid gap-12 md:grid-cols-2 md:gap-16">
+                  <div>
+                    <h3 className="font-heading text-xl font-bold text-white">{page.pricing.factorsTitle}</h3>
+                    <ul className="service-list mt-6 space-y-5">
+                      {page.pricing.factors.map((factor) => (
+                        <li key={factor.title} className="flex gap-4 text-gray-300">
+                          <span
+                            aria-hidden="true"
+                            className="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-linear-to-r from-cyan-400 to-fuchsia-500"
+                          />
+                          <span className="leading-relaxed">
+                            <strong className="font-semibold text-white">{factor.title}.</strong> {factor.text}
+                          </span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                  <div>
+                    <h3 className="font-heading text-xl font-bold text-white">{page.pricing.examplesTitle}</h3>
+                    <div className="mt-6 space-y-4">
+                      {page.pricing.examples.map((example) => (
+                        <div
+                          key={example.title}
+                          className="service-card rounded-2xl border border-white/10 bg-white/3 p-6"
+                        >
+                          <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
+                            <h4 className="font-heading font-bold text-white">{example.title}</h4>
+                            <span className="font-semibold whitespace-nowrap text-violet-400">{example.price}</span>
+                          </div>
+                          <p className="mt-2 leading-relaxed text-gray-300">{example.text}</p>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+                <p className="mt-10 text-gray-400">{page.pricing.note}</p>
+              </div>
+            </section>
+          )}
+
           {cases.length > 0 && (
             <section className="relative isolate overflow-hidden bg-page px-5 py-16 sm:px-6 md:py-24">
               <div className="mx-auto max-w-page">
