@@ -53,10 +53,10 @@ export const CATEGORIES: Record<Lang, Record<"sites" | "seo" | "ads" | "apps", s
 export type CategoryId = keyof (typeof CATEGORIES)["ru"];
 const isCategory = (value: string): value is CategoryId => value in CATEGORIES.ru;
 
-// Signed by the studio's admin, not a named person.
+// Articles are signed by the studio's editorial team.
 export const AUTHOR: Record<Lang, { name: string }> = {
-  ru: { name: "Админ" },
-  en: { name: "Admin" },
+  ru: { name: "Редакция KEL Studio" },
+  en: { name: "KEL Studio Editorial Team" },
 };
 
 export type Heading = { id: string; text: string };

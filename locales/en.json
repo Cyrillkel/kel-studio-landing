@@ -2358,7 +2358,7 @@
     "contents": "Contents",
     "helpTitle": "Need help with {{service}}?",
     "helpText": "Describe your task in a request. We will come back with a solution, a timeline and a price that we fix in the contract.",
-    "author": "{{name}}, KEL Studio",
+    "author": "{{name}}",
     "aboutBefore": "We build websites, promotion and bots for business. Short notes on the topic appear on the studio's ",
     "aboutLink": "Telegram channel (in Russian)",
     "aboutAfter": ".",

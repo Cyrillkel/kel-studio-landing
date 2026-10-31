@@ -241,8 +241,8 @@ export function priceListNode(path: string, slugs: readonly ServiceSlug[], lang:
   };
 }
 
-// A blog article. The byline reads "Админ" ("Admin"), which says nothing to a
-// search engine, so the studio is both author and publisher in the markup.
+// A blog article is signed by the studio's editorial team. The studio is both
+// author and publisher in the markup.
 export function articleNode(post: Post): Node {
   const url = pageUrl(blogPath(post.slug, post.lang));
   return {
