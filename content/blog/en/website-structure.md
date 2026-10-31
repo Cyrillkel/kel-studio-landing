@@ -1,6 +1,6 @@
 ---
 title: Website structure: how to plan pages for a business
-description: Plan your website structure before design: group search queries, assign services to pages, and connect them through menus and links. With our KEL Studio example.
+description: Plan website structure before design: group search queries, assign services to pages, and connect them through menus and links. With our KEL Studio example.
 category: sites
 date: 2026-11-01
 service: corporate
