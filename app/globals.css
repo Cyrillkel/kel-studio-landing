@@ -1164,6 +1164,82 @@ html:not([data-lang="en"]) .not-found-en {
   }
 }
 
+/* The robot keeps its original artwork. Only small transform/opacity layers
+   animate; the observer pauses them offscreen and in a hidden tab. */
+.pulse-robot {
+  --pulse-robot-play: paused;
+  pointer-events: none;
+}
+.pulse-robot[data-ready="true"][data-running="true"] {
+  --pulse-robot-play: running;
+}
+.pulse-robot__eye-socket,
+.pulse-robot__antenna {
+  display: none;
+}
+
+@media screen and (prefers-reduced-motion: no-preference) {
+  .pulse-robot__avatar {
+    animation: pulse-robot-float 5.6s ease-in-out infinite;
+    animation-play-state: var(--pulse-robot-play);
+  }
+  .pulse-robot[data-ready="true"] .pulse-robot__eye-socket {
+    display: block;
+    position: absolute;
+    top: 45%;
+    width: 17.5%;
+    height: 16.875%;
+    /* Match the fixed illustration's face, independently of the page theme. */
+    background: radial-gradient(ellipse, #0c1226 68%, transparent 100%);
+  }
+  .pulse-robot__eye-socket--left {
+    left: 30.625%;
+    --pulse-eye-x: 37.121212%;
+  }
+  .pulse-robot__eye-socket--right {
+    left: 51.25%;
+    --pulse-eye-x: 62.121212%;
+  }
+  .pulse-robot[data-ready="true"] .pulse-robot__eye {
+    display: block;
+    width: 100%;
+    height: 100%;
+    /* Crop the existing eyes from the same cached 320 x 320 image. */
+    background-image: url("/pulse/robot.webp");
+    background-size: 571.428571% 592.592593%;
+    background-position: var(--pulse-eye-x) 54.135338%;
+    mask-image: radial-gradient(ellipse, #000 68%, transparent 100%);
+    animation: pulse-robot-blink 7.2s ease-in-out infinite;
+    animation-play-state: var(--pulse-robot-play);
+  }
+  .pulse-robot[data-ready="true"] .pulse-robot__antenna {
+    display: block;
+    position: absolute;
+    left: 41%;
+    top: 9.125%;
+    width: 18%;
+    height: 18%;
+    border-radius: 50%;
+    background: radial-gradient(circle, #ffe0ff 0%, #e879f980 25%, transparent 70%);
+    animation: pulse-robot-signal 4.8s ease-in-out infinite;
+    animation-play-state: var(--pulse-robot-play);
+  }
+}
+
+@keyframes pulse-robot-float {
+  0%, 100% { transform: translateY(0) rotate(0); }
+  45% { transform: translateY(-3px) rotate(-1.5deg); }
+  75% { transform: translateY(-1px) rotate(0.6deg); }
+}
+@keyframes pulse-robot-blink {
+  0%, 42%, 46%, 49%, 53%, 100% { transform: scaleY(1); }
+  44%, 51% { transform: scaleY(0.08); }
+}
+@keyframes pulse-robot-signal {
+  0%, 65%, 100% { opacity: 0; }
+  80% { opacity: 0.65; }
+}
+
 /* ---------------------------------------------------------------------------
    The website check (components/sitecheck, components/LaunchCurtain.tsx).
    The scanner: a beam runs down a sketch of a web page and lights up the band

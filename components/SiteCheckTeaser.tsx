@@ -1,13 +1,13 @@
 "use client";
 
 import Form from "next/form";
-import Image from "next/image";
 import Link from "next/link";
 import { useTranslation } from "react-i18next";
 import { PULSE_PATH } from "@/lib/pulse";
 import { SITE_CHECK_PATH, typedHost } from "@/lib/sitecheck";
 import { launchCurtain } from "./LaunchCurtain";
 import { useLocalePath } from "./useLang";
+import PulseRobot from "./pulse/PulseRobot";
 
 // A card on the home page with the free tools: an address field that opens the
 // website check with the address filled in (it starts at once), and a link to
@@ -26,13 +26,7 @@ export default function SiteCheckTeaser() {
             className="glow-wash absolute inset-0 -z-10 [--glow-shape:ellipse_at_12%_50%] [--glow-color:var(--glow-visual)] [--glow-end:70%]"
           />
           <div className="grid items-center gap-6 md:grid-cols-[auto_1fr] md:gap-10">
-            <Image
-              src="/pulse/robot.webp"
-              width={320}
-              height={320}
-              alt=""
-              className="h-20 w-20 rounded-full shadow-[0_0_0_2px_rgba(167,139,250,0.5),0_0_40px_rgba(124,58,237,0.4)] sm:h-28 sm:w-28"
-            />
+            <PulseRobot className="h-20 w-20 sm:h-28 sm:w-28" />
             <div>
               <p className="text-sm font-semibold tracking-wider text-emerald-400 uppercase">{t("siteCheck.teaser.eyebrow")}</p>
               <h2 id="free-check" className="mt-2 font-heading text-2xl font-bold text-white sm:text-3xl">

@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { useTranslation } from "react-i18next";
 import Navigation from "@/components/Navigation";
@@ -12,6 +11,7 @@ import RichText from "@/components/RichText";
 import HeroFacts from "@/components/HeroFacts";
 import FaqList from "@/components/services/FaqList";
 import PulseButton from "@/components/pulse/PulseButton";
+import PulseRobot from "@/components/pulse/PulseRobot";
 import { useLang, useLocalePath } from "@/components/useLang";
 import { PULSE_PATH } from "@/lib/pulse";
 import SiteCheckForm from "./SiteCheckForm";
@@ -106,13 +106,7 @@ export default function SiteCheckPage() {
                   className="glow-wash absolute inset-0 -z-10 [--glow-shape:ellipse_at_12%_50%] [--glow-color:var(--glow-visual)] [--glow-end:70%]"
                 />
                 <div className="grid items-center gap-6 md:grid-cols-[auto_1fr]">
-                  <Image
-                    src="/pulse/robot.webp"
-                    width={320}
-                    height={320}
-                    alt=""
-                    className="h-20 w-20 rounded-full shadow-[0_0_0_2px_rgba(167,139,250,0.5),0_0_40px_rgba(124,58,237,0.4)] sm:h-24 sm:w-24"
-                  />
+                  <PulseRobot className="h-20 w-20 sm:h-24 sm:w-24" />
                   <div>
                     <h2 className="font-heading text-2xl font-bold text-white sm:text-3xl">{t("siteCheck.botTitle")}</h2>
                     <p className="mt-3 max-w-3xl leading-relaxed text-gray-300">{t("siteCheck.botText")}</p>

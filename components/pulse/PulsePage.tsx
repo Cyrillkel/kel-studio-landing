@@ -12,6 +12,7 @@ import FaqList from "@/components/services/FaqList";
 import { useLang, useLocalePath } from "@/components/useLang";
 import HeroFacts from "@/components/HeroFacts";
 import PulseButton from "./PulseButton";
+import PulseRobot from "./PulseRobot";
 
 type Item = { title: string; text: string };
 type Faq = { q: string; a: string };
@@ -92,12 +93,9 @@ export default function PulsePage() {
                   sizes="(min-width: 1024px) 320px, 300px"
                   className="relative h-auto w-full drop-shadow-[0_30px_60px_rgba(0,0,0,0.55)]"
                 />
-                <Image
-                  src="/pulse/robot.webp"
-                  width={320}
-                  height={320}
-                  alt=""
-                  className="absolute bottom-16 -left-20 hidden h-28 w-28 rounded-full shadow-[0_0_0_3px_rgba(167,139,250,0.55),0_18px_40px_rgba(0,0,0,0.5),0_0_60px_rgba(124,58,237,0.45)] sm:block lg:-left-24"
+                <PulseRobot
+                  elevated
+                  className="absolute bottom-16 -left-20 hidden h-28 w-28 sm:block lg:-left-24"
                 />
               </div>
             </div>
