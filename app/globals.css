@@ -1186,29 +1186,30 @@ html:not([data-lang="en"]) .not-found-en {
   .pulse-robot[data-ready="true"] .pulse-robot__eye-socket {
     display: block;
     position: absolute;
-    top: 45%;
-    width: 17.5%;
-    height: 16.875%;
+    top: 43.4375%;
+    width: 20%;
+    height: 20%;
     /* Match the fixed illustration's face, independently of the page theme. */
-    background: radial-gradient(ellipse, #0c1226 68%, transparent 100%);
+    /* Fade before the crop edges; the wider blend also covers the eye glow. */
+    background: radial-gradient(ellipse closest-side, #0c1226 68%, transparent 100%);
   }
   .pulse-robot__eye-socket--left {
-    left: 30.625%;
-    --pulse-eye-x: 37.121212%;
+    left: 29.375%;
+    --pulse-eye-x: 36.71875%;
   }
   .pulse-robot__eye-socket--right {
-    left: 51.25%;
-    --pulse-eye-x: 62.121212%;
+    left: 50%;
+    --pulse-eye-x: 62.5%;
   }
   .pulse-robot[data-ready="true"] .pulse-robot__eye {
     display: block;
     width: 100%;
     height: 100%;
-    /* Crop the existing eyes from the same cached 320 x 320 image. */
+    /* Crop 64 x 64 eye regions from the same cached 320 x 320 image. */
     background-image: url("/pulse/robot.webp");
-    background-size: 571.428571% 592.592593%;
-    background-position: var(--pulse-eye-x) 54.135338%;
-    mask-image: radial-gradient(ellipse, #000 68%, transparent 100%);
+    background-size: 500% 500%;
+    background-position: var(--pulse-eye-x) 54.296875%;
+    mask-image: radial-gradient(ellipse closest-side, #000 68%, transparent 100%);
     animation: pulse-robot-blink 7.2s ease-in-out infinite;
     animation-play-state: var(--pulse-robot-play);
   }
