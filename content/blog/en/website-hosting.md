@@ -6,7 +6,7 @@ date: 2026-10-28
 updated: 2026-11-04
 service: support
 query: website hosting
-related: vps-configuration, domain-for-website, pagespeed-insights
+related: beget-not-working, vps-configuration, domain-for-website
 ---
 
 Hosting is the server that holds a website's files, database and email. It decides how fast the site opens, whether it survives a rush of visitors and what happens to the data if the server breaks. For sites with a request form in Russia, the choice of hosting is also a legal matter.
@@ -75,6 +75,8 @@ A move is needed when the site has outgrown its plan, the provider works badly o
 3. Lower the time-to-live of the DNS records in advance so the change of address spreads faster.
 4. Switch the domain's A record to the new server and issue a certificate.
 5. Keep the old server for a few more days until everyone has moved to the new one.
+
+An emergency move needs a prepared standby. Our article [Beget outage: what happened and what to do if your site is down](/blog/beget-not-working) covers availability checks, backup hosting and switching locations during a provider outage.
 
 ## Common mistakes
 
