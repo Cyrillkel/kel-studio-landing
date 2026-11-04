@@ -43,7 +43,6 @@ VPS, или VDS, даёт доступ к виртуальному сервер�
   </div>
   <p>Мы давно пользуемся <strong>Timeweb</strong> и рекомендуем рассмотреть его при выборе хостинга или сервера. На сайте провайдера откройте раздел VPS/VDS и сравните доступные конфигурации с требованиями вашего проекта.</p>
   <a class="hosting-recommendation__button" href="https://timeweb.com/ru/?i=137995&amp;a=373" target="_blank" rel="sponsored noopener noreferrer">Посмотреть предложения Timeweb <span aria-hidden="true">↗</span></a>
-  <p class="hosting-recommendation__note">Ссылки и баннеры Timeweb в этой статье партнёрские. Если вы закажете услугу по ним, мы можем получить вознаграждение.</p>
 </aside>
 
 До оплаты уточните условия увеличения ресурсов и возможный перерыв в работе. В [документации Timeweb по VDS](https://timeweb.com/ru/docs/vds/) описано масштабирование CPU, памяти и диска. Там же указано ограничение: перейти на тариф с меньшим объёмом диска не получится. Стоимость и состав услуг проверяйте при заказе.
@@ -99,7 +98,7 @@ SSD или NVMe стоит сравнивать вместе с ограниче
 
 Покупайте конфигурацию, которую проверили на своём проекте, и заранее выясняйте условия её изменения. Для нового небольшого сайта разумно начать с ориентира из таблицы и скорректировать его после первых замеров.
 
-<aside class="hosting-banner" aria-label="Партнёрский баннер Timeweb">
+<aside class="hosting-banner" aria-label="Баннер Timeweb">
   <a class="hosting-banner__link" href="https://timeweb.com/ru/?i=137995&amp;a=437" target="_blank" rel="sponsored noopener noreferrer">
     <img src="https://wm.timeweb.ru/images/posters/890x90/890x90-1.jpg" alt="Timeweb" width="890" height="90" loading="lazy" decoding="async">
   </a>

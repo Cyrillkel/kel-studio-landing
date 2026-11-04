@@ -54,7 +54,6 @@ If you have chosen a VPS, see our [server configuration recommendations](/blog/v
   </div>
   <p>We have used <strong>Timeweb</strong> for a long time and recommend it from personal experience. If you are choosing hosting for your website, take a look at its plans. Before paying, check that the plan supports your project's technologies and expected traffic.</p>
   <a class="hosting-recommendation__button" href="https://timeweb.com/ru/?i=137995" target="_blank" rel="sponsored noopener noreferrer">View Timeweb plans <span aria-hidden="true">↗</span></a>
-  <p class="hosting-recommendation__note">These are affiliate links. If you order hosting through them, we may receive a commission.</p>
 </aside>
 
 ## How the hosting of our site is set up

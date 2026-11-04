@@ -54,7 +54,6 @@ related: vps-configuration, domain-for-website, pagespeed-insights
   </div>
   <p>Мы давно пользуемся <strong>Timeweb</strong> и рекомендуем его по личному опыту. Если выбираете хостинг для своего сайта, начните со знакомства с его тарифами. Перед оплатой сверьте выбранный тариф с технологиями и нагрузкой вашего проекта.</p>
   <a class="hosting-recommendation__button" href="https://timeweb.com/ru/?i=137995" target="_blank" rel="sponsored noopener noreferrer">Посмотреть тарифы Timeweb <span aria-hidden="true">↗</span></a>
-  <p class="hosting-recommendation__note">Ссылки в этом блоке партнёрские. Если вы закажете хостинг по ним, мы можем получить вознаграждение.</p>
 </aside>
 
 ## Как устроен хостинг нашего сайта

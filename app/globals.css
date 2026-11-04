@@ -1126,9 +1126,37 @@ html:not([data-lang="en"]) .not-found-en {
     border-radius: 0.75rem;
   }
   .prose-blog .hosting-recommendation {
+    position: relative;
     margin: 1.5rem 0 2rem;
     padding: clamp(1.25rem, 4vw, 2rem);
-    border-left: 3px solid var(--doc-link);
+    border-color: color-mix(in srgb, var(--doc-link) 30%, var(--doc-line));
+    box-shadow: 0 1rem 3rem -2rem color-mix(in srgb, var(--doc-link) 25%, transparent);
+  }
+  .prose-blog .hosting-recommendation::before {
+    content: "";
+    position: absolute;
+    top: -0.25rem;
+    left: 2rem;
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 0.125rem;
+    background: var(--doc-link);
+    box-shadow:
+      0.875rem 0 0 color-mix(in srgb, var(--doc-link) 55%, var(--page)),
+      1.75rem 0 0 color-mix(in srgb, var(--doc-link) 25%, var(--page));
+    pointer-events: none;
+  }
+  .prose-blog .hosting-recommendation::after {
+    content: "";
+    position: absolute;
+    right: -1px;
+    bottom: -1px;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-right: 2px solid var(--doc-link);
+    border-bottom: 2px solid var(--doc-link);
+    border-bottom-right-radius: inherit;
+    pointer-events: none;
   }
   .hosting-recommendation__header {
     display: flex;
@@ -1171,12 +1199,6 @@ html:not([data-lang="en"]) .not-found-en {
     outline: 2px solid var(--doc-link);
     outline-offset: 4px;
   }
-  .prose-blog .hosting-recommendation__note {
-    margin: 1rem 0 0;
-    color: var(--doc-muted);
-    font-size: 0.875rem;
-    line-height: 1.6;
-  }
   .prose-blog .hosting-banner {
     margin: 2rem 0;
   }
@@ -1184,11 +1206,6 @@ html:not([data-lang="en"]) .not-found-en {
     margin: 0;
     border: 0;
     border-radius: 0.5rem;
-  }
-  .prose-blog .hosting-banner p {
-    margin: 0.5rem 0 0;
-    font-size: 0.8125rem;
-    line-height: 1.6;
   }
   .prose-blog hr {
     margin: 2.5rem 0;

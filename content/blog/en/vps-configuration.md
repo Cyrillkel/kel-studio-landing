@@ -43,7 +43,6 @@ We do not assign a daily visitor limit to these configurations. A thousand views
   </div>
   <p>We have used <strong>Timeweb</strong> for a long time and recommend considering it when choosing hosting or a server. Open the provider's VPS/VDS section and compare the available configurations with your project's requirements.</p>
   <a class="hosting-recommendation__button" href="https://timeweb.com/ru/?i=137995&amp;a=373" target="_blank" rel="sponsored noopener noreferrer">View Timeweb offers <span aria-hidden="true">↗</span></a>
-  <p class="hosting-recommendation__note">The Timeweb links and banners in this article are affiliate links. If you order a service through them, we may receive a commission.</p>
 </aside>
 
 Before paying, check the upgrade process and any downtime it may require. [Timeweb's VDS documentation](https://timeweb.com/ru/docs/vds/) (in Russian) describes scaling CPU, RAM and storage. It also notes that moving to a plan with a smaller disk is not possible. Check current prices and included services when ordering.
@@ -99,11 +98,10 @@ Increase storage to accommodate database and upload growth. Set disk space alert
 
 Choose a configuration you have tested with your project and check the upgrade terms in advance. For a new small website, start with the table's estimate and adjust it after your first measurements.
 
-<aside class="hosting-banner" aria-label="Timeweb affiliate banner">
+<aside class="hosting-banner" aria-label="Timeweb banner">
   <a class="hosting-banner__link" href="https://timeweb.com/ru/?i=137995&amp;a=437" target="_blank" rel="sponsored noopener noreferrer">
     <img src="https://wm.timeweb.ru/images/posters/890x90/890x90-1.jpg" alt="Timeweb" width="890" height="90" loading="lazy" decoding="async">
   </a>
-  <p class="blog-muted">Timeweb affiliate link.</p>
 </aside>
 
 ## What else to check before ordering
