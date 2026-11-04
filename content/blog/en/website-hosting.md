@@ -3,14 +3,15 @@ title: How to choose website hosting in Russia: types, criteria, mistakes
 description: Which hosting to choose for a website: shared, VPS or cloud. What to check before paying, and why a site with a request form in Russia needs a server in Russia.
 category: sites
 date: 2026-10-28
+updated: 2026-11-04
 service: support
 query: website hosting
-related: domain-for-website, pagespeed-insights, how-to-create-a-website
+related: vps-configuration, domain-for-website, pagespeed-insights
 ---
 
 Hosting is the server that holds a website's files, database and email. It decides how fast the site opens, whether it survives a rush of visitors and what happens to the data if the server breaks. For sites with a request form in Russia, the choice of hosting is also a legal matter.
 
-Below: the types of hosting, which one suits whom, what to check before paying and how the hosting of this site is set up. There is no "best hosting" ranking here: we take no commission from providers and go through the criteria you can use to choose yourself.
+Below: the types of hosting, which one suits whom, what to check before paying and how the hosting of this site is set up. We cover the criteria for choosing a provider and recommend one we have used for a long time.
 
 ## What hosting is
 
@@ -39,6 +40,22 @@ There is a practical reason as well: the closer the server is to visitors, the f
 5. **HTTPS.** A free Let's Encrypt certificate with automatic renewal should be a couple of clicks away.
 6. **Support.** Whether it works around the clock and answers to the point. Ask a question before buying and time the answer.
 7. **The renewal price.** As with domains, the first period is often sold at a discount. Check the price of the second year.
+
+If you have chosen a VPS, see our [server configuration recommendations](/blog/vps-configuration): how much CPU, RAM and storage to consider for a website, store or bot.
+
+## Which hosting we recommend
+
+<aside class="blog-card hosting-recommendation" aria-label="Timeweb hosting recommendation">
+  <div class="hosting-recommendation__header">
+    <span class="blog-chip">We use it ourselves</span>
+    <a class="hosting-recommendation__banner" href="https://timeweb.com/ru/?i=137995&amp;a=379" target="_blank" rel="sponsored noopener noreferrer">
+      <img src="https://wm.timeweb.ru/images/posters/158x31/158x31-2.jpg" alt="Timeweb hosting" width="158" height="31" loading="lazy" decoding="async">
+    </a>
+  </div>
+  <p>We have used <strong>Timeweb</strong> for a long time and recommend it from personal experience. If you are choosing hosting for your website, take a look at its plans. Before paying, check that the plan supports your project's technologies and expected traffic.</p>
+  <a class="hosting-recommendation__button" href="https://timeweb.com/ru/?i=137995" target="_blank" rel="sponsored noopener noreferrer">View Timeweb plans <span aria-hidden="true">↗</span></a>
+  <p class="hosting-recommendation__note">These are affiliate links. If you order hosting through them, we may receive a commission.</p>
+</aside>
 
 ## How the hosting of our site is set up
 

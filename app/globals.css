@@ -1125,6 +1125,71 @@ html:not([data-lang="en"]) .not-found-en {
     border: 1px solid var(--doc-line);
     border-radius: 0.75rem;
   }
+  .prose-blog .hosting-recommendation {
+    margin: 1.5rem 0 2rem;
+    padding: clamp(1.25rem, 4vw, 2rem);
+    border-left: 3px solid var(--doc-link);
+  }
+  .hosting-recommendation__header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 1.25rem;
+  }
+  .prose-blog .hosting-recommendation__banner img {
+    width: 158px;
+    max-width: 100%;
+    height: auto;
+    margin: 0;
+    border: 0;
+    border-radius: 0;
+  }
+  .prose-blog .hosting-recommendation__banner--compact img {
+    width: 139px;
+  }
+  .prose-blog .hosting-recommendation__button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.625rem;
+    padding: 0.75rem 1rem;
+    border: 1px solid var(--doc-link);
+    border-radius: 0.75rem;
+    font-size: 1rem;
+    font-weight: 600;
+    line-height: 1.5;
+    text-decoration: none;
+    transition: background-color 0.2s, color 0.2s;
+  }
+  .prose-blog .hosting-recommendation__button:hover {
+    background: var(--doc-card-hover);
+  }
+  .prose-blog .hosting-recommendation a:focus-visible,
+  .prose-blog .hosting-banner a:focus-visible {
+    outline: 2px solid var(--doc-link);
+    outline-offset: 4px;
+  }
+  .prose-blog .hosting-recommendation__note {
+    margin: 1rem 0 0;
+    color: var(--doc-muted);
+    font-size: 0.875rem;
+    line-height: 1.6;
+  }
+  .prose-blog .hosting-banner {
+    margin: 2rem 0;
+  }
+  .prose-blog .hosting-banner img {
+    margin: 0;
+    border: 0;
+    border-radius: 0.5rem;
+  }
+  .prose-blog .hosting-banner p {
+    margin: 0.5rem 0 0;
+    font-size: 0.8125rem;
+    line-height: 1.6;
+  }
   .prose-blog hr {
     margin: 2.5rem 0;
     border: 0;
