@@ -1,4 +1,5 @@
 import LaunchCurtain from "@/components/LaunchCurtain";
+import HolidayDecor from "@/components/holiday/HolidayDecor";
 import YandexMetrika from "@/components/YandexMetrika";
 import "@/app/globals.css";
 import { THEME_SCRIPT } from "@/lib/theme";
@@ -46,6 +47,7 @@ export default function RootShell({
       <body className={fontClasses}>
         {children}
         <LaunchCurtain />
+        <HolidayDecor />
         <YandexMetrika />
         {/* Counts visitors who have JavaScript turned off. */}
         <noscript>

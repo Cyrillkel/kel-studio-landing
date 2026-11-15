@@ -70,6 +70,8 @@
   --logo-b: #8b5cf6;
   --logo-c: #e879f9;
   --logo-soft: #cbd5e1;
+  /* New Year snow (components/holiday/Snowfall.tsx, lib/holiday.ts). */
+  --snowflake: #ffffff;
 
   /* The muted grey (labels, captions) one step lighter than Tailwind's gray-500, so that it
      reads at least as well as it did on black (5.1:1 on the page, was 4.1). */
@@ -122,6 +124,8 @@
   --logo-b: #6d28d9;
   --logo-c: #c026d3;
   --logo-soft: #475569;
+  /* White snow would not show on a white page. */
+  --snowflake: #94a3b8;
 
   /* Mirrored neutrals (see the comment above). */
   --color-white: #0e0e14;

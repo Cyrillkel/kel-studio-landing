@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import BrandLogo from "./BrandLogo";
+import { HOLIDAY } from "@/lib/holiday";
 import { usePathname } from "next/navigation";
 import { useTranslation } from "react-i18next";
 import ContactLinks from "./ContactLinks";
@@ -37,7 +38,7 @@ export default function Footer() {
                 if (!smoothTop()) window.scrollTo({ top: 0, behavior: "smooth" });
               }}
             >
-              <BrandLogo className="h-10" />
+              <BrandLogo className="h-10" hat={HOLIDAY} />
             </Link>
             {/* The brand is the name, the domain is the address: shown together so both stick. */}
             <a

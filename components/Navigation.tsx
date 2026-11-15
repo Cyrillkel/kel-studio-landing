@@ -19,6 +19,7 @@ import { MENU_SLUGS, PRICES_PATH, SERVICES_PATH, servicePath } from "@/lib/servi
 import { PULSE_PATH } from "@/lib/pulse";
 import { SITE_CHECK_PATH } from "@/lib/sitecheck";
 import { PHONE, PHONE_URL, TELEGRAM_URL } from "@/lib/site";
+import { HOLIDAY } from "@/lib/holiday";
 import { useLang, useLocalePath } from "./useLang";
 
 // The free tools, listed under the services with a "free" mark.
@@ -177,7 +178,7 @@ export default function Navigation() {
                 if (!smoothTop()) window.scrollTo({ top: 0, behavior: "smooth" });
               }}
             >
-              <BrandLogo className="h-7 sm:h-9" />
+              <BrandLogo className="h-7 sm:h-9" hat={HOLIDAY} />
             </Link>
 
             <div className="hidden lg:flex items-center gap-8">
